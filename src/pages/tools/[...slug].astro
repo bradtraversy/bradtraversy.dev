@@ -4,12 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const tools = await getCollection('tools');
-  return tools
-    .filter((entry) => entry.data.detailPage)
-    .map((entry) => ({
-      params: { slug: entry.id },
-      props: { entry },
-    }));
+  return tools.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
 }
 
 const { entry } = Astro.props;
@@ -36,10 +34,14 @@ const { Content } = await render(entry);
       {entry.data.archived && <span class="pill">archived</span>}
     </div>
 
-    <div style="margin-top: 18px; display: flex; gap: 18px; font-size: 12.5px;">
-      <a href={entry.data.url} class="link">→ open</a>
-      {entry.data.repoUrl && <a href={entry.data.repoUrl} class="link">→ repo</a>}
-    </div>
+    {
+      (entry.data.url || entry.data.repoUrl) && (
+        <div style="margin-top: 18px; display: flex; gap: 18px; font-size: 12.5px;">
+          {entry.data.url && <a href={entry.data.url} class="link">→ open</a>}
+          {entry.data.repoUrl && <a href={entry.data.repoUrl} class="link">→ repo</a>}
+        </div>
+      )
+    }
   </section>
 
   <article class="section prose-lab">

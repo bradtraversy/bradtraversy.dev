@@ -22,7 +22,7 @@ tags: [project, travxlabs, ia, sitemap, content-model]
 /projects                — Projects showcase (curated, ~5–10 items)
 /projects/:slug          — Project detail page
 /tools                   — Tools catalog (filterable, designed for 50+)
-/tools/:slug             — Tool detail page (only tools with detailPage: true)
+/tools/:slug             — Tool detail page (every tool has one)
 /tools/category/:cat     — Tools by category
 /now                     — What I'm working on right now
 /about                   — About + contact
@@ -134,7 +134,9 @@ File location: `src/content/projects/<slug>.mdx` (the body is the long-form pitc
 
 ### `tools` collection
 
-One-day utilities — small, finished-when-finished, designed to scale to 50+ entries. Examples: eyebreak, typesmith, webutils. Most tools don't need a detail page; the catalog row links straight to the external URL. Reserve detail pages (`detailPage: true`) for the few that justify a screenshot + walkthrough; for everything else, write an article if you want to document the build.
+One-day utilities — small, finished-when-finished, designed to scale to 50+ entries. Examples: eyebreak, typesmith, webutils.
+
+Every tool has its own internal page at `/tools/<slug>`. The catalog row always links there — never directly to an external URL. The detail page is the canonical home for the tool: what it does, who it's for, screenshots, and an "→ open" link out to wherever the tool lives (or eventually the tool itself, embedded). The schema's `url` field is optional because some tools may live entirely on travxlabs.com.
 
 ```ts
 {
@@ -142,18 +144,15 @@ One-day utilities — small, finished-when-finished, designed to scale to 50+ en
   tagline: string,            // 1-line, doubles as the catalog row description
   category: 'dev' | 'productivity' | 'design' | 'health' | 'fun' | 'other',
   tags: string[],             // free-form for filtering at scale
-  url: string,                // external — primary CTA, REQUIRED
+  url?: string,               // optional outbound link from the detail page
   repoUrl?: string,
   free: boolean,              // most true; rare exceptions
   publishDate: Date,
   archived: boolean,          // sunset state — still listed, dimmed
-  detailPage: boolean,        // default false → catalog links straight to url
 }
 ```
 
-File location: `src/content/tools/<slug>.mdx` (body only used when `detailPage: true`)
-
-When `detailPage: false`, `/tools/<slug>` returns 404 — there's no internal page; the catalog is the only surface.
+File location: `src/content/tools/<slug>.mdx` (body is the detail page content)
 
 ### Singletons
 

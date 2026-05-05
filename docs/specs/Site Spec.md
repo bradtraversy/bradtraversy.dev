@@ -74,11 +74,11 @@ Projects index is a curated showcase, not a catalog — expect 5–10 items, ord
 
 One-day utilities — small, finished-when-finished, designed to scale to 50+ entries. Examples: eyebreak, typesmith, webutils.
 
-Most tools don't need a detail page. The catalog row links straight to the external URL — that's the primary CTA. Reserve detail pages for the few tools that justify a screenshot + walkthrough; for everything else, write an article if you want to document the build.
+Every tool has its own internal page at `/tools/<slug>`. The catalog row links to that page — never out to an external host directly. The detail page is the canonical home: what it does, who it's for, screenshots, and an outbound "→ open" link to wherever the tool actually runs (or, eventually, the tool itself embedded inline).
 
 Tool catalog row shows:
 
-- Name (links to external URL or to detail page if `detailPage: true`)
+- Name (links to internal `/tools/<slug>` page)
 - One-line description
 - Category + tags (for filter chips)
 - Free badge (paid is the rare case)
@@ -112,7 +112,7 @@ Top-level:
 - `/articles` — blog index → `/articles/:slug`
 - `/devlog` — devlog index → `/devlog/:slug`
 - `/projects` — projects showcase → `/projects/:slug`
-- `/tools` — tools catalog → `/tools/:slug` (only when `detailPage: true`)
+- `/tools` — tools catalog → `/tools/:slug` (every tool has a detail page)
 - `/now` — current focus
 - `/about` — about
 - `/rss.xml`, `/devlog/rss.xml` — feeds
@@ -159,12 +159,13 @@ See section 3.3 for content blocks.
 - Card grid with hero image, name, tagline, status pill, pricing pill
 - Sort: featured first, then status (live → beta → alpha → planning → maintenance → sunset)
 
-### 5.6 Tool Detail Page (rare, only when `detailPage: true`)
+### 5.6 Tool Detail Page
 
-- Hero (name, tagline, screenshot)
+- Hero (name, tagline, free/paid pill)
 - What it does (short — these are utilities, not features)
-- Try it button (external)
-- Repo link if any
+- "→ open" outbound link (if the tool lives elsewhere; optional)
+- "→ repo" link if open source
+- MDX body for any longer-form notes about the tool
 
 ### 5.7 Tools Catalog (Index)
 

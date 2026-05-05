@@ -235,10 +235,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
             {
               recentTools.map((tool) => (
                 <li class="indent-3">
-                  <a href={tool.data.detailPage ? `/tools/${tool.id}` : tool.data.url}>
+                  <a href={`/tools/${tool.id}`}>
                     <span class="chev"></span>
                     <span class="ico-md">●</span>
-                    &nbsp;{tool.id}
+                    &nbsp;{tool.id}.mdx
                   </a>
                 </li>
               ))

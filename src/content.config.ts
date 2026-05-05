@@ -88,12 +88,11 @@ const tools = defineCollection({
       tagline: z.string(),
       category: toolCategory,
       tags: z.array(z.string()).default([]),
-      url: z.string().url(),
+      url: z.string().url().optional(),
       repoUrl: z.string().url().optional(),
       free: z.boolean().default(true),
       publishDate: z.coerce.date(),
       archived: z.boolean().default(false),
-      detailPage: z.boolean().default(false),
       heroImage: image().optional(),
     }),
 });

@@ -138,15 +138,12 @@ const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
           <span class="hash">## </span>latest tools
         </h2>
         <div class="comment">
-          // small one-day utilities — most link straight out
+          // small one-day utilities — each gets its own page
         </div>
         <div>
           {latestTools.map((tool) => (
             <div class="tools-row">
-              <a
-                class="name"
-                href={tool.data.detailPage ? `/tools/${tool.id}` : tool.data.url}
-              >
+              <a class="name" href={`/tools/${tool.id}`}>
                 {tool.data.name}
               </a>
               <div class="desc">{tool.data.tagline}</div>

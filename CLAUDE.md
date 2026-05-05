@@ -8,7 +8,7 @@
 
 **Projects vs Tools** — two different content collections, don't merge them:
 - **Projects** = major ongoing work (Vidpipe, DevSheets, Mission Control). Curated showcase, ~5–10 items, rich detail pages with status pills, pricing, screenshots, "how I built it" narrative.
-- **Tools** = one-day utilities (eyebreak, typesmith, webutils). Designed to scale to 50+ catalog entries; most don't have a detail page (`detailPage: false`), the catalog row links straight to the external URL. If a utility justifies a writeup, that's an article that links to it — not a tool detail page.
+- **Tools** = one-day utilities (eyebreak, typesmith, webutils). Designed to scale to 50+ catalog entries. Every tool has its own internal detail page at `/tools/<slug>` — catalog rows always link there, never directly to an external host. The detail page is the canonical home for the tool; if there's an external URL where the tool actually runs, it's an outbound "→ open" link from the detail page, not the catalog row's primary destination.
 
 ## Read these specs
 
@@ -71,7 +71,7 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 - `src/content/articles/` — MDX files, slug = filename
 - `src/content/devlog/` — short MDX, slug = `YYYY-MM-DD-kebab-title`
 - `src/content/projects/` — one MDX per major project (rich body with hero, what-it-does, pricing, screenshots)
-- `src/content/tools/` — one MDX per one-day utility. Body is empty when `detailPage: false` (the catalog row is the only surface)
+- `src/content/tools/` — one MDX per one-day utility. Every tool has a detail page; the body is the page content (what it does, screenshots, etc.)
 - `src/components/` — Astro components first, React islands only when needed
 - `src/layouts/` — `BaseLayout`, `ArticleLayout`, `DevlogLayout`, `ProjectLayout`, `ToolLayout`
 - `src/styles/` — global CSS only; component styles co-located in `.astro` files

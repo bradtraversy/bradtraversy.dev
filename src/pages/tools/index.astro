@@ -9,9 +9,6 @@ const sorted = tools.sort(
 
 const active = sorted.filter((t) => !t.data.archived);
 const archived = sorted.filter((t) => t.data.archived);
-
-const linkFor = (t: (typeof tools)[number]) =>
-  t.data.detailPage ? `/tools/${t.id}` : t.data.url;
 ---
 
 <BaseLayout
@@ -23,8 +20,9 @@ const linkFor = (t: (typeof tools)[number]) =>
   <section class="section">
     <h1 class="h1"><span class="hash"># </span>tools</h1>
     <p class="lede">
-      catalog of one-day utilities — small things i ship and keep around. most
-      links straight out to the tool. for major ongoing work, see <a href="/projects" class="link">projects</a>.
+      catalog of one-day utilities — small things i ship and keep around. each
+      one has its own page with what it does and where to use it. for major
+      ongoing work, see <a href="/projects" class="link">projects</a>.
     </p>
   </section>
 
@@ -36,7 +34,7 @@ const linkFor = (t: (typeof tools)[number]) =>
         <div>
           {active.map((tool) => (
             <div class="tools-row">
-              <a class="name" href={linkFor(tool)}>
+              <a class="name" href={`/tools/${tool.id}`}>
                 {tool.data.name}
               </a>
               <div class="desc">{tool.data.tagline}</div>
@@ -59,7 +57,7 @@ const linkFor = (t: (typeof tools)[number]) =>
         <div>
           {archived.map((tool) => (
             <div class="tools-row" style="opacity: 0.55;">
-              <a class="name" href={linkFor(tool)}>
+              <a class="name" href={`/tools/${tool.id}`}>
                 {tool.data.name}
               </a>
               <div class="desc">{tool.data.tagline}</div>
