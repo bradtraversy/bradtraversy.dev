@@ -347,9 +347,10 @@ body {
   padding-left: 44px;
 }
 
-/* Drawer + backdrop are mobile-only — hidden at desktop so they don't
-   participate in the grid layout. The @media (max-width: 768px) block
-   below positions them absolute and shows them when body has .nav-open. */
+/* Drawer + backdrop live as siblings of .window (not grid children) and use
+   `position: fixed` when shown — so they never interfere with the desktop
+   grid even during the brief moment between HTML render and CSS apply.
+   The HTML `hidden` attribute is the belt-and-suspenders safety net. */
 .drawer,
 .drawer-backdrop {
   display: none;
@@ -800,7 +801,7 @@ body {
 
   .drawer {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -826,7 +827,7 @@ body {
   }
   .drawer-backdrop {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;

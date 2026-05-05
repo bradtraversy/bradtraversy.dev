@@ -119,37 +119,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 
       <!-- BODY -->
       <div class="body">
-        <!-- mobile drawer (≤768px) -->
-        <div class="drawer-backdrop" id="drawerBackdrop"></div>
-        <div class="drawer">
-          <h3>Navigate</h3>
-          <ul class="tree">
-            <li>
-              <span class="chev">▾</span>
-              <span class="ico-folder">▸</span>
-              &nbsp;TRAVXLABS
-            </li>
-            {
-              tabs.map((tab) => (
-                <li
-                  class:list={[
-                    'indent-2',
-                    { active: tab.section === currentSection },
-                  ]}
-                >
-                  <a href={tab.href}>
-                    <span class="chev"></span>
-                    <span class:list={tab.kind === 'md' ? 'ico-md' : 'ico-folder'}>
-                      {tab.kind === 'md' ? '●' : '▸'}
-                    </span>
-                    &nbsp;{tab.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
         <!-- ACTIVITY BAR (hidden ≤768px) -->
         <div class="activity">
           <div class="ico active" title="Explorer">☰</div>
@@ -268,6 +237,40 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <div class="cmdk-hint" aria-hidden="true">
       <kbd>⌘</kbd> <kbd>K</kbd> &nbsp;to navigate
     </div>
+
+    <!-- MOBILE DRAWER (≤768px when body has .nav-open) -->
+    <!-- Sibling of .window (not a grid child of .body) so it can never disrupt
+         the desktop grid layout — even during the brief moment between HTML
+         render and CSS apply that caused the original FOUC. -->
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="drawer">
+      <h3>Navigate</h3>
+      <ul class="tree">
+        <li>
+          <span class="chev">▾</span>
+          <span class="ico-folder">▸</span>
+          &nbsp;TRAVXLABS
+        </li>
+        {
+          tabs.map((tab) => (
+            <li
+              class:list={[
+                'indent-2',
+                { active: tab.section === currentSection },
+              ]}
+            >
+              <a href={tab.href}>
+                <span class="chev"></span>
+                <span class:list={tab.kind === 'md' ? 'ico-md' : 'ico-folder'}>
+                  {tab.kind === 'md' ? '●' : '▸'}
+                </span>
+                &nbsp;{tab.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
 
     <!-- PHONE NAV OVERLAY (≤640px when body has .nav-open) -->
     <div class="phone-nav" id="phoneNav">
