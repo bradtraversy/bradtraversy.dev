@@ -465,36 +465,71 @@ button.ico {
   text-transform: uppercase;
   vertical-align: middle;
   margin-left: 6px;
-}
-.pill.live {
-  background: rgba(158, 206, 106, 0.15);
-  color: var(--green);
-  border: 1px solid rgba(158, 206, 106, 0.28);
-}
-.pill.beta {
-  background: rgba(255, 158, 100, 0.15);
-  color: var(--orange);
-  border: 1px solid rgba(255, 158, 100, 0.28);
-}
-.pill.planning {
-  background: rgba(224, 175, 104, 0.15);
-  color: var(--accent);
-  border: 1px solid rgba(224, 175, 104, 0.28);
-}
-.pill.coming {
-  background: rgba(122, 162, 247, 0.15);
-  color: var(--blue);
-  border: 1px solid rgba(122, 162, 247, 0.28);
-}
-.pill.free {
   background: var(--bg-3);
   color: var(--fg-muted);
   border: 1px solid var(--border-strong);
 }
+/* Status — projects */
+.pill.live {
+  background: rgba(158, 206, 106, 0.15);
+  color: var(--green);
+  border-color: rgba(158, 206, 106, 0.28);
+}
+.pill.beta {
+  background: rgba(255, 158, 100, 0.15);
+  color: var(--orange);
+  border-color: rgba(255, 158, 100, 0.28);
+}
+.pill.alpha {
+  background: rgba(122, 162, 247, 0.15);
+  color: var(--blue);
+  border-color: rgba(122, 162, 247, 0.28);
+}
+.pill.planning {
+  background: rgba(224, 175, 104, 0.15);
+  color: var(--accent);
+  border-color: rgba(224, 175, 104, 0.28);
+}
+.pill.maintenance {
+  background: rgba(187, 154, 247, 0.15);
+  color: var(--purple);
+  border-color: rgba(187, 154, 247, 0.28);
+}
+.pill.sunset {
+  background: rgba(247, 118, 142, 0.12);
+  color: var(--red);
+  border-color: rgba(247, 118, 142, 0.25);
+}
+.pill.coming {
+  background: rgba(122, 162, 247, 0.15);
+  color: var(--blue);
+  border-color: rgba(122, 162, 247, 0.28);
+}
+/* Pricing */
+.pill.free {
+  background: var(--bg-3);
+  color: var(--fg-muted);
+  border-color: var(--border-strong);
+}
 .pill.paid {
   background: rgba(224, 175, 104, 0.15);
   color: var(--accent);
-  border: 1px solid rgba(224, 175, 104, 0.28);
+  border-color: rgba(224, 175, 104, 0.28);
+}
+.pill.open-source {
+  background: rgba(125, 207, 255, 0.15);
+  color: var(--cyan);
+  border-color: rgba(125, 207, 255, 0.28);
+}
+.pill.source-available {
+  background: rgba(122, 162, 247, 0.12);
+  color: var(--blue);
+  border-color: rgba(122, 162, 247, 0.25);
+}
+.pill.mixed {
+  background: rgba(187, 154, 247, 0.12);
+  color: var(--purple);
+  border-color: rgba(187, 154, 247, 0.25);
 }
 
 /* Cards */

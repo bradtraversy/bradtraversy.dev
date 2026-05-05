@@ -4,7 +4,11 @@
 
 ## What this is
 
-`travxlabs.com` — a public-facing lab site combining a polished blog, raw devlog, and tools catalog under the **Travx Labs** brand. Travx Labs is **Brad's solo project** — distinct from Traversy Media (the joint Brad+Dennis LLC). Don't conflate the two.
+`travxlabs.com` — a public-facing lab site combining a polished blog, raw devlog, projects showcase, and tools catalog under the **Travx Labs** brand. Travx Labs is **Brad's solo project** — distinct from Traversy Media (the joint Brad+Dennis LLC). Don't conflate the two.
+
+**Projects vs Tools** — two different content collections, don't merge them:
+- **Projects** = major ongoing work (Vidpipe, DevSheets, Mission Control). Curated showcase, ~5–10 items, rich detail pages with status pills, pricing, screenshots, "how I built it" narrative.
+- **Tools** = one-day utilities (eyebreak, typesmith, webutils). Designed to scale to 50+ catalog entries; most don't have a detail page (`detailPage: false`), the catalog row links straight to the external URL. If a utility justifies a writeup, that's an article that links to it — not a tool detail page.
 
 ## Read these specs
 
@@ -21,7 +25,7 @@ For visual ground truth: `docs/visual-north-star/home-mockup-airy.html` — Toky
 
 ## Stack (locked)
 
-- **Astro 5** + **Tailwind v4** + **MDX**, deployed on **Vercel**
+- **Astro 6** + **Tailwind v4** + **MDX**, deployed on **Vercel**
 - **Node 20+**, **pnpm**
 - Static-first. **Zero client JS by default** — drop a React island only when interactivity actually requires it
 - Content lives in repo (`src/content/`), not a CMS
@@ -39,7 +43,7 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 - **Visual identity**: AI iteration in code, `home-mockup-airy.html` is the North Star.
 - **Agent workflow page**: a flagship article first ("How Travis works"), no dedicated `/agents` section in v1.
 - **Pre-launch announcement**: build in silence. No coming-soon page, no email-capture landing page.
-- **Tools billing**: each paid tool keeps its own checkout. No unified Travx Labs account in v1.
+- **Project billing**: each paid project keeps its own checkout. No unified Travx Labs account in v1.
 - **Devlog source**: hand-curated for v1 launch via the `polish-devlog` skill (chat-invoked). Auto-pipeline lands in v1.1, not v1.
 - **GitHub org**: this repo is `bradtraversy/travxlabs-site`. OSS belongs under `bradtraversy`; private commercial work belongs under `travxlabs/*`.
 
@@ -56,18 +60,20 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 ## Repo conventions
 
 - **Conventional Commits** — `feat:`, `fix:`, `chore:`, `docs:`, `content:`, `style:`, `refactor:`
-- Use `content:` for content-only commits (new article, devlog entry, tool page) — lets us filter deploys later if we want
+- Use `content:` for content-only commits (new article, devlog entry, project page, tool catalog entry) — lets us filter deploys later if we want
 - Trunk-based: push to `main`. PRs only when the change is risky or wants explicit review.
 - Vercel auto-deploys `main` to prod
 - Branch names lowercase-hyphenated when used: `feat/subscribe-endpoint`, never `Feat_SubscribeEndpoint`
 
 ## File / folder conventions
 
+- `src/content.config.ts` — Zod schemas (Astro 5+ singular form, lives at src root, not inside `src/content/`)
 - `src/content/articles/` — MDX files, slug = filename
 - `src/content/devlog/` — short MDX, slug = `YYYY-MM-DD-kebab-title`
-- `src/content/tools/` — one MDX per tool
+- `src/content/projects/` — one MDX per major project (rich body with hero, what-it-does, pricing, screenshots)
+- `src/content/tools/` — one MDX per one-day utility. Body is empty when `detailPage: false` (the catalog row is the only surface)
 - `src/components/` — Astro components first, React islands only when needed
-- `src/layouts/` — `BaseLayout`, `ArticleLayout`, `DevlogLayout`, `ToolLayout`
+- `src/layouts/` — `BaseLayout`, `ArticleLayout`, `DevlogLayout`, `ProjectLayout`, `ToolLayout`
 - `src/styles/` — global CSS only; component styles co-located in `.astro` files
 - All content has Zod-validated frontmatter — see `Information Architecture.md` for the schemas
 

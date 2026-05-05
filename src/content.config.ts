@@ -1,9 +1,30 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const toolStatus = z.enum(['live', 'beta', 'coming-soon', 'sunset']);
-const toolPricing = z.enum(['free', 'open-source', 'paid', 'source-available']);
-const toolCategory = z.enum(['saas', 'cli', 'web-app', 'utility', 'library']);
+const projectStatus = z.enum([
+  'planning',
+  'alpha',
+  'beta',
+  'live',
+  'maintenance',
+  'sunset',
+]);
+const projectPricing = z.enum([
+  'free',
+  'open-source',
+  'paid',
+  'source-available',
+  'mixed',
+]);
+
+const toolCategory = z.enum([
+  'dev',
+  'productivity',
+  'design',
+  'health',
+  'fun',
+  'other',
+]);
 
 const articles = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/articles' }),
@@ -18,6 +39,7 @@ const articles = defineCollection({
       heroImage: image().optional(),
       heroImageAlt: z.string().optional(),
       ogImage: z.string().optional(),
+      relatedProjects: z.array(z.string()).optional(),
       relatedTools: z.array(z.string()).optional(),
       canonical: z.string().url().optional(),
     }),
@@ -36,16 +58,15 @@ const devlog = defineCollection({
     }),
 });
 
-const tools = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tools' }),
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
   schema: ({ image }) =>
     z.object({
       name: z.string(),
       tagline: z.string(),
       description: z.string(),
-      status: toolStatus,
-      pricing: toolPricing,
-      category: toolCategory,
+      status: projectStatus,
+      pricing: projectPricing,
       url: z.string().url().optional(),
       repoUrl: z.string().url().optional(),
       pricingUrl: z.string().url().optional(),
@@ -59,4 +80,22 @@ const tools = defineCollection({
     }),
 });
 
-export const collections = { articles, devlog, tools };
+const tools = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tools' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      tagline: z.string(),
+      category: toolCategory,
+      tags: z.array(z.string()).default([]),
+      url: z.string().url(),
+      repoUrl: z.string().url().optional(),
+      free: z.boolean().default(true),
+      publishDate: z.coerce.date(),
+      archived: z.boolean().default(false),
+      detailPage: z.boolean().default(false),
+      heroImage: image().optional(),
+    }),
+});
+
+export const collections = { articles, devlog, projects, tools };

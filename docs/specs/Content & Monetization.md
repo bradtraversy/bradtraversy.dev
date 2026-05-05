@@ -1,7 +1,7 @@
 ---
 status: planning
 created: 2026-05-03
-last_updated: 2026-05-03
+last_updated: 2026-05-05
 tags: [project, travxlabs, content, monetization, newsletter]
 ---
 
@@ -15,20 +15,21 @@ tags: [project, travxlabs, content, monetization, newsletter]
 |---|---|---|---|
 | Articles | 1–4/month | High — polished, edited | 4–10 hrs |
 | Devlog | Whenever — could be daily | Medium — coherent, not edited to death | 10–30 min |
-| Tool listings | Whenever a tool ships or changes | High — every page is permanent | 1–2 hrs initial, minor updates after |
+| Project pages | Whenever a project ships or changes phase | High — every page is permanent | 1–2 hrs initial, minor updates after |
+| Tool catalog entries | Whenever a one-day utility ships | Low — name + tagline + URL is enough | 5 min |
 | Now page | Weekly | Low — bullet updates | 5 min |
 
 The cadence pyramid:
 
 ```
-        ARTICLES         (slow, polished, evergreen)
-       /        \
-     TOOLS    DEVLOG     (medium, permanent | fast, raw)
-       \        /
-        NOW PAGE         (continuous, low-effort)
+            ARTICLES             (slow, polished, evergreen)
+           /        \
+       PROJECTS    DEVLOG        (medium, permanent | fast, raw)
+       /              \
+    TOOLS           NOW PAGE     (catalog tail | continuous, low-effort)
 ```
 
-Devlog and Now page carry the site between articles. Tools are the artifacts everything else points to.
+Devlog and Now page carry the site between articles. Projects are the artifacts everything else points to. Tools are the long catalog tail of small utilities — no cadence pressure, just adds up over time.
 
 ## Launch Content
 
@@ -42,12 +43,18 @@ Day-zero content target — enough that the site doesn't feel empty when it goes
 **Devlog (10 to start):**
 - Backfilled from recent vault session logs and decision entries (Vidpipe pivot, Mission Control phases, RepoReviver scaffold, etc.)
 
-**Tools (5 to start):**
-1. **Vidpipe** — paid SaaS
-2. **DevSheets** — free
-3. **Webutils** — free
-4. **Typesmith** — free / open source
-5. **RepoReviver** — coming soon (stub page is fine)
+**Projects (5 to start)** — major ongoing work, each gets a rich detail page:
+1. **Vidpipe** — paid SaaS, live
+2. **DevSheets** — free, live
+3. **Mission Control** — internal/private, but the build is publicly documented
+4. **RepoReviver** — open-source CLI, beta (stub page fine for now)
+5. **TravxLabs.com** — this site, planning/alpha
+
+**Tools (8–10 to start)** — one-day utilities, catalog entries:
+- **Webutils** — free
+- **Typesmith** — free / open source
+- **eyebreak** — free
+- (plus more as Brad surfaces them)
 
 **Singletons:**
 - Now page (mirrors `Current State.md` "This Week's Focus")
@@ -108,15 +115,15 @@ The newsletter is the long-term distribution asset.
 
 ## Monetization Strategy
 
-### Layer 1 — Free tools as audience builders
+### Layer 1 — Free tools and open projects as audience builders
 
-Tools like **DevSheets**, **Webutils**, **Typesmith** stay free forever. They drive search traffic, build goodwill, and demonstrate quality.
+Free projects like **DevSheets** and the long-tail utilities in `/tools` (Webutils, Typesmith, eyebreak, …) stay free forever. They drive search traffic, build goodwill, and demonstrate quality.
 
-### Layer 2 — Paid SaaS products
+### Layer 2 — Paid SaaS projects
 
-**Vidpipe** is the flagship and lives at `vidpipe.ai`. The TravxLabs page links out to its own checkout. The lab gets credit for distribution; the SaaS keeps its own brand and stack.
+**Vidpipe** is the flagship and lives at `vidpipe.ai`. The TravxLabs project page links out to its own checkout. The lab gets credit for distribution; the SaaS keeps its own brand and stack.
 
-Future paid SaaS (TBD) follow the same pattern: own domain, own checkout, lab page is the catalog entry.
+Future paid SaaS (TBD) follow the same pattern: own domain, own checkout, lab project page is the showcase entry.
 
 ### Layer 3 — Digital products / templates / packs
 
@@ -142,24 +149,26 @@ If/when sponsorships happen: clearly labeled, capped at 1/month, must be technic
 - Email list rentals
 - Paywalled articles
 
-## Pricing Patterns for Paid Tools
+## Pricing Patterns for Paid Projects
 
-When listing a paid tool:
+When listing a paid project:
 
-- Show pricing inline on the tool card and tool detail page
-- Link directly to the tool's own checkout (don't recreate billing)
+- Show pricing inline on the project card and project detail page
+- Link directly to the project's own checkout (don't recreate billing)
 - Show pricing tiers if there are multiple
 - Show a free tier or trial if one exists
 - Show the upgrade path clearly
+
+Paid tools (rare) follow the same pattern but most tools in the catalog are free — paid is the exception.
 
 ## Cross-Promotion
 
 Where things naturally point to each other:
 
-- Articles → embed/related tools
-- Devlog entries → tag with `project: vidpipe` (or similar) → link to tool page
-- Tool pages → "How I built it" section linking to articles + devlog
-- Home → featured tools + latest article + recent devlog
+- Articles → embed/related projects + tools
+- Devlog entries → tag with `project: vidpipe` (or similar) → link to project or tool page
+- Project pages → "How I built it" section linking to articles + devlog
+- Home → currently building (projects) + latest tools + latest article + recent devlog
 - About → links to Traversy Media + YouTube + courses
 
 Avoid forced cross-promo. Every link must earn its place.
@@ -170,7 +179,8 @@ No fixed calendar. Topics are pulled from:
 
 - Vault session logs (most recent shipping work → devlog)
 - Vault decision entries (interesting decisions → article)
-- Tool launches (every new tool → tool page + launch devlog + sometimes article)
+- Project phase transitions (every project phase ship → project page update + launch devlog + sometimes article)
+- Tool launches (every new utility → tool catalog entry + 1-line devlog mention)
 - Reader questions / Twitter replies (recurring questions → article)
 
 The goal is "always something interesting recently" — not "post every Tuesday."
@@ -181,4 +191,4 @@ The goal is "always something interesting recently" — not "post every Tuesday.
 - Devlog cadence post-launch: ≥ 4 entries / month sustained
 - Email list growth: ≥ 100 / first 60 days, ≥ 1K / first 6 months
 - Top article unique visits: ≥ 5K within 60 days
-- Paid tool referrals from site: ≥ 1/week by month 3
+- Paid project referrals from site: ≥ 1/week by month 3

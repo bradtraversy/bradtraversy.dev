@@ -3,13 +3,11 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const tools = await getCollection('tools');
-  return tools
-    .filter((entry) => entry.data.detailPage)
-    .map((entry) => ({
-      params: { slug: entry.id },
-      props: { entry },
-    }));
+  const projects = await getCollection('projects');
+  return projects.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
 }
 
 const { entry } = Astro.props;
@@ -20,25 +18,24 @@ const { Content } = await render(entry);
   title={`${entry.data.name} — travx labs`}
   description={entry.data.tagline}
   pageTitle={`${entry.id}.mdx`}
-  currentSection="tools"
+  currentSection="projects"
 >
   <section class="section">
     <div class="comment">
-      tool · {entry.data.category}
+      project · {entry.data.pricing}
     </div>
     <h1 class="h1"><span class="hash"># </span>{entry.data.name}</h1>
     <p class="lede">{entry.data.tagline}</p>
 
     <div style="margin-top: 18px;">
-      <span class:list={['pill', entry.data.free ? 'free' : 'paid']}>
-        {entry.data.free ? 'free' : 'paid'}
-      </span>
-      {entry.data.archived && <span class="pill">archived</span>}
+      <span class:list={['pill', entry.data.status]}>{entry.data.status}</span>
+      <span class:list={['pill', entry.data.pricing]}>{entry.data.pricing}</span>
     </div>
 
     <div style="margin-top: 18px; display: flex; gap: 18px; font-size: 12.5px;">
-      <a href={entry.data.url} class="link">→ open</a>
+      {entry.data.url && <a href={entry.data.url} class="link">→ visit</a>}
       {entry.data.repoUrl && <a href={entry.data.repoUrl} class="link">→ repo</a>}
+      {entry.data.pricingUrl && <a href={entry.data.pricingUrl} class="link">→ pricing</a>}
     </div>
   </section>
 

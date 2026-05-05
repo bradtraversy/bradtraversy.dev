@@ -1,7 +1,7 @@
 ---
 status: planning
 created: 2026-05-03
-last_updated: 2026-05-04
+last_updated: 2026-05-05
 tags: [project, travxlabs, roadmap]
 ---
 
@@ -32,14 +32,14 @@ tags: [project, travxlabs, roadmap]
 - ☐ `pnpm create astro@latest` in `~/Code/travxlabs`
 - ☐ Initialize repo at `github.com/bradtraversy/travxlabs-site` — **private during build, flip to public at Phase 6 launch** (per Q9 decided 2026-05-04; OSS goes under `bradtraversy` per the split rule)
 - ☐ Wire up Tailwind v4 + Astro integrations (mdx, sitemap, rss)
-- ☐ Define content collections + Zod schemas (`articles`, `devlog`, `tools`)
-- ☐ Build base layouts: `BaseLayout`, `ArticleLayout`, `DevlogLayout`, `ToolLayout`
-- ☐ Build core components: Header, Footer, Card primitives
-- ☐ Build skeleton pages: Home, Articles index, Devlog index, Tools index, Now, About
+- ☐ Define content collections + Zod schemas (`articles`, `devlog`, `projects`, `tools`)
+- ☐ Build base layouts: `BaseLayout`, `ArticleLayout`, `DevlogLayout`, `ProjectLayout`, `ToolLayout`
+- ☐ Build core components: Header, Footer, Card primitives, ProjectRow, ToolRow
+- ☐ Build skeleton pages: Home, Articles index, Devlog index, Projects index, Tools catalog, Now, About
 - ☐ Connect Vercel project, wire `travxlabs.com` DNS
 - ☐ Verify deploy pipeline works (`main` → prod)
 
-**Exit criteria**: travxlabs.com is live with placeholder copy; one dummy article, one dummy devlog entry, and one dummy tool render correctly.
+**Exit criteria**: travxlabs.com is live with placeholder copy; one dummy article, one dummy devlog entry, one dummy project, and one dummy tool render correctly.
 
 ## Phase 2 — Polish & Visual Direction (week 2)
 
@@ -49,8 +49,9 @@ tags: [project, travxlabs, roadmap]
 - ☐ Implement dark mode with no-flash toggle
 - ☐ Style article body (typography, code blocks, callouts, images)
 - ☐ Style devlog entry (compact, time-stamped, share-friendly)
-- ☐ Style tool page (hero, status pill, pricing pill, CTAs)
-- ☐ Build Tools index with filter sidebar
+- ☐ Style project page (hero, status pill, pricing pill, screenshots, CTAs)
+- ☐ Build Projects index (curated showcase, no filters)
+- ☐ Build Tools catalog with filter chips (category, tag, free/paid)
 - ☐ Implement RSS feeds (combined + per-mode)
 - ☐ Add sitemap, robots.txt, OG defaults
 - ☐ Lighthouse audit — hit perf budget
@@ -67,11 +68,12 @@ tags: [project, travxlabs, roadmap]
 - ☐ Write article: "From prototype to prod: Vidpipe in 6 weeks"
 - ☐ Build `polish-devlog` skill — chat-invoked: takes a session log, strips internal details (IPs, file paths, sponsor refs, Dennis specifics), tightens tone, generates frontmatter, writes to `content/devlog/_drafts/`. Skill can refuse to polish a session it judges as too internal/half-baked. Used during the backfill below.
 - ☐ Backfill 10 devlog entries from recent vault session logs (using `polish-devlog`)
-- ☐ Build tool pages for: Vidpipe, DevSheets, Webutils, Typesmith, RepoReviver (stub)
+- ☐ Build project pages for: Vidpipe, DevSheets, Mission Control, RepoReviver (stub), TravxLabs.com itself
+- ☐ Add 8–10 tool catalog entries (Webutils, Typesmith, eyebreak, plus more as Brad surfaces them)
 - ☐ Write Now page
 - ☐ Write About page
 
-**Exit criteria**: 3 articles, 10 devlog entries, 5 tools, Now and About pages all live and reading well.
+**Exit criteria**: 3 articles, 10 devlog entries, 5 projects, 8+ tools, Now and About pages all live and reading well.
 
 ## Phase 4 — Newsletter & Subscribe (week 3–4)
 
@@ -118,7 +120,8 @@ tags: [project, travxlabs, roadmap]
 
 - Devlog: ≥ 4/month
 - Articles: ≥ 1/month
-- Tools: updated whenever, new ones added when shipped
+- Projects: updated whenever a phase ships; new ones added when a project starts
+- Tools: catalog grows as one-day utilities ship — no cadence pressure
 - Newsletter: weekly or biweekly
 - Now page: weekly update
 

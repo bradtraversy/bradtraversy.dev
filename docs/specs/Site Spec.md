@@ -1,7 +1,7 @@
 ---
 status: planning
 created: 2026-05-03
-last_updated: 2026-05-03
+last_updated: 2026-05-05
 tags: [project, travxlabs, spec, prd]
 ---
 
@@ -11,11 +11,12 @@ tags: [project, travxlabs, spec, prd]
 
 ## 1. Vision
 
-TravxLabs.com is the public home of Travx Labs — a personal lab where Brad builds and ships side projects, dev tools, and SaaS products, with the building documented in the open. The site has three first-class content modes:
+TravxLabs.com is the public home of Travx Labs — a personal lab where Brad builds and ships side projects, dev tools, and SaaS products, with the building documented in the open. The site has four first-class content modes:
 
 - **Articles** — polished, evergreen, low-cadence
 - **Devlog** — raw, frequent, low-friction
-- **Tools** — every tool with a real home (free and paid)
+- **Projects** — major ongoing work (Vidpipe, DevSheets, Mission Control), each with a rich detail page
+- **Tools** — one-day utilities, designed to scale to 50+ entries as a filterable catalog
 
 It is not a tutorial blog, not a portfolio, and not a course site. It's a working lab with a public window.
 
@@ -24,7 +25,7 @@ It is not a tutorial blog, not a portfolio, and not a course site. It's a workin
 | Segment | Why they're here | What they want |
 |---|---|---|
 | Traversy Media followers | They already know Brad | Behind-the-scenes, what's being built, side-project rabbit holes |
-| Indie hackers / builders | Tools, patterns, agent workflows | Concrete examples, real numbers, code |
+| Indie hackers / builders | Projects, patterns, agent workflows | Concrete examples, real numbers, code |
 | AI-curious devs | Brad's agent setup is uncommon | "How does Travis actually work?" "Show me your skills folder" |
 | Search readers | Landed via Google | Solve a specific problem, maybe stick around |
 
@@ -51,23 +52,40 @@ V1 designs for segment 1 first. Segments 2–4 follow naturally.
 - **Source pipeline**: Often promoted directly from Obsidian vault session logs or daily notes
 - **Distribution**: RSS-first, browsable on the site, occasional Twitter/X thread
 
-### 3.3 Tools
+### 3.3 Projects
 
-Each tool is its own page with:
+Major ongoing work — multi-phase, often monetized, each with a rich detail page. Examples: Vidpipe, DevSheets, Mission Control, RepoReviver, TravxLabs.com itself.
+
+Each project page has:
 
 - Hero (name, tagline, screenshot/video, primary CTA)
 - What it does (3–5 bullets)
 - Who it's for
-- Pricing & licensing (Free / Open Source / Paid / Source-available)
+- Pricing & licensing (Free / Open Source / Paid / Source-available / Mixed)
+- Status pill (Planning / Alpha / Beta / Live / Maintenance / Sunset)
 - Install / buy / try button
-- "How I built it" — links to related blog and devlog entries
+- "How I built it" — links to related articles and devlog entries
 - Stack badges
 - Repo link if open source
-- Status (Live / Beta / Sunset / Coming soon)
 
-Tools index page filters by: pricing tier, status, stack, category.
+Projects index is a curated showcase, not a catalog — expect 5–10 items, ordered by `featured` then by status. Filtering is overkill at this size.
 
-### 3.4 Now Page
+### 3.4 Tools
+
+One-day utilities — small, finished-when-finished, designed to scale to 50+ entries. Examples: eyebreak, typesmith, webutils.
+
+Most tools don't need a detail page. The catalog row links straight to the external URL — that's the primary CTA. Reserve detail pages for the few tools that justify a screenshot + walkthrough; for everything else, write an article if you want to document the build.
+
+Tool catalog row shows:
+
+- Name (links to external URL or to detail page if `detailPage: true`)
+- One-line description
+- Category + tags (for filter chips)
+- Free badge (paid is the rare case)
+
+Tools index filters by: category, tag, free/paid, archived/active. Designed to stay calm at 50 items via category groups + filters.
+
+### 3.5 Now Page
 
 A single living page showing:
 
@@ -76,7 +94,7 @@ A single living page showing:
 - Last-updated timestamp
 - Optional: a small uptime/status grid for live SaaS
 
-### 3.5 About
+### 3.6 About
 
 Short page:
 
@@ -93,7 +111,8 @@ Top-level:
 - `/` — home
 - `/articles` — blog index → `/articles/:slug`
 - `/devlog` — devlog index → `/devlog/:slug`
-- `/tools` — tools index → `/tools/:slug`
+- `/projects` — projects showcase → `/projects/:slug`
+- `/tools` — tools catalog → `/tools/:slug` (only when `detailPage: true`)
 - `/now` — current focus
 - `/about` — about
 - `/rss.xml`, `/devlog/rss.xml` — feeds
@@ -104,13 +123,13 @@ Top-level:
 
 Above the fold:
 - Site name + tagline
-- 1-line "what this is" (e.g., "Articles, devlogs, and the tools I ship")
-- Currently building widget (3 active projects, pulled from `now`)
+- 1-line "what this is" (e.g., "Articles, devlog, projects, and the tools I ship")
+- Currently building widget (3–4 active projects, pulled from `projects` collection where `featured: true` or `status` in alpha/beta/live)
 
 Below the fold:
 - Latest article (full hero)
 - Latest 3–5 devlog entries (compact)
-- Featured tools (3 tiles)
+- Latest tools strip (5–6 newest from `tools` collection, with "see all → /tools" link)
 - Subscribe form (email)
 - About teaser
 
@@ -119,28 +138,42 @@ Below the fold:
 - Title, dek (subtitle), date, reading time
 - Hero image or no image (author's choice)
 - Article body (MDX with code blocks, callouts, embeds)
-- Related tools (if any)
+- Related projects/tools (if any)
 - "More from the lab" footer (3 latest devlog or articles)
 - Subscribe footer
 
 ### 5.3 Devlog Entry
 
-- Title, date, optional project tag (links to tool page)
+- Title, date, optional project tag (links to project or tool page)
 - Body — markdown, screenshots, code, embeds
 - Permalink + share button
 - Prev/Next devlog nav
 
-### 5.4 Tool Page
+### 5.4 Project Page
 
 See section 3.3 for content blocks.
 
-### 5.5 Tools Index
+### 5.5 Projects Index
 
-- Filter sidebar: pricing, status, stack, category
-- Card grid with logo, name, one-liner, status pill, pricing pill
-- Sort: newest, alphabetical, status
+- Curated showcase, no filter sidebar
+- Card grid with hero image, name, tagline, status pill, pricing pill
+- Sort: featured first, then status (live → beta → alpha → planning → maintenance → sunset)
 
-### 5.6 Now / About
+### 5.6 Tool Detail Page (rare, only when `detailPage: true`)
+
+- Hero (name, tagline, screenshot)
+- What it does (short — these are utilities, not features)
+- Try it button (external)
+- Repo link if any
+
+### 5.7 Tools Catalog (Index)
+
+- Filter chips: category, tag, free/paid, active/archived
+- Compact rows (not full cards) with name, tagline, category, tag chips, "open →" link
+- Designed to stay calm at 50+ items — list view, not card grid
+- Sort: newest first by default; alphabetical and category-grouped views available
+
+### 5.8 Now / About
 
 Simple single-column markdown pages.
 
@@ -148,10 +181,11 @@ Simple single-column markdown pages.
 
 See [[Information Architecture]] for the Astro content collection schemas.
 
-Three collections:
+Four collections:
 - `articles` — blog posts
 - `devlog` — short-form entries
-- `tools` — tool listings
+- `projects` — major ongoing work (curated showcase)
+- `tools` — one-day utilities (catalog at scale)
 
 Plus single-page content for `/now` and `/about` (markdown files, not collections).
 
@@ -197,15 +231,17 @@ Detailed branding lives in a separate doc later, but for v1:
 V1 (first 60 days post-launch):
 - 5+ articles published
 - 30+ devlog entries published
-- 8+ tools listed
+- 5+ projects with detail pages
+- 10+ tools listed in the catalog
 - ≥ 5K unique visitors / month by day 60
 - ≥ 100 email subscribers
-- ≥ 1 paid tool purchase via the site
+- ≥ 1 paid project purchase via the site
 
 V2 (first 6 months):
 - ≥ 20K unique visitors / month
 - ≥ 1K email subscribers
-- ≥ 3 paid tools live
+- ≥ 3 paid projects live
+- 25+ tools in the catalog
 - Inbound: ≥ 1 sponsor inquiry directly from the site
 - 1+ article ranking in top 5 for a target keyword
 
@@ -214,8 +250,8 @@ V2 (first 6 months):
 See [[Content & Monetization]] for full plan.
 
 Summary:
-- Free tools generate goodwill + audience
-- Paid tools (Vidpipe, possible future SaaS) link out to their own checkout (Stripe)
+- Free tools and open-source projects generate goodwill + audience
+- Paid projects (Vidpipe, possible future SaaS) link out to their own checkout (Stripe)
 - Possible future digital products (templates, swipe files, "Brad's agent setup" pack) sold via Lemon Squeezy or Gumroad
 - No ads
 - No sponsored posts in v1 (revisit later)
@@ -238,7 +274,8 @@ Summary:
 | Risk | Mitigation |
 |---|---|
 | Site becomes a chore and goes stale | Devlog cadence stays low-friction; pipe directly from Obsidian; no quality bar pressure |
-| Tool catalog rots as projects sunset | Status pill ("Sunset") is first-class; stale tools get hidden, not deleted |
-| Articles compete for time with YouTube + courses | Articles are the lowest priority; devlog + tools carry the site |
+| Project catalog rots as work sunsets | "Sunset" status pill is first-class; sunset projects get archived, not deleted |
+| Tool catalog gets cluttered as it scales | Filter chips + categories; `archived: true` dims old tools without removing them |
+| Articles compete for time with YouTube + courses | Articles are the lowest priority; devlog + projects + tools carry the site |
 | Brand confusion with Traversy Media | Clear "Travx Labs is the workshop, Traversy Media is the school" framing on About |
-| Maintenance overhead of 3 content modes | Templates are simple; deploy is automatic; no CMS to maintain |
+| Maintenance overhead of 4 content modes | Templates are simple; deploy is automatic; no CMS to maintain |

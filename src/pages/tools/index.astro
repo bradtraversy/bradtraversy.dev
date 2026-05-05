@@ -3,38 +3,46 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const tools = await getCollection('tools');
-const sorted = tools.sort((a, b) => a.data.name.localeCompare(b.data.name));
+const sorted = tools.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+
+const active = sorted.filter((t) => !t.data.archived);
+const archived = sorted.filter((t) => t.data.archived);
+
+const linkFor = (t: (typeof tools)[number]) =>
+  t.data.detailPage ? `/tools/${t.id}` : t.data.url;
 ---
 
 <BaseLayout
   title="tools — travx labs"
-  description="every tool i ship — free utilities, open-source clis, and paid saas."
+  description="catalog of one-day utilities — small things i ship and keep around."
   pageTitle="tools/"
   currentSection="tools"
 >
   <section class="section">
     <h1 class="h1"><span class="hash"># </span>tools</h1>
     <p class="lede">
-      every tool i ship gets a permanent home — free utilities, open-source clis,
-      and paid saas. status pills tell you what's live, beta, or sunset.
+      catalog of one-day utilities — small things i ship and keep around. most
+      links straight out to the tool. for major ongoing work, see <a href="/projects" class="link">projects</a>.
     </p>
   </section>
 
   <section class="section">
     {
-      sorted.length === 0 ? (
-        <div class="comment">// no tools listed yet — phase 3 ships 5 stubs</div>
+      active.length === 0 ? (
+        <div class="comment">// no tools listed yet</div>
       ) : (
         <div>
-          {sorted.map((tool) => (
+          {active.map((tool) => (
             <div class="tools-row">
-              <a class="name" href={`/tools/${tool.id}`}>
+              <a class="name" href={linkFor(tool)}>
                 {tool.data.name}
               </a>
               <div class="desc">{tool.data.tagline}</div>
               <div class="status-cell">
-                <span class:list={['pill', tool.data.pricing]}>
-                  {tool.data.pricing}
+                <span class:list={['pill', tool.data.free ? 'free' : 'paid']}>
+                  {tool.data.free ? 'free' : 'paid'}
                 </span>
               </div>
             </div>
@@ -43,6 +51,27 @@ const sorted = tools.sort((a, b) => a.data.name.localeCompare(b.data.name));
       )
     }
   </section>
+
+  {
+    archived.length > 0 && (
+      <section class="section">
+        <h2 class="h2"><span class="hash">## </span>archived</h2>
+        <div>
+          {archived.map((tool) => (
+            <div class="tools-row" style="opacity: 0.55;">
+              <a class="name" href={linkFor(tool)}>
+                {tool.data.name}
+              </a>
+              <div class="desc">{tool.data.tagline}</div>
+              <div class="status-cell">
+                <span class="pill">archived</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   <div class="comment" style="margin-top: 24px;">
     // EOF tools/<span class="cursor"></span>
