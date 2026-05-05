@@ -739,12 +739,12 @@ body {
 /* ==========================================================================
    RESPONSIVE BREAKPOINTS
    Strategy: hide IDE chrome that is decorative; keep chrome that is brand.
-   - 1024px: drop the explorer (file tree). Keep activity bar + gutter.
-   - 768px:  TABLET — drop activity bar AND gutter. Show hamburger.
-             Hamburger opens a side drawer styled like the file tree
-             (preserves the editor metaphor — file tree relocates).
-   - 640px:  PHONE — hamburger opens a full-screen overlay with clean nav.
-             Stack tools-row + subscribe.
+   - 1024px: leave desktop. Drop explorer + top-nav menu, switch to hamburger,
+             enable the file-tree drawer for navigation. Keep activity bar +
+             gutter — they're brand cues, not nav surfaces.
+   - 768px:  TABLET — drop activity bar AND gutter (chrome reduction).
+   - 640px:  PHONE — swap the file-tree drawer for a full-screen nav overlay
+             with clean tappable links. Stack tools-row + subscribe.
    - 480px:  smallest phone — hide tab bar entirely + cmd-K hint.
    ========================================================================== */
 
@@ -755,48 +755,13 @@ body {
   .explorer {
     display: none;
   }
-}
 
-@media (max-width: 768px) {
-  .window {
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    min-height: 100vh;
-  }
-  .body {
-    grid-template-columns: 1fr;
-  }
-  .activity {
-    display: none;
-  }
-  .gutter {
-    display: none;
-  }
-  .editor {
-    font-size: 13px;
-  }
-
+  /* Below desktop: top-nav menu out, hamburger in, drawer becomes the nav. */
   .hamburger {
     display: flex;
   }
   .titlebar .menu {
     display: none;
-  }
-  .titlebar {
-    padding: 9px 12px;
-    gap: 10px;
-  }
-  .titlebar .title {
-    font-size: 11.5px;
-  }
-
-  .content {
-    padding: 40px 24px 80px 24px;
-  }
-  .section {
-    margin-bottom: 64px;
   }
 
   .drawer {
@@ -841,6 +806,43 @@ body {
   }
   body.nav-open .drawer-backdrop {
     display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .window {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100vh;
+  }
+  .body {
+    grid-template-columns: 1fr;
+  }
+  .activity {
+    display: none;
+  }
+  .gutter {
+    display: none;
+  }
+  .editor {
+    font-size: 13px;
+  }
+
+  .titlebar {
+    padding: 9px 12px;
+    gap: 10px;
+  }
+  .titlebar .title {
+    font-size: 11.5px;
+  }
+
+  .content {
+    padding: 40px 24px 80px 24px;
+  }
+  .section {
+    margin-bottom: 64px;
   }
 }
 
