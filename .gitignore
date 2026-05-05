@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # vscode personal settings (peacock colors etc.)
 .vscode/
+
+# playwright mcp artifacts (screenshots, snapshots)
+.playwright-mcp/
+phase*.png

@@ -347,6 +347,14 @@ body {
   padding-left: 44px;
 }
 
+/* Drawer + backdrop are mobile-only — hidden at desktop so they don't
+   participate in the grid layout. The @media (max-width: 768px) block
+   below positions them absolute and shows them when body has .nav-open. */
+.drawer,
+.drawer-backdrop {
+  display: none;
+}
+
 /* Editor */
 .editor {
   background: var(--bg-1);
