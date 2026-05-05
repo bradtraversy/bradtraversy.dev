@@ -82,7 +82,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
           <span class="yellow"></span>
           <span class="green"></span>
         </div>
-        <button class="hamburger" id="hamburger" aria-label="Open navigation">☰</button>
         <div class="title">
           <span class="accent">travxlabs.com</span> &mdash; {pageTitle}
         </div>
@@ -119,9 +118,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 
       <!-- BODY -->
       <div class="body">
-        <!-- ACTIVITY BAR (hidden ≤768px) -->
+        <!-- ACTIVITY BAR — always visible. The Explorer icon doubles as the
+             nav toggle on mobile (slides the explorer in from the right of
+             this bar); on desktop the explorer is permanently inline so the
+             icon is just a status indicator. -->
         <div class="activity">
-          <div class="ico active" title="Explorer">☰</div>
+          <button
+            class="ico ico-explorer"
+            id="explorer-toggle"
+            type="button"
+            aria-label="Toggle explorer"
+            aria-expanded="false"
+            aria-controls="explorer"
+          >
+            ☰
+          </button>
           <div class="ico" title="Search">⌕</div>
           <div class="ico" title="Source Control">⎇</div>
           <div class="ico" title="Tools">⚙</div>
@@ -129,8 +140,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
           <div class="ico" title="Settings">✎</div>
         </div>
 
-        <!-- EXPLORER (hidden ≤1024px) -->
-        <div class="explorer">
+        <!-- Backdrop only shown on mobile when the explorer drawer is open.
+             Sits inside .body so it covers only the editor area, not the
+             activity bar (the user can still tap the toggle to close). -->
+        <div class="explorer-backdrop" id="explorerBackdrop"></div>
+
+        <!-- EXPLORER — inline at desktop, slide-out drawer at ≤1024 -->
+        <div class="explorer" id="explorer">
           <h3>Explorer</h3>
           <ul class="tree">
             <li>
@@ -238,112 +254,64 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       <kbd>⌘</kbd> <kbd>K</kbd> &nbsp;to navigate
     </div>
 
-    <!-- MOBILE DRAWER (≤768px when body has .nav-open) -->
-    <!-- Sibling of .window (not a grid child of .body) so it can never disrupt
-         the desktop grid layout — even during the brief moment between HTML
-         render and CSS apply that caused the original FOUC. -->
-    <div class="drawer-backdrop" id="drawerBackdrop"></div>
-    <aside class="drawer">
-      <h3>Navigate</h3>
-      <ul class="tree">
-        <li>
-          <span class="chev">▾</span>
-          <span class="ico-folder">▸</span>
-          &nbsp;TRAVXLABS
-        </li>
-        {
-          tabs.map((tab) => (
-            <li
-              class:list={[
-                'indent-2',
-                { active: tab.section === currentSection },
-              ]}
-            >
-              <a href={tab.href}>
-                <span class="chev"></span>
-                <span class:list={tab.kind === 'md' ? 'ico-md' : 'ico-folder'}>
-                  {tab.kind === 'md' ? '●' : '▸'}
-                </span>
-                &nbsp;{tab.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </aside>
-
-    <!-- PHONE NAV OVERLAY (≤640px when body has .nav-open) -->
-    <div class="phone-nav" id="phoneNav">
-      <div class="nav-header">
-        <div class="traffic">
-          <span class="red"></span>
-          <span class="yellow"></span>
-          <span class="green"></span>
-        </div>
-        <div class="nav-title"><span class="accent">travxlabs.com</span></div>
-        <button class="close" id="phoneNavClose" aria-label="Close navigation">×</button>
-      </div>
-      <div class="nav-body">
-        <div class="nav-comment">// navigate</div>
-        <ul class="nav-links">
-          <li>
-            <a href="/">
-              <span><span class="path-prefix">/</span>home</span>
-              <span class="arrow">→</span>
-            </a>
-          </li>
-          {
-            navItems.map((item) => (
-              <li>
-                <a href={item.href}>
-                  <span>
-                    <span class="path-prefix">/</span>
-                    {item.label}
-                  </span>
-                  <span class="arrow">→</span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-      <div class="nav-footer">
-        <div class="footer-label">Subscribe</div>
-        <form class="footer-row" method="POST" action="/api/subscribe">
-          <input type="email" name="email" placeholder="you@example.com" required />
-          <button type="submit">subscribe</button>
-        </form>
-        <div class="footer-meta">
-          <span class="branch">main</span>
-          <span>weekly · zero filler</span>
-        </div>
-      </div>
-    </div>
-
     <script>
-      // Hamburger toggles `body.nav-open`. CSS picks the right overlay per breakpoint:
-      //   641-768px → file-tree-styled drawer (.drawer)
-      //     ≤ 640px → full-screen phone nav (.phone-nav)
-      const hamburger = document.getElementById('hamburger');
-      const backdrop = document.getElementById('drawerBackdrop');
-      const phoneNavClose = document.getElementById('phoneNavClose');
-      const close = () => document.body.classList.remove('nav-open');
+      // Activity-bar Explorer icon (☰) toggles the explorer at every width.
+      // Desktop (>=1025): toggles `body.explorer-hidden` to collapse/restore
+      //   the inline panel. Editor expands into the freed grid column.
+      // Mobile (<=1024): toggles `body.nav-open` to slide the panel in/out
+      //   over the editor with a backdrop. ESC + backdrop tap close it.
+      // Each class only takes effect inside its own breakpoint, so the two
+      // states never fight. Resize across the boundary clears both classes
+      // so the user sees the breakpoint's default state cleanly.
+      const toggle = document.getElementById('explorer-toggle');
+      const backdrop = document.getElementById('explorerBackdrop');
+      const isDesktop = () => window.matchMedia('(min-width: 1025px)').matches;
+      const stateClass = () => (isDesktop() ? 'explorer-hidden' : 'nav-open');
+      const isExpanded = () =>
+        isDesktop()
+          ? !document.body.classList.contains('explorer-hidden')
+          : document.body.classList.contains('nav-open');
 
-      hamburger?.addEventListener('click', () => {
-        document.body.classList.toggle('nav-open');
+      const sync = () => {
+        toggle?.setAttribute('aria-expanded', String(isExpanded()));
+      };
+
+      toggle?.addEventListener('click', () => {
+        document.body.classList.toggle(stateClass());
+        sync();
       });
-      backdrop?.addEventListener('click', close);
-      phoneNavClose?.addEventListener('click', close);
 
-      document.querySelectorAll('.phone-nav .nav-links a').forEach((a) => {
-        a.addEventListener('click', close);
+      // Mobile-only: backdrop tap and ESC close the drawer. (Desktop has no
+      // backdrop, and ESC collapsing the panel out from under you would feel
+      // jarring — leave it as a deliberate icon click there.)
+      const closeMobile = () => {
+        if (!isDesktop()) {
+          document.body.classList.remove('nav-open');
+          sync();
+        }
+      };
+      backdrop?.addEventListener('click', closeMobile);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobile();
       });
 
+      // Mobile-only: tapping a link inside the drawer closes it for snappiness
+      document.querySelectorAll('#explorer a').forEach((a) => {
+        a.addEventListener('click', closeMobile);
+      });
+
+      // On significant resize, drop both state classes so each breakpoint
+      // boots up in its natural default (desktop visible, mobile hidden)
       let lastWidth = window.innerWidth;
       window.addEventListener('resize', () => {
-        if (Math.abs(window.innerWidth - lastWidth) > 100) close();
+        if (Math.abs(window.innerWidth - lastWidth) > 100) {
+          document.body.classList.remove('nav-open', 'explorer-hidden');
+          sync();
+        }
         lastWidth = window.innerWidth;
       });
+
+      sync();
     </script>
   </body>
 </html>

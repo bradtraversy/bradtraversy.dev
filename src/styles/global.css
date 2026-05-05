@@ -170,31 +170,6 @@ body {
   cursor: pointer;
 }
 
-/* Hamburger (mobile only) */
-.hamburger {
-  display: none;
-  width: 32px;
-  height: 28px;
-  align-items: center;
-  justify-content: center;
-  color: var(--fg);
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 20px;
-  line-height: 1;
-  background: transparent;
-  border: none;
-  font-family: inherit;
-}
-.hamburger:hover {
-  background: var(--bg-3);
-  color: var(--accent);
-}
-
-.phone-nav {
-  display: none;
-}
-
 /* Tab bar */
 .tabbar {
   background: var(--bg-1);
@@ -257,6 +232,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  position: relative;
+  z-index: 30;
 }
 .activity .ico {
   width: 30px;
@@ -269,6 +246,9 @@ body {
   border-left: 2px solid transparent;
   margin-left: 2px;
   border-radius: 4px;
+  background: transparent;
+  font-family: inherit;
+  line-height: 1;
 }
 .activity .ico.active {
   color: var(--fg);
@@ -279,6 +259,29 @@ body {
 }
 .activity .ico.bottom {
   margin-top: auto;
+}
+
+/* Button reset for the activity-bar toggles (the explorer ☰ is a real button) */
+button.ico {
+  border: none;
+  border-left: 2px solid transparent;
+  font-size: 16px;
+}
+
+/* Explorer icon doubles as the nav toggle on mobile. Always highlighted —
+   on desktop because the panel is visible inline; on mobile because it
+   indicates "this is the panel behind the toggle." Matches VSCode's pattern
+   where the active activity-bar icon stays highlighted regardless of whether
+   the side panel is collapsed. */
+.activity .ico-explorer {
+  color: var(--fg);
+  border-left-color: var(--accent);
+}
+
+/* Explorer backdrop — only visible on mobile when nav-open. Lives inside .body
+   so it covers only the editor area, not the activity bar. */
+.explorer-backdrop {
+  display: none;
 }
 
 /* Explorer */
@@ -345,15 +348,6 @@ body {
 }
 .tree li.indent-3 {
   padding-left: 44px;
-}
-
-/* Drawer + backdrop live as siblings of .window (not grid children) and use
-   `position: fixed` when shown — so they never interfere with the desktop
-   grid even during the brief moment between HTML render and CSS apply.
-   The HTML `hidden` attribute is the belt-and-suspenders safety net. */
-.drawer,
-.drawer-backdrop {
-  display: none;
 }
 
 /* Editor */
@@ -737,74 +731,76 @@ body {
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS
-   Strategy: hide IDE chrome that is decorative; keep chrome that is brand.
-   - 1024px: leave desktop. Drop explorer + top-nav menu, switch to hamburger,
-             enable the file-tree drawer for navigation. Keep activity bar +
-             gutter — they're brand cues, not nav surfaces.
-   - 768px:  TABLET — drop activity bar AND gutter (chrome reduction).
-   - 640px:  PHONE — swap the file-tree drawer for a full-screen nav overlay
-             with clean tappable links. Stack tools-row + subscribe.
-   - 480px:  smallest phone — hide tab bar entirely + cmd-K hint.
+   RESPONSIVE BREAKPOINTS + EXPLORER TOGGLE
+   The activity bar is visible at every width and its Explorer icon is the
+   nav toggle. The explorer's visibility uses two state classes that never
+   conflict (each only applies inside its own breakpoint range):
+     body.explorer-hidden  — desktop only, user collapsed the inline panel
+     body.nav-open         — mobile only, user opened the slide-out drawer
+   Defaults: desktop = explorer visible inline; mobile = explorer hidden.
+   Resize across breakpoints clears both classes (see BaseLayout script).
    ========================================================================== */
+
+/* DESKTOP: collapse explorer when user clicks the toggle */
+@media (min-width: 1025px) {
+  body.explorer-hidden .body {
+    grid-template-columns: 48px 1fr;
+  }
+  body.explorer-hidden .explorer {
+    display: none;
+  }
+}
 
 @media (max-width: 1024px) {
   .body {
     grid-template-columns: 48px 1fr;
   }
-  .explorer {
-    display: none;
-  }
-
-  /* Below desktop: top-nav menu out, hamburger in, drawer becomes the nav. */
-  .hamburger {
-    display: flex;
-  }
   .titlebar .menu {
     display: none;
   }
 
-  .drawer {
-    display: none;
-    position: fixed;
+  /* Explorer becomes a slide-out drawer at left: 48px (right of activity bar).
+     Lives inside .body which is position: relative — so absolute positioning
+     here is bounded to the editor area. */
+  .explorer {
+    display: block;
+    position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
-    max-width: 280px;
-    height: 100%;
-    background: var(--bg-2);
-    border-right: 1px solid var(--border);
+    left: 48px;
+    bottom: 0;
+    width: 280px;
+    max-width: calc(100vw - 48px);
+    transform: translateX(calc(-100% - 48px));
+    transition: transform 0.2s ease-out;
     z-index: 20;
-    overflow-y: auto;
-    padding-top: 12px;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
   }
-  .drawer h3 {
-    color: var(--fg-dim);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    padding: 6px 14px 10px 14px;
+  body.nav-open .explorer {
+    transform: translateX(0);
   }
-  .drawer .tree li {
+
+  /* Tap-target padding bump for explorer rows on touch devices */
+  .explorer .tree li {
     padding: 8px 14px;
   }
-  .drawer-backdrop {
+  .explorer .tree li.indent-2 {
+    padding-left: 28px;
+  }
+  .explorer .tree li.indent-3 {
+    padding-left: 44px;
+  }
+
+  .explorer-backdrop {
     display: none;
-    position: fixed;
+    position: absolute;
     top: 0;
-    left: 0;
+    left: 48px;
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 15;
   }
-
-  body.nav-open .drawer {
-    display: block;
-  }
-  body.nav-open .drawer-backdrop {
+  body.nav-open .explorer-backdrop {
     display: block;
   }
 }
@@ -816,12 +812,6 @@ body {
     border-radius: 0;
     box-shadow: none;
     min-height: 100vh;
-  }
-  .body {
-    grid-template-columns: 1fr;
-  }
-  .activity {
-    display: none;
   }
   .gutter {
     display: none;
@@ -847,181 +837,10 @@ body {
 }
 
 @media (max-width: 640px) {
-  body.nav-open .drawer,
-  body.nav-open .drawer-backdrop {
-    display: none !important;
-  }
-
-  .phone-nav {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg-1);
-    z-index: 100;
-    flex-direction: column;
-    transform: translateX(-100%);
-    transition: transform 0.2s ease-out;
-    visibility: hidden;
-  }
-  body.nav-open .phone-nav {
-    transform: translateX(0);
-    visibility: visible;
-  }
+  /* When the explorer drawer is open at phone widths, lock body scroll
+     so the editor underneath doesn't scroll while the user is in the panel */
   body.nav-open {
     overflow: hidden;
-  }
-
-  .phone-nav .nav-header {
-    background: var(--bg-2);
-    border-bottom: 1px solid var(--border);
-    padding: 9px 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .phone-nav .nav-header .traffic {
-    display: flex;
-    gap: 7px;
-  }
-  .phone-nav .nav-header .traffic span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .phone-nav .nav-header .traffic .red {
-    background: #ff5f57;
-  }
-  .phone-nav .nav-header .traffic .yellow {
-    background: #febc2e;
-  }
-  .phone-nav .nav-header .traffic .green {
-    background: #28c840;
-  }
-  .phone-nav .nav-header .nav-title {
-    flex: 1;
-    color: var(--fg-muted);
-    font-size: 12px;
-  }
-  .phone-nav .nav-header .nav-title .accent {
-    color: var(--accent);
-  }
-  .phone-nav .nav-header .close {
-    width: 28px;
-    height: 28px;
-    display: grid;
-    place-items: center;
-    color: var(--fg-muted);
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 18px;
-    line-height: 1;
-    background: transparent;
-    border: none;
-    font-family: inherit;
-  }
-  .phone-nav .nav-header .close:hover {
-    background: var(--bg-3);
-    color: var(--fg);
-  }
-
-  .phone-nav .nav-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 28px 24px 40px 24px;
-  }
-  .phone-nav .nav-comment {
-    color: var(--fg-comment);
-    font-size: 12px;
-    margin-bottom: 18px;
-  }
-  .phone-nav .nav-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .phone-nav .nav-links li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 4px;
-    color: var(--fg);
-    text-decoration: none;
-    font-size: 17px;
-    font-weight: 500;
-    border-bottom: 1px solid var(--border);
-    letter-spacing: -0.01em;
-  }
-  .phone-nav .nav-links li a:hover,
-  .phone-nav .nav-links li a:active {
-    color: var(--accent);
-  }
-  .phone-nav .nav-links li a .path-prefix {
-    color: var(--fg-comment);
-    font-weight: 400;
-  }
-  .phone-nav .nav-links li a .arrow {
-    color: var(--fg-dim);
-    font-size: 14px;
-  }
-
-  .phone-nav .nav-footer {
-    padding: 24px 24px 32px 24px;
-    border-top: 1px solid var(--border);
-    background: var(--bg-2);
-  }
-  .phone-nav .nav-footer .footer-label {
-    color: var(--fg-comment);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 12px;
-  }
-  .phone-nav .nav-footer .footer-row {
-    display: flex;
-    gap: 8px;
-  }
-  .phone-nav .nav-footer .footer-row input {
-    flex: 1;
-    background: var(--bg-1);
-    border: 1px solid var(--border-strong);
-    color: var(--fg);
-    padding: 10px 12px;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 13px;
-    min-width: 0;
-  }
-  .phone-nav .nav-footer .footer-row button {
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    padding: 10px 16px;
-    border-radius: 5px;
-    font-family: inherit;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 12px;
-    letter-spacing: 0.02em;
-    flex-shrink: 0;
-  }
-  .phone-nav .nav-footer .footer-meta {
-    margin-top: 16px;
-    color: var(--fg-comment);
-    font-size: 11px;
-    display: flex;
-    gap: 12px;
-  }
-  .phone-nav .nav-footer .footer-meta .branch::before {
-    content: '⎇';
-    margin-right: 4px;
-    color: var(--accent);
   }
 
   .content {
