@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return articles.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<BaseLayout
+  title={`${entry.data.title} — travx labs`}
+  description={entry.data.dek}
+  pageTitle={`${entry.id}.mdx`}
+  currentSection="articles"
+>
+  <section class="section">
+    <div class="comment">
+      {fmtDate(entry.data.publishDate)}
+      {entry.data.tags.length > 0 && ` · ${entry.data.tags.map((t) => `#${t}`).join(' ')}`}
+    </div>
+    <h1 class="h1"><span class="hash"># </span>{entry.data.title}</h1>
+    <p class="lede">{entry.data.dek}</p>
+  </section>
+
+  <article class="section prose-lab">
+    <Content />
+  </article>
+
+  <div class="comment" style="margin-top: 24px;">
+    // EOF {entry.id}.mdx<span class="cursor"></span>
+  </div>
+</BaseLayout>

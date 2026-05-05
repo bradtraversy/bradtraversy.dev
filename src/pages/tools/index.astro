@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = await getCollection('tools');
+const sorted = tools.sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+
+<BaseLayout
+  title="tools — travx labs"
+  description="every tool i ship — free utilities, open-source clis, and paid saas."
+  pageTitle="tools/"
+  currentSection="tools"
+>
+  <section class="section">
+    <h1 class="h1"><span class="hash"># </span>tools</h1>
+    <p class="lede">
+      every tool i ship gets a permanent home — free utilities, open-source clis,
+      and paid saas. status pills tell you what's live, beta, or sunset.
+    </p>
+  </section>
+
+  <section class="section">
+    {
+      sorted.length === 0 ? (
+        <div class="comment">// no tools listed yet — phase 3 ships 5 stubs</div>
+      ) : (
+        <div>
+          {sorted.map((tool) => (
+            <div class="tools-row">
+              <a class="name" href={`/tools/${tool.id}`}>
+                {tool.data.name}
+              </a>
+              <div class="desc">{tool.data.tagline}</div>
+              <div class="status-cell">
+                <span class:list={['pill', tool.data.pricing]}>
+                  {tool.data.pricing}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <div class="comment" style="margin-top: 24px;">
+    // EOF tools/<span class="cursor"></span>
+  </div>
+</BaseLayout>

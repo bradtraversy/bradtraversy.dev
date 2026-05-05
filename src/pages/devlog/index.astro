@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const devlog = await getCollection('devlog', ({ data }) => !data.draft);
+const sorted = devlog.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<BaseLayout
+  title="devlog — travx labs"
+  description="raw, frequent, low-friction posts about what's being built right now."
+  pageTitle="devlog/"
+  currentSection="devlog"
+>
+  <section class="section">
+    <h1 class="h1"><span class="hash"># </span>devlog</h1>
+    <p class="lede">
+      raw, time-stamped notes from the workbench. shipped, broke, fixed, decided.
+    </p>
+  </section>
+
+  <section class="section">
+    {
+      sorted.length === 0 ? (
+        <div class="comment">// nothing here yet — phase 3 backfills 10 entries</div>
+      ) : (
+        <div>
+          {sorted.map((entry) => (
+            <div class="devlog-row">
+              <span class="date">{fmtDate(entry.data.publishDate)}</span>
+              <a class="title" href={`/devlog/${entry.id}`}>
+                {entry.data.title}
+              </a>
+              {entry.data.project && <span class="tag">#{entry.data.project}</span>}
+            </div>
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <div class="comment" style="margin-top: 24px;">
+    // EOF devlog/<span class="cursor"></span>
+  </div>
+</BaseLayout>

@@ -1,0 +1,346 @@
+---
+import '../styles/global.css';
+import { getCollection } from 'astro:content';
+
+type Section = 'home' | 'articles' | 'devlog' | 'tools' | 'now' | 'about';
+
+interface Props {
+  title: string;
+  description?: string;
+  pageTitle: string;
+  currentSection: Section;
+}
+
+const {
+  title,
+  description = 'a public lab — articles, devlog, and the tools i ship.',
+  pageTitle,
+  currentSection,
+} = Astro.props;
+
+// Build a small explorer tree from real content. Most-recent-first; skips drafts.
+const allDevlog = await getCollection('devlog', ({ data }) => !data.draft);
+const recentDevlog = allDevlog
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+
+const allTools = await getCollection('tools');
+const recentTools = allTools
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+
+const navItems: Array<{ label: string; href: string; section: Section }> = [
+  { label: 'articles', href: '/articles', section: 'articles' },
+  { label: 'devlog', href: '/devlog', section: 'devlog' },
+  { label: 'tools', href: '/tools', section: 'tools' },
+  { label: 'now', href: '/now', section: 'now' },
+  { label: 'about', href: '/about', section: 'about' },
+];
+
+const tabs: Array<{ label: string; href: string; section: Section; kind: 'md' | 'folder' }> = [
+  { label: 'home.md', href: '/', section: 'home', kind: 'md' },
+  { label: 'articles/', href: '/articles', section: 'articles', kind: 'folder' },
+  { label: 'devlog/', href: '/devlog', section: 'devlog', kind: 'folder' },
+  { label: 'tools/', href: '/tools', section: 'tools', kind: 'folder' },
+  { label: 'now.md', href: '/now', section: 'now', kind: 'md' },
+  { label: 'about.md', href: '/about', section: 'about', kind: 'md' },
+];
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="travx labs" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <div class="window">
+      <!-- TITLE BAR -->
+      <div class="titlebar">
+        <div class="traffic">
+          <span class="red"></span>
+          <span class="yellow"></span>
+          <span class="green"></span>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Open navigation">☰</button>
+        <div class="title">
+          <span class="accent">travxlabs.com</span> &mdash; {pageTitle}
+        </div>
+        <nav class="menu" aria-label="Primary">
+          {
+            navItems.map((item) => (
+              <a
+                href={item.href}
+                aria-current={item.section === currentSection ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+          <span aria-hidden="true">⌘K</span>
+        </nav>
+      </div>
+
+      <!-- TAB BAR -->
+      <div class="tabbar">
+        {
+          tabs.map((tab) => (
+            <a
+              href={tab.href}
+              class:list={['tab', { active: tab.section === currentSection }]}
+            >
+              <span class:list={['icon', tab.kind]}>{tab.kind === 'md' ? '●' : '▸'}</span>
+              {tab.label}
+              {tab.section === currentSection && <span class="close">×</span>}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- BODY -->
+      <div class="body">
+        <!-- mobile drawer (≤768px) -->
+        <div class="drawer-backdrop" id="drawerBackdrop"></div>
+        <div class="drawer">
+          <h3>Navigate</h3>
+          <ul class="tree">
+            <li>
+              <span class="chev">▾</span>
+              <span class="ico-folder">▸</span>
+              &nbsp;TRAVXLABS
+            </li>
+            {
+              tabs.map((tab) => (
+                <li
+                  class:list={[
+                    'indent-2',
+                    { active: tab.section === currentSection },
+                  ]}
+                >
+                  <a href={tab.href}>
+                    <span class="chev"></span>
+                    <span class:list={tab.kind === 'md' ? 'ico-md' : 'ico-folder'}>
+                      {tab.kind === 'md' ? '●' : '▸'}
+                    </span>
+                    &nbsp;{tab.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- ACTIVITY BAR (hidden ≤768px) -->
+        <div class="activity">
+          <div class="ico active" title="Explorer">☰</div>
+          <div class="ico" title="Search">⌕</div>
+          <div class="ico" title="Source Control">⎇</div>
+          <div class="ico" title="Tools">⚙</div>
+          <div class="ico bottom" title="Account">◉</div>
+          <div class="ico" title="Settings">✎</div>
+        </div>
+
+        <!-- EXPLORER (hidden ≤1024px) -->
+        <div class="explorer">
+          <h3>Explorer</h3>
+          <ul class="tree">
+            <li>
+              <span class="chev">▾</span>
+              <span class="ico-folder">▸</span>
+              &nbsp;TRAVXLABS
+            </li>
+            <li class:list={['indent-2', { active: currentSection === 'home' }]}>
+              <a href="/">
+                <span class="chev"></span>
+                <span class="ico-md">●</span>
+                &nbsp;home.md
+              </a>
+            </li>
+            <li class:list={['indent-2', { active: currentSection === 'articles' }]}>
+              <a href="/articles">
+                <span class="chev">▸</span>
+                <span class="ico-folder">▸</span>
+                &nbsp;articles
+              </a>
+            </li>
+            <li class:list={['indent-2', { active: currentSection === 'devlog' }]}>
+              <a href="/devlog">
+                <span class="chev">▾</span>
+                <span class="ico-folder">▸</span>
+                &nbsp;devlog
+              </a>
+            </li>
+            {
+              recentDevlog.map((entry) => (
+                <li class="indent-3">
+                  <a href={`/devlog/${entry.id}`}>
+                    <span class="chev"></span>
+                    <span class="ico-md">●</span>
+                    &nbsp;{entry.id.replace(/^\d{4}-/, '')}.md
+                  </a>
+                </li>
+              ))
+            }
+            <li class:list={['indent-2', { active: currentSection === 'tools' }]}>
+              <a href="/tools">
+                <span class="chev">▾</span>
+                <span class="ico-folder">▸</span>
+                &nbsp;tools
+              </a>
+            </li>
+            {
+              recentTools.map((tool) => (
+                <li class="indent-3">
+                  <a href={`/tools/${tool.id}`}>
+                    <span class="chev"></span>
+                    <span class="ico-md">●</span>
+                    &nbsp;{tool.id}.mdx
+                  </a>
+                </li>
+              ))
+            }
+            <li class:list={['indent-2', { active: currentSection === 'now' }]}>
+              <a href="/now">
+                <span class="chev"></span>
+                <span class="ico-md">●</span>
+                &nbsp;now.md
+              </a>
+            </li>
+            <li class:list={['indent-2', { active: currentSection === 'about' }]}>
+              <a href="/about">
+                <span class="chev"></span>
+                <span class="ico-md">●</span>
+                &nbsp;about.md
+              </a>
+            </li>
+            <li class="indent-2">
+              <span class="chev"></span>
+              <span class="ico-json">{`{}`}</span>
+              &nbsp;package.json
+            </li>
+          </ul>
+        </div>
+
+        <!-- EDITOR -->
+        <div class="editor">
+          <div class="gutter" aria-hidden="true">
+            {Array.from({ length: 20 }).map((_, i) => <span>{i + 1}</span>)}
+          </div>
+          <div class="content">
+            <slot />
+          </div>
+        </div>
+      </div>
+
+      <!-- STATUS BAR -->
+      <div class="statusbar">
+        <div class="item branch">main</div>
+        <div class="item green">●</div>
+        <div class="item">{pageTitle}</div>
+        <div class="spacer"></div>
+        <div class="item encoding">UTF-8</div>
+        <div class="item eol">LF</div>
+        <div class="item syntax">Markdown</div>
+        <div class="item accent">Ln 1, Col 1</div>
+      </div>
+    </div>
+
+    <div class="cmdk-hint" aria-hidden="true">
+      <kbd>⌘</kbd> <kbd>K</kbd> &nbsp;to navigate
+    </div>
+
+    <!-- PHONE NAV OVERLAY (≤640px when body has .nav-open) -->
+    <div class="phone-nav" id="phoneNav">
+      <div class="nav-header">
+        <div class="traffic">
+          <span class="red"></span>
+          <span class="yellow"></span>
+          <span class="green"></span>
+        </div>
+        <div class="nav-title"><span class="accent">travxlabs.com</span></div>
+        <button class="close" id="phoneNavClose" aria-label="Close navigation">×</button>
+      </div>
+      <div class="nav-body">
+        <div class="nav-comment">// navigate</div>
+        <ul class="nav-links">
+          <li>
+            <a href="/">
+              <span><span class="path-prefix">/</span>home</span>
+              <span class="arrow">→</span>
+            </a>
+          </li>
+          {
+            navItems.map((item) => (
+              <li>
+                <a href={item.href}>
+                  <span>
+                    <span class="path-prefix">/</span>
+                    {item.label}
+                  </span>
+                  <span class="arrow">→</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="nav-footer">
+        <div class="footer-label">Subscribe</div>
+        <form class="footer-row" method="POST" action="/api/subscribe">
+          <input type="email" name="email" placeholder="you@example.com" required />
+          <button type="submit">subscribe</button>
+        </form>
+        <div class="footer-meta">
+          <span class="branch">main</span>
+          <span>weekly · zero filler</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Hamburger toggles `body.nav-open`. CSS picks the right overlay per breakpoint:
+      //   641-768px → file-tree-styled drawer (.drawer)
+      //     ≤ 640px → full-screen phone nav (.phone-nav)
+      const hamburger = document.getElementById('hamburger');
+      const backdrop = document.getElementById('drawerBackdrop');
+      const phoneNavClose = document.getElementById('phoneNavClose');
+      const close = () => document.body.classList.remove('nav-open');
+
+      hamburger?.addEventListener('click', () => {
+        document.body.classList.toggle('nav-open');
+      });
+      backdrop?.addEventListener('click', close);
+      phoneNavClose?.addEventListener('click', close);
+
+      document.querySelectorAll('.phone-nav .nav-links a').forEach((a) => {
+        a.addEventListener('click', close);
+      });
+
+      let lastWidth = window.innerWidth;
+      window.addEventListener('resize', () => {
+        if (Math.abs(window.innerWidth - lastWidth) > 100) close();
+        lastWidth = window.innerWidth;
+      });
+    </script>
+  </body>
+</html>

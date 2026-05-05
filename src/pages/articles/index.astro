@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const sorted = articles.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<BaseLayout
+  title="articles — travx labs"
+  description="long-form articles, deep dives, and writeups from the lab."
+  pageTitle="articles/"
+  currentSection="articles"
+>
+  <section class="section">
+    <h1 class="h1"><span class="hash"># </span>articles</h1>
+    <p class="lede">
+      polished writeups — deep dives, decision logs, postmortems. low cadence,
+      high quality.
+    </p>
+  </section>
+
+  <section class="section">
+    {
+      sorted.length === 0 ? (
+        <div class="comment">// nothing here yet — phase 3 ships the launch articles</div>
+      ) : (
+        <div>
+          {sorted.map((article) => (
+            <div class="devlog-row">
+              <span class="date">{fmtDate(article.data.publishDate)}</span>
+              <a class="title" href={`/articles/${article.id}`}>
+                {article.data.title}
+              </a>
+              {article.data.tags[0] && <span class="tag">#{article.data.tags[0]}</span>}
+            </div>
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <div class="comment" style="margin-top: 24px;">
+    // EOF articles/<span class="cursor"></span>
+  </div>
+</BaseLayout>
