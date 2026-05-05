@@ -241,7 +241,6 @@ body {
   display: grid;
   place-items: center;
   color: var(--fg-dim);
-  font-size: 16px;
   cursor: pointer;
   border-left: 2px solid transparent;
   margin-left: 2px;
@@ -249,6 +248,15 @@ body {
   background: transparent;
   font-family: inherit;
   line-height: 1;
+}
+
+/* Lucide SVG icons render at a fixed size — consistent across every glyph,
+   unlike the Unicode symbols we used originally where ⌕ / ⚙ rendered visibly
+   smaller than ☰ / ◉ in JetBrains Mono. */
+.activity .ico svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.6;
 }
 .activity .ico.active {
   color: var(--fg);
@@ -261,11 +269,11 @@ body {
   margin-top: auto;
 }
 
-/* Button reset for the activity-bar toggles (the explorer ☰ is a real button) */
+/* Button reset for the activity-bar toggles (the explorer icon is a button) */
 button.ico {
   border: none;
   border-left: 2px solid transparent;
-  font-size: 16px;
+  padding: 0;
 }
 
 /* Explorer icon doubles as the nav toggle on mobile. Always highlighted —

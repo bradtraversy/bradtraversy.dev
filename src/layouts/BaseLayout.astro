@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 
 type Section = 'home' | 'articles' | 'devlog' | 'tools' | 'now' | 'about';
 
@@ -131,13 +132,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
             aria-expanded="false"
             aria-controls="explorer"
           >
-            ☰
+            <Icon name="lucide:files" />
           </button>
-          <div class="ico" title="Search">⌕</div>
-          <div class="ico" title="Source Control">⎇</div>
-          <div class="ico" title="Tools">⚙</div>
-          <div class="ico bottom" title="Account">◉</div>
-          <div class="ico" title="Settings">✎</div>
+          <div class="ico" title="Search"><Icon name="lucide:search" /></div>
+          <div class="ico" title="Source Control"><Icon name="lucide:git-branch" /></div>
+          <div class="ico" title="Run"><Icon name="lucide:play" /></div>
+          <div class="ico bottom" title="Account"><Icon name="lucide:circle-user" /></div>
+          <div class="ico" title="Settings"><Icon name="lucide:settings" /></div>
         </div>
 
         <!-- Backdrop only shown on mobile when the explorer drawer is open.
