@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# vscode personal settings (peacock colors etc.)
+.vscode/

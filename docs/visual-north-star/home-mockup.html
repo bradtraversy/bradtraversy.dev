@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travxlabs.com — home.md</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* tokyo-night-inspired palette w/ warm amber accent */
+    --bg: #16161e;
+    --bg-1: #1a1b26;
+    --bg-2: #1f2335;
+    --bg-3: #24283b;
+    --bg-4: #2a2e44;
+    --border: #2a2e44;
+    --border-strong: #3b4261;
+    --fg: #c0caf5;
+    --fg-muted: #a9b1d6;
+    --fg-dim: #565f89;
+    --fg-comment: #444b6a;
+    --accent: #e0af68;       /* warm amber — travxlabs signature */
+    --accent-dim: #c08a3e;
+    --green: #9ece6a;        /* strings, "live" status */
+    --blue: #7aa2f7;          /* keywords, links */
+    --purple: #bb9af7;        /* keywords, headings */
+    --red: #f7768e;           /* errors, sunset */
+    --orange: #ff9e64;        /* numbers, beta */
+    --cyan: #7dcfff;          /* types */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* === Window chrome === */
+  .window {
+    max-width: 1400px;
+    margin: 24px auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    background: var(--bg-1);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 48px);
+  }
+
+  .titlebar {
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+  .traffic { display: flex; gap: 6px; }
+  .traffic span {
+    width: 12px; height: 12px; border-radius: 50%;
+    display: inline-block;
+  }
+  .traffic .red { background: #ff5f57; }
+  .traffic .yellow { background: #febc2e; }
+  .traffic .green { background: #28c840; }
+  .titlebar .title {
+    flex: 1;
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: 12px;
+  }
+  .titlebar .title .accent { color: var(--accent); }
+  .titlebar .menu {
+    display: flex;
+    gap: 14px;
+    color: var(--fg-dim);
+    font-size: 12px;
+  }
+  .titlebar .menu span:hover { color: var(--fg); cursor: pointer; }
+
+  /* === Tab bar === */
+  .tabbar {
+    background: var(--bg-1);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 8px 14px;
+    border-right: 1px solid var(--border);
+    color: var(--fg-dim);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: color 0.15s, background 0.15s;
+  }
+  .tab:hover { color: var(--fg-muted); }
+  .tab.active {
+    background: var(--bg-2);
+    color: var(--fg);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: -1px;
+  }
+  .tab .icon { font-size: 13px; }
+  .tab .icon.md { color: var(--blue); }
+  .tab .icon.folder { color: var(--accent); }
+  .tab .icon.json { color: var(--orange); }
+  .tab .close { color: var(--fg-comment); margin-left: 4px; }
+  .tab.active .close { color: var(--fg-dim); }
+
+  /* === Main grid === */
+  .body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 48px 240px 1fr;
+    overflow: hidden;
+  }
+
+  /* Activity bar */
+  .activity {
+    background: var(--bg-1);
+    border-right: 1px solid var(--border);
+    padding: 12px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .activity .ico {
+    width: 28px; height: 28px;
+    display: grid; place-items: center;
+    color: var(--fg-dim);
+    font-size: 16px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    margin-left: 2px;
+    border-radius: 4px;
+  }
+  .activity .ico.active { color: var(--fg); border-left-color: var(--accent); }
+  .activity .ico:hover { color: var(--fg); }
+  .activity .ico.bottom { margin-top: auto; }
+
+  /* Explorer */
+  .explorer {
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 8px 0 0 0;
+    overflow-y: auto;
+    font-size: 12px;
+  }
+  .explorer h3 {
+    color: var(--fg-dim);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+  }
+  .tree { list-style: none; }
+  .tree li {
+    padding: 3px 14px 3px 14px;
+    color: var(--fg-muted);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tree li:hover { background: var(--bg-3); color: var(--fg); }
+  .tree li.active { background: var(--bg-3); color: var(--fg); }
+  .tree li .chev { color: var(--fg-comment); width: 10px; display: inline-block; }
+  .tree li .ico-md { color: var(--blue); }
+  .tree li .ico-folder { color: var(--accent); }
+  .tree li .ico-json { color: var(--orange); }
+  .tree li.indent-2 { padding-left: 28px; }
+  .tree li.indent-3 { padding-left: 42px; }
+
+  /* Editor area */
+  .editor {
+    background: var(--bg-1);
+    overflow-y: auto;
+    display: flex;
+    font-size: 13px;
+  }
+  .gutter {
+    text-align: right;
+    color: var(--fg-comment);
+    user-select: none;
+    padding: 14px 8px 14px 14px;
+    font-variant-numeric: tabular-nums;
+    border-right: 1px solid var(--border);
+    background: var(--bg-1);
+  }
+  .gutter span { display: block; }
+  .content {
+    padding: 14px 32px 60px 24px;
+    flex: 1;
+    max-width: 880px;
+  }
+  .content .line { display: block; min-height: 1.6em; }
+
+  /* Markdown rendering */
+  .h1 { color: var(--accent); font-size: 22px; font-weight: 700; }
+  .h1 .hash { color: var(--fg-comment); }
+  .h2 { color: var(--purple); font-size: 16px; font-weight: 600; margin-top: 8px; }
+  .h2 .hash { color: var(--fg-comment); }
+  .h3 { color: var(--cyan); font-size: 14px; font-weight: 600; }
+  .h3 .hash { color: var(--fg-comment); }
+  .blockquote { color: var(--fg-muted); font-style: italic; }
+  .blockquote .marker { color: var(--accent); margin-right: 4px; }
+  .li .bullet { color: var(--fg-comment); margin-right: 8px; }
+  .link { color: var(--blue); text-decoration: none; border-bottom: 1px dotted var(--blue); }
+  .link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .strong { color: var(--fg); font-weight: 700; }
+  .em { color: var(--fg-muted); font-style: italic; }
+  .code { color: var(--green); background: var(--bg-3); padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+  .comment { color: var(--fg-comment); }
+  .timestamp { color: var(--fg-comment); }
+
+  /* Status pills */
+  .pill {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+  .pill.live { background: rgba(158,206,106,0.18); color: var(--green); border: 1px solid rgba(158,206,106,0.3); }
+  .pill.beta { background: rgba(255,158,100,0.18); color: var(--orange); border: 1px solid rgba(255,158,100,0.3); }
+  .pill.planning { background: rgba(224,175,104,0.18); color: var(--accent); border: 1px solid rgba(224,175,104,0.3); }
+  .pill.coming { background: rgba(122,162,247,0.18); color: var(--blue); border: 1px solid rgba(122,162,247,0.3); }
+  .pill.sunset { background: rgba(247,118,142,0.18); color: var(--red); border: 1px solid rgba(247,118,142,0.3); }
+  .pill.free { background: var(--bg-3); color: var(--fg-muted); border: 1px solid var(--border-strong); }
+  .pill.paid { background: rgba(224,175,104,0.18); color: var(--accent); border: 1px solid rgba(224,175,104,0.3); }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 8px 0 16px 0;
+  }
+  .card {
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 12px 14px;
+    background: var(--bg-2);
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .card .card-title { color: var(--fg); font-weight: 600; font-size: 13px; }
+  .card .card-meta { color: var(--fg-comment); font-size: 11px; margin-top: 2px; }
+  .card .card-desc { color: var(--fg-muted); font-size: 12px; margin-top: 6px; line-height: 1.5; }
+
+  /* Devlog list */
+  .devlog-row {
+    display: flex;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .devlog-row:last-child { border-bottom: none; }
+  .devlog-row .date {
+    color: var(--accent-dim);
+    font-size: 12px;
+    min-width: 92px;
+  }
+  .devlog-row .title { color: var(--fg-muted); font-size: 13px; flex: 1; }
+  .devlog-row .title:hover { color: var(--accent); cursor: pointer; }
+  .devlog-row .tag { color: var(--fg-comment); font-size: 11px; }
+
+  /* Status bar */
+  .statusbar {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    padding: 4px 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    color: var(--fg-dim);
+    user-select: none;
+  }
+  .statusbar .item { display: flex; align-items: center; gap: 4px; }
+  .statusbar .item.accent { color: var(--accent); }
+  .statusbar .item.green { color: var(--green); }
+  .statusbar .spacer { flex: 1; }
+  .statusbar .branch::before { content: '⎇'; margin-right: 4px; color: var(--accent); }
+
+  /* Cursor */
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(2) infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg-1); }
+  ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+  /* Cmd-K hint */
+  .cmdk-hint {
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    background: var(--bg-3);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--fg-muted);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .cmdk-hint kbd {
+    background: var(--bg-1);
+    border: 1px solid var(--border-strong);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-family: inherit;
+    font-size: 10px;
+    color: var(--fg);
+  }
+
+  /* Section spacer */
+  .blank-line { display: block; height: 1.6em; }
+</style>
+</head>
+<body>
+
+<div class="window">
+
+  <!-- TITLE BAR -->
+  <div class="titlebar">
+    <div class="traffic">
+      <span class="red"></span>
+      <span class="yellow"></span>
+      <span class="green"></span>
+    </div>
+    <div class="title">
+      <span class="accent">travxlabs.com</span> &mdash; home.md
+    </div>
+    <div class="menu">
+      <span>articles</span>
+      <span>devlog</span>
+      <span>tools</span>
+      <span>now</span>
+      <span>about</span>
+      <span>⌘K</span>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tabbar">
+    <div class="tab active">
+      <span class="icon md">●</span> home.md <span class="close">×</span>
+    </div>
+    <div class="tab">
+      <span class="icon folder">▸</span> articles/
+    </div>
+    <div class="tab">
+      <span class="icon folder">▸</span> devlog/
+    </div>
+    <div class="tab">
+      <span class="icon folder">▸</span> tools/
+    </div>
+    <div class="tab">
+      <span class="icon md">●</span> now.md
+    </div>
+    <div class="tab">
+      <span class="icon md">●</span> about.md
+    </div>
+  </div>
+
+  <!-- BODY GRID -->
+  <div class="body">
+
+    <!-- ACTIVITY BAR -->
+    <div class="activity">
+      <div class="ico active" title="Explorer">☰</div>
+      <div class="ico" title="Search">⌕</div>
+      <div class="ico" title="Source Control">⎇</div>
+      <div class="ico" title="Tools">⚙</div>
+      <div class="ico bottom" title="Account">◉</div>
+      <div class="ico" title="Settings">✎</div>
+    </div>
+
+    <!-- EXPLORER -->
+    <div class="explorer">
+      <h3>Explorer</h3>
+      <ul class="tree">
+        <li><span class="chev">▾</span><span class="ico-folder">▸</span>&nbsp;TRAVXLABS</li>
+        <li class="indent-2 active"><span class="chev"></span><span class="ico-md">●</span>&nbsp;home.md</li>
+        <li class="indent-2"><span class="chev">▸</span><span class="ico-folder">▸</span>&nbsp;articles</li>
+        <li class="indent-2"><span class="chev">▾</span><span class="ico-folder">▸</span>&nbsp;devlog</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;05-03-vidpipe-pivot.md</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;05-02-prelaunch.md</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;05-01-finances.md</li>
+        <li class="indent-2"><span class="chev">▾</span><span class="ico-folder">▸</span>&nbsp;tools</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;vidpipe.mdx</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;devsheets.mdx</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;webutils.mdx</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;typesmith.mdx</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;repo-reviver.mdx</li>
+        <li class="indent-2"><span class="chev"></span><span class="ico-md">●</span>&nbsp;now.md</li>
+        <li class="indent-2"><span class="chev"></span><span class="ico-md">●</span>&nbsp;about.md</li>
+        <li class="indent-2"><span class="chev"></span><span class="ico-json">{}</span>&nbsp;package.json</li>
+        <li class="indent-2"><span class="chev"></span><span class="ico-md">●</span>&nbsp;README.md</li>
+      </ul>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="editor">
+      <div class="gutter">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+        <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+        <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+        <span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+        <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span>
+        <span>31</span><span>32</span><span>33</span><span>34</span><span>35</span>
+        <span>36</span><span>37</span><span>38</span><span>39</span><span>40</span>
+        <span>41</span><span>42</span><span>43</span><span>44</span><span>45</span>
+        <span>46</span><span>47</span><span>48</span><span>49</span><span>50</span>
+      </div>
+      <div class="content">
+        <span class="line h1"><span class="hash"># </span>travx labs</span>
+        <span class="line"></span>
+        <span class="line blockquote"><span class="marker">&gt;</span>a public lab — articles, devlog, and the tools i ship.</span>
+        <span class="line blockquote"><span class="marker">&gt;</span>built by <a href="#" class="link">brad traversy</a>. part of <a href="#" class="link">traversy media</a>.</span>
+        <span class="line"></span>
+        <span class="line h2"><span class="hash">## </span>currently building</span>
+        <span class="line"></span>
+        <span class="line"><span class="comment">// updated 3 hours ago — see <a href="#" class="link">/now</a> for full status</span></span>
+        <span class="line"></span>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">vidpipe.ai <span class="pill live">live</span></div>
+            <div class="card-meta">saas · paid · pipeline pivot phase 1 shipped</div>
+            <div class="card-desc">turns youtube channels into auto-published blog content. live in prod since 2026-04-28.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">mission control <span class="pill beta">phase 3</span></div>
+            <div class="card-meta">internal · self-hosted · live updates + write-back</div>
+            <div class="card-desc">single dashboard for the whole vault. running on trav-ai over LAN.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">travxlabs.com <span class="pill planning">phase 0</span></div>
+            <div class="card-meta">this site · astro 5 · spec phase</div>
+            <div class="card-desc">the lab notebook you're looking at. 7 spec docs in, scaffold next.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">linkmetry <span class="pill beta">prototype</span></div>
+            <div class="card-meta">cli + future desktop · usb diagnostics · with travis</div>
+            <div class="card-desc">plug in any cable, drive, or device and get a clear verdict.</div>
+          </div>
+        </div>
+        <span class="line"></span>
+        <span class="line h2"><span class="hash">## </span>latest article</span>
+        <span class="line"></span>
+        <div style="border-left: 3px solid var(--accent); padding: 8px 14px; background: var(--bg-2); margin: 8px 0 16px 0; border-radius: 0 4px 4px 0;">
+          <div style="color: var(--accent-dim); font-size: 11px;">2026-05-02 · 12 min read · <span style="color: var(--fg-comment);">#agents #claude #obsidian</span></div>
+          <div style="color: var(--fg); font-weight: 700; font-size: 18px; margin-top: 4px;">how travis actually works — my agent setup with claude and openclaw</div>
+          <div style="color: var(--fg-muted); margin-top: 6px; font-size: 12px;">the public version of the agent stack i've been quietly running for the last six months. file paths, skills, scheduled tasks, and the obsidian schema that ties it all together. with real config you can copy.</div>
+          <div style="margin-top: 8px;"><a href="#" class="link">read article →</a></div>
+        </div>
+        <span class="line"></span>
+        <span class="line h2"><span class="hash">## </span>recent devlog</span>
+        <span class="line"></span>
+        <span class="line"><span class="comment">// pulled from /devlog — most recent first</span></span>
+        <span class="line"></span>
+        <div style="margin: 4px 0 16px 0;">
+          <div class="devlog-row"><span class="date">2026-05-03</span><span class="title">vidpipe pipeline pivot — phase 1 shipped behind feature flag</span><span class="tag">#vidpipe</span></div>
+          <div class="devlog-row"><span class="date">2026-05-02</span><span class="title">five pushes to prod — pre-launch hardening sweep</span><span class="tag">#vidpipe</span></div>
+          <div class="devlog-row"><span class="date">2026-05-02</span><span class="title">render.com $25k deposit paid · dennis on the tanstack course</span><span class="tag">#business</span></div>
+          <div class="devlog-row"><span class="date">2026-05-01</span><span class="title">three new projects scaffolded — reposmith → repo-reviver renamed same day</span><span class="tag">#projects</span></div>
+          <div class="devlog-row"><span class="date">2026-04-30</span><span class="title">cowork scheduled tasks migrated to trav-ai cron — travis has gog auth now</span><span class="tag">#agents</span></div>
+          <div class="devlog-row"><span class="date">2026-04-29</span><span class="title">vidpipe testimonials shipped + 5 prompt bugs caught in flight</span><span class="tag">#vidpipe</span></div>
+        </div>
+        <span class="line"><a href="#" class="link">→ all devlog entries</a></span>
+        <span class="line"></span>
+        <span class="line h2"><span class="hash">## </span>tools</span>
+        <span class="line"></span>
+        <span class="line"><span class="comment">// every tool i ship gets a permanent home — free + paid</span></span>
+        <span class="line"></span>
+        <div style="margin: 8px 0 16px 0; font-size: 13px;">
+          <div style="display: grid; grid-template-columns: 180px 1fr 80px 80px; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border);">
+            <div style="color: var(--accent); font-weight: 600;">vidpipe.ai</div>
+            <div style="color: var(--fg-muted);">youtube → blog content pipeline</div>
+            <div><span class="pill paid">paid</span></div>
+            <div><span class="pill live">live</span></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 180px 1fr 80px 80px; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border);">
+            <div style="color: var(--accent); font-weight: 600;">devsheets.io</div>
+            <div style="color: var(--fg-muted);">developer cheat sheets · ai-authored, hand-audited</div>
+            <div><span class="pill free">free</span></div>
+            <div><span class="pill live">live</span></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 180px 1fr 80px 80px; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border);">
+            <div style="color: var(--accent); font-weight: 600;">webutils.io</div>
+            <div style="color: var(--fg-muted);">small dev utilities · favicon gen, json tools, etc.</div>
+            <div><span class="pill free">free</span></div>
+            <div><span class="pill live">live</span></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 180px 1fr 80px 80px; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border);">
+            <div style="color: var(--accent); font-weight: 600;">typesmith</div>
+            <div style="color: var(--fg-muted);">auto-typer for clean terminal screencasts · open source</div>
+            <div><span class="pill free">free</span></div>
+            <div><span class="pill live">live</span></div>
+          </div>
+          <div style="display: grid; grid-template-columns: 180px 1fr 80px 80px; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border);">
+            <div style="color: var(--accent); font-weight: 600;">repo-reviver</div>
+            <div style="color: var(--fg-muted);">cli that turns a brief into an agent-ready repo</div>
+            <div><span class="pill free">free</span></div>
+            <div><span class="pill coming">soon</span></div>
+          </div>
+        </div>
+        <span class="line"><a href="#" class="link">→ all tools</a></span>
+        <span class="line"></span>
+        <span class="line h2"><span class="hash">## </span>subscribe</span>
+        <span class="line"></span>
+        <span class="line"><span class="comment">// biweekly digest — articles, devlog highlights, and what shipped. zero filler.</span></span>
+        <span class="line"></span>
+        <div style="display: flex; gap: 8px; margin: 8px 0 16px 0; max-width: 480px;">
+          <input type="email" placeholder="you@example.com" style="flex:1; background: var(--bg-2); border: 1px solid var(--border-strong); color: var(--fg); padding: 8px 12px; border-radius: 4px; font-family: inherit; font-size: 13px;">
+          <button style="background: var(--accent); color: var(--bg); border: none; padding: 8px 16px; border-radius: 4px; font-family: inherit; font-weight: 600; cursor: pointer; font-size: 13px;">subscribe</button>
+        </div>
+        <span class="line"></span>
+        <span class="line"><span class="comment">// EOF home.md</span><span class="cursor"></span></span>
+        <span class="line"></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="statusbar">
+    <div class="item branch">main</div>
+    <div class="item green">●</div>
+    <div class="item">home.md</div>
+    <div class="spacer"></div>
+    <div class="item">UTF-8</div>
+    <div class="item">LF</div>
+    <div class="item">Markdown</div>
+    <div class="item accent">Ln 1, Col 1</div>
+  </div>
+
+</div>
+
+<div class="cmdk-hint">
+  <kbd>⌘</kbd> <kbd>K</kbd> &nbsp;to navigate
+</div>
+
+</body>
+</html>

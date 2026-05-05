@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>travxlabs.com — home.md (airy)</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16161e;
+    --bg-1: #1a1b26;
+    --bg-2: #1f2335;
+    --bg-3: #24283b;
+    --bg-4: #2a2e44;
+    --border: #2a2e44;
+    --border-strong: #3b4261;
+    --fg: #c0caf5;
+    --fg-muted: #a9b1d6;
+    --fg-dim: #565f89;
+    --fg-comment: #444b6a;
+    --accent: #e0af68;
+    --accent-dim: #c08a3e;
+    --green: #9ece6a;
+    --blue: #7aa2f7;
+    --purple: #bb9af7;
+    --red: #f7768e;
+    --orange: #ff9e64;
+    --cyan: #7dcfff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* === Window chrome === */
+  .window {
+    max-width: 1400px;
+    margin: 32px auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    background: var(--bg-1);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 64px);
+  }
+
+  .titlebar {
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    user-select: none;
+  }
+  .traffic { display: flex; gap: 7px; }
+  .traffic span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .traffic .red { background: #ff5f57; }
+  .traffic .yellow { background: #febc2e; }
+  .traffic .green { background: #28c840; }
+  .titlebar .title {
+    flex: 1; text-align: center; color: var(--fg-muted); font-size: 12px;
+  }
+  .titlebar .title .accent { color: var(--accent); }
+  .titlebar .menu { display: flex; gap: 16px; color: var(--fg-dim); font-size: 12px; }
+  .titlebar .menu span:hover { color: var(--fg); cursor: pointer; }
+
+  /* === Tab bar === */
+  .tabbar {
+    background: var(--bg-1);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 10px 16px;
+    border-right: 1px solid var(--border);
+    color: var(--fg-dim);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--fg-muted); }
+  .tab.active {
+    background: var(--bg-2);
+    color: var(--fg);
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: -1px;
+  }
+  .tab .icon.md { color: var(--blue); }
+  .tab .icon.folder { color: var(--accent); }
+  .tab .close { color: var(--fg-comment); margin-left: 4px; }
+
+  /* === Main grid === */
+  .body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 48px 240px 1fr;
+    overflow: hidden;
+  }
+
+  /* Activity bar */
+  .activity {
+    background: var(--bg-1);
+    border-right: 1px solid var(--border);
+    padding: 14px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .activity .ico {
+    width: 30px; height: 30px;
+    display: grid; place-items: center;
+    color: var(--fg-dim);
+    font-size: 16px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    margin-left: 2px;
+    border-radius: 4px;
+  }
+  .activity .ico.active { color: var(--fg); border-left-color: var(--accent); }
+  .activity .ico:hover { color: var(--fg); }
+  .activity .ico.bottom { margin-top: auto; }
+
+  /* Explorer */
+  .explorer {
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 12px 0 0 0;
+    overflow-y: auto;
+    font-size: 12.5px;
+  }
+  .explorer h3 {
+    color: var(--fg-dim);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 6px 14px 10px 14px;
+  }
+  .tree { list-style: none; }
+  .tree li {
+    padding: 4px 14px;
+    color: var(--fg-muted);
+    cursor: pointer;
+    user-select: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tree li:hover { background: var(--bg-3); color: var(--fg); }
+  .tree li.active { background: var(--bg-3); color: var(--fg); }
+  .tree li .chev { color: var(--fg-comment); width: 10px; }
+  .tree li .ico-md { color: var(--blue); }
+  .tree li .ico-folder { color: var(--accent); }
+  .tree li .ico-json { color: var(--orange); }
+  .tree li.indent-2 { padding-left: 28px; }
+  .tree li.indent-3 { padding-left: 44px; }
+
+  /* === Editor === */
+  .editor {
+    background: var(--bg-1);
+    overflow-y: auto;
+    display: flex;
+    font-size: 13.5px;
+  }
+  .gutter {
+    text-align: right;
+    color: var(--fg-comment);
+    user-select: none;
+    padding: 80px 10px 80px 16px;
+    font-variant-numeric: tabular-nums;
+    background: var(--bg-1);
+    font-size: 11.5px;
+    opacity: 0.5;
+  }
+  .gutter span { display: block; line-height: 2.6; }
+  .content {
+    padding: 80px 56px 120px 48px;
+    flex: 1;
+    max-width: 820px;
+  }
+
+  /* === Sections (the actual density lever) === */
+  .section { margin-bottom: 96px; }
+  .section:last-of-type { margin-bottom: 48px; }
+
+  /* Markdown */
+  .h1 {
+    color: var(--accent);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .h1 .hash { color: var(--fg-comment); font-weight: 400; }
+  .h2 {
+    color: var(--purple);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: -0.005em;
+  }
+  .h2 .hash { color: var(--fg-comment); font-weight: 400; }
+
+  .lede {
+    color: var(--fg-muted);
+    font-size: 14px;
+    line-height: 1.75;
+    max-width: 580px;
+  }
+  .lede .accent-text { color: var(--accent); }
+
+  .link { color: var(--blue); text-decoration: none; border-bottom: 1px dotted var(--blue); }
+  .link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .code { color: var(--green); background: var(--bg-3); padding: 2px 7px; border-radius: 4px; font-size: 12.5px; }
+  .comment { color: var(--fg-comment); font-size: 12.5px; margin-bottom: 18px; }
+
+  /* Status pills */
+  .pill {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  .pill.live { background: rgba(158,206,106,0.15); color: var(--green); border: 1px solid rgba(158,206,106,0.28); }
+  .pill.beta { background: rgba(255,158,100,0.15); color: var(--orange); border: 1px solid rgba(255,158,100,0.28); }
+  .pill.planning { background: rgba(224,175,104,0.15); color: var(--accent); border: 1px solid rgba(224,175,104,0.28); }
+  .pill.coming { background: rgba(122,162,247,0.15); color: var(--blue); border: 1px solid rgba(122,162,247,0.28); }
+  .pill.free { background: var(--bg-3); color: var(--fg-muted); border: 1px solid var(--border-strong); }
+  .pill.paid { background: rgba(224,175,104,0.15); color: var(--accent); border: 1px solid rgba(224,175,104,0.28); }
+
+  /* Cards — now 1 column, fewer of them, more air */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 0;
+  }
+  .card {
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 18px 22px;
+    background: var(--bg-2);
+    cursor: pointer;
+    transition: border-color 0.15s;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 16px;
+    align-items: baseline;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .card-title { color: var(--fg); font-weight: 600; font-size: 14px; }
+  .card .card-meta { color: var(--fg-comment); font-size: 11.5px; grid-column: 1 / 2; }
+  .card .card-status { grid-column: 2; grid-row: 1; }
+
+  /* Featured article hero */
+  .article-hero {
+    border-left: 2px solid var(--accent);
+    padding: 6px 0 6px 22px;
+  }
+  .article-hero .meta { color: var(--accent-dim); font-size: 11.5px; }
+  .article-hero .meta .tags { color: var(--fg-comment); margin-left: 8px; }
+  .article-hero .title {
+    color: var(--fg); font-weight: 600; font-size: 17px;
+    line-height: 1.4; margin-top: 8px;
+  }
+  .article-hero .dek { color: var(--fg-muted); margin-top: 10px; font-size: 13px; line-height: 1.7; max-width: 580px; }
+  .article-hero .read { margin-top: 14px; font-size: 12.5px; }
+
+  /* Devlog list — 3 rows, more breath */
+  .devlog-row {
+    display: flex;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+  .devlog-row:last-child { border-bottom: none; }
+  .devlog-row .date { color: var(--accent-dim); font-size: 11.5px; min-width: 90px; }
+  .devlog-row .title { color: var(--fg-muted); font-size: 13px; flex: 1; line-height: 1.6; }
+  .devlog-row .title:hover { color: var(--accent); cursor: pointer; }
+  .devlog-row .tag { color: var(--fg-comment); font-size: 11.5px; }
+  .more-link { display: inline-block; margin-top: 18px; font-size: 12.5px; }
+
+  /* Tools list — 3 rows, narrow grid */
+  .tools-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 80px;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .tools-row:last-child { border-bottom: none; }
+  .tools-row .name { color: var(--accent); font-weight: 600; font-size: 13px; }
+  .tools-row .desc { color: var(--fg-muted); font-size: 12.5px; line-height: 1.5; }
+  .tools-row .status-cell { text-align: right; }
+
+  /* Subscribe */
+  .subscribe-row {
+    display: flex;
+    gap: 8px;
+    max-width: 480px;
+  }
+  .subscribe-row input {
+    flex: 1;
+    background: var(--bg-2);
+    border: 1px solid var(--border-strong);
+    color: var(--fg);
+    padding: 10px 14px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .subscribe-row button {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .subscribe-row button:hover { background: #f0bf78; }
+
+  /* Status bar */
+  .statusbar {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    padding: 5px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    color: var(--fg-dim);
+    user-select: none;
+  }
+  .statusbar .item { display: flex; align-items: center; gap: 4px; }
+  .statusbar .item.accent { color: var(--accent); }
+  .statusbar .item.green { color: var(--green); }
+  .statusbar .spacer { flex: 1; }
+  .statusbar .branch::before { content: '⎇'; margin-right: 4px; color: var(--accent); }
+
+  .cursor {
+    display: inline-block;
+    width: 8px; height: 1.1em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(2) infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg-1); }
+  ::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+  .cmdk-hint {
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    background: var(--bg-3);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 7px 11px;
+    font-size: 11px;
+    color: var(--fg-muted);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  .cmdk-hint kbd {
+    background: var(--bg-1);
+    border: 1px solid var(--border-strong);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-family: inherit;
+    font-size: 10px;
+    color: var(--fg);
+  }
+</style>
+</head>
+<body>
+
+<div class="window">
+
+  <!-- TITLE BAR -->
+  <div class="titlebar">
+    <div class="traffic">
+      <span class="red"></span>
+      <span class="yellow"></span>
+      <span class="green"></span>
+    </div>
+    <div class="title">
+      <span class="accent">travxlabs.com</span> &mdash; home.md
+    </div>
+    <div class="menu">
+      <span>articles</span>
+      <span>devlog</span>
+      <span>tools</span>
+      <span>now</span>
+      <span>about</span>
+      <span>⌘K</span>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tabbar">
+    <div class="tab active"><span class="icon md">●</span> home.md <span class="close">×</span></div>
+    <div class="tab"><span class="icon folder">▸</span> articles/</div>
+    <div class="tab"><span class="icon folder">▸</span> devlog/</div>
+    <div class="tab"><span class="icon folder">▸</span> tools/</div>
+    <div class="tab"><span class="icon md">●</span> now.md</div>
+    <div class="tab"><span class="icon md">●</span> about.md</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- ACTIVITY BAR -->
+    <div class="activity">
+      <div class="ico active" title="Explorer">☰</div>
+      <div class="ico" title="Search">⌕</div>
+      <div class="ico" title="Source Control">⎇</div>
+      <div class="ico" title="Tools">⚙</div>
+      <div class="ico bottom" title="Account">◉</div>
+      <div class="ico" title="Settings">✎</div>
+    </div>
+
+    <!-- EXPLORER -->
+    <div class="explorer">
+      <h3>Explorer</h3>
+      <ul class="tree">
+        <li><span class="chev">▾</span><span class="ico-folder">▸</span>&nbsp;TRAVXLABS</li>
+        <li class="indent-2 active"><span class="chev"></span><span class="ico-md">●</span>&nbsp;home.md</li>
+        <li class="indent-2"><span class="chev">▸</span><span class="ico-folder">▸</span>&nbsp;articles</li>
+        <li class="indent-2"><span class="chev">▾</span><span class="ico-folder">▸</span>&nbsp;devlog</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;05-03-vidpipe-pivot.md</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;05-02-prelaunch.md</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;05-01-finances.md</li>
+        <li class="indent-2"><span class="chev">▾</span><span class="ico-folder">▸</span>&nbsp;tools</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;vidpipe.mdx</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;devsheets.mdx</li>
+        <li class="indent-3"><span class="chev"></span><span class="ico-md">●</span>&nbsp;webutils.mdx</li>
+        <li class="indent-2"><span class="chev"></span><span class="ico-md">●</span>&nbsp;now.md</li>
+        <li class="indent-2"><span class="chev"></span><span class="ico-md">●</span>&nbsp;about.md</li>
+        <li class="indent-2"><span class="chev"></span><span class="ico-json">{}</span>&nbsp;package.json</li>
+      </ul>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="editor">
+      <div class="gutter">
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+        <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+        <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+      </div>
+      <div class="content">
+
+        <!-- HERO -->
+        <div class="section">
+          <div class="h1"><span class="hash"># </span>travx labs</div>
+          <div class="lede">a public lab — articles, devlog, and the tools i ship. built by <a href="#" class="link">brad traversy</a>. part of <a href="#" class="link">traversy media</a>.</div>
+        </div>
+
+        <!-- CURRENTLY BUILDING -->
+        <div class="section">
+          <div class="h2"><span class="hash">## </span>currently building</div>
+          <div class="comment">// updated 3 hours ago — see <a href="#" class="link">/now</a> for full status</div>
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-title">vidpipe.ai</div>
+              <div class="card-status"><span class="pill live">live</span></div>
+              <div class="card-meta">saas · paid · pipeline pivot phase 1 shipped</div>
+            </div>
+            <div class="card">
+              <div class="card-title">mission control</div>
+              <div class="card-status"><span class="pill beta">phase 3</span></div>
+              <div class="card-meta">internal · self-hosted · live updates + write-back</div>
+            </div>
+            <div class="card">
+              <div class="card-title">travxlabs.com</div>
+              <div class="card-status"><span class="pill planning">phase 0</span></div>
+              <div class="card-meta">this site · astro 5 · spec phase</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LATEST ARTICLE -->
+        <div class="section">
+          <div class="h2"><span class="hash">## </span>latest article</div>
+          <div class="article-hero">
+            <div class="meta">2026-05-02 · 12 min read <span class="tags">#agents #claude #obsidian</span></div>
+            <div class="title">how travis actually works — my agent setup with claude</div>
+            <div class="dek">the public version of the agent stack i've been quietly running for the last six months. file paths, skills, scheduled tasks, and the obsidian schema that ties it all together.</div>
+            <div class="read"><a href="#" class="link">read article →</a></div>
+          </div>
+        </div>
+
+        <!-- RECENT DEVLOG -->
+        <div class="section">
+          <div class="h2"><span class="hash">## </span>recent devlog</div>
+          <div class="comment">// pulled from /devlog — most recent first</div>
+          <div>
+            <div class="devlog-row"><span class="date">2026-05-03</span><span class="title">vidpipe pipeline pivot — phase 1 shipped behind feature flag</span><span class="tag">#vidpipe</span></div>
+            <div class="devlog-row"><span class="date">2026-05-02</span><span class="title">five pushes to prod — pre-launch hardening sweep</span><span class="tag">#vidpipe</span></div>
+            <div class="devlog-row"><span class="date">2026-05-01</span><span class="title">three new projects scaffolded — repo-reviver renamed same day</span><span class="tag">#projects</span></div>
+          </div>
+          <a href="#" class="link more-link">→ all devlog entries</a>
+        </div>
+
+        <!-- TOOLS -->
+        <div class="section">
+          <div class="h2"><span class="hash">## </span>tools</div>
+          <div class="comment">// every tool i ship gets a permanent home — free + paid</div>
+          <div>
+            <div class="tools-row">
+              <div class="name">vidpipe.ai</div>
+              <div class="desc">youtube → blog content pipeline</div>
+              <div class="status-cell"><span class="pill paid">paid</span></div>
+            </div>
+            <div class="tools-row">
+              <div class="name">devsheets.io</div>
+              <div class="desc">developer cheat sheets · ai-authored, hand-audited</div>
+              <div class="status-cell"><span class="pill free">free</span></div>
+            </div>
+            <div class="tools-row">
+              <div class="name">webutils.io</div>
+              <div class="desc">small dev utilities · favicon gen, json tools</div>
+              <div class="status-cell"><span class="pill free">free</span></div>
+            </div>
+          </div>
+          <a href="#" class="link more-link">→ all tools</a>
+        </div>
+
+        <!-- SUBSCRIBE -->
+        <div class="section">
+          <div class="h2"><span class="hash">## </span>subscribe</div>
+          <div class="comment">// biweekly digest — articles, devlog highlights, what shipped. zero filler.</div>
+          <div class="subscribe-row">
+            <input type="email" placeholder="you@example.com">
+            <button>subscribe</button>
+          </div>
+        </div>
+
+        <div class="comment" style="margin-top: 24px;">// EOF home.md<span class="cursor"></span></div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="statusbar">
+    <div class="item branch">main</div>
+    <div class="item green">●</div>
+    <div class="item">home.md</div>
+    <div class="spacer"></div>
+    <div class="item">UTF-8</div>
+    <div class="item">LF</div>
+    <div class="item">Markdown</div>
+    <div class="item accent">Ln 1, Col 1</div>
+  </div>
+
+</div>
+
+<div class="cmdk-hint">
+  <kbd>⌘</kbd> <kbd>K</kbd> &nbsp;to navigate
+</div>
+
+</body>
+</html>
