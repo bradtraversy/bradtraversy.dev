@@ -79,6 +79,13 @@ body {
   min-height: 100vh;
 }
 
+/* Pairs with the inline anti-FOUC <style> in BaseLayout head, which sets
+   body { visibility: hidden } so an unstyled stack of chrome elements
+   never flashes during navigation in Vite dev mode. */
+body {
+  visibility: visible;
+}
+
 /* Scrollbars */
 ::-webkit-scrollbar {
   width: 10px;
@@ -101,16 +108,12 @@ body {
    ========================================================================== */
 
 .window {
-  max-width: 1400px;
-  margin: 32px auto;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
   background: var(--bg-1);
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 64px);
 }
 
 /* Title bar */
@@ -814,13 +817,6 @@ button.ico {
 }
 
 @media (max-width: 768px) {
-  .window {
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    min-height: 100vh;
-  }
   .gutter {
     display: none;
   }

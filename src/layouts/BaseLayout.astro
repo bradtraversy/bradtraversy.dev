@@ -72,6 +72,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="twitter:description" content={description} />
 
     <title>{title}</title>
+
+    <style is:inline>
+      /* Anti-FOUC: keep the body hidden until global.css has applied.
+         In Vite dev mode, CSS is injected via JS modules so there's a tick
+         where the unstyled .body (no grid) lets all chrome elements stack
+         vertically before styles snap them into place. global.css contains
+         a matching `body { visibility: visible }` rule that wins as soon
+         as the stylesheet is in. The dark html background prevents any
+         white flash during the gap. */
+      html { background: #16161e; }
+      body { visibility: hidden; }
+    </style>
   </head>
 
   <body>
