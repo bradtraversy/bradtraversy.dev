@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 // Auto: recent devlog entries that tag this project.
-const allDevlog = await getCollection('devlog', ({ data }) => !data.draft);
+const allDevlog = await getCollection('devlog', ({ data }) => !data.draft || import.meta.env.DEV);
 const recentDevlog = allDevlog
   .filter((d) => d.data.project === entry.id)
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
@@ -23,7 +23,7 @@ const recentDevlog = allDevlog
 
 // Auto: related articles. Combines manual `relatedArticles` on the project
 // frontmatter with articles whose `relatedProjects` reference this slug.
-const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const allArticles = await getCollection('articles', ({ data }) => !data.draft || import.meta.env.DEV);
 const manualRelated = new Set(entry.data.relatedArticles ?? []);
 const relatedArticles = allArticles
   .filter(

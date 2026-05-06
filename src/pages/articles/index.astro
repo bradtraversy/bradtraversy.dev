@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const articles = await getCollection('articles', ({ data }) => !data.draft);
+const articles = await getCollection('articles', ({ data }) => !data.draft || import.meta.env.DEV);
 const sorted = articles.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
