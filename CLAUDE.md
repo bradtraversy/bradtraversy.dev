@@ -7,7 +7,7 @@
 `travxlabs.com` — a public-facing lab site combining a polished blog, raw devlog, projects showcase, and tools catalog under the **Travx Labs** brand. Travx Labs is **Brad's solo project** — distinct from Traversy Media (the joint Brad+Dennis LLC). Don't conflate the two.
 
 **Projects vs Tools** — two different content collections, don't merge them:
-- **Projects** = things Brad works on (software products + infrastructure like the homelab). Curated showcase, ~5–10 items, rich detail pages with status pills, optional `pricingSummary` for paid items, screenshots, "how I built it" narrative.
+- **Projects** = things Brad works on (software products + infrastructure like the homelab). Curated showcase, ~5–10 items, rich detail pages with status pills, stack chips, screenshots, "how I built it" narrative. **No pricing surface on the site** — it's a lab, not a sales funnel; visitors who care about price click through to the product URL.
 - **Tools** = one-day utilities (eyebreak, typesmith, webutils). Designed to scale to 50+ catalog entries. Every tool has its own internal detail page at `/tools/<slug>` — catalog rows always link there, never directly to an external host. The detail page is the canonical home for the tool; if there's an external URL where the tool actually runs, it's an outbound "→ open" link from the detail page, not the catalog row's primary destination.
 
 ## Read these specs

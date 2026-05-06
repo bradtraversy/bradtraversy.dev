@@ -12,6 +12,25 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+// Auto: recent devlog entries that tag this project.
+const allDevlog = await getCollection('devlog', ({ data }) => !data.draft);
+const recentDevlog = allDevlog
+  .filter((d) => d.data.project === entry.id)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 5);
+
+// Auto: related articles. Combines manual `relatedArticles` on the project
+// frontmatter with articles whose `relatedProjects` reference this slug.
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const manualRelated = new Set(entry.data.relatedArticles ?? []);
+const relatedArticles = allArticles
+  .filter(
+    (a) => manualRelated.has(a.id) || a.data.relatedProjects?.includes(entry.id),
+  )
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
 ---
 
 <BaseLayout
@@ -20,30 +39,116 @@ const { Content } = await render(entry);
   pageTitle={`${entry.id}.mdx`}
   currentSection="projects"
 >
+  <!-- HEADER: dense, scannable, npmjs/github vibe -->
   <section class="section">
-    <div class="comment">
-      project{entry.data.pricingSummary && ` · ${entry.data.pricingSummary}`}
-    </div>
+    <div class="comment">// project</div>
+
     <h1 class="h1"><span class="hash"># </span>{entry.data.name}</h1>
     <p class="lede">{entry.data.tagline}</p>
 
-    <div style="margin-top: 18px;">
+    <div class="project-meta">
       <span class:list={['pill', entry.data.status]}>{entry.data.status}</span>
-      {entry.data.pricingSummary && <span class="pill paid">paid</span>}
+      {
+        entry.data.stack.length > 0 && (
+          <span class="stack">
+            {entry.data.stack.map((s, i) => (
+              <>
+                {i > 0 && <span class="stack-sep">·</span>}
+                <span class="stack-item">{s}</span>
+              </>
+            ))}
+          </span>
+        )
+      }
     </div>
 
-    <div style="margin-top: 18px; display: flex; gap: 18px; font-size: 12.5px;">
-      {entry.data.url && <a href={entry.data.url} class="link">→ visit</a>}
-      {entry.data.repoUrl && <a href={entry.data.repoUrl} class="link">→ repo</a>}
-      {entry.data.pricingUrl && <a href={entry.data.pricingUrl} class="link">→ pricing</a>}
-    </div>
+    {
+      (entry.data.url || entry.data.repoUrl) && (
+        <div class="project-links">
+          {entry.data.url && <a href={entry.data.url} class="link">→ visit</a>}
+          {entry.data.repoUrl && <a href={entry.data.repoUrl} class="link">→ repo</a>}
+        </div>
+      )
+    }
   </section>
 
+  <!-- BODY: blog-post narrative -->
   <article class="section prose-lab">
     <Content />
   </article>
+
+  <!-- RECENT DEVLOG: auto from devlog entries with project: <slug> -->
+  {
+    recentDevlog.length > 0 && (
+      <section class="section">
+        <h2 class="h2"><span class="hash">## </span>recent devlog</h2>
+        <div class="comment">
+          // devlog entries tagged <span class="code">project: {entry.id}</span>
+        </div>
+        <div>
+          {recentDevlog.map((d) => (
+            <div class="devlog-row">
+              <span class="date">{fmtDate(d.data.publishDate)}</span>
+              <a class="title" href={`/devlog/${d.id}`}>
+                {d.data.title}
+              </a>
+            </div>
+          ))}
+        </div>
+        <a href="/devlog" class="link more-link">→ all devlog</a>
+      </section>
+    )
+  }
+
+  <!-- RELATED ARTICLES -->
+  {
+    relatedArticles.length > 0 && (
+      <section class="section">
+        <h2 class="h2"><span class="hash">## </span>related articles</h2>
+        <div>
+          {relatedArticles.map((a) => (
+            <div class="devlog-row">
+              <span class="date">{fmtDate(a.data.publishDate)}</span>
+              <a class="title" href={`/articles/${a.id}`}>
+                {a.data.title}
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   <div class="comment" style="margin-top: 24px;">
     // EOF {entry.id}.mdx<span class="cursor"></span>
   </div>
 </BaseLayout>
+
+<style>
+  .project-meta {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 12px;
+  }
+  .project-meta .stack {
+    color: var(--fg-comment);
+    font-size: 11.5px;
+    letter-spacing: 0.02em;
+  }
+  .project-meta .stack-item {
+    color: var(--fg-muted);
+  }
+  .project-meta .stack-sep {
+    color: var(--fg-comment);
+    margin: 0 6px;
+  }
+  .project-links {
+    margin-top: 14px;
+    display: flex;
+    gap: 18px;
+    font-size: 12.5px;
+  }
+</style>

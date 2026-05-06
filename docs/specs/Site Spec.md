@@ -58,15 +58,11 @@ Things Brad works on — software products, infrastructure (homelab), future dig
 
 Each project page has:
 
-- Hero (name, tagline, screenshot/video, primary CTA)
-- What it does (3–5 bullets)
-- Who it's for
-- Status pill (Planning / Alpha / Beta / Live / Maintenance / Sunset)
-- Optional inline price hint (`pricingSummary`) for the rare paid project — most are free, no pill shown
-- Install / buy / try button when applicable
-- "How I built it" — links to related articles and devlog entries
-- Stack badges
-- Repo link if public
+- Dense header (name, tagline, status pill, stack chips, "→ visit" / "→ repo" links)
+- Long-form blog-post body: why it exists, what it does, how it's built, what's next
+- Auto-pulled "recent devlog" block (entries tagged with this project's slug)
+- Related articles (manual frontmatter list + automatic from articles' `relatedProjects`)
+- No pricing surface anywhere on the site — visitors who care about price click through to the product's own URL. Travxlabs is a lab, not a sales funnel.
 
 Projects index is a curated showcase, not a catalog — expect 5–10 items, ordered by `featured` then by status. Filtering is overkill at this size.
 

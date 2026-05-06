@@ -5,14 +5,73 @@ description: |
   the public home of travx labs. articles, devlog, projects showcase, and a
   tools catalog under one umbrella. astro 6 on vercel, content in repo, no cms.
 status: alpha
+url: https://travxlabs.com
 repoUrl: https://github.com/bradtraversy/travxlabs-site
 stack: [Astro, Tailwind, Vercel, MDX]
 publishDate: 2026-05-04
 featured: true
 ---
 
-## about
+## why i built this
 
-stub project entry for the lab itself. once the site flips public at launch,
-this page becomes the canonical "how this site is built" entry, with the
-related article ("why i built travxlabs") embedded.
+i ship a lot — a paid saas, free dev tools, internal apps, the agent setup that
+runs my homelab — but the connective tissue between all of it never had a home.
+youtube is the school. vault is the workshop. but there was no public surface
+that just said "here's what's actually being built."
+
+travxlabs.com is that surface. one page per project with the build documented in
+the open. one stream of devlog entries pulled from real session notes. a catalog
+of one-day utilities so the small things don't get lost.
+
+it's not a portfolio and it's not a marketing site. it's a working lab with the
+door propped open.
+
+## what's here
+
+- **articles** — polished writeups, low cadence, the things worth editing
+- **devlog** — raw lab notes, frequent, often pulled straight from vault sessions
+- **projects** — major ongoing work (vidpipe, devsheets, mission control, the homelab)
+- **tools** — catalog of one-day utilities
+
+every project has its own page with status, stack, "how it's built." every tool
+has a page too — even the small ones — so they're not just a tweet that
+scrolled away.
+
+## stack
+
+```bash
+astro 6      # static site generator
+tailwind 4   # styling
+mdx          # content with markdown + components
+vercel       # hosting + DNS + previews
+```
+
+content lives in `src/content/` as mdx files with zod-validated frontmatter.
+no cms, no database, no auth. one server endpoint at `/api/subscribe`
+talks to buttondown for the newsletter. that's it.
+
+the visual chrome is a vscode editor metaphor — title bar, tab bar, activity
+bar, status bar. the article body is what shows up in the editor pane. it's
+deliberate: this is a working lab, and the lab looks like the place where
+the work happens.
+
+## how it ships
+
+```bash
+git push origin main    # vercel auto-builds + deploys
+```
+
+trunk-based, no PR ceremony. content commits and code commits go through
+the same path. the goal is to keep the friction between "i shipped a thing"
+and "the site shows it" as close to zero as possible.
+
+## what's next
+
+- finish the projects + tools content (real pages for vidpipe, devsheets,
+  repo-reviver, mission control, the homelab)
+- wire `/api/subscribe` to buttondown
+- write the launch article: "why i'm building travxlabs"
+- soft launch to a handful of devs, then public push
+
+> the site doesn't earn its place until the content's in. shipping the chrome
+> was the easy part.

@@ -116,10 +116,8 @@ File location: `src/content/devlog/<YYYY-MM-DD-slug>.mdx`
   tagline: string,            // 1-line description
   description: string,        // longer pitch
   status: 'planning' | 'alpha' | 'beta' | 'live' | 'maintenance' | 'sunset',
-  pricingSummary?: string,    // short price hint, e.g. "from $15/mo". Only set on paid projects; absence implies free.
   url?: string,               // external product URL (optional — homelab/internal projects have none)
   repoUrl?: string,
-  pricingUrl?: string,        // direct checkout link
   stack: string[],            // ['Astro', 'Cloudflare Workers']
   heroImage?: string,
   screenshots?: string[],
