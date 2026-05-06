@@ -63,6 +63,7 @@ const projects = defineCollection({
       repoUrl: z.string().url().optional(),
       stack: z.array(z.string()).default([]),
       heroImage: image().optional(),
+      heroImageAlt: z.string().optional(),
       screenshots: z.array(image()).optional(),
       relatedArticles: z.array(z.string()).optional(),
       publishDate: z.coerce.date(),
