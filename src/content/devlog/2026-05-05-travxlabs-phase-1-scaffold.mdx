@@ -1,0 +1,23 @@
+---
+title: phase 1 shipped — chrome and the activity-bar nav
+publishDate: 2026-05-05
+draft: true
+tags: [meta, astro]
+project: travxlabs-site
+---
+
+phase 1 of travxlabs.com landed. astro 6 + tailwind v4 + mdx, content collections wired with zod schemas, and the full vscode editor chrome translated from the visual-north-star mockup. nine commits on top of the initial scaffold. dev + prod builds clean.
+
+the part that took three tries: how to handle nav on small screens. tried (1) top-bar hamburger + drawer, (2) hamburger + drawer + fullscreen overlay, then settled on (3) **the activity bar IS the nav at every width.** at desktop the explorer is inline; at mobile the activity bar's explorer icon toggles the same panel as a slide-out drawer. no separate hamburger, no separate drawer, no separate overlay. one panel, one toggle, every width.
+
+what shipped:
+
+- astro 6 + tailwind v4 via `@tailwindcss/vite` (no separate config file; theming via the `@theme` directive)
+- self-hosted jetbrains mono via `@fontsource-variable/jetbrains-mono` (no google fonts cdn)
+- content collections at `src/content.config.ts` (singular form, src root, per astro 5+) for `articles`, `devlog`, `projects`, `tools`
+- lucide svg icons in the activity bar (unicode glyphs rendered at noticeably different sizes in jetbrains mono — `⚙` and `⌕` came in visibly smaller than `☰`)
+- two state classes that never fight: `body.explorer-hidden` (desktop collapse) and `body.nav-open` (mobile drawer), each only firing inside its own breakpoint media query
+
+biggest learning: chrome's UA stylesheet for `[hidden]` is `!important`, so you can't use the `hidden` attribute as a belt-and-suspenders for FOUC and then reveal the element via a class. the real fix is structural — move the would-be-flashing element out of the grid container entirely. grid can't be broken by elements that aren't its children.
+
+next up: real content for the projects + tools pages, the `/api/subscribe` endpoint to buttondown, and the launch article.
