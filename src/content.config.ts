@@ -9,13 +9,6 @@ const projectStatus = z.enum([
   'maintenance',
   'sunset',
 ]);
-const projectPricing = z.enum([
-  'free',
-  'open-source',
-  'paid',
-  'source-available',
-  'mixed',
-]);
 
 const toolCategory = z.enum([
   'dev',
@@ -66,7 +59,7 @@ const projects = defineCollection({
       tagline: z.string(),
       description: z.string(),
       status: projectStatus,
-      pricing: projectPricing,
+      pricingSummary: z.string().optional(),
       url: z.string().url().optional(),
       repoUrl: z.string().url().optional(),
       pricingUrl: z.string().url().optional(),

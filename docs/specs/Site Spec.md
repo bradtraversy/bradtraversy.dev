@@ -54,19 +54,19 @@ V1 designs for segment 1 first. Segments 2–4 follow naturally.
 
 ### 3.3 Projects
 
-Major ongoing work — multi-phase, often monetized, each with a rich detail page. Examples: Vidpipe, DevSheets, Mission Control, RepoReviver, TravxLabs.com itself.
+Things Brad works on — software products, infrastructure (homelab), future digital goods. Each gets a rich detail page. Examples: Vidpipe, DevSheets, Mission Control, RepoReviver, TravxLabs.com itself, Homelab.
 
 Each project page has:
 
 - Hero (name, tagline, screenshot/video, primary CTA)
 - What it does (3–5 bullets)
 - Who it's for
-- Pricing & licensing (Free / Open Source / Paid / Source-available / Mixed)
 - Status pill (Planning / Alpha / Beta / Live / Maintenance / Sunset)
-- Install / buy / try button
+- Optional inline price hint (`pricingSummary`) for the rare paid project — most are free, no pill shown
+- Install / buy / try button when applicable
 - "How I built it" — links to related articles and devlog entries
 - Stack badges
-- Repo link if open source
+- Repo link if public
 
 Projects index is a curated showcase, not a catalog — expect 5–10 items, ordered by `featured` then by status. Filtering is overkill at this size.
 

@@ -22,14 +22,14 @@ const { Content } = await render(entry);
 >
   <section class="section">
     <div class="comment">
-      project · {entry.data.pricing}
+      project{entry.data.pricingSummary && ` · ${entry.data.pricingSummary}`}
     </div>
     <h1 class="h1"><span class="hash"># </span>{entry.data.name}</h1>
     <p class="lede">{entry.data.tagline}</p>
 
     <div style="margin-top: 18px;">
       <span class:list={['pill', entry.data.status]}>{entry.data.status}</span>
-      <span class:list={['pill', entry.data.pricing]}>{entry.data.pricing}</span>
+      {entry.data.pricingSummary && <span class="pill paid">paid</span>}
     </div>
 
     <div style="margin-top: 18px; display: flex; gap: 18px; font-size: 12.5px;">
