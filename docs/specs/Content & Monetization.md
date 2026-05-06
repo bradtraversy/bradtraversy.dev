@@ -2,10 +2,10 @@
 status: planning
 created: 2026-05-03
 last_updated: 2026-05-05
-tags: [project, travxlabs, content, monetization, newsletter]
+tags: [project, bradtraversy-dev, content, monetization, newsletter]
 ---
 
-# TravxLabs.com — Content & Monetization
+# bradtraversy.dev — Content & Monetization
 
 > Cadence, voice, paid tools strategy, newsletter, and how all of it relates to revenue.
 
@@ -36,7 +36,7 @@ Devlog and Now page carry the site between articles. Projects are the artifacts 
 Day-zero content target — enough that the site doesn't feel empty when it goes live:
 
 **Articles (3 to start):**
-1. "Why I'm building TravxLabs" — the meta-launch post
+1. "welcome to the lab" — the meta-launch post
 2. "How Travis works — my agent setup with Claude and OpenClaw"
 3. "From prototype to prod in 6 weeks: building Vidpipe.ai"
 
@@ -48,7 +48,7 @@ Day-zero content target — enough that the site doesn't feel empty when it goes
 2. **DevSheets** — free, live
 3. **Mission Control** — internal/private, but the build is publicly documented
 4. **RepoReviver** — open-source CLI, beta (stub page fine for now)
-5. **TravxLabs.com** — this site, planning/alpha
+5. **bradtraversy.dev** — this site, planning/alpha
 
 **Tools (8–10 to start)** — one-day utilities, catalog entries:
 - **Webutils** — free
@@ -121,7 +121,7 @@ Free projects like **DevSheets** and the long-tail utilities in `/tools` (Webuti
 
 ### Layer 2 — Paid SaaS projects
 
-**Vidpipe** is the flagship and lives at `vidpipe.ai`. The TravxLabs project page links out to its own checkout. The lab gets credit for distribution; the SaaS keeps its own brand and stack.
+**Vidpipe** is the flagship and lives at `vidpipe.ai`. The bradtraversy.dev project page links out to its own checkout. The lab gets credit for distribution; the SaaS keeps its own brand and stack.
 
 Future paid SaaS (TBD) follow the same pattern: own domain, own checkout, lab project page is the showcase entry.
 

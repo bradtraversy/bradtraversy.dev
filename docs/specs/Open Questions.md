@@ -2,12 +2,14 @@
 status: planning
 created: 2026-05-03
 last_updated: 2026-05-04
-tags: [project, travxlabs, open-questions, decisions]
+tags: [project, bradtraversy-dev, open-questions, decisions]
 ---
 
-# TravxLabs.com — Open Questions
+# bradtraversy.dev — Open Questions
 
 > Decisions that aren't locked yet. Each gets resolved before or during Phase 1; once resolved it moves to a Decisions section in this file.
+
+> **Rebrand note (2026-05-06):** the site was renamed from "TravxLabs.com" to "bradtraversy.dev" to avoid confusing the audience with a new company name. The work is Brad's personal lab. References to "Travx Labs" / "TravxLabs.com" below preserve the original wording of decisions made under that brand — the decisions still stand, the brand name just changed. The `travxlabs/*` GitHub org persists as the home for private commercial repos.
 
 ## Resolved
 
@@ -48,7 +50,7 @@ Alternatives considered: Dedicated `/agents` section at launch (rejected — pre
 Revisit if: The flagship article over-performs and reader interest in agent-specific content is sustained for 2+ months — then build the section in v1.1.
 
 ### Q9 — Open-source the site repo? — RESOLVED 2026-05-04
-Decision: **Private during build, public at or shortly after launch.** Repo lives at `github.com/bradtraversy/travxlabs-site` per the GitHub split rule (OSS → `bradtraversy`). Kept private through Phase 1–5 to avoid premature visibility into half-built work. Flipped to public at Phase 6 launch (or shortly after) once the site reads well.
+Decision: **Private during build, public at or shortly after launch.** Repo lives at `github.com/bradtraversy/bradtraversy.dev` per the GitHub split rule (OSS → `bradtraversy`). Kept private through Phase 1–5 to avoid premature visibility into half-built work. Flipped to public at Phase 6 launch (or shortly after) once the site reads well.
 Rationale: There's nothing sensitive in the site repo; the source is part of the demonstration the lab makes. But there's no upside to public visibility before the site is presentable, and the in-progress noise (placeholder copy, half-built components, exploratory commits) doesn't help anyone. Private during build, public at launch gets both: clean public-facing repo at the moment of debut, no audience watching the messy middle.
 Alternatives considered: Public from day one (rejected — premature visibility into half-built work). Stay private indefinitely (rejected — gives up the demonstration value of a public lab repo). Public only on the launch article's repo link (rejected — same destination, just less control over timing).
 Revisit if: A specific reason to keep it private emerges before launch (e.g., embedded credentials, sponsor-confidential content), in which case audit and remove rather than keep private.

@@ -2,10 +2,10 @@
 status: planning
 created: 2026-05-03
 last_updated: 2026-05-04
-tags: [project, travxlabs, tech-stack, astro, vercel]
+tags: [project, bradtraversy-dev, tech-stack, astro, vercel]
 ---
 
-# TravxLabs.com — Tech Stack
+# bradtraversy.dev — Tech Stack
 
 > Tech decisions, integrations, and the rationale for each.
 
@@ -13,13 +13,13 @@ tags: [project, travxlabs, tech-stack, astro, vercel]
 
 | Layer | Choice | Why |
 |---|---|---|
-| Framework | **Astro 5** | Built for content-heavy sites, MDX-first, content collections, fast |
+| Framework | **Astro 6** | Built for content-heavy sites, MDX-first, content collections, fast |
 | Content authoring | **MDX + Markdown** | Plain files in repo, no CMS to maintain |
 | Styling | **Tailwind CSS v4** | Same stack Brad already uses everywhere |
 | Components | **Astro components** + light React islands when needed | Keeps shipped JS near zero |
 | Hosting | **Vercel** | Already in stack, zero-config Astro deploys, edge-fast |
-| Domain | **travxlabs.com** | Already owned by Brad |
-| Repo | **github.com/bradtraversy/travxlabs-site** | OSS lives under `bradtraversy` per split rule (decided 2026-05-04) |
+| Domain | **bradtraversy.dev** | Already owned by Brad |
+| Repo | **github.com/bradtraversy/bradtraversy.dev** | OSS lives under `bradtraversy` per split rule (decided 2026-05-04) |
 | Analytics | **Plausible** (or Fathom) | Privacy-first, lightweight, no cookie banner |
 | Email / newsletter | **Buttondown** | Cheap, markdown-native, accepts MailerLite CSV import (decided 2026-05-04) |
 | Search (v1.1) | **Pagefind** | Static, no server, drop-in |
@@ -29,7 +29,7 @@ tags: [project, travxlabs, tech-stack, astro, vercel]
 
 Brad already runs Next.js on Vidpipe, Mission Control, AskBrad, and Start.dev. Picking Astro here is intentional:
 
-- TravxLabs is content-first, not app-first. Astro is built for that exact shape.
+- bradtraversy.dev is content-first, not app-first. Astro is built for that exact shape.
 - Zero client JS by default. Pages are static HTML. Ridiculous performance with no effort.
 - Content collections + Zod schemas catch frontmatter typos at build time.
 - MDX support is first-class.
@@ -67,8 +67,8 @@ If the site ever needs heavy interactivity (interactive tool playgrounds), Astro
 ## Hosting & Deploy
 
 - **Vercel** project
-- `main` → production at `travxlabs.com`
-- PR branches → preview deploys at `travxlabs-pr-<n>.vercel.app`
+- `main` → production at `bradtraversy.dev`
+- PR branches → preview deploys at `bradtraversy-dev-pr-<n>.vercel.app`
 - Build command: `astro build`
 - Output: `dist/` static files
 - Environment variables (kept minimal):
@@ -139,7 +139,7 @@ Implementation:
 
 | Item | Cost |
 |---|---|
-| Domain `travxlabs.com` | already owned |
+| Domain `bradtraversy.dev` | already owned |
 | Vercel hosting | $0 (Hobby tier, well within limits for v1) |
 | Plausible analytics | ~$9/mo (or self-host on `trav-ai`) |
 | Buttondown | $0–$15/mo depending on migrated MailerLite list size |

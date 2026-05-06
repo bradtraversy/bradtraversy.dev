@@ -2,16 +2,16 @@
 status: planning
 created: 2026-05-03
 last_updated: 2026-05-05
-tags: [project, travxlabs, spec, prd]
+tags: [project, bradtraversy-dev, spec, prd]
 ---
 
-# TravxLabs.com — Site Spec (PRD)
+# bradtraversy.dev — Site Spec (PRD)
 
-> The full product spec for TravxLabs.com. Vision, audience, content model, page templates, success metrics, and what's explicitly out of scope for v1.
+> The full product spec for bradtraversy.dev. Vision, audience, content model, page templates, success metrics, and what's explicitly out of scope for v1.
 
 ## 1. Vision
 
-TravxLabs.com is the public home of Travx Labs — a personal lab where Brad builds and ships side projects, dev tools, and SaaS products, with the building documented in the open. The site has four first-class content modes:
+bradtraversy.dev is the public home of bradtraversy.dev — a personal lab where Brad builds and ships side projects, dev tools, and SaaS products, with the building documented in the open. The site has four first-class content modes:
 
 - **Articles** — polished, evergreen, low-cadence
 - **Devlog** — raw, frequent, low-friction
@@ -39,7 +39,7 @@ V1 designs for segment 1 first. Segments 2–4 follow naturally.
 - **Length**: 1500–4000 words typical
 - **Voice**: First-person, direct, opinionated, no fluff
 - **Quality bar**: Polished, edited, would feel at home on a top dev blog
-- **Examples**: "How Travis (my agent) actually works", "Building Vidpipe from prototype to prod in 6 weeks", "Why I picked Astro over Next.js for travxlabs.com"
+- **Examples**: "How Travis (my agent) actually works", "Building Vidpipe from prototype to prod in 6 weeks", "Why I picked Astro over Next.js for bradtraversy.dev"
 - **Distribution**: Featured on home, indexed by Google, shared on Twitter/X, sometimes linked from YouTube
 
 ### 3.2 Devlog (Lab Notes)
@@ -54,7 +54,7 @@ V1 designs for segment 1 first. Segments 2–4 follow naturally.
 
 ### 3.3 Projects
 
-Things Brad works on — software products, infrastructure (homelab), future digital goods. Each gets a rich detail page. Examples: Vidpipe, DevSheets, Mission Control, RepoReviver, TravxLabs.com itself, Homelab.
+Things Brad works on — software products, infrastructure (homelab), future digital goods. Each gets a rich detail page. Examples: Vidpipe, DevSheets, Mission Control, RepoReviver, bradtraversy.dev itself, Homelab.
 
 Each project page has:
 
@@ -95,7 +95,7 @@ A single living page showing:
 Short page:
 
 - Who Brad is (concise — links out to Traversy Media for the bio)
-- What Travx Labs is and isn't
+- What bradtraversy.dev is and isn't
 - Contact / social links
 - The agent workflow in one paragraph (with a link to the full article)
 
@@ -274,5 +274,5 @@ Summary:
 | Project catalog rots as work sunsets | "Sunset" status pill is first-class; sunset projects get archived, not deleted |
 | Tool catalog gets cluttered as it scales | Filter chips + categories; `archived: true` dims old tools without removing them |
 | Articles compete for time with YouTube + courses | Articles are the lowest priority; devlog + projects + tools carry the site |
-| Brand confusion with Traversy Media | Clear "Travx Labs is the workshop, Traversy Media is the school" framing on About |
+| Brand confusion with Traversy Media | Clear "bradtraversy.dev is the workshop, Traversy Media is the school" framing on About |
 | Maintenance overhead of 4 content modes | Templates are simple; deploy is automatic; no CMS to maintain |

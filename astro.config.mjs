@@ -13,7 +13,7 @@ import rehypePrettyCode from 'rehype-pretty-code';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://travxlabs.com',
+  site: 'https://bradtraversy.dev',
   trailingSlash: 'never',
   integrations: [
     mdx(),

@@ -3,10 +3,10 @@ title: phase 1 shipped — chrome and the activity-bar nav
 publishDate: 2026-05-05
 draft: true
 tags: [meta, astro]
-project: travxlabs-site
+project: bradtraversy-dev
 ---
 
-phase 1 of travxlabs.com landed. astro 6 + tailwind v4 + mdx, content collections wired with zod schemas, and the full vscode editor chrome translated from the visual-north-star mockup. nine commits on top of the initial scaffold. dev + prod builds clean.
+phase 1 of bradtraversy.dev landed. astro 6 + tailwind v4 + mdx, content collections wired with zod schemas, and the full vscode editor chrome translated from the visual-north-star mockup. nine commits on top of the initial scaffold. dev + prod builds clean.
 
 the part that took three tries: how to handle nav on small screens. tried (1) top-bar hamburger + drawer, (2) hamburger + drawer + fullscreen overlay, then settled on (3) **the activity bar IS the nav at every width.** at desktop the explorer is inline; at mobile the activity bar's explorer icon toggles the same panel as a slide-out drawer. no separate hamburger, no separate drawer, no separate overlay. one panel, one toggle, every width.
 

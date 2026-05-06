@@ -1,10 +1,10 @@
-# CLAUDE.md — TravxLabs.com site
+# CLAUDE.md — bradtraversy.dev site
 
 > Operating rules for any AI agent working on this repo. Read this first, then read the specs as needed.
 
 ## What this is
 
-`travxlabs.com` — a public-facing lab site combining a polished blog, raw devlog, projects showcase, and tools catalog under the **Travx Labs** brand. Travx Labs is **Brad's solo project** — distinct from Traversy Media (the joint Brad+Dennis LLC). Don't conflate the two.
+`bradtraversy.dev` — Brad Traversy's personal lab site. A public-facing combination of polished blog, raw devlog, projects showcase, and tools catalog. This is Brad's solo work, distinct from **Traversy Media** (the joint Brad+Dennis LLC) — keep that boundary clear in copy and decisions.
 
 **Projects vs Tools** — two different content collections, don't merge them:
 - **Projects** = things Brad works on (software products + infrastructure like the homelab). Curated showcase, ~5–10 items, rich detail pages with status pills, stack chips, screenshots, "how I built it" narrative. **No pricing surface on the site** — it's a lab, not a sales funnel; visitors who care about price click through to the product URL.
@@ -37,15 +37,15 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 
 - **Email provider**: Buttondown. Env var is `BUTTONDOWN_API_KEY`. No ConvertKit, no Mailchimp.
 - **Newsletter cadence**: weekly
-- **Domain**: `travxlabs.com` root canonical; `www.` 301-redirects to root. No `blog.`/`tools.` subdomain splits.
+- **Domain**: `bradtraversy.dev` root canonical; `www.` 301-redirects to root. No `blog.`/`tools.` subdomain splits.
 - **Comments**: never on-page. CTAs route to Twitter/X reply, email, or GitHub issues. No Giscus, Disqus, or in-house.
 - **Repo visibility**: private during build, public at Phase 6 launch. Don't reference the public repo URL in copy until Phase 6.
 - **Visual identity**: AI iteration in code, `home-mockup-airy.html` is the North Star.
 - **Agent workflow page**: a flagship article first ("How Travis works"), no dedicated `/agents` section in v1.
 - **Pre-launch announcement**: build in silence. No coming-soon page, no email-capture landing page.
-- **Project billing**: each paid project keeps its own checkout. No unified Travx Labs account in v1.
+- **Project billing**: each paid project keeps its own checkout. No unified billing layer on this site in v1.
 - **Devlog source**: hand-curated for v1 launch via the `polish-devlog` skill (chat-invoked). Auto-pipeline lands in v1.1, not v1.
-- **GitHub org**: this repo is `bradtraversy/travxlabs-site`. OSS belongs under `bradtraversy`; private commercial work belongs under `travxlabs/*`.
+- **GitHub org**: this repo is `bradtraversy/bradtraversy.dev`. OSS goes under `bradtraversy`; private commercial work goes under `travxlabs/*` (kept as Brad's private GitHub org for non-public repos, even though the public site no longer carries the Travx Labs brand).
 
 ## Voice rules
 

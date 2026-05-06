@@ -2,10 +2,10 @@
 status: planning
 created: 2026-05-03
 last_updated: 2026-05-05
-tags: [project, travxlabs, ia, sitemap, content-model]
+tags: [project, bradtraversy-dev, ia, sitemap, content-model]
 ---
 
-# TravxLabs.com — Information Architecture
+# bradtraversy.dev — Information Architecture
 
 > Sitemap, URL structure, navigation, and the Astro content collection schemas.
 
@@ -48,7 +48,7 @@ Top nav (always visible):
 
 Projects sits before Tools because projects are the more-prominent surface (curated, 5–10 items, big rich pages). Tools is the catalog tail.
 
-Right side: theme toggle, RSS icon, GitHub icon (links to `github.com/travxlabs`).
+Right side: theme toggle, RSS icon, GitHub icon (links to `github.com/bradtraversy`).
 
 Footer:
 
@@ -108,7 +108,7 @@ File location: `src/content/devlog/<YYYY-MM-DD-slug>.mdx`
 
 ### `projects` collection
 
-"Things Brad works on" — software products + infrastructure (homelab) + future digital goods. Each gets a rich detail page. Examples: Vidpipe, DevSheets, Mission Control, RepoReviver, TravxLabs.com itself, Homelab.
+"Things Brad works on" — software products + infrastructure (homelab) + future digital goods. Each gets a rich detail page. Examples: Vidpipe, DevSheets, Mission Control, RepoReviver, bradtraversy.dev itself, Homelab.
 
 ```ts
 {
@@ -134,7 +134,7 @@ File location: `src/content/projects/<slug>.mdx` (the body is the long-form pitc
 
 One-day utilities — small, finished-when-finished, designed to scale to 50+ entries. Examples: eyebreak, typesmith, webutils.
 
-Every tool has its own internal page at `/tools/<slug>`. The catalog row always links there — never directly to an external URL. The detail page is the canonical home for the tool: what it does, who it's for, screenshots, and an "→ open" link out to wherever the tool lives (or eventually the tool itself, embedded). The schema's `url` field is optional because some tools may live entirely on travxlabs.com.
+Every tool has its own internal page at `/tools/<slug>`. The catalog row always links there — never directly to an external URL. The detail page is the canonical home for the tool: what it does, who it's for, screenshots, and an "→ open" link out to wherever the tool lives (or eventually the tool itself, embedded). The schema's `url` field is optional because some tools may live entirely on bradtraversy.dev.
 
 ```ts
 {
@@ -198,7 +198,7 @@ Each feed item includes title, dek/excerpt, link, pub date, content, tags.
 ## Repo Layout (Astro)
 
 ```
-travxlabs/
+bradtraversy.dev/
 ├── src/
 │   ├── content.config.ts         # Zod schemas (Astro 5+ singular form, src root)
 │   ├── content/
