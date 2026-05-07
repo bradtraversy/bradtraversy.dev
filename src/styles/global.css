@@ -721,6 +721,19 @@ button.ico {
 .subscribe-row button:hover {
   background: #f0bf78;
 }
+.subscribe-row button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.subscribe-feedback {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--fg-comment);
+}
+.subscribe-feedback.error {
+  color: var(--color-red, #f7768e);
+}
 
 /* Status bar */
 .statusbar {

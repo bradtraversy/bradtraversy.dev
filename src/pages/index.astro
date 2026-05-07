@@ -166,10 +166,52 @@ const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
     <div class="comment">
       // weekly digest — articles, devlog highlights, what shipped. zero filler.
     </div>
-    <form class="subscribe-row" method="POST" action="/api/subscribe">
+    <form class="subscribe-row" method="POST" action="/api/subscribe" data-subscribe>
       <input type="email" name="email" placeholder="you@example.com" required />
       <button type="submit">subscribe</button>
     </form>
+    <div class="subscribe-feedback" data-subscribe-feedback hidden></div>
+    <script>
+      const form = document.querySelector('[data-subscribe]') as HTMLFormElement | null;
+      const feedback = document.querySelector('[data-subscribe-feedback]') as HTMLElement | null;
+      if (form && feedback) {
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const button = form.querySelector('button') as HTMLButtonElement | null;
+          const original = button?.textContent ?? 'subscribe';
+          if (button) {
+            button.disabled = true;
+            button.textContent = 'subscribing…';
+          }
+          feedback.hidden = true;
+          feedback.classList.remove('error');
+
+          try {
+            const data = new FormData(form);
+            const res = await fetch('/api/subscribe', { method: 'POST', body: data });
+            const json = (await res.json()) as { ok: boolean; error?: string };
+            if (json.ok) {
+              feedback.textContent = '// subscribed. check your inbox to confirm.';
+              feedback.hidden = false;
+              form.reset();
+            } else {
+              feedback.textContent = `// ${json.error ?? 'something went wrong.'}`;
+              feedback.classList.add('error');
+              feedback.hidden = false;
+            }
+          } catch {
+            feedback.textContent = '// network error. try again.';
+            feedback.classList.add('error');
+            feedback.hidden = false;
+          } finally {
+            if (button) {
+              button.disabled = false;
+              button.textContent = original;
+            }
+          }
+        });
+      }
+    </script>
   </section>
 
   <div class="comment" style="margin-top: 24px;">
