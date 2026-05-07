@@ -86,6 +86,7 @@ const tools = defineCollection({
       publishDate: z.coerce.date(),
       archived: z.boolean().default(false),
       heroImage: image().optional(),
+      heroImageAlt: z.string().optional(),
     }),
 });
 

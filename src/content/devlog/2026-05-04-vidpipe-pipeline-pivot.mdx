@@ -1,0 +1,106 @@
+---
+title: pivoting vidpipe from one-shot generator to content pipeline
+publishDate: 2026-05-04
+draft: true
+tags: [devlog, decision]
+project: vidpipe
+---
+
+vidpipe started as a paste-a-youtube-url-get-a-blog-post tool. it works,
+it's used, it has paying customers. but the honest assessment is that
+chatgpt, claude, openclaw, even a chrome extension can replicate ~80%
+of that workflow in one conversation. the ai output isn't the moat —
+the moat is everything **around** the ai.
+
+so this past two days have been a pivot. vidpipe is becoming a
+**content pipeline**: connect your youtube channel, every new upload
+auto-discovers, auto-generates an article (and eventually
+auto-publishes to your wordpress / ghost / wherever). the paste-a-url
+flow stays — it's still the easiest top-of-funnel — but the
+substantive product is the connected-channel pipeline, not the
+generator.
+
+## the new shape
+
+three user modes, in priority order:
+
+1. **channel owner** — connects youtube, configures destinations,
+   walks away. auto-discovery + auto-generation + auto-publish
+2. **ad-hoc author** — paste url, generate, edit, publish. same as today
+3. **guest** — one-time free article on signup. funnel, not a tier
+
+## what shipped this week
+
+split into two phases on a feature branch (`feature/pipeline-pivot`),
+all gated behind `FEATURE_CHANNELS` env flag so it can sit on `main`
+without users seeing it half-built:
+
+- **phase 1 — channel foundation**: prisma schema (`Channel`,
+  `ChannelVideo`), backend service that resolves a youtube channel
+  from any url variant (handle, vanity, channel-id) by scraping the
+  public channel page, plus rss for the most recent 15 videos. zero
+  youtube data api quota. frontend pages: list, detail, connect
+  modal. one ownership-attestation checkbox stands in for real
+  verification (more on that below).
+- **phase 2 — auto-poll + auto-generate**: a bullmq repeatable job
+  ticks every 30 minutes, finds channels whose `pollFrequencyHours`
+  is due, calls the same `runChannelScan` the manual button uses,
+  enqueues per-video generation jobs for any new finds. per-channel
+  `autoGenerateNew` toggle (default off — opt-in). per-row generate
+  button on each pending row.
+
+## three small decisions worth recording
+
+**1. discovery and generation must be separate verbs.** my first phase 2
+draft put auto-generation inside the scan path, which meant clicking
+the "scan now" button on the dashboard could surprise-spend on every
+new upload it found. i pushed back on myself: the scan button needs to
+be safe to click any time. now `runChannelScan` is pure discovery, and
+the only thing that calls `kickoffArticleGeneration` is the poll
+worker — which respects the per-channel `autoGenerateNew` flag.
+
+**2. ownership attestation now, oauth later.** real channel-ownership
+verification via google oauth + `youtube.readonly` is the right answer,
+and it's the phase 5 prerequisite before public launch. but for the
+internal dogfood phase, "i confirm i own this channel" + a checkbox is
+enough. schema is future-proofed: `Channel.verificationMethod` defaults
+to `'attestation'`, `Channel.verifiedAt` is nullable. when oauth lands,
+the diff is a callback that flips both fields and a verified-badge in
+the ui. no migration, no breaking change.
+
+**3. the rss feed is the cheapest possible polling source.** youtube's
+public rss feed at `youtube.com/feeds/videos.xml?channel_id=UC...`
+returns the 15 most recent uploads at zero quota cost, sub-second
+latency. the youtube data api only matters if you need things rss
+doesn't carry — view counts, older videos, etc. for "did anything new
+drop today," rss is plenty. (the 15-cap is fine going forward; it'd
+matter only if you wanted to backfill an old channel, which is
+explicitly deferred.)
+
+## the dedupe puzzle
+
+disconnecting a channel cascades-deletes the `ChannelVideo` join rows
+but keeps the underlying `Video` and `Article` (those belong to the
+user's library). reconnecting then created fresh `ChannelVideo` rows
+that lost the link, and the per-row generate button reappeared on
+videos the user had already generated. clicking it would create a
+duplicate article and (in the old credit model) duplicate-spend.
+
+fix: before inserting new `ChannelVideo` rows on a scan, query the
+user's existing videos by youtube id and pre-link the rows. same query
+also handles the case where someone pasted a url manually before ever
+connecting the channel — that article now retroactively shows up
+linked to the channel after connect.
+
+## misc weird thing
+
+`yt3.googleusercontent.com` returns 429 when the browser sends a
+`Referer: localhost:3000/` header — youtube's anti-hotlinking. without
+the referer, 200 every time. fix is one attribute on the `<img>`:
+`referrerPolicy="no-referrer"`. worth knowing for any embedded google
+cdn asset.
+
+> the next phase is per-channel template defaults (tone, length,
+> custom instructions), then the publishing destinations, then the
+> pricing rework. the hard part isn't any single phase — it's the
+> sequencing across them without leaking half-built features.

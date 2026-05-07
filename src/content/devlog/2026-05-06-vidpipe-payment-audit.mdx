@@ -1,0 +1,113 @@
+---
+title: a pricing rework, then an 11-bug payment audit
+publishDate: 2026-05-06
+draft: true
+tags: [devlog, postmortem]
+project: vidpipe
+---
+
+vidpipe now has two billing modes living side-by-side: one-off **credit
+packs** that never expire, and **monthly subscriptions** with channel
+access included. picking that shape took an afternoon. wiring it
+correctly took the rest of the day, and most of the next morning.
+
+## two buckets, not one
+
+the choice that drove most of the bugs: subscription quota and pack
+credits stay as **separate buckets**. they don't merge. subscriptions
+don't add to the pack pile. they each have their own counters,
+each their own consume / refund paths.
+
+```
+subscription quota: articlesQuota / articlesUsedInPeriod
+pack credits:       creditsTotal   / creditsUsed
+```
+
+consumption order is sub-first, then fall through to credits. refunds
+try to mirror. that sounds clean. it's not — see below.
+
+i considered merging them into a single counter (give subscribers N
+"credits" / month) but it loses information you need at refund time
+and it makes period-rollover semantics ugly. two buckets is the
+honest model. the price is that every code path that touches credits
+now has to know about both.
+
+## the audit
+
+after the new schema landed, i walked every consume / refund / webhook
+path looking for places that still assumed one bucket. came back with
+**11 distinct bugs**. quick tour of the highlights:
+
+**1. the newsletter controllers were bypassing the quota helpers.**
+both newsletter generation paths charged credits directly instead of
+calling `consumeArticleQuota`. subscribers were getting their pack
+credits charged for newsletter work even though their plan included
+it.
+
+**2. `invoice.paid` was zeroing usage on every subscription update.**
+mid-cycle upgrade (solo → pro) issues a stripe `subscription_update`
+invoice. the webhook handler was treating that the same as
+`subscription_cycle` (true period rollover) and resetting
+`articlesUsedInPeriod=0`. result: every upgrade gave subscribers a
+free articles bonus. fix is one conditional:
+
+```ts
+if (invoice.billing_reason === 'subscription_cycle') {
+  articlesUsedInPeriod = 0; // true rollover
+}
+// 'subscription_update' bumps articlesQuota but PRESERVES usage
+```
+
+**3. the refund heuristic was stealing credits when the sub was
+maxed.** without persisting which bucket originally charged a video,
+refund-time has to guess. naive heuristic: if the user has any
+subscription usage, refund the sub. but if the sub was already at
+quota when the article generated, the consume *fell through* to pack
+credits — refund needs to go back to credits, not the empty-anyway
+sub bucket. the fix is a smarter heuristic, but the **proper** fix is
+adding `Video.creditSource: String?` so we always know which bucket
+to refund. that's on the followup list.
+
+**4. the convert button was gating on the wrong total.** it was
+checking `creditsTotal - creditsUsed > 0`, blocking subscribers who
+had 0 pack credits but plenty of subscription quota. now it gates on
+the **combined** total.
+
+**5. `createSubscriptionCheckout` didn't block `canceling`
+subscribers.** if you subscribed, then canceled (status →
+`canceling`, period continues), you could subscribe AGAIN before
+period end and accidentally double-subscribe. one extra status check
+in the controller.
+
+**6. `'canceling'` wasn't honored everywhere `'active'` was.**
+`requireCredits`, `getRemainingCredits`, `userCanConnectChannel`,
+`getUserMaxVideoDuration` — five different middleware / helper
+functions, each with their own status check. one of them
+(`getUserMaxVideoDuration`) was missing `canceling`, which meant
+subscribers in their grace period silently lost their max video
+length. fixed all of them; should probably be one helper but that's
+refactor work for another day.
+
+the remaining five are smaller — guest claim refunds, dashboard stat
+tiles, the duplicate `credits` / `billing` sidebar item, the
+`undefined credits monthly` bug on `/billing`, structured-data offers
+on the public pricing page.
+
+## what's still open
+
+a few real loose ends:
+
+- **`past_due` subscribers** currently fall through to pack credits
+  (only `active` / `canceling` allow the sub bucket). probably wrong
+  — past_due is stripe's normal retry window for a failed payment,
+  not "subscription is gone." flagged.
+- **mid-cycle downgrades** don't clamp `articlesUsedInPeriod` to the
+  new lower quota. ux is fine (shows 0 remaining until rollover) but
+  the display is weird.
+- **yearly billing** + mid-cycle upgrade hasn't been tested. stripe
+  handles money-proration; my quota math assumes monthly cycles.
+
+> two commits on the day, both clean. but the real takeaway is "any
+> time you split a single counter into two, every code path that
+> touched the original needs an audit." 11 bugs from one schema
+> change. the audit was worth the day.

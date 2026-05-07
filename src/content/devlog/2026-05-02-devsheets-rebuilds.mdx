@@ -1,0 +1,41 @@
+---
+title: rebuilding five cheat sheets in one session
+publishDate: 2026-05-02
+draft: true
+tags: [devlog, agent-workflow, claude]
+project: devsheets
+---
+
+devsheets has a backlog of about 300 sheet topics i still want to cover, but
+the existing sheets need maintenance too. docs change. apis deprecate. the
+old "react components" sheet drifted out of sync with what react 19 actually
+encourages today.
+
+so today was a rebuild day. five sheets, one session:
+
+- **python** — renamed from `python-fundamentals`, expanded from 10 → 13 sections (added comprehensions, match statements, type hints, virtual envs)
+- **fastapi** — 5 → 12 sections (file uploads, middleware, project structure, lifespan, streaming, testing)
+- **tailwind** — 12 → 14 sections (dark mode, group/peer, container queries, scroll-snap, modern css)
+- **sql** — 11 → 13 sections (CASE expressions, NULL handling, UNION, string/date functions)
+- **rust** — 16 → 17 sections (async/await with tokio, From/Into, dyn Trait, Arc/Mutex)
+
+every one followed the same loop:
+
+```bash
+/audit-sheet <slug>      # what's missing vs current docs
+/<rebuild>               # write the new sections, regenerate the sheet
+/validate-sheet <slug>   # check accuracy vs docs
+/sync-prod <slug>        # diff dev → prod, push, revalidate cache
+```
+
+the audit step is read-only. it produces a report listing missing topics,
+partially-covered topics, and high-priority gaps. nothing gets touched
+until the report's reviewed. that gating is most of the reason this works
+without the sheets going off the rails.
+
+also added a new **ollama** sheet from scratch (12 sections, 17 items),
+which meant adding the icon, the bg color map, and the og-image color
+mapping in three separate places. one of those small papercuts that earns
+its way onto a refactor list.
+
+all five live now on devsheets.io.

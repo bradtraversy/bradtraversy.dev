@@ -1,11 +1,62 @@
 ---
-name: eyebreak
-tagline: gentle 20-20-20 nudge for long coding sessions
+name: EyeBreak
+tagline: tiny desktop nudge for the 20-20-20 eye rule
 category: health
-tags: [break-timer, vision, native]
+tags: [break-timer, electron, desktop, vision]
+url: https://github.com/bradtraversy/eye-break/releases
+repoUrl: https://github.com/bradtraversy/eye-break
 free: true
 publishDate: 2026-04-20
+heroImage: ./eyebreak-hero.png
+heroImageAlt: eyebreak desktop app showing the break timer countdown window
 ---
 
-placeholder tool entry. real content lands later — what it does, how to use it,
-and a link out to wherever it lives.
+a tiny cross-platform desktop app for the **20-20-20 eye rule**: every 20
+minutes, look at something about 20 feet away for 20 seconds. it runs in
+the tray/menu bar and nudges you to rest your eyes without you needing a
+browser tab open or a separate timer app.
+
+## what it does
+
+- starts a 20-minute work timer the moment it launches
+- fires a desktop notification + a soft descending tone when the break
+  starts
+- pops an always-on-top countdown window for the 20-second break, then
+  plays an ascending tone when it's over
+- start / pause / reset / "break now" controls in the window and the tray menu
+- intervals + break length are configurable; settings persist across launches
+- optional launch-on-login so it's just running when your machine boots
+
+it stays out of the way. tray icon, no dock app, no browser tab.
+
+## install
+
+grab the latest release from
+[github.com/bradtraversy/eye-break/releases](https://github.com/bradtraversy/eye-break/releases).
+builds available:
+
+- **windows** — `.exe` installer
+- **macos** — universal `.dmg` and `.zip`
+- **linux** — `.AppImage` and `.deb`
+
+windows and macos builds are unsigned, so smartscreen / gatekeeper may
+warn before opening. open anyway is fine.
+
+or run from source:
+
+```bash
+git clone https://github.com/bradtraversy/eye-break.git
+cd eye-break
+npm install
+npm start
+```
+
+## why i built it
+
+i look at screens for a lot of hours. browser-tab break timers get closed.
+phone alarms get dismissed. system-tray apps stick around because they're
+not in your face — they just nudge.
+
+> not novel. not clever. just one small thing that makes the day end with
+> less of a headache.
+

@@ -1,0 +1,52 @@
+---
+title: shipping eyebreak v1.0.9 — cross-platform electron, the long way around
+publishDate: 2026-04-30
+draft: true
+tags: [devlog, tool-launch, agent-workflow]
+---
+
+eyebreak is now a real public release. v1.0.9, github releases, signed-ish
+installers for windows, macos, and linux. it started as a hack a couple
+of days earlier — a tiny electron app to nudge me through the 20-20-20
+eye rule — and turned into a small lesson in how much "ship a desktop
+app" means once you actually want a download link people can click.
+
+## what shipped
+
+- electron app: 20-min work timer, always-on-top 20-second break
+  countdown, soft tones to mark start and end (descending two-note for
+  start, ascending three-note for complete), tray menu, persisted
+  settings, launch-on-login
+- cross-platform installers: `.exe` (windows), universal `.dmg` + `.zip`
+  (macos), `.AppImage` + `.deb` (linux)
+- github actions release workflow that fans out across native runners,
+  uploads artifacts, and tags releases
+- public source at [github.com/bradtraversy/eye-break](https://github.com/bradtraversy/eye-break)
+
+## things that bit
+
+a few small ones worth writing down:
+
+- **linux tray icon rendered as three dots.** root cause: appindicator
+  on ubuntu doesn't reliably render in-memory svg / data URIs for tray
+  icons. fix: ship real png tray assets (`tray-22.png`, etc.) and point
+  electron's `Tray` at the packaged file.
+- **break felt like 10 seconds, not 20.** countdown was decrementing a
+  counter every 1 second, which drifted under load. switched to an
+  absolute deadline (`Date.now() + breakSeconds * 1000`) and a
+  250ms refresh tick. felt right immediately.
+- **the release pipeline took several tags to get clean.** v1.0.0
+  failed because electron-builder's implicit publish wanted a
+  `GH_TOKEN`. v1.0.1 built artifacts but had a release-fan-in race.
+  v1.0.2–v1.0.4 fixed quoting and ordering. v1.0.5 finally worked with
+  a separate publish job. v1.0.6 added the universal macos build.
+  v1.0.9 was the first one i'd actually point a stranger at — public
+  release, screenshot in the readme, unsigned-build warning copy in
+  case smartscreen / gatekeeper complains.
+
+cross-platform native distribution is one of those things that looks
+trivial until you do it. one small electron app, six release attempts,
+real png assets, an absolute-deadline timer rewrite. all reasonable in
+hindsight; none of it predictable from the spec.
+
+> the app is small. the work to make it downloadable is not.

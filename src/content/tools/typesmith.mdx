@@ -1,11 +1,62 @@
 ---
-name: typesmith
-tagline: tiny typing-speed playground in the browser
+name: Typesmith
+tagline: terminal auto-typer for recording tutorials, demos, and videos
 category: dev
-tags: [typing, web, open-source]
+tags: [cli, python, recording, terminal]
+url: https://pypi.org/project/typesmith/
+repoUrl: https://github.com/bradtraversy/typesmith
 free: true
-publishDate: 2026-04-12
+publishDate: 2026-04-13
 ---
 
-placeholder tool entry. real content lands later — what it does, how to use it,
-and a link out to wherever it lives.
+a python cli that types commands into your terminal character-by-character
+with realistic variable speed — so when you record a tutorial, it looks
+like someone is actually typing instead of pasting.
+
+zero dependencies. just python 3.6+ stdlib.
+
+## what it does
+
+- **natural typing simulation** — gaussian-distributed keystroke delays,
+  small pauses at word boundaries, slightly longer pauses after
+  punctuation, occasional "thinking" hesitations
+- **two modes**:
+  - **interactive** — type or paste a command, typesmith erases it and
+    re-types it slowly with the typing effect
+  - **script** — load a script file, press enter to trigger each
+    command. ideal for recordings: keypresses are invisible in the
+    output so the take stays clean
+- **display-only by default** — commands print but don't run. add `-x`
+  / `--execute` to actually execute them. (this used to be the
+  opposite. flipped after the first release because the rare
+  "delete a thing on camera while recording" problem is much worse
+  than the rare "i wanted it to actually run" problem.)
+- **speed control** — globally via `-s 12` or per-command via
+  `#speed 15` directives in scripts
+
+## install
+
+```bash
+pipx install typesmith   # recommended for cli tools
+# or
+pip install typesmith
+```
+
+then:
+
+```bash
+typesmith                    # interactive
+typesmith run demo.txt       # script mode
+typesmith run demo.txt -x    # actually execute commands
+```
+
+## why i built it
+
+i type slowly and i make typos. for years that meant either editing my
+recordings to splice out the typo takes, or pasting commands and having
+recordings that look fake. typesmith is the third option: type real
+commands at a speed that looks human, on take one, every time.
+
+> linux + macos. uses posix terminal controls, won't work on windows
+> without wsl.
+

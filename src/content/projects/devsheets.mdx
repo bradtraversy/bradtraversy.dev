@@ -1,0 +1,86 @@
+---
+name: DevSheets
+tagline: free, growing directory of dev cheat sheets
+description: |
+  a free reference site for the things developers look up constantly.
+  syntax, config, cli flags, common patterns. each sheet is dense, scannable,
+  and built from real official docs. ~40 sheets live, ~300 in the backlog.
+status: live
+url: https://devsheets.io
+stack: [Next.js, React, Prisma, Postgres, Tailwind, Vercel]
+heroImage: ./devsheets-hero.png
+heroImageAlt: devsheets.io homepage with the developer cheat sheets hero, search bar, and 79+ cheat sheets count
+publishDate: 2026-05-07
+featured: true
+---
+
+## why i built this
+
+i look the same things up constantly. tailwind utility names, prisma schema
+syntax, docker compose keys, typescript utility types. the web has plenty of
+cheat sheet sites, but most are stale, ad-heavy, or just a single page someone
+made in 2018 and never updated.
+
+devsheets is the version i wanted: dense, current, no ads, no logins, no
+"sign up to see the rest." every sheet is one scrollable page with code blocks
+that copy cleanly. that's it.
+
+## what's in it
+
+each sheet covers one technology, organized by section, with code examples
+and short notes. current categories:
+
+- **languages** — javascript, typescript, python, rust, go, sql
+- **frameworks** — react, next.js, fastapi, django
+- **css / ui** — css, tailwind, html
+- **tools** — docker, git, npm, bun, prisma, playwright, zod
+- **systems** — apache, nginx, ollama, openclaw
+
+new sheets land regularly. there's a backlog of 300+ topics still to build.
+
+## stack
+
+```bash
+next.js 15      # app router, react 19, server components
+prisma          # postgres schema + queries
+tailwind 4      # styling
+prismjs         # syntax highlighting
+vercel          # hosting
+```
+
+sheet content lives in postgres (not markdown files) so it can be edited and
+versioned without a redeploy. there's a dev database and a prod database,
+with a sync step in between so nothing ships before it's been previewed and
+audited.
+
+## how sheets get built
+
+the writing pipeline is the interesting part. each sheet starts as a topic
+from the backlog, then runs through a chain of claude code skills i built
+into the repo:
+
+```bash
+/create-sheet    # research + draft a new sheet from official docs
+/audit-sheet     # check coverage vs current docs (read-only report)
+/validate-sheet  # check accuracy vs current docs (read-only report)
+/sync-prod       # diff dev → prod, push, revalidate the cache
+```
+
+every skill writes its results back to my obsidian vault. creates and syncs
+append to a changelog; audits and validations save individual reports.
+that's the audit trail: i can look at any sheet and see when it was built,
+what gaps were flagged, and what got fixed.
+
+it's a small example of the pattern i keep coming back to: the editor
+isn't just typing code, it's running a workflow that does research, drafts,
+and reports back.
+
+## what's next
+
+- keep working through the backlog
+- improve search (currently keyword-only, could use embeddings)
+- maybe a "pin sheet" feature for logged-in users, but only if there's
+  demand — the no-login experience is part of the appeal
+
+> the goal is never "the most sheets." it's "the sheet you needed, when
+> you needed it, in 10 seconds."

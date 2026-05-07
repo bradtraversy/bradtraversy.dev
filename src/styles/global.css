@@ -368,6 +368,13 @@ button.ico {
 .tree li.indent-3 {
   padding-left: 44px;
 }
+.tree li.see-more-row a {
+  color: var(--fg-comment);
+  font-style: italic;
+}
+.tree li.see-more-row a:hover {
+  color: var(--fg-muted);
+}
 
 /* Editor */
 .editor {

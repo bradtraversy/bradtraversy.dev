@@ -23,18 +23,18 @@ const {
 const allDevlog = await getCollection('devlog', ({ data }) => !data.draft || import.meta.env.DEV);
 const recentDevlog = allDevlog
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 12);
 
 const allProjects = await getCollection('projects');
 const recentProjects = allProjects
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 6);
 
 const allTools = await getCollection('tools');
 const recentTools = allTools
   .filter((t) => !t.data.archived)
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 3);
+  .slice(0, 6);
 
 const navItems: Array<{ label: string; href: string; section: Section }> = [
   { label: 'articles', href: '/articles', section: 'articles' },
@@ -189,24 +189,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
                 &nbsp;articles
               </a>
             </li>
-            <li class:list={['indent-2', { active: currentSection === 'devlog' }]}>
-              <a href="/devlog">
-                <span class="chev">▾</span>
-                <span class="ico-folder">▸</span>
-                &nbsp;devlog
-              </a>
-            </li>
-            {
-              recentDevlog.map((entry) => (
-                <li class="indent-3">
-                  <a href={`/devlog/${entry.id}`} title={entry.data.title}>
-                    <span class="chev"></span>
-                    <span class="ico-md">●</span>
-                    <span class="name">{entry.id.replace(/^\d{4}-/, '')}.md</span>
-                  </a>
-                </li>
-              ))
-            }
             <li class:list={['indent-2', { active: currentSection === 'projects' }]}>
               <a href="/projects">
                 <span class="chev">▾</span>
@@ -225,6 +207,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
                 </li>
               ))
             }
+            {allProjects.length > recentProjects.length && (
+              <li class="indent-3 see-more-row">
+                <a href="/projects">
+                  <span class="chev"></span>
+                  <span class="ico-md">…</span>
+                  <span class="name">see all ({allProjects.length})</span>
+                </a>
+              </li>
+            )}
             <li class:list={['indent-2', { active: currentSection === 'tools' }]}>
               <a href="/tools">
                 <span class="chev">▾</span>
@@ -243,6 +234,42 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
                 </li>
               ))
             }
+            {allTools.filter((t) => !t.data.archived).length > recentTools.length && (
+              <li class="indent-3 see-more-row">
+                <a href="/tools">
+                  <span class="chev"></span>
+                  <span class="ico-md">…</span>
+                  <span class="name">see all ({allTools.filter((t) => !t.data.archived).length})</span>
+                </a>
+              </li>
+            )}
+            <li class:list={['indent-2', { active: currentSection === 'devlog' }]}>
+              <a href="/devlog">
+                <span class="chev">▾</span>
+                <span class="ico-folder">▸</span>
+                &nbsp;devlog
+              </a>
+            </li>
+            {
+              recentDevlog.map((entry) => (
+                <li class="indent-3">
+                  <a href={`/devlog/${entry.id}`} title={entry.data.title}>
+                    <span class="chev"></span>
+                    <span class="ico-md">●</span>
+                    <span class="name">{entry.id.replace(/^\d{4}-/, '')}.md</span>
+                  </a>
+                </li>
+              ))
+            }
+            {allDevlog.length > recentDevlog.length && (
+              <li class="indent-3 see-more-row">
+                <a href="/devlog">
+                  <span class="chev"></span>
+                  <span class="ico-md">…</span>
+                  <span class="name">see all ({allDevlog.length})</span>
+                </a>
+              </li>
+            )}
             <li class:list={['indent-2', { active: currentSection === 'now' }]}>
               <a href="/now">
                 <span class="chev"></span>

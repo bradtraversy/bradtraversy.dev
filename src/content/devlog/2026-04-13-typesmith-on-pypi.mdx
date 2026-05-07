@@ -1,0 +1,68 @@
+---
+title: typesmith on pypi — a terminal auto-typer for clean recordings
+publishDate: 2026-04-13
+draft: true
+tags: [devlog, tool-launch, python]
+---
+
+shipped a small python cli called **typesmith** to pypi today. it types
+commands into your terminal character-by-character with realistic variable
+speed, so screen recordings look like someone is actually typing rather
+than pasting from a clipboard.
+
+zero dependencies. just python 3 stdlib. ~700 lines of code in one file.
+
+```bash
+pipx install typesmith
+typesmith run demo.txt
+```
+
+## why
+
+i'm a slow typer and i mistype constantly. for years that meant either
+editing my recordings to splice out the bad takes, or pasting commands
+into the terminal and having recordings that look obviously faked. neither
+is great.
+
+typesmith is the third option: type real commands at a speed that looks
+human, on take one, every time.
+
+## what's in the simulation
+
+a fixed delay between keystrokes feels wrong because it's too regular.
+typing actually has a rhythm. typesmith mimics it with four small tricks:
+
+- **gaussian jitter** around the base delay (controlled by `--variance`)
+- **word boundary pause** — small extra delay after a space
+- **punctuation hesitation** — slightly longer pauses after `. , ; : ! ?`
+- **thinking pauses** — ~2% of keystrokes get a 0.2–0.5s pause, like
+  someone briefly thinking
+
+at speed 8–12 chars/sec it looks convincingly human. above 20 it starts
+to look mechanical again.
+
+## the safer default
+
+initial release ran every command immediately. great for live demos,
+terrifying for recordings — i don't want a stray `rm` to take out a real
+file mid-take.
+
+flipped a couple commits later: **display-only is now the default,
+`--execute` / `-x` opts in.** the rare "i wanted it to actually run" case
+is much cheaper to recover from than the rare "i deleted the wrong thing
+on camera" case. defaults should be safe.
+
+## naming
+
+started as "keysmith." renamed before the first pypi push because (1)
+keysmith is already a niche password-manager-adjacent name, and (2)
+"typesmith" reads more naturally for what it actually does — it forges
+typing, not keys.
+
+source at [github.com/bradtraversy/typesmith](https://github.com/bradtraversy/typesmith).
+linux + macos only — uses posix terminal controls, won't work on windows
+without wsl.
+
+> the next few small open-source tools are going to follow this pattern:
+> one obvious problem i have, the smallest possible thing that fixes it,
+> shipped to a public registry the same day i write it.

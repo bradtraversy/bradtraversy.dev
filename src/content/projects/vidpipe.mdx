@@ -1,0 +1,85 @@
+---
+name: Vidpipe
+tagline: turn youtube videos into publish-ready content — articles, newsletters, social posts, transcripts
+description: |
+  a saas that takes a youtube url (or a connected channel) and produces
+  a publish-ready blog post, newsletter draft, social posts, and a clean
+  searchable transcript. paste-and-go for one-off videos; auto-generate
+  for connected channels on every new upload.
+status: live
+url: https://vidpipe.ai
+stack: [Next.js, React, Postgres, BullMQ, Stripe, Anthropic, OpenRouter]
+heroImage: ./vidpipe-hero.png
+heroImageAlt: vidpipe.ai homepage with the video to transcript hero, paste-a-youtube-url input, and example preview
+publishDate: 2026-05-05
+featured: true
+---
+
+## what it does
+
+paste a youtube url, get back:
+
+- a publish-ready blog post with section structure, headings, and copy
+  shaped for the platform you write on
+- a newsletter draft in your tone, length-tuned for an inbox
+- a clutch of social posts (twitter / linkedin), each with the framing
+  that platform actually rewards
+- a clean, timestamped, searchable transcript
+
+connect your channel and that whole pipeline runs automatically every
+time you publish a new video. nothing to remember, nothing to paste.
+
+## why i built it
+
+i've shipped hundreds of long-form videos. every one of them is also a
+blog post, a newsletter, a thread, and a transcript that someone could
+search — but the cost of producing those side artifacts manually is
+high enough that they mostly don't get made. when they do, they're an
+afterthought.
+
+vidpipe inverts that. the video is the source. everything else is
+generated, reviewed, and published from the same surface.
+
+## how it's built
+
+a quick tour:
+
+- **next.js** app on vercel for the marketing site, dashboard, and api
+  routes
+- **postgres** (neon) for accounts, generations, channels, articles
+- **bullmq** worker on a separate droplet that polls connected channels
+  and queues per-video generation jobs (added during the pipeline pivot
+  in early may)
+- **anthropic + openrouter** for model routing — different stages of
+  the pipeline use different models depending on length and quality
+  ceiling
+- **stripe** for both billing modes — credit packs that never expire,
+  and monthly subscriptions
+- **google oauth (`youtube.readonly`)** to verify channel ownership
+  before any auto-generation flows
+
+the system has two distinct shapes — a synchronous "paste-a-url"
+generator, and an async "connected-channel" pipeline — sharing the
+same generation core. that split is the heart of the product, and
+also where most of the recent engineering effort has gone.
+
+## the recent arc
+
+shipped to a soft launch in early may behind a preview banner. the
+build-up looked roughly like this:
+
+- **prelaunch hardening** — multi-model routing through openrouter,
+  abuse protection on free generation, transcript validator unblocked,
+  full admin user-detail surface
+- **pipeline pivot** — the schema, backend api, frontend, and async
+  worker for connected channels. shipped in two phases on a feature
+  branch, fully gated behind an env flag until oauth landed
+- **oauth + soft launch** — replaced the temporary "i confirm i own
+  this channel" attestation with a real google oauth verification, then
+  flipped the preview banner on
+- **pricing rework + payment audit** — locked in solo / pro / studio
+  tiers across both billing modes, then audited and patched 11 bugs
+  across the consume / refund / webhook paths
+
+> the next thing isn't a bigger model or a fancier ui — it's making the
+> connected-channel flow feel like infrastructure, not a feature.

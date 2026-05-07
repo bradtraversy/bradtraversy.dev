@@ -1,0 +1,118 @@
+---
+title: vidpipe channels — oauth verification, then a soft launch
+publishDate: 2026-05-05
+draft: true
+tags: [devlog, decision, tool-launch]
+project: vidpipe
+---
+
+vidpipe's channels feature is **live in prod** today, behind a preview
+banner. it's the first piece of the pipeline pivot to escape the
+feature flag. the wiring it took to get here turned out to be more about
+auth and trust than about code.
+
+## why auth came before wordpress publishing
+
+the original phase plan had wordpress publishing as phase 3 and oauth
+verification as phase 5. in writing, that ordering felt fine. once i
+sat with it, it didn't.
+
+if articles auto-flow from a connected channel into a real wordpress
+blog, an attacker connecting (say) mrbeast's channel to their personal
+vidpipe account is creating content-misappropriation, and possibly
+copyright exposure for whoever's hosting the destination blog.
+"wordpress publishing" without "real ownership verification" is
+shipping a footgun.
+
+so oauth jumped ahead. wordpress goes back into phase 3 once anyone
+who can connect a channel has actually proven they own it.
+
+## the oauth flow
+
+google `youtube.readonly` scope. raw oauth — no passport strategy
+swap, no refresh-token persistence. the access token gets used **once**
+to call `channels.list?mine=true`, the resulting list of owned channels
+gets stashed in the user's session for 15 minutes, and the token gets
+thrown away. when the user picks a channel to connect, it has to be in
+the verified list — anything else is rejected at the controller.
+
+this is the minimum amount of state to make the verification stick. if
+i ever need full-history backfill via the data api, i'll revisit token
+persistence then. until then, the access token is a one-shot.
+
+verified channels get `verificationMethod='oauth_youtube'` and
+`verifiedAt = now()`. the schema fields were already in place from
+phase 1 — only the callback and the verified badge in the ui needed
+adding. no migration, no breaking change. that future-proofing paid
+back exactly the way it was supposed to.
+
+## the brand-account gotcha
+
+every serious creator on youtube is going to hit this:
+
+`channels.list?mine=true` returns only the **currently active**
+youtube identity in their google account, not all the channels they
+manage. and most large channels are **brand accounts** that the
+creator's personal google login can administer but isn't actively
+"signed in as."
+
+so the connect flow looks like: click connect → see only your personal
+channel (subscribers: 12, last upload: never) → confusion. the actual
+fix lives at youtube.com — avatar menu → switch account → pick the
+brand account → re-run the oauth flow. now the picker shows the real
+channel.
+
+i can't fix this on my side. what i can do is add a one-paragraph
+helper in the connect modal explaining brand accounts and linking the
+youtube switch flow. that's on the followup list.
+
+## soft launch with friction baked in
+
+production status apps using "sensitive scopes" like `youtube.readonly`
+show an **unverified app warning** at the consent screen until google
+verification approves the scope. typical timeline: 3–5 business days.
+
+instead of waiting for verification before flipping the feature flag,
+i did the opposite: turned on `FEATURE_CHANNELS=true` in prod and let
+the unverified-app warning act as the natural soft-launch gate. most
+visitors will bail at "google hasn't verified this app." that's
+**fine** — i want this in front of the small number of people willing
+to click through, not the public, until it's stable.
+
+paired the flip with:
+
+- a **preview banner** on every channels surface ("auto-publish to
+  wordpress is coming next; for now articles stay in your library")
+- an amber **"preview"** pill on the channels sidebar item
+- a privacy-policy update with the section 5 "youtube api services"
+  limited use disclosure that google verification requires (specific
+  phrasing, accessed/stored breakdown, revocation instructions)
+
+the verification packet is ready. demo video and submission are next.
+
+## the security hotfix
+
+phase 2 set `creditAlreadyReserved: true` on channel-driven generations
+as a transitional shortcut — credits were getting deprecated anyway,
+why wire a check that's about to be replaced. but with the feature
+live, that shortcut became a real free-spend hole: a free signup could
+connect their own channel and burn $0.50–$1.50/article × N videos in
+api costs.
+
+ported the manual-submit's atomic credit reservation pattern over.
+single conditional update, race-safe under read committed:
+
+```sql
+UPDATE "User"
+SET creditsUsed = creditsUsed + 1
+WHERE id = ? AND creditsUsed < creditsTotal
+```
+
+if zero rows affected, the reservation failed. the channel video
+status flips to `skipped` with `skipReason='no_credits'`, the per-row
+generate button returns `402` with `code:'no_credits'`, and nothing
+queues. shipped as a hotfix on top of the soft-launch merge.
+
+> the next thing is the verification submission. then wordpress.
+> then making the connected-channel flow actually feel like
+> infrastructure rather than a feature.
