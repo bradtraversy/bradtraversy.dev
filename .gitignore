@@ -31,3 +31,5 @@ pnpm-debug.log*
 # playwright mcp artifacts (screenshots, snapshots)
 .playwright-mcp/
 phase*.png
+
+.vscode
