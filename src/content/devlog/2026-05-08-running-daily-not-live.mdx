@@ -1,0 +1,45 @@
+---
+title: running daily, but not live
+publishDate: 2026-05-08
+draft: false
+tags: [devlog, decision]
+project: bradtraversy-dev
+---
+
+added a new project to the showcase today: mission control. it's a vault-native ops dashboard — todos, agent tasks, projects, sessions, scheduled jobs, calendar, all live, all reading and writing markdown directly. it's been running on my homelab for a few weeks. it's not on the public internet, and it shouldn't be.
+
+which surfaced a small problem with the project status taxonomy.
+
+## live vs. local
+
+every project on this site has a status pill in the corner: `live`, `beta`, `alpha`, `planning`, `maintenance`, `sunset`. mission control is "running daily" by any honest read, but tagging it `live` (which uses a green pill) felt misleading. live implies "click the url, go use it." mc has no public url. it's bound to the lan, runs as a systemd-user service, and is only useful behind the vault it reads from.
+
+the cleanest fix was a new status: `local`. cyan pill instead of green. visually distinct, semantically honest. mc gets `local`. future homelab dashboards or lan-only utilities get the same.
+
+```ts
+const projectStatus = z.enum([
+  'planning',
+  'alpha',
+  'beta',
+  'live',
+  'local',      // running daily, not on the public internet
+  'maintenance',
+  'sunset',
+]);
+```
+
+a one-word taxonomy decision, but the kind that bugs me when it's wrong. "live" was overloaded — it conflated "publicly accessible" with "operational," and those are different things.
+
+## click-to-zoom hero on every project page
+
+while i was over there, the hero screenshots got a small upgrade: click any project hero (or tool hero) and it opens in a modal. native `<dialog>` element, no react island, no library — about twelve lines of vanilla js for the open/close. you get focus trap, esc-to-close, and backdrop semantics for free.
+
+mc's hero shows a wider view of the dashboard than fits on the project page itself, so the modal is more than cosmetic. you can actually read the cards.
+
+## small things that add up
+
+- sidebar reorder: showcase first (`projects` → `tools`), running stream second (`devlog`), polished long-form last (`articles`). matches how i expect people to use the site.
+- four other project pages now filled in: vidpipe, devsheets, webutils, and bradtraversy.dev itself.
+- five new devlog entries covering the mission control build arc, shipped alongside the project page.
+
+> the smallest taxonomy decisions are usually the ones you procrastinate on for a week. five minutes of work; reads correct from now on.
