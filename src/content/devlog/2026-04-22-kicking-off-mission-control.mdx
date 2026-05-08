@@ -1,0 +1,85 @@
+---
+title: kicking off mission control
+publishDate: 2026-04-22
+draft: true
+tags: [devlog, decision, architecture]
+project: mission-control
+---
+
+i've wanted a single ops page for a while. a place where i can see
+todos, agent tasks, project cards, session logs, calendar, and the
+homelab's network state without juggling four browser tabs and a
+terminal. today i scoped it out end to end and named it mission control.
+
+the thing that finally made me start was watching alex finn's video
+on the same pattern. most of his concrete ideas weren't right for me —
+the 2d office, the experimental tabs, his agent names — but three
+were good enough to steal: progress bars on project cards as a glance
+metric, a calendar split that proves what the agents actually
+scheduled, and heartbeat-driven task polling as the autonomy loop.
+i'm taking those and skipping the rest.
+
+## the load-bearing decision
+
+**vault is the database.** no postgres, no sqlite, no shadow store.
+every read parses markdown directly from my obsidian vault; every
+write goes back into the same files. obsidian stays a first-class ui.
+
+this is not a performance argument — it's a trust argument. i already
+write into these files by hand all day. i don't want a second source
+of truth that drifts whenever the dashboard caches something stale.
+if the dashboard's view ever disagrees with the file on disk, the
+file wins.
+
+the practical consequence: writes have to be careful. round-tripping
+markdown through a yaml parser will reformat frontmatter, reorder
+keys, strip comments, normalize quotes — anything that touches the
+file should leave it byte-identical to a manual edit. that constraint
+shapes the whole write layer.
+
+## tasks vs todos
+
+i already have a todos system in the vault — three files (now / soon /
+later), global ids `#1`–`#N`, my personal list. i was tempted to make
+mission control's "tasks" tab just be a friendlier ui for todos.
+
+but agent work and personal work have different lifecycles. a todo
+sits there until i check it off; a task gets queued, claimed, run,
+maybe failed, retried, completed. trying to overload the same schema
+made both halves worse. so:
+
+- **todos** — bounded, human-curated, ids assigned globally, three
+  files i edit by hand
+- **tasks** — unbounded, one markdown file per work unit, frontmatter
+  drives a state machine (`queued` → `claimed` → `done`), an `agent`
+  field routes the work to the right runner
+
+separate folders, separate lifecycles, two tabs in the dashboard.
+
+## agent routing
+
+each task carries one frontmatter field that decides who picks it up:
+
+- `agent: travis` — my autonomous runner polls every minute and claims
+  the oldest queued one
+- `agent: claude-code` or `agent: claude-cowork` — interactive sessions
+  surface queued items at session start
+- `agent: brad` — self-assigned, no agent picks it up
+
+a top-level `_control.json` file with `paused: true` blocks every
+agent from claiming anything. it's the dashboard's emergency brake —
+one click in the top bar flips the file, the heartbeat loops respect
+it, work stops.
+
+## the handoff pattern
+
+cowork (claude on my desktop, with its mcp surface — gmail, calendar,
+drive) did all of this scoping. the actual build is going to claude
+code on the dev box, where it can run a dev server, push commits,
+test against the live vault. i'm increasingly using cowork for
+planning and exploration and claude code for execution; today's the
+cleanest example of that split so far.
+
+> the brief is written. the next session is a scaffold and the first
+> read-only tab. nothing about this is novel except the discipline of
+> not adding a database.

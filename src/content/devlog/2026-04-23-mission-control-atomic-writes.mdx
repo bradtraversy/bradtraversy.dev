@@ -1,0 +1,110 @@
+---
+title: writes that don't break frontmatter
+publishDate: 2026-04-23
+draft: true
+tags: [devlog, architecture]
+project: mission-control
+---
+
+mission control is a dashboard for my obsidian vault. it reads
+markdown straight off disk, no database. today i shipped the write
+layer — todos check-off, todos move, todos add, tasks status flip,
+tasks add, pause toggle, plus a "ping travis" button that drops a
+new task file. six commits, one big constraint.
+
+## the constraint
+
+every write has to leave the file byte-identical to what i would have
+typed by hand. obsidian is still a first-class editor of these files;
+if mission control reformats frontmatter or reorders keys, every save
+fights every other save and someone loses.
+
+the obvious approach — `gray-matter parse → mutate → stringify → write`
+— breaks that. yaml libraries don't preserve key order, comment
+position, quoting style, or trailing whitespace. round-tripping a
+clean file through one comes back subtly different every time, and
+those differences pile up in git history.
+
+## what i did instead
+
+every write is **line surgery**:
+
+1. read the file
+2. regex-match the exact line you want to change
+3. substitute on that line only
+4. write the result back via `.tmp + rename`
+
+the writer never parses or re-emits frontmatter. it edits the source
+text in place. for "check off todo `#7`," the writer finds the line
+that starts with `- [ ]` and contains `#7`, swaps `[ ]` for `[x]`,
+done. the rest of the file is untouched, byte for byte.
+
+for "add a new todo," the writer needs to know two things: the next
+global id, and where to insert. the id comes from scanning all three
+todo files for the highest `#N` and adding one. the position is just
+above the first `- [x]` line in the target column — that keeps fresh
+todos at the bottom of the open block instead of buried below
+already-done items.
+
+`addTodo` also bumps the file's `next_id` frontmatter on the way out,
+because mine were stale (now said 9, soon said 28, the actual max
+across all files was 27). that's still line surgery — it finds the
+`next_id:` line and rewrites just that line.
+
+## .tmp + rename
+
+writing to `path.tmp` and then `rename` to `path` is the old unix
+trick that makes a write atomic at the filesystem level. either the
+new file is fully there or the old file is unchanged — you never see
+a half-written file. on the same filesystem `rename` is atomic; obsidian
+and chokidar both observe a single change event instead of a write
+storm.
+
+i tested every writer by round-tripping against the live vault and
+diffing — `now.md` came back byte-identical after a check / move / add
+cycle followed by a restore. `_control.json` round-tripped through a
+pause toggle the same way.
+
+## why route handlers, not server actions
+
+the write surface is a real http api: `PATCH /api/todos/:column/:id`,
+`POST /api/tasks`, `PATCH /api/control`, etc. server actions would
+have boxed all of this into "from-browser-only," which is exactly
+what i didn't want. i want curl tests. i want a future where travis
+can hit the same endpoints from outside the browser. i want one
+contract.
+
+so route handlers, with the writers as plain typescript modules
+underneath. the browser is just one client.
+
+## why pure writes, not optimistic ui
+
+every write here is dispatch-then-disk: click → POST → wait → render.
+no optimistic ui, no rollback logic, no dual-state to reconcile. on a
+single-user lan dashboard with sub-50ms write latency, the optimistic
+machinery is overhead i don't earn back. when chokidar + sse land in
+phase 3 and the file change broadcasts back to the browser anyway,
+the refresh story gets even simpler.
+
+if any single op ever feels sluggish, `useOptimistic` is a one-line
+upgrade. it isn't free until then.
+
+## ping travis
+
+the top bar has a "ping travis" button. you type a one-line
+description, it creates a task file in `Tasks/` with `agent: travis,
+status: queued`, and that's the whole feature. travis's heartbeat
+loop on the autonomous runner picks it up the next minute, claims
+it, runs it.
+
+today the loop isn't fully closed — travis-side task scanning is
+still in his own codebase, not this one, and i haven't wired vault
+sync between dev and the autonomous box yet. so right now ping travis
+is a write-only "leave a note" button, and i have to manually copy
+the file across. that's fine for the demo; closing the loop is the
+next session.
+
+> the dashboard is starting to feel real. five tabs are read-only,
+> two have full crud, the writers respect obsidian's format, and i
+> can pause every agent in the system from one toggle. nothing else
+> matters until that's solid.

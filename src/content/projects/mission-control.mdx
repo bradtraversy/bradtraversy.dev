@@ -1,0 +1,91 @@
+---
+name: Mission Control
+tagline: vault-native ops dashboard — todos, tasks, projects, sessions, calendar, all live, all on the LAN
+description: |
+  a private nextjs dashboard that reads and writes my obsidian vault
+  directly. one surface for every running thing — todos, agent tasks,
+  projects, session logs, scheduled jobs, calendar — with live updates
+  via chokidar + sse. no database. the markdown is the database.
+status: live
+stack: [Next.js, React, TypeScript, Tailwind, chokidar, SSE]
+heroImage: ./mission-control-hero.png
+heroImageAlt: mission control dashboard — vault-native ops surface running on the homelab
+publishDate: 2026-05-08
+featured: true
+---
+
+## what it is
+
+an internal next.js app that runs on my homelab and reads my obsidian
+vault as its source of truth. tabs across the top: home, todos, tasks,
+projects, sessions, research, network, calendar, agents. every list
+on screen is built by parsing markdown files; every action you take
+writes back to those same files without breaking obsidian compatibility.
+
+it's not on the public internet. it's bound to the LAN, runs as a
+systemd-user service, and is only useful if you have access to the
+vault behind it. the surface is private — the architecture is the
+interesting part.
+
+## why i built it
+
+before mc, my "dashboard" was a sprawl: a python network status page,
+a separate todo dashboard html, a `Tasks/` folder i grepped from the
+cli, and obsidian for everything else. each surface had its own write
+contract and none of them coordinated. checking on the system meant
+opening four tabs and trusting they all agreed.
+
+i wanted one page that was honest about the vault — read straight
+from disk, write straight back, no caching layer to drift. and i
+wanted live updates: when an agent flips a task to done, my screen
+updates without a refresh.
+
+## how it works
+
+- **vault is the database.** every read parses markdown directly. no
+  postgres, no sqlite, no shadow store. obsidian stays a first-class
+  ui — i can edit any file from either side and the other reflects
+  within a second
+- **writes are atomic and frontmatter-safe.** instead of round-tripping
+  through a yaml parser (which would reformat keys, reorder, mangle
+  comments), every writer does line surgery — regex-match the exact
+  line, substitute, write via `.tmp + rename`. files come out
+  byte-identical to a manual edit
+- **live updates via chokidar + sse.** a single watcher singleton
+  broadcasts to the browser through server-sent events; the client
+  calls `router.refresh()` on relevant changes with a small debounce.
+  obsidian saves, cli edits, and agent writes all trigger the same
+  pipeline
+- **route handlers, not server actions.** the write surface is a real
+  http api so it's curl-testable, scriptable, and reachable from any
+  agent — not boxed into "from-browser-only"
+- **agent task contract.** a top-level `Tasks/` folder holds work
+  units as markdown files with `agent`, `status`, and `priority`
+  frontmatter. travis (my autonomous runner) polls that folder and
+  claims items tagged for him; claude code surfaces queued items at
+  session start; the dashboard is a third lens on the same data
+
+## what's in it
+
+- **home** — current focus, today's calendar, recent activity feed
+- **todos** — three-column board (now / soon / later) with check-off,
+  move-between-columns, inline add. ids and tags live in frontmatter
+- **tasks** — kanban with agent filter (travis / claude / me).
+  add, status-flip, ping-an-agent from the top bar
+- **projects** — cards with status pills, drilling into the
+  project's vault folder
+- **sessions** — unified feed of claude and openclaw session logs
+- **research / network / calendar / agents** — same pattern, each
+  reading from a known vault region
+
+## what's next
+
+- progress bars on project cards (blocked on a tag-taxonomy decision
+  for tasks)
+- agent heartbeat integration so the autonomous runner stamps a
+  liveness signal back to the dashboard
+- two-way calendar — currently read-only; write-back deferred
+
+> the lesson i keep relearning: when the storage format is already
+> human-readable, the dashboard layer is small. the trick is not
+> reaching for the database.
