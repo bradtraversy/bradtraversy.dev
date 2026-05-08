@@ -1,6 +1,6 @@
 # bradtraversy.dev
 
-my public lab — articles, devlog, projects, and tools. everything outside of [traversy media](https://traversymedia.com) lives here.
+my public lab — projects, tools, devlog, and articles. built for anyone who wants to follow my daily work, side projects, and what i'm shipping outside of [traversy media](https://traversymedia.com).
 
 ![bradtraversy.dev — home](docs/screenshots/home.png)
 
@@ -8,10 +8,10 @@ my public lab — articles, devlog, projects, and tools. everything outside of [
 
 a static site that combines four things on different cadences:
 
-- **articles** — polished, long-form, 1–4 a month
-- **devlog** — short, raw, posted whenever something ships or breaks
 - **projects** — software i'm working on, with their own detail pages
 - **tools** — one-day utilities, scaling to a 50+ catalog over time
+- **devlog** — short, raw, posted whenever something ships or breaks
+- **articles** — polished, long-form, 1–4 a month
 
 it's the public surface for the work i do outside of [traversy media](https://traversymedia.com) — distinct from the joint youtube/courses brand, branded under my personal name.
 
@@ -50,10 +50,10 @@ without it, the form returns `500` but everything else works.
 ```
 src/
   content/
-    articles/    # MDX, slug = filename
-    devlog/      # MDX, slug = YYYY-MM-DD-kebab-title
     projects/    # MDX, one per major project
     tools/       # MDX, one per one-day utility
+    devlog/      # MDX, slug = YYYY-MM-DD-kebab-title
+    articles/    # MDX, slug = filename
   components/    # astro components
   layouts/       # base + per-content-type layouts
   pages/         # routes
