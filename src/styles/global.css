@@ -400,6 +400,7 @@ button.ico {
 .content {
   padding: 80px 56px 120px 48px;
   flex: 1;
+  min-width: 0;
   max-width: 820px;
 }
 

@@ -37,20 +37,20 @@ const recentTools = allTools
   .slice(0, 6);
 
 const navItems: Array<{ label: string; href: string; section: Section }> = [
-  { label: 'articles', href: '/articles', section: 'articles' },
-  { label: 'devlog', href: '/devlog', section: 'devlog' },
   { label: 'projects', href: '/projects', section: 'projects' },
   { label: 'tools', href: '/tools', section: 'tools' },
+  { label: 'devlog', href: '/devlog', section: 'devlog' },
+  { label: 'articles', href: '/articles', section: 'articles' },
   { label: 'now', href: '/now', section: 'now' },
   { label: 'about', href: '/about', section: 'about' },
 ];
 
 const tabs: Array<{ label: string; href: string; section: Section; kind: 'md' | 'folder' }> = [
   { label: 'home.md', href: '/', section: 'home', kind: 'md' },
-  { label: 'articles/', href: '/articles', section: 'articles', kind: 'folder' },
-  { label: 'devlog/', href: '/devlog', section: 'devlog', kind: 'folder' },
   { label: 'projects/', href: '/projects', section: 'projects', kind: 'folder' },
   { label: 'tools/', href: '/tools', section: 'tools', kind: 'folder' },
+  { label: 'devlog/', href: '/devlog', section: 'devlog', kind: 'folder' },
+  { label: 'articles/', href: '/articles', section: 'articles', kind: 'folder' },
   { label: 'now.md', href: '/now', section: 'now', kind: 'md' },
   { label: 'about.md', href: '/about', section: 'about', kind: 'md' },
 ];
@@ -181,13 +181,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
                 &nbsp;home.md
               </a>
             </li>
-            <li class:list={['indent-2', { active: currentSection === 'articles' }]}>
-              <a href="/articles">
-                <span class="chev">▸</span>
-                <span class="ico-folder">▸</span>
-                &nbsp;articles
-              </a>
-            </li>
             <li class:list={['indent-2', { active: currentSection === 'projects' }]}>
               <a href="/projects">
                 <span class="chev">▾</span>
@@ -269,6 +262,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
                 </a>
               </li>
             )}
+            <li class:list={['indent-2', { active: currentSection === 'articles' }]}>
+              <a href="/articles">
+                <span class="chev">▸</span>
+                <span class="ico-folder">▸</span>
+                &nbsp;articles
+              </a>
+            </li>
             <li class:list={['indent-2', { active: currentSection === 'now' }]}>
               <a href="/now">
                 <span class="chev"></span>

@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface Props {
+  src: ImageMetadata;
+  alt: string;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+}
+
+const { src, alt, class: className, loading = 'eager' } = Astro.props;
+---
+
+<button type="button" class="hero-trigger" data-hero-trigger>
+  <Image class={className} src={src} alt={alt} loading={loading} />
+</button>
+
+<dialog class="hero-dialog" data-hero-dialog>
+  <button type="button" class="hero-close" data-hero-close aria-label="Close image">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+      <path d="M6 6 L18 18 M18 6 L6 18" />
+    </svg>
+  </button>
+  <Image class="hero-full" src={src} alt={alt} loading="lazy" />
+</dialog>
+
+<style>
+  .hero-trigger {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+  }
+  .hero-trigger:focus-visible {
+    outline: 2px solid var(--accent-gold, #e0af68);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+
+  .hero-dialog {
+    position: relative;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-1);
+    padding: 12px;
+    margin: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    overflow: visible;
+  }
+  .hero-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-full {
+    display: block;
+    max-width: calc(90vw - 24px);
+    max-height: calc(90vh - 24px);
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+    cursor: zoom-out;
+  }
+
+  .hero-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-1);
+    border: 1px solid var(--border-strong);
+    color: var(--fg-1);
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  .hero-close:hover {
+    background: var(--bg-2);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-hero-trigger]').forEach((trigger) => {
+    const dialog = trigger.nextElementSibling as HTMLDialogElement | null;
+    if (!dialog || dialog.tagName !== 'DIALOG') return;
+
+    trigger.addEventListener('click', () => dialog.showModal());
+
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    dialog.querySelector<HTMLImageElement>('img')?.addEventListener('click', () => dialog.close());
+    dialog.querySelector<HTMLButtonElement>('[data-hero-close]')?.addEventListener('click', () =>
+      dialog.close(),
+    );
+  });
+</script>
