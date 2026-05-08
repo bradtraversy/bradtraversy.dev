@@ -491,6 +491,11 @@ button.ico {
   color: var(--green);
   border-color: rgba(158, 206, 106, 0.28);
 }
+.pill.local {
+  background: rgba(125, 207, 255, 0.15);
+  color: var(--cyan);
+  border-color: rgba(125, 207, 255, 0.28);
+}
 .pill.beta {
   background: rgba(255, 158, 100, 0.15);
   color: var(--orange);

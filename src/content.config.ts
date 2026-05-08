@@ -6,6 +6,7 @@ const projectStatus = z.enum([
   'alpha',
   'beta',
   'live',
+  'local',
   'maintenance',
   'sunset',
 ]);
