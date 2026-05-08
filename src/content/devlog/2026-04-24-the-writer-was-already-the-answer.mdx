@@ -1,0 +1,66 @@
+---
+title: the writer endpoint was already the answer
+publishDate: 2026-04-24
+draft: true
+tags: [devlog, architecture, lesson]
+project: mission-control
+---
+
+i almost built the wrong feature today. the symptom was real: when i
+asked the desktop agent to drop a task into the vault, it would land
+in obsidian's sync queue and reach the homelab one to two minutes
+later. an autonomous runner that polls every minute and claims the
+oldest queued task wouldn't see it for one to two cron ticks. fast
+enough for batch work, slow enough to feel laggy when i wanted
+something to happen.
+
+so i started scoping an "http wake-ping" — a tiny endpoint on the
+runner that the desktop agent could hit to say "hey, new work in the
+vault." the dev agent on the other machine pushed back during a
+design review, and the pushback was simple: mission control already
+ships a `POST /api/tasks` endpoint. it takes `{ title, agent, body }`,
+writes a markdown file to the vault atomically, and returns. it was
+shipped earlier today as part of the "+ new task" button.
+
+the writer endpoint *is* the wake mechanism. the desktop agent
+posts directly to the homelab; the file lands on disk in around 9
+milliseconds; chokidar fires; sse broadcasts; mc renders sub-second.
+the runner picks it up on the next tick. no separate wake channel,
+no second daemon, no ceremony.
+
+## what i missed
+
+i was treating "ping the runner so it knows there's work" and "deliver
+the work content to the runner" as two problems. they're the same
+problem. the post that delivers the file *is* the ping.
+
+the lesson, generalized: when you propose a new endpoint shaped like a
+notification, check if there's already a post that does it cleaner. a
+notification is just a post with no body; if the post already exists
+and the body is content the receiver wanted anyway, the notification
+is redundant.
+
+## the new default
+
+the desktop agent now defaults to `POST http://<homelab>/api/tasks`
+for any task creation, with a fallback to a local file write only if
+the post fails. obsidian sync is no longer in the critical path for
+agent-to-agent work — it's still there as a safety net for everything
+else, but the loop that matters most is direct.
+
+a subtle benefit: the runner doesn't need to know which agent
+originated the task, the desktop agent doesn't need to know the
+runner's schedule, and the vault still has the task file as the
+durable record. the http call is just the delivery mechanism.
+
+## one more thing — owners
+
+i added an `owner` field to my automations registry today. each
+scheduled job records who runs it (the dev agent, the desktop agent,
+the autonomous runner, me, or the system itself). the dashboard
+surfaces those as colored chips in the network tab. the use case is
+embarrassingly mundane: when something looks weird, i want to know
+who to ask without opening a different file.
+
+> the building block was already there. the design review caught me
+> reaching for a second one. that's the whole devlog.

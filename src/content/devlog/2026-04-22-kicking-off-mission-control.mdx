@@ -62,8 +62,8 @@ each task carries one frontmatter field that decides who picks it up:
 
 - `agent: travis` — my autonomous runner polls every minute and claims
   the oldest queued one
-- `agent: claude-code` or `agent: claude-cowork` — interactive sessions
-  surface queued items at session start
+- a couple of interactive agents — surface queued items at session
+  start, when i'm sitting at the keyboard
 - `agent: brad` — self-assigned, no agent picks it up
 
 a top-level `_control.json` file with `paused: true` blocks every
@@ -73,12 +73,12 @@ it, work stops.
 
 ## the handoff pattern
 
-cowork (claude on my desktop, with its mcp surface — gmail, calendar,
-drive) did all of this scoping. the actual build is going to claude
-code on the dev box, where it can run a dev server, push commits,
-test against the live vault. i'm increasingly using cowork for
-planning and exploration and claude code for execution; today's the
-cleanest example of that split so far.
+the planning and vault-exploration side of this scope happened on the
+desktop agent — the one with email / calendar / drive context. the
+actual build goes to the cli agent on the dev box, where it can run a
+dev server, push commits, test against the live vault. i'm
+increasingly leaning on this split — exploration on one surface,
+execution on another — and today's the cleanest example so far.
 
 > the brief is written. the next session is a scaffold and the first
 > read-only tab. nothing about this is novel except the discipline of

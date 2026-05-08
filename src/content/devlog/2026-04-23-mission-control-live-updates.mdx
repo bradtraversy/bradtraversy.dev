@@ -1,0 +1,93 @@
+---
+title: live updates and an agents tab
+publishDate: 2026-04-23
+draft: true
+tags: [devlog, architecture]
+project: mission-control
+---
+
+phase 3 of mission control shipped today. two pieces: live updates
+across every tab, and a dedicated agents tab that reads its content
+from a single markdown file in the vault.
+
+## live updates with chokidar + sse
+
+the dashboard reads the obsidian vault as its source of truth, which
+means any of three things can change a file out from under the ui: i
+save a note in obsidian, a cli edits a file, or an agent flips a task
+status to done. without live updates, the only way to see those was a
+manual refresh.
+
+the architecture is small:
+
+- a single chokidar watcher running server-side, kept on `globalThis`
+  so it survives next's hmr reloads in dev (otherwise every save would
+  spawn a fresh watcher)
+- an sse endpoint that broadcasts file-change events to any connected
+  browser, plus 15-second heartbeats so the connection doesn't get
+  dropped by middleboxes
+- a tiny client component mounted in the app shell that opens an
+  `EventSource`, debounces incoming events for 200ms, and calls
+  `router.refresh()` on the next tick
+
+debounce on both sides matters. the writers in mc use `.tmp + rename`,
+which chokidar will emit as `add` then `change` if you don't tell it
+to wait. `awaitWriteFinish: { stabilityThreshold: 50, pollInterval: 25 }`
+coalesces those into one event.
+
+`router.refresh()` is coarse — it re-fetches the current page's server
+data and re-renders — but for a server-component-heavy app on a
+single-user lan, "coarse but always right" beats "surgical and
+sometimes stale."
+
+## the agents tab
+
+the dashboard already had a tasks tab and a sessions tab where agents
+showed up implicitly. what was missing was a place that answered
+"what agents do i have, what does each one do, what's their scope?"
+
+the constraint: it has to be a vault file, not a database. so the tab
+reads `Core/Context/Agents.md`, parses it, and renders cards.
+
+the parser shape is intentionally simple:
+
+```
+## Mission
+<one paragraph>
+
+## Roster
+### <Name>
+- **Role**: …
+- **Runtime**: …
+- **Machines**: …
+- **Scope**: …
+- **Does not**: …
+- **Notes**: …
+
+### <Next agent>
+…
+
+## Routing rules
+…
+```
+
+`### ` strictly delimits agents. labels are read as written. it's
+structural, not schema-enforcing — if i add a new field tomorrow, the
+parser picks it up automatically.
+
+## "needs content" pills
+
+the agents file naturally accumulates `<fill in …>` placeholders as
+i'm sketching new entries. the tab renders those visibly: as an amber
+pill on a field, or as muted italic `⟨needs content⟩` in body text.
+the card header shows a count ("6 fields needs content"). the tab
+becomes a visible to-do list for itself.
+
+a small thing: react-markdown drops raw `<foo>`-shaped html by default.
+two-line workaround — pre-transform `<fill in[^>]*>` to
+`*⟨needs content⟩*` before rendering — and the placeholder stays
+visible without enabling rehype-raw.
+
+> the dashboard reaches "live where it needs to be" with this. tomorrow
+> i can start using it as the actual home page for the workflow,
+> rather than a dev demo.
