@@ -64,6 +64,7 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 - Trunk-based: push to `main`. PRs only when the change is risky or wants explicit review.
 - Vercel auto-deploys `main` to prod
 - Branch names lowercase-hyphenated when used: `feat/subscribe-endpoint`, never `Feat_SubscribeEndpoint`
+- **NO `Co-Authored-By: Claude` (or any AI co-author) trailer in commit messages.** This is a Brad-personal repo and the public contributors list must reflect that. Override the default agent commit template — drop the trailer entirely. If a commit has already been written with one, rewrite history before push.
 
 ## File / folder conventions
 

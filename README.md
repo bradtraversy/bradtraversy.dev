@@ -1,43 +1,75 @@
-# Astro Starter Kit: Minimal
+# bradtraversy.dev
+
+my public lab — articles, devlog, projects, and tools. everything outside of [traversy media](https://traversymedia.com) lives here.
+
+![bradtraversy.dev — home](docs/screenshots/home.png)
+
+## what this is
+
+a static site that combines four things on different cadences:
+
+- **articles** — polished, long-form, 1–4 a month
+- **devlog** — short, raw, posted whenever something ships or breaks
+- **projects** — software i'm working on, with their own detail pages
+- **tools** — one-day utilities, scaling to a 50+ catalog over time
+
+it's the public surface for the work i do outside of [traversy media](https://traversymedia.com) — distinct from the joint youtube/courses brand, branded under my personal name.
+
+## stack
+
+- [astro 6](https://astro.build) + [mdx](https://mdxjs.com) for content
+- [tailwind v4](https://tailwindcss.com) for styling
+- [vercel](https://vercel.com) for hosting + a single serverless route (`/api/subscribe`)
+- [buttondown](https://buttondown.com) for the newsletter
+- self-hosted [jetbrains mono](https://www.jetbrains.com/lp/mono/) (woff2 subset)
+- [plausible](https://plausible.io) for analytics — no GA, no pixel, no tracking
+
+static-first. every page is pre-rendered at build time. there's roughly zero client JS on text pages and a tiny handler on a few interactive surfaces (the subscribe form, the hero-image modal).
+
+## local development
+
+requires node 22+ and pnpm.
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
+pnpm dev      # localhost:4321
+pnpm build    # production build → ./dist
+pnpm preview  # serve the production build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+newsletter signup needs a buttondown api key in `.env`:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```
+BUTTONDOWN_API_KEY=...
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+without it, the form returns `500` but everything else works.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## structure
 
-Any static assets, like images, can be placed in the `public/` directory.
+```
+src/
+  content/
+    articles/    # MDX, slug = filename
+    devlog/      # MDX, slug = YYYY-MM-DD-kebab-title
+    projects/    # MDX, one per major project
+    tools/       # MDX, one per one-day utility
+  components/    # astro components
+  layouts/       # base + per-content-type layouts
+  pages/         # routes
+  styles/        # global css only
 
-## 🧞 Commands
+docs/
+  specs/         # PRD, IA, tech stack, content + monetization plan
+  visual-north-star/  # the home-page mockup the design is anchored to
+```
 
-All commands are run from the root of the project, from a terminal:
+content has zod-validated frontmatter — see [`src/content.config.ts`](src/content.config.ts).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## contributing
 
-## 👀 Want to learn more?
+this is a personal site. typo fixes and broken-link reports via issues are welcome; substantive PRs probably aren't a fit.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## license
+
+content (articles, devlog, project pages) is © brad traversy, all rights reserved. site code (everything under `src/components`, `src/layouts`, `src/pages`, `src/styles`) is free to read and lift from — i'll attach a formal LICENSE when the repo goes public.
