@@ -91,6 +91,24 @@ const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
     <Content />
   </article>
 
+  <!-- SCREENSHOTS GALLERY: optional, sits after the body -->
+  {
+    entry.data.screenshots && entry.data.screenshots.length > 0 && (
+      <section class="section">
+        <h2 class="h2"><span class="hash">## </span>more screenshots</h2>
+        <div class="project-screenshots">
+          {entry.data.screenshots.map((src, i) => (
+            <HeroImage
+              class="project-screenshot"
+              src={src}
+              alt={`${entry.data.name} screenshot ${i + 1}`}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
   <!-- RECENT DEVLOG: auto from devlog entries with project: <slug> -->
   {
     recentDevlog.length > 0 && (
@@ -169,6 +187,26 @@ const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
     display: block;
     width: 100%;
     max-width: 820px;
+    height: auto;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    background: var(--bg-2);
+  }
+  .project-screenshots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    max-width: 820px;
+    margin-top: 14px;
+  }
+  @media (max-width: 640px) {
+    .project-screenshots {
+      grid-template-columns: 1fr;
+    }
+  }
+  .project-screenshot {
+    display: block;
+    width: 100%;
     height: auto;
     border: 1px solid var(--border-strong);
     border-radius: 6px;
