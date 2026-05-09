@@ -39,9 +39,12 @@ const archived = sorted.filter((t) => t.data.archived);
               </a>
               <div class="desc">{tool.data.tagline}</div>
               <div class="status-cell">
-                <span class:list={['pill', tool.data.free ? 'free' : 'paid']}>
-                  {tool.data.free ? 'free' : 'paid'}
+                <span class:list={['pill', `kind-${tool.data.kind}`]}>
+                  {tool.data.kind}
                 </span>
+                {tool.data.free === false && (
+                  <span class="pill paid">paid</span>
+                )}
               </div>
             </div>
           ))}

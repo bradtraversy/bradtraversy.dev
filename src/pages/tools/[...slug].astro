@@ -28,10 +28,11 @@ const { Content } = await render(entry);
     <h1 class="h1"><span class="hash"># </span>{entry.data.name}</h1>
     <p class="lede">{entry.data.tagline}</p>
 
-    <div style="margin-top: 18px;">
-      <span class:list={['pill', entry.data.free ? 'free' : 'paid']}>
-        {entry.data.free ? 'free' : 'paid'}
+    <div style="margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap;">
+      <span class:list={['pill', `kind-${entry.data.kind}`]}>
+        {entry.data.kind}
       </span>
+      {entry.data.free === false && <span class="pill paid">paid</span>}
       {entry.data.archived && <span class="pill">archived</span>}
     </div>
 

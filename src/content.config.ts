@@ -20,6 +20,14 @@ const toolCategory = z.enum([
   'other',
 ]);
 
+const toolKind = z.enum([
+  'cli',
+  'web',
+  'desktop',
+  'api',
+  'library',
+]);
+
 const articles = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/articles' }),
   schema: ({ image }) =>
@@ -80,6 +88,7 @@ const tools = defineCollection({
       name: z.string(),
       tagline: z.string(),
       category: toolCategory,
+      kind: toolKind,
       tags: z.array(z.string()).default([]),
       url: z.string().url().optional(),
       repoUrl: z.string().url().optional(),

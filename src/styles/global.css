@@ -537,6 +537,32 @@ button.ico {
   color: var(--accent);
   border-color: rgba(224, 175, 104, 0.28);
 }
+/* Tool kind */
+.pill.kind-cli {
+  background: rgba(125, 207, 255, 0.12);
+  color: var(--cyan);
+  border-color: rgba(125, 207, 255, 0.25);
+}
+.pill.kind-web {
+  background: rgba(158, 206, 106, 0.12);
+  color: var(--green);
+  border-color: rgba(158, 206, 106, 0.25);
+}
+.pill.kind-desktop {
+  background: rgba(187, 154, 247, 0.12);
+  color: var(--purple);
+  border-color: rgba(187, 154, 247, 0.25);
+}
+.pill.kind-api {
+  background: rgba(255, 158, 100, 0.12);
+  color: var(--orange);
+  border-color: rgba(255, 158, 100, 0.25);
+}
+.pill.kind-library {
+  background: rgba(122, 162, 247, 0.12);
+  color: var(--blue);
+  border-color: rgba(122, 162, 247, 0.25);
+}
 .pill.open-source {
   background: rgba(125, 207, 255, 0.15);
   color: var(--cyan);
