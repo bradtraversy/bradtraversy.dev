@@ -18,36 +18,51 @@ is the full tour.
 
 ## the hardware
 
-three boxes do the heavy lifting:
+five machines carry real load. each one has a clear job.
 
-- **`trav-dev`** — main dev / content box. ubuntu 24.04, 13th gen
-  intel core i9-13900k, rtx 4070 ti, 64 gb ram. this is where i write
-  code, record video, and run the local dev servers for every project
-  i'm shipping. claude code runs here. so does cowork (claude desktop)
-  when i want back-and-forth design rather than terminal pairing.
-- **`trav-ai`** — dedicated local-ai box. gmktec evo-x2, amd ryzen ai
-  max+ 395, 48 gb unified memory. ollama for local model inference,
-  open webui for a chat ui, openclaw for the autonomous agent (i call
-  him travis). also where mission control runs. lan-only — bound to
-  the local network, never exposed to the internet.
-- **`trav-nas`** — synology dsm. primary file storage. backups, raw
-  video footage, and the obsidian vault is mirrored here nightly.
+- **`trav-dev`** — main dev box. **ubuntu 24.04** on 13th gen intel
+  core i9-13900k, rtx 4070 ti, 64 gb ram. where i write code and run
+  the local dev servers for every project i'm shipping. claude code
+  runs here. so does cowork (claude desktop) when i want back-and-forth
+  design rather than terminal pairing.
+- **`trav-ai`** — dedicated local-ai box. **ubuntu** on a gmktec
+  evo-x2, amd ryzen ai max+ 395, 48 gb unified memory. ollama for
+  local model inference, open webui for a chat ui, openclaw for the
+  autonomous agent (i call him travis). also where mission control
+  runs. lan-only — bound to the local network, never exposed to the
+  internet.
+- **`trav-studio`** — recording machine. **macos** on a mac studio
+  (apple m4 max, 64 gb). every youtube video, course module, and
+  screencast i record runs through this box. obs + screen studio for
+  capture, davinci resolve for the edit. it's deliberately separate
+  from `trav-dev` — recording load and dev load fight each other badly
+  when they share a machine, and a clean macos environment for
+  capture is one fewer variable when something goes wrong mid-take.
+- **`trav-gaming`** — windows desktop. **windows 11** on an originpc,
+  intel i9-14900k, rtx 5080, 32 gb ram. dual-purpose: actual gaming,
+  plus the windows-only stuff that doesn't fit anywhere else
+  (occasional adobe work, the rare windows app i need to test
+  something against, lighter browsing when i'm not at the dev box).
+- **`trav-nas`** — synology ds918+, 4-bay, running dsm. primary file
+  storage. backups, raw video footage, and the obsidian vault is
+  mirrored here nightly.
 
-a couple of macs sit alongside for video editing and travel work, plus
-a windows desktop for gaming. those don't carry any of the workflow
-weight — they're either media production or off-duty.
+a couple of macs sit alongside as portable pickups — a macbook pro for
+travel work, a macbook air that lives on the dj setup. neither one
+carries serious workflow weight.
 
 network is flat: modem → eero → managed gigabit switch → everything
-else. no vlan segmentation, no pfsense, no proxmox. just three boxes
+else. no vlan segmentation, no pfsense, no proxmox. just five boxes
 that need to talk to each other and a printer that mostly behaves.
 
 ## the software stack
 
 on top of the hardware:
 
-- **ollama + open webui** on `trav-ai`. a handful of local models in
-  the 8b–30b range, useful for triage, classification, and the kind of
-  work that doesn't need frontier intelligence.
+- **ollama + open webui** on `trav-ai`. qwen is the workhorse for
+  the simple-task surface area — triage, classification, quick
+  summarization, anything that doesn't need frontier intelligence.
+  i use local for simple tasks only. it stays in its lane.
 - **openclaw** also on `trav-ai`. an open-source autonomous claude
   agent runtime. it's what hosts travis — runs on a cron, picks up
   tasks, makes decisions, writes back to the vault. (a longer "how
@@ -68,23 +83,33 @@ on top of the hardware:
 
 three claude agents, one shared brain.
 
-**claude code** — interactive, terminal-based. when i'm in the editor,
-this is who i'm pairing with. it knows the vault, it writes a session
-log at the end of each session via a `/compress` skill, and it picks
-up queued tasks at the start of the next via `/resume`. so even
-though sessions don't share memory, the agent does — through the vault.
+**claude code** — interactive, terminal-based. running on **opus
+4.7**. when i'm in the editor, this is who i'm pairing with. it knows
+the vault, it writes a session log at the end of each session via a
+`/compress` skill, and it picks up queued tasks at the start of the
+next via `/resume`. so even though sessions don't share memory, the
+agent does — through the vault.
 
-**cowork** — interactive, desktop-app-based. same model, different
-runtime. claude desktop has mcp connections claude code doesn't. so
-when a task needs gmail context — "did the sponsor reply about the
-deadline?" — cowork handles it. also better for planning sessions
-where i want a back-and-forth conversation rather than a code session.
+**cowork** — interactive, desktop-app-based. same model (opus 4.7),
+different runtime. claude desktop has mcp connections claude code
+doesn't. so when a task needs gmail context — "did the sponsor reply
+about the deadline?" — cowork handles it. also better for planning
+sessions where i want a back-and-forth conversation rather than a
+code session.
 
-**travis** — autonomous, openclaw on `trav-ai`. runs every minute on a
-cron. claims queued tasks tagged `agent: travis`, executes one turn,
-marks done. no human in the loop. handles network health checks,
-vault security scans, calendar sync, daily session archival, vault
-backups. the deterministic stuff that should just happen.
+**travis** — autonomous, openclaw on `trav-ai`, running on **gpt-5.5**.
+ticks every minute on a cron, claims queued tasks tagged
+`agent: travis`, executes one turn, marks done. no human in the loop.
+handles network health checks, vault security scans, calendar sync,
+daily session archival, vault backups — the deterministic work that
+should just happen.
+
+different agents, different models, on purpose. opus is the right
+shape for the open-ended judgment work — designing a feature,
+debugging weird state, drafting prose. gpt-5.5 is the right shape for
+the bounded loop work travis runs — well-defined task, structured
+output, predictable steps. and qwen on the local box handles the
+small stuff that doesn't need either.
 
 all three share the same obsidian vault. they read each other's
 session logs, share context files, and coordinate through a task queue.
@@ -228,6 +253,11 @@ a few things on the roadmap, none of them urgent:
 - write-back on the calendar tab in mission control (read-only today)
 - travis-side heartbeat integration so liveness signals are first-class
   in mission control's agents tab
+- exploring **hermes agent** — either as a replacement for openclaw on
+  the autonomous side, or as a layer that sits *above* the existing
+  agents and oversees the whole lab. undecided. the appeal of the
+  overseer shape is having one surface that can route work between
+  claude code, cowork, and travis instead of me being the dispatcher.
 
 the system works. iteration is in service of small quality-of-life
 wins, not feature parity with a hosted solution.
