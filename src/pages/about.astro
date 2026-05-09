@@ -11,18 +11,115 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="section">
     <h1 class="h1"><span class="hash"># </span>about</h1>
     <p class="lede">
-      bradtraversy.dev is my public lab — articles, devlog, projects, and the
-      tools i ship. it's the home for my solo work, distinct from{' '}
+      i'm brad traversy. i make developer content on youtube under{' '}
       <a href="https://traversymedia.com" class="link">traversy media</a>{' '}
-      (the joint brad+dennis llc).
+      where i mostly teach. this site is what i build outside of that — solo,
+      hands-on, public.
     </p>
   </section>
 
   <section class="section">
-    <div class="comment">// placeholder — phase 3 fills out the about page</div>
+    <h2 class="h2"><span class="hash">## </span>what this site is</h2>
+    <p>
+      a working lab with the door propped open. four content modes, four
+      cadences:
+    </p>
+    <ul class="prose-list">
+      <li>
+        <strong>projects</strong> — software i'm working on, with their own
+        detail pages, status pills, and the build documented in the open
+      </li>
+      <li>
+        <strong>tools</strong> — small finished utilities. catalog scales as i
+        ship more of them
+      </li>
+      <li>
+        <strong>devlog</strong> — short raw notes from the workshop, posted
+        whenever something lands or breaks. often pulled straight from real
+        session notes
+      </li>
+      <li>
+        <strong>articles</strong> — polished long-form, low cadence, the
+        things worth editing
+      </li>
+    </ul>
+    <p>
+      content lives in the repo as mdx. no cms, no database, no auth. one
+      server endpoint for the newsletter and that's it.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>what this site isn't</h2>
+    <ul class="prose-list">
+      <li>
+        <strong>not a course platform</strong> — that's{' '}
+        <a href="https://traversymedia.com" class="link">traversy media</a>,
+        the joint brad+dennis llc. different brand, different surface
+      </li>
+      <li>
+        <strong>not a marketing funnel</strong> — paid saas (vidpipe etc.)
+        links out to its own checkout. nothing on this site converts on price
+      </li>
+      <li>
+        <strong>not sponsored</strong> — no display ads, no affiliate stuffing,
+        no "guest posts" from other companies
+      </li>
+      <li>
+        <strong>not a complete bio</strong> — if you want my career stuff,
+        the youtube channel is the better surface
+      </li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>find me</h2>
+    <ul class="prose-list">
+      <li>
+        twitter / x —{' '}
+        <a href="https://twitter.com/traversymedia" class="link">@traversymedia</a>
+      </li>
+      <li>
+        github —{' '}
+        <a href="https://github.com/bradtraversy" class="link">bradtraversy</a>
+      </li>
+      <li>
+        youtube —{' '}
+        <a href="https://youtube.com/@TraversyMedia" class="link">traversy media</a>
+      </li>
+      <li>
+        email —{' '}
+        <a href="mailto:traversymedia@gmail.com" class="link">traversymedia@gmail.com</a>
+      </li>
+    </ul>
+    <p class="comment-prose">
+      // best way to reach me about this site is twitter or a github issue on{' '}
+      <a href="https://github.com/bradtraversy/bradtraversy.dev" class="link">the repo</a>.
+    </p>
   </section>
 
   <div class="comment" style="margin-top: 24px;">
     // EOF about.md<span class="cursor"></span>
   </div>
 </BaseLayout>
+
+<style>
+  .prose-list {
+    margin: 12px 0 16px;
+    padding-left: 20px;
+    list-style: disc;
+    color: var(--fg-1);
+  }
+  .prose-list li {
+    margin-bottom: 8px;
+    line-height: 1.55;
+  }
+  .prose-list strong {
+    color: var(--fg-strong, var(--fg-1));
+  }
+  .comment-prose {
+    color: var(--fg-comment);
+    font-size: 12.5px;
+    margin-top: 12px;
+  }
+</style>
