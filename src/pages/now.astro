@@ -1,28 +1,181 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const ACTIVE_STATUSES = ['alpha', 'beta', 'live', 'local'];
+const allProjects = await getCollection('projects');
+const currentlyBuilding = allProjects
+  .filter((p) => p.data.featured || ACTIVE_STATUSES.includes(p.data.status))
+  .sort((a, b) => {
+    if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+    return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+  })
+  .slice(0, 6);
+
+// Manual focus notes per project (1-line "what's the active push here").
+// Update these when the focus shifts; if a project isn't listed, the card
+// still renders with its tagline as fallback.
+const focusNotes: Record<string, string> = {
+  vidpipe:
+    'shipping the channel-connection pivot. just added a transcript-provider fallback. publishing destinations (wordpress, medium) are next.',
+  'bradtraversy-dev':
+    'phase 3 launch content. project + tool pages filling out. dns wiring + soft launch are the remaining gates.',
+  'mission-control':
+    'running daily on the homelab. write-back on calendar + agent heartbeats are the next two adds.',
+  devsheets:
+    'on autopilot — sheets land via the create/audit/validate/sync skill chain when i pick a topic from the backlog.',
+  webutils:
+    'maintenance mode — adding a tool when i need one and can\'t find a clean version of it elsewhere.',
+};
+
+const lastUpdated = '2026-05-09';
 ---
 
 <BaseLayout
   title="now — brad traversy"
-  description="what i'm working on right now."
+  description="what i'm actively working on right now."
   pageTitle="now.md"
   currentSection="now"
 >
   <section class="section">
     <h1 class="h1"><span class="hash"># </span>now</h1>
     <p class="lede">
-      what's actively in motion this week. mirrors my private "current state"
-      tracker — last updated whenever the focus shifts.
+      what i'm focused on right this minute. updated when the focus shifts —
+      see the date at the bottom for the last revision.
     </p>
   </section>
 
   <section class="section">
+    <h2 class="h2"><span class="hash">## </span>right now</h2>
+    <p>
+      deepest into <a href="/projects/vidpipe" class="link">vidpipe</a> — the
+      channel-connection pivot is the headline build. you connect a youtube
+      channel, every new upload generates an article + newsletter + social
+      posts, and auto-publishing to wordpress / medium / ghost is the next
+      phase. on the side, bradtraversy.dev itself gets daily content polish:
+      new project pages, devlog backfill, the tool catalog filling out.
+    </p>
+    <p>
+      this is a heads-down month. less youtube production than usual. more
+      shipping.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>currently building</h2>
     <div class="comment">
-      // placeholder — phase 3 wires this to real "current state" data
+      // featured + active projects, with the current push on each
     </div>
+    <div class="now-projects">
+      {currentlyBuilding.map((project) => (
+        <a class="now-project" href={`/projects/${project.id}`}>
+          <div class="now-project-head">
+            <span class="now-project-name">{project.data.name}</span>
+            <span class:list={['pill', project.data.status]}>{project.data.status}</span>
+          </div>
+          <p class="now-project-note">
+            {focusNotes[project.id] ?? project.data.tagline}
+          </p>
+        </a>
+      ))}
+    </div>
+    <a href="/projects" class="link more-link">→ all projects</a>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>what i'm thinking about</h2>
+    <ul class="prose-list">
+      <li>
+        how agent workflows actually change content production cadence — not
+        in theory, but for someone shipping every day
+      </li>
+      <li>
+        whether "indie builder + known person" beats "new company brand + same
+        products" for distribution. (rebranding the public site from a brand
+        name to my personal name was the bet i made on this)
+      </li>
+      <li>
+        the right shape for fallback economics on third-party apis — when do
+        you pay for stability, when do you pay for low-cost insurance
+      </li>
+      <li>
+        what a vault-native dashboard looks like when the markdown <em>is</em>{' '}
+        the database — not a cms, not a sync layer, just files
+      </li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>what i'm not doing</h2>
+    <ul class="prose-list">
+      <li>no live coding sessions or live streams right now</li>
+      <li>not chasing every shiny model release — only swap when there's a real reason</li>
+      <li>not building a course platform — that's not what this site is for</li>
+      <li>no new sponsor commitments beyond existing ones</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <p class="comment-prose">
+      // last updated <strong>{lastUpdated}</strong>. inspired by{' '}
+      <a href="https://nownownow.com/about" class="link">/now pages</a>.
+    </p>
   </section>
 
   <div class="comment" style="margin-top: 24px;">
     // EOF now.md<span class="cursor"></span>
   </div>
 </BaseLayout>
+
+<style>
+  .now-projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .now-project {
+    display: block;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-2);
+    text-decoration: none;
+    color: var(--fg-1);
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+  .now-project:hover {
+    border-color: var(--border-strong);
+    background: var(--bg-3, var(--bg-2));
+  }
+  .now-project-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .now-project-name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .now-project-note {
+    margin: 6px 0 0;
+    color: var(--fg-muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .prose-list {
+    margin: 12px 0 16px;
+    padding-left: 20px;
+    list-style: disc;
+    color: var(--fg-1);
+  }
+  .prose-list li {
+    margin-bottom: 8px;
+    line-height: 1.55;
+  }
+  .comment-prose {
+    color: var(--fg-comment);
+    font-size: 12.5px;
+  }
+</style>
