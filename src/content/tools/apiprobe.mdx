@@ -1,0 +1,52 @@
+---
+name: API Probe
+tagline: browser-based postman alternative for testing apis
+category: dev
+tags: [api, http, testing, postman]
+url: https://apiprobe.dev
+repoUrl: https://github.com/bradtraversy/apiprobe
+free: true
+publishDate: 2026-05-08
+heroImage: ./apiprobe-hero.webp
+heroImageAlt: api probe ui showing a get request with environment variables, headers, and a 200 response
+---
+
+a free, browser-based api testing tool. think postman without the install,
+without the account, without the upsell flow. open the url, build a request,
+hit send.
+
+## what it does
+
+- **all the http methods** — get, post, put, delete, patch, head, options
+- **environment variables** — define `baseUrl`, `token`, `userId` once,
+  reference them with `{{varName}}` in urls, headers, and bodies. swap
+  between dev / staging / prod environments without rewriting requests
+- **request history + saved requests** — every request you fire is logged;
+  the ones worth keeping get saved to a sidebar collection
+- **auth helpers** — bearer tokens, basic auth, or any custom authorization
+  header. tokens stored locally in your browser
+- **body editors** — syntax-highlighted json, xml, form-data (postman-style
+  key/value rows), and raw text
+- **response viewer** — pretty-printed json/xml, headers panel, response
+  duration and size
+
+## how to use
+
+1. open [apiprobe.dev](https://apiprobe.dev)
+2. paste a url (or a `{{baseUrl}}/path` if you set up an environment)
+3. add headers / body / auth as needed
+4. send. response renders inline.
+
+`ctrl+enter` sends the request from anywhere in the form.
+
+## why i built it
+
+postman is great until it isn't. the install is heavy, the cloud-sync prompts
+are constant, and the free tier keeps narrowing. for the everyday "i just
+need to hit this endpoint and see what comes back," a browser tab is the
+right size. api probe is that browser tab.
+
+free, open source, runs in the browser. pairs nicely with
+[apimocker](/tools/apimocker) when you need a fake api to test against.
+
+> [open apiprobe.dev →](https://apiprobe.dev)
