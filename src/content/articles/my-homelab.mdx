@@ -1,0 +1,238 @@
+---
+title: my homelab
+dek: the boxes, the agents, and the workflow that runs my actual day-to-day work
+publishDate: 2026-05-09
+draft: true
+tags: [agents, agent-workflow, meta, claude]
+relatedProjects: [mission-control]
+---
+
+most of my actual day-to-day work runs on three machines in my house. a
+main dev box, a dedicated local-ai box, and a nas. on top of those sit
+three claude agents that share a single obsidian vault, a real-time
+dashboard that reads that vault as its database, and a task queue that
+lets the agents hand work to each other.
+
+it's the most important shift in how i work since i learned git. this
+is the full tour.
+
+## the hardware
+
+three boxes do the heavy lifting:
+
+- **`trav-dev`** — main dev / content box. ubuntu 24.04, 13th gen
+  intel core i9-13900k, rtx 4070 ti, 64 gb ram. this is where i write
+  code, record video, and run the local dev servers for every project
+  i'm shipping. claude code runs here. so does cowork (claude desktop)
+  when i want back-and-forth design rather than terminal pairing.
+- **`trav-ai`** — dedicated local-ai box. gmktec evo-x2, amd ryzen ai
+  max+ 395, 48 gb unified memory. ollama for local model inference,
+  open webui for a chat ui, openclaw for the autonomous agent (i call
+  him travis). also where mission control runs. lan-only — bound to
+  the local network, never exposed to the internet.
+- **`trav-nas`** — synology dsm. primary file storage. backups, raw
+  video footage, and the obsidian vault is mirrored here nightly.
+
+a couple of macs sit alongside for video editing and travel work, plus
+a windows desktop for gaming. those don't carry any of the workflow
+weight — they're either media production or off-duty.
+
+network is flat: modem → eero → managed gigabit switch → everything
+else. no vlan segmentation, no pfsense, no proxmox. just three boxes
+that need to talk to each other and a printer that mostly behaves.
+
+## the software stack
+
+on top of the hardware:
+
+- **ollama + open webui** on `trav-ai`. a handful of local models in
+  the 8b–30b range, useful for triage, classification, and the kind of
+  work that doesn't need frontier intelligence.
+- **openclaw** also on `trav-ai`. an open-source autonomous claude
+  agent runtime. it's what hosts travis — runs on a cron, picks up
+  tasks, makes decisions, writes back to the vault. (a longer "how
+  travis works" article is coming; this is the headline tour.)
+- **mission control** also on `trav-ai`, port 8890. a next.js app i
+  built. reads my obsidian vault directly and renders a live dashboard
+  for everything in it.
+- **claude code** on `trav-dev`. runs in the terminal where i'm
+  actually coding. interactive, picks up queued tasks at the start of
+  every new session via a `/resume` skill.
+- **cowork** also on `trav-dev` and on the macbook. same model as
+  claude code, different runtime — claude desktop. mcp connections to
+  gmail, calendar, drive, vercel give it surfaces claude code doesn't
+  have.
+- **obsidian** on every box. the vault is the source of truth.
+
+## the agent fleet
+
+three claude agents, one shared brain.
+
+**claude code** — interactive, terminal-based. when i'm in the editor,
+this is who i'm pairing with. it knows the vault, it writes a session
+log at the end of each session via a `/compress` skill, and it picks
+up queued tasks at the start of the next via `/resume`. so even
+though sessions don't share memory, the agent does — through the vault.
+
+**cowork** — interactive, desktop-app-based. same model, different
+runtime. claude desktop has mcp connections claude code doesn't. so
+when a task needs gmail context — "did the sponsor reply about the
+deadline?" — cowork handles it. also better for planning sessions
+where i want a back-and-forth conversation rather than a code session.
+
+**travis** — autonomous, openclaw on `trav-ai`. runs every minute on a
+cron. claims queued tasks tagged `agent: travis`, executes one turn,
+marks done. no human in the loop. handles network health checks,
+vault security scans, calendar sync, daily session archival, vault
+backups. the deterministic stuff that should just happen.
+
+all three share the same obsidian vault. they read each other's
+session logs, share context files, and coordinate through a task queue.
+
+## the vault is the database
+
+obsidian as a second brain isn't new. obsidian as the literal source
+of truth for an entire workflow — that's the part that took some
+unlearning.
+
+every project has a folder. every project has an `Overview.md`. every
+active piece of work has a session log. the homelab's hardware
+inventory, network map, automation registry — all markdown files in
+the vault. there's no parallel database, no source-of-truth-elsewhere.
+the markdown *is* the database.
+
+three things compound from this:
+
+- agents read it natively. no schema, no api, no orm. they grep and
+  open files the way a human would.
+- i can edit anything from any machine. obsidian sync handles the
+  cross-machine state; the agents read whatever the disk says at the
+  moment they look.
+- the file format is human-readable. if obsidian disappears tomorrow,
+  my notes don't. if claude rebrands, my notes don't.
+
+mission control is built on the same idea. when i flip a todo from
+open to done in the dashboard, it surgically rewrites the `- [ ]` to
+`- [x]` in the relevant markdown file via a line-level edit and an
+atomic `.tmp + rename`. no orm round-trip, no cms, no shadow store.
+obsidian sees the change a second later, byte-identical to a manual
+edit.
+
+## mission control
+
+the dashboard is the lens i look at the system through.
+
+one web surface for everything: tabs across the top for home, todos,
+tasks, projects, sessions, research, network, calendar, agents. each
+tab is built by parsing the relevant region of the vault. live updates
+via chokidar + server-sent events — when an agent writes a file, my
+screen refreshes within a second. when i edit a file in obsidian, the
+same.
+
+it runs as a systemd-user service on `trav-ai`, bound to the lan. i
+never want it on the internet. the value is the integration with my
+private vault; the moment it's exposed, the security model gets
+complicated and the upside is zero — i'm not building this for anyone
+else. lan-only is a feature, not a limitation.
+
+## the task queue
+
+`Tasks/*.md` is where work moves between agents.
+
+each task is a markdown file with frontmatter like:
+
+```yaml
+---
+agent: travis | claude-code | claude-cowork | brad
+status: queued | claimed | done
+priority: low | medium | high
+---
+```
+
+travis polls every minute and claims his queued tasks. claude code's
+`/resume` skill surfaces queued items at session start. cowork has a
+five-minute task runner on the same pattern. all three honor a
+`Tasks/_control.json` pause flag if i need to halt the queue.
+
+the practical effect: i can leave a task for travis at midnight
+("rotate the nas backup logs"), drop a task for cowork in the morning
+("check for new sponsor emails and draft replies for me to review"),
+and let claude code surface me anything queued for it the next time i
+open the terminal.
+
+work moves between agents the way it moves between teammates. that's
+not a metaphor — it's literally the same coordination model.
+
+## a day in the life
+
+a typical weekday, condensed:
+
+- **05:00** — travis runs his daily jobs. calendar sync, vault backup
+  to nas, vault security scan. all cron-driven, all writing heartbeats
+  to the vault that mission control surfaces in the agents tab.
+- **05:15** — cowork's task runner picks up the daily tech digest.
+  fetches news, summarizes, writes a digest file to `Research/Digests/`.
+- **05:30** — the youtube idea generator runs. reads today's digest,
+  writes structured idea notes for me to triage later.
+- **08:00** — i sit down at `trav-dev`. open mission control on a side
+  monitor. open claude code, run `/resume`. it reads the night's
+  session logs and queued tasks and gives me a one-paragraph
+  orientation: "yesterday you shipped X, vidpipe deploy is green, three
+  new ideas surfaced for review."
+- **morning** — paired coding with claude code on whatever the active
+  project is. usually vidpipe lately. session logs compress at the end
+  via `/compress`; the next session picks up where this one left off.
+- **lunch** — switch to cowork on the macbook. lighter work — gmail
+  triage, calendar review, drafting devlog entries from session logs
+  via a `polish-devlog` skill.
+- **afternoon** — back to `trav-dev`. record video, edit, write
+  articles. claude code stays open in the terminal even when i'm not
+  actively pairing — i'll drop "here's a snippet, fix the bug" between
+  takes.
+- **evening** — close down. travis keeps running. mission control is
+  still up. the next day starts with the same `/resume` loop.
+
+the core point: the agents do the deterministic work and the boring
+work; i do the creative work and the judgment calls. the homelab is
+what makes that division of labor reliable enough to depend on.
+
+## why local
+
+a question i get a lot: why bother with a local-ai box when claude is
+already in the cloud?
+
+- **cost.** ollama for embedding work, classification, and the
+  small-model surface area saves real money over running every call
+  against a frontier api.
+- **privacy.** sponsor emails, financial notes, half-formed product
+  ideas — i'd rather these sit on a box in my house than on a
+  third-party server, even one with strong privacy policies.
+- **reliability.** the local agent doesn't get rate-limited. it
+  doesn't depend on a hosted service being up. when the internet goes
+  down, travis keeps running on schedule.
+- **agency.** running my own runtime means i can change anything.
+  openclaw is open source. i can tweak the prompt, add tools, change
+  the cron schedule, swap models. the lock-in surface is roughly zero.
+
+the cloud is for the work that actually needs frontier intelligence.
+the local box is for the work that needs *some* intelligence and a lot
+of reliability.
+
+## what's next
+
+a few things on the roadmap, none of them urgent:
+
+- self-host bitwarden in docker on `trav-ai` to replace lastpass
+- nightly vault backup is already running, but an offsite copy is
+  overdue
+- write-back on the calendar tab in mission control (read-only today)
+- travis-side heartbeat integration so liveness signals are first-class
+  in mission control's agents tab
+
+the system works. iteration is in service of small quality-of-life
+wins, not feature parity with a hosted solution.
+
+> the lab is the work happening, in a place where it can keep
+> happening. the homelab is the floor underneath that. nothing fancy
+> — just the smallest viable setup that does the things i actually
+> need.
