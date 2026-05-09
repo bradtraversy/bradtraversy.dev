@@ -1,8 +1,8 @@
 ---
 name: API Probe
-tagline: browser-based postman alternative for testing apis
+tagline: a small browser-based request runner — built mostly for tutorials and quick api checks
 category: dev
-tags: [api, http, testing, postman]
+tags: [api, http, testing]
 url: https://apiprobe.dev
 repoUrl: https://github.com/bradtraversy/apiprobe
 free: true
@@ -11,22 +11,30 @@ heroImage: ./apiprobe-hero.webp
 heroImageAlt: api probe ui showing a get request with environment variables, headers, and a 200 response
 ---
 
-a free, browser-based api testing tool. think postman without the install,
-without the account, without the upsell flow. open the url, build a request,
-hit send.
+a small open-source api request runner that runs in the browser. paste a url,
+add headers and a body if you need them, hit send. for the "i just need to
+poke this endpoint and see what comes back" moments where opening postman
+feels like overkill.
+
+honest framing: this isn't trying to compete with postman, hoppscotch, bruno,
+or insomnia. those tools are bigger, more featureful, and built by larger
+teams. api probe is intentionally small — i built it because i wanted
+something tiny i could embed in tutorials and pair with
+[api mocker](/tools/apimocker), and it ended up useful enough to put online.
 
 ## what it does
 
-- **all the http methods** — get, post, put, delete, patch, head, options
+- **all the standard http methods** — get, post, put, delete, patch, head,
+  options
 - **environment variables** — define `baseUrl`, `token`, `userId` once,
   reference them with `{{varName}}` in urls, headers, and bodies. swap
   between dev / staging / prod environments without rewriting requests
-- **request history + saved requests** — every request you fire is logged;
-  the ones worth keeping get saved to a sidebar collection
+- **request history + saved requests** — recent requests are logged
+  locally; the ones worth keeping pin to the sidebar
 - **auth helpers** — bearer tokens, basic auth, or any custom authorization
-  header. tokens stored locally in your browser
-- **body editors** — syntax-highlighted json, xml, form-data (postman-style
-  key/value rows), and raw text
+  header. stored in your browser, not on a server
+- **body editors** — syntax-highlighted json + xml, form-data key/value
+  rows, raw text
 - **response viewer** — pretty-printed json/xml, headers panel, response
   duration and size
 
@@ -39,14 +47,22 @@ hit send.
 
 `ctrl+enter` sends the request from anywhere in the form.
 
-## why i built it
+## hosted vs self-hosted
 
-postman is great until it isn't. the install is heavy, the cloud-sync prompts
-are constant, and the free tier keeps narrowing. for the everyday "i just
-need to hit this endpoint and see what comes back," a browser tab is the
-right size. api probe is that browser tab.
+the hosted version at [apiprobe.dev](https://apiprobe.dev) has a low rate
+limit on the proxy (it's a free demo, not a backend i want to babysit
+indefinitely). for real day-to-day work, **clone the repo and run it
+locally** — same ui, no rate limit, your machine's network reach.
 
-free, open source, runs in the browser. pairs nicely with
-[apimocker](/tools/apimocker) when you need a fake api to test against.
+```bash
+git clone https://github.com/bradtraversy/apiprobe
+cd apiprobe
+npm install
+npm run dev
+```
 
-> [open apiprobe.dev →](https://apiprobe.dev)
+if you want a full-featured browser-based tool you can leave on, hoppscotch
+is the well-trodden choice. api probe is the smaller, "i just want a
+clean window with a send button" alternative.
+
+> [open apiprobe.dev →](https://apiprobe.dev) · [github →](https://github.com/bradtraversy/apiprobe)
