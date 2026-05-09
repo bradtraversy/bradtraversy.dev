@@ -23,7 +23,7 @@ const {
 const allDevlog = await getCollection('devlog', ({ data }) => !data.draft || import.meta.env.DEV);
 const recentDevlog = allDevlog
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 12);
+  .slice(0, 8);
 
 const allProjects = await getCollection('projects');
 const recentProjects = allProjects

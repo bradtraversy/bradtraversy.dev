@@ -1,0 +1,80 @@
+---
+title: a sweep through apimocker
+publishDate: 2026-05-09
+draft: false
+tags: [devlog, decision, nodejs]
+---
+
+i hadn't touched apimocker in a while. opened the repo to fix one small thing
+and ended up doing a full cleanup pass. by the end, five commits had landed and
+the live landing page looked nothing like it did when i started.
+
+## the docs lied in three places
+
+every time i look at a project after a long gap, i find the docs and the code
+have drifted. apimocker was a textbook example.
+
+- the readme + landing page documented a `/api` prefix on every endpoint. the
+  routes mount at root.
+- the readme advertised a `/search` endpoint that did not exist.
+- the landing page bragged about patch support for users. users had no patch route.
+- the schema had grown from 3 models to 5. the docs still listed 3.
+
+each one is small. cumulatively, anyone trying to use the api hits a wall
+within five minutes. fixed all of them, then started thinking about whether
+the landing page should auto-generate from the route definitions to prevent
+future drift — it's drifted twice now, and i don't trust manual sync.
+
+## "apimocker is the api"
+
+the `/api` prefix question turned into a small architectural decision. some
+apis namespace under `/api` (multi-purpose backends with a marketing site at
+root); peer tools that *are* the api — jsonplaceholder, dummyjson — serve at
+root. apimocker fits that second shape. it doesn't have a marketing site to
+namespace against; it *is* the page you hit. dropped the prefix in the docs to
+match the code, kept root as canonical.
+
+## response shapes
+
+picked a small shape decision i'd been waffling on. list endpoints stay
+wrapped (`{ data, pagination }`), single-resource endpoints return the bare
+object.
+
+```
+GET /posts        → { data: [...], pagination: {...} }
+GET /posts/:id    → { id, title, ... }
+```
+
+reasoning: lists need a wrapper because pagination has nowhere else to live.
+single resources have nothing else to carry — wrapping them just makes
+consumers write `.data` everywhere for no reason. matches jsonplaceholder.
+updated the controller, helpers, readme, and landing page in one commit so
+they all agreed.
+
+## tests that didn't actually run
+
+the integration tests had been written but never green. the test helper
+expected a function the controller didn't export, the response-shape
+assertions checked keys that weren't there, and a couple of cascade-delete
+tests had the cascade direction backwards.
+
+walked through the test setup, fixed the import, fixed the assertions, fixed
+the cascade tests so they verify the schema's actual cascade behavior. added a
+small `_resetWriteCountsForTesting` export on the rate limiter so per-file
+tests don't fight over the shared per-ip quota.
+
+now the suite actually loads and tells me when something breaks.
+
+## the landing page
+
+while i was in the repo, redid the landing page. the previous version was a
+purple-accent dark mode with a radial glow at the top — generic "ai startup"
+shape that every tool has worn for the last two years. swapped to a muted
+emerald green used sparingly, killed the radial glow, bumped the card surface
+slightly lighter so it floats above the page instead of blending in. inter for
+ui, jetbrains mono for endpoints and code. less landing page, more tool surface.
+
+> the small-edit trap is real. you go in to fix one thing, you find a second,
+> by the time you look up there's a five-commit cleanup arc on a sunday
+> morning. for free tools you maintain forever, occasional sweeps like this
+> are the only thing that keeps drift from compounding.
