@@ -279,6 +279,11 @@ button.ico {
   padding: 0;
 }
 
+/* Anchor reset for activity-bar links (GitHub) — drop default underline + colour */
+a.ico {
+  text-decoration: none;
+}
+
 /* Explorer icon doubles as the nav toggle on mobile. Always highlighted —
    on desktop because the panel is visible inline; on mobile because it
    indicates "this is the panel behind the toggle." Matches VSCode's pattern

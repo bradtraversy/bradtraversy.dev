@@ -154,10 +154,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
             <Icon name="lucide:files" />
           </button>
           <div class="ico" title="Search"><Icon name="lucide:search" /></div>
-          <div class="ico" title="Source Control"><Icon name="lucide:git-branch" /></div>
-          <div class="ico" title="Run"><Icon name="lucide:play" /></div>
-          <div class="ico bottom" title="Account"><Icon name="lucide:circle-user" /></div>
-          <div class="ico" title="Settings"><Icon name="lucide:settings" /></div>
+          <a
+            class="ico bottom"
+            href="https://github.com/bradtraversy/bradtraversy.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="View source on GitHub"
+            aria-label="View source on GitHub"
+          ><Icon name="lucide:github" /></a>
         </div>
 
         <!-- Backdrop only shown on mobile when the explorer drawer is open.
