@@ -85,7 +85,7 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 - ❌ No client-side router — Astro's standard navigation is fine
 - ❌ No Google Fonts CDN — self-host woff2 subsets
 - ❌ No on-page comment system at any phase
-- ❌ No tracking beyond Plausible (no GA, no FB Pixel, no LinkedIn Insight, no Hotjar)
+- ❌ No third-party trackers, pixels, or session-recording tools (no GA, FB Pixel, LinkedIn Insight, Hotjar, etc.)
 - ❌ No serverless functions beyond `/api/subscribe`
 - ❌ No build-time API calls to third parties (keeps build deterministic and offline-friendly)
 - ❌ No README writeup of internal decisions in public-facing copy until repo flips public

@@ -22,7 +22,6 @@ it's the public surface for the work i do outside of [traversy media](https://tr
 - [vercel](https://vercel.com) for hosting + a single serverless route (`/api/subscribe`)
 - [buttondown](https://buttondown.com) for the newsletter
 - self-hosted [jetbrains mono](https://www.jetbrains.com/lp/mono/) (woff2 subset)
-- [plausible](https://plausible.io) for analytics — no GA, no pixel, no tracking
 
 static-first. every page is pre-rendered at build time. there's roughly zero client JS on text pages and a tiny handler on a few interactive surfaces (the subscribe form, the hero-image modal).
 
