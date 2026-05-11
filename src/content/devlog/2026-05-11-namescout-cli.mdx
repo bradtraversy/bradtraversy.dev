@@ -1,0 +1,98 @@
+---
+title: shipping the namescout cli
+publishDate: 2026-05-11
+draft: false
+tags: [devlog, cli, npm, nextjs]
+project: namescout
+---
+
+the namescout homepage already had a terminal demo in the hero. small black
+window, `$ npx namescout-cli redis`, output streaming down. except: there was
+no cli. it was a mock-up. fixing the mismatch — build a real cli that does
+exactly what the demo promises — was today's work, alongside a sweep through
+the homepage itself.
+
+## the cli
+
+zero dependencies, node 18+ stdlib only, hits the public `/api/v1/check` and
+`/api/v1/suggest` endpoints. the whole thing is three files under `bin/` and
+`lib/`:
+
+```bash
+npx namescout-cli redis
+```
+
+```
+NameScout · checking "redis" (developer-tool)
+
+Score  11 / 100   Name collision risk
+
+DOMAINS
+  ✗  redis.com  taken
+  ✓  redis.dev  available
+  ...
+```
+
+`--mode`, `--suggest`, `--json`, `--no-color` flags. respects `NO_COLOR` env
+var. `NAMESCOUT_API` env var to point at a self-hosted instance. the help
+output and the readme are the entire docs.
+
+## the name
+
+the obvious npm slot — `namescout` — was already taken when i went to publish.
+not by a squatter; by someone else who'd shipped a real tool under the same
+name a few days earlier. no story to tell there. shipped as `namescout-cli`
+instead and added a second bin alias in `package.json` so both invocations
+resolve to the same script:
+
+```json
+"bin": {
+  "namescout": "bin/namescout.js",
+  "namescout-cli": "bin/namescout.js"
+}
+```
+
+`npx namescout-cli` works. globally installed, `namescout <name>` also works.
+the two-bin trick is cheap insurance against npx's bin-resolution behavior
+shifting between npm versions.
+
+the cli lives in its own [public repo](https://github.com/bradtraversy/namescout-cli).
+the main namescout app stays private for now, but devs (rightly) don't trust
+closed-source clis that hit remote apis — splitting the cli out was the
+single biggest credibility move i could make today.
+
+## homepage polish
+
+while the cli was building, swept the homepage:
+
+- **three report views collapsed into one.** the page was rendering the same
+  data three different ways (header card, registry breakdown, terminal-styled
+  report). pick the best one, delete the other two. nav anchors retitled
+  `styles / sample report / providers` → `search / report / providers` — the
+  old labels were internal jargon
+- **inline cli demo in the hero.** the terminal block i described earlier
+  used to be a separate banner farther down the page. moved it inline below
+  the search form so the cli pitch lands the moment someone reads the value
+  prop, not after a scroll
+- **score help popover.** clicking the `?` next to the score now opens a
+  small panel explaining the 0–100 scale, the verdict-band cutoffs, and how
+  mode weighting affects the result. plain `<button>` + `<dialog>`, no
+  library, closes on outside-click or escape
+- **fixed a suspense + hash anchor bug.** the "suggest alternative names"
+  toggle used `<a href="#suggestions">` to swap a query param. that broke
+  because the streamed suspense boundaries change layout heights as they
+  resolve, so the browser was scrolling to a position that no longer
+  existed. fix: a client component using `router.replace(url, { scroll:
+  false })`. no hash, no jump
+
+## what's next
+
+- monetize: an affiliate link out to a registrar when a domain comes up
+  available, and a $5/mo "watch" feature that pings you when a key namespace
+  changes (a `.dev` opens up, an npm package is unpublished)
+- open-source the main repo once the watch feature ships, so the launch
+  carries both stories
+
+> the cli is the thing the homepage was already promising. publishing it
+> closes the credibility gap between "this is what the tool looks like" and
+> "this is what the tool actually is."

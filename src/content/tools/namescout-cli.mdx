@@ -1,0 +1,89 @@
+---
+name: NameScout CLI
+tagline: check a project name across domains, package registries, code hosts, and plugin marketplaces — from the terminal
+category: dev
+kind: cli
+tags: [cli, node, naming, availability, npm]
+url: https://www.npmjs.com/package/namescout-cli
+repoUrl: https://github.com/bradtraversy/namescout-cli
+free: true
+publishDate: 2026-05-11
+heroImage: ./namescout-cli-hero.png
+heroImageAlt: terminal output of npx namescout-cli piper showing a 21/100 collision-risk score with a full per-provider breakdown — domains, package registries (npm/pypi/crates/rubygems/packagist), github, vs code marketplace, and docker hub
+---
+
+the terminal companion to [namescout.dev](/projects/namescout) — same checks,
+same scoring, same providers, no browser needed. one command, one report,
+straight in the shell.
+
+```bash
+npx namescout-cli redis
+```
+
+## what it does
+
+- hits 12+ providers in parallel — domains, npm, pypi, crates.io, rubygems,
+  packagist, homebrew, docker hub, github, vs code marketplace
+- mode-weighted scoring so the verdict matches what you're building
+  (`saas-product`, `developer-tool`, `library-framework`, `extension-plugin`)
+- optional ai-assisted alternative-name suggestions via `--suggest`
+- raw json output for piping into `jq` or whatever
+- zero dependencies. node 18+ stdlib only. respects `NO_COLOR`.
+
+## install
+
+no install needed:
+
+```bash
+npx namescout-cli <name>
+```
+
+or install globally:
+
+```bash
+npm install -g namescout-cli
+namescout <name>
+```
+
+## examples
+
+```bash
+# default scan (developer-tool mode)
+npx namescout-cli vidpipe
+
+# saas mode — domains weighted higher
+npx namescout-cli my-app --mode saas-product
+
+# include alternative-name suggestions
+npx namescout-cli my-tool --suggest --count 12
+
+# pipe json to jq
+npx namescout-cli my-tool --json | jq .verdict.score
+```
+
+## flags
+
+| flag                | what it does                                                           |
+| ------------------- | ---------------------------------------------------------------------- |
+| `--mode <mode>`     | search mode (default: `developer-tool`)                                |
+| `--suggest`         | also generate alternative names via the suggest api                    |
+| `--count <n>`       | number of suggestions when using `--suggest` (1–20, default 8)         |
+| `--json`            | raw json instead of the formatted report                               |
+| `--no-color`        | disable ansi colors (also honored via `NO_COLOR` env var)              |
+| `-v`, `--version`   | print version                                                          |
+| `-h`, `--help`      | show help                                                              |
+
+`NAMESCOUT_API` env var overrides the api base url if you self-host.
+
+## why a cli
+
+the web report at [namescout.dev](https://namescout.dev) is the richer
+surface — it has the per-provider explanations, near-matches, and a
+shareable url. the cli is for the moment when you're already in the
+terminal, already typing `npm init`, and you don't want to context-switch
+to a browser just to find out the name's been taken since you thought of
+it yesterday.
+
+> [open on npm →](https://www.npmjs.com/package/namescout-cli) ·
+> [github →](https://github.com/bradtraversy/namescout-cli) ·
+> [web version →](/projects/namescout)

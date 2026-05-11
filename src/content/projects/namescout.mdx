@@ -1,0 +1,91 @@
+---
+name: NameScout
+tagline: check the name before you start the repo — domains, packages, code hosts, and plugin marketplaces in one report
+description: |
+  a developer-first name availability scanner. type a project name, get a
+  single report covering domains, package registries, code hosts, and plugin
+  marketplaces. live across 12+ providers with mode-weighted scoring, fuzzy
+  near-matches, and ai-assisted suggestions.
+status: live
+url: https://namescout.dev
+stack: [Next.js, React, Tailwind, Vercel, OpenAI]
+heroImage: ./namescout-hero.webp
+heroImageAlt: namescout.dev homepage showing a name search for "namescout" with a usable-but-watch-it 59 score on the right, a per-provider report (namescout.com taken, npm taken, pypi available, github available), and a terminal demo of the namescout-cli below
+publishDate: 2026-05-10
+featured: true
+---
+
+## what it does
+
+type a project name. get back one report covering everywhere a collision
+could trip you up:
+
+- **domains** — .com, .dev, .io, .app, .ai, .co
+- **package registries** — npm, pypi, rubygems, packagist, homebrew, docker hub
+- **code hosts** — github user/org, github repo search
+- **plugin marketplaces** — vs code, obsidian (coming), chrome web store (coming)
+
+each provider returns taken / available / unknown. a mode-weighted score
+(0–100) rolls everything into one verdict — `mostly clear`, `usable but
+watch it`, or `collision risk`. modes shift the weights: **saas** prioritizes
+domains, **library** prioritizes packages, **developer tool** prioritizes both.
+
+if the name is taken, the report also surfaces near-matches across npm,
+github, and pypi so you can see what people might confuse you with, plus an
+opt-in panel of ai-suggested alternatives.
+
+## why i built it
+
+every time i start a new project i run through the same routine: check the
+.com, check the .dev, check npm, check github, check whether someone already
+shipped a tool with this name three years ago. it takes 10 minutes and i
+forget at least one source every time. by the time i've named the repo,
+half the namespaces are already gone.
+
+namescout is that routine collapsed into one query. the goal isn't to be
+clever — it's to never have to remember which 12 places to look.
+
+## the cli
+
+namescout also ships as a one-command cli so you can run a check without
+leaving the terminal:
+
+```bash
+npx namescout-cli redis
+```
+
+same checks, same scoring, terminal-pretty output. `--mode`, `--suggest`,
+`--json`, and `--no-color` flags supported. the cli has its own
+[tool page →](/tools/namescout-cli) with install + flag docs.
+
+## how it's built
+
+a quick tour:
+
+- **next 16** app on vercel, react 19, tailwind 4
+- **per-provider registry** — every check is one `{ id, check(name) }` entry.
+  adding a provider is a single array append, not a refactor
+- **streaming via suspense** — page shell renders synchronously at ~40ms ttfb;
+  each provider fans out in its own suspense boundary. react `cache()` dedupes
+  the shared fetcher across the report so 11 components don't each refetch
+- **dynamic og images** at `/og` — per-query card with score, verdict, and the
+  top taken providers, generated server-side via `next/og`
+- **`/api/v1/*` endpoints** — `check`, `suggest`, `near-matches`, all open with
+  30 req/min per ip and standard `x-ratelimit-*` headers
+- **ai-assisted suggestions** — opt-in `?suggest=1` panel, openai backed with a
+  programmatic fallback. cached per (query, mode, count) for an hour so the same
+  name doesn't burn tokens twice
+
+## what's next
+
+- premium **watch** feature — pick a name, get pinged when a key namespace
+  changes (a `.dev` opens up, an npm package is unpublished, etc.). $5/mo, the
+  one piece of real recurring revenue this tool can sustain
+- registrar **affiliate** integration — when a domain is available, link
+  through to a registrar with an affiliate id. passive monetization that
+  doesn't get in the user's way
+- open-sourcing the main repo once the watch feature ships — the cli is
+  already [public on github](https://github.com/bradtraversy/namescout-cli)
+
+> the next thing is making the report run a watch in the background, so
+> "this name is gone forever" turns into "i'll know the moment it isn't."
