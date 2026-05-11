@@ -68,6 +68,7 @@ const projects = defineCollection({
       tagline: z.string(),
       description: z.string(),
       status: projectStatus,
+      badge: z.string().optional(),
       url: z.string().url().optional(),
       repoUrl: z.string().url().optional(),
       stack: z.array(z.string()).default([]),

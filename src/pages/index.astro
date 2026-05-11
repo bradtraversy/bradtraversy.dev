@@ -65,68 +65,15 @@ const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
               <div class="card-title">{project.data.name}</div>
               <div class="card-status">
                 <span class:list={['pill', project.data.status]}>{project.data.status}</span>
+                {project.data.badge && (
+                  <span class:list={['pill', project.data.badge]}>{project.data.badge}</span>
+                )}
               </div>
               <div class="card-meta">{project.data.tagline}</div>
             </a>
           ))}
         </div>
         <a href="/projects" class="link more-link">→ all projects</a>
-      </section>
-    )
-  }
-
-  <!-- LATEST ARTICLE -->
-  {
-    latestArticle && (
-      <section class="section">
-        <h2 class="h2">
-          <span class="hash">## </span>latest article
-        </h2>
-        <div class="article-hero">
-          <div class="meta">
-            {fmtDate(latestArticle.data.publishDate)}
-            {latestArticle.data.tags.length > 0 && (
-              <span class="tags">
-                {latestArticle.data.tags.map((t) => `#${t}`).join(' ')}
-              </span>
-            )}
-          </div>
-          <a class="title" href={`/articles/${latestArticle.id}`}>
-            {latestArticle.data.title}
-          </a>
-          <div class="dek">{latestArticle.data.dek}</div>
-          <div class="read">
-            <a href={`/articles/${latestArticle.id}`} class="link">
-              read article →
-            </a>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <!-- RECENT DEVLOG -->
-  {
-    recentDevlog.length > 0 && (
-      <section class="section">
-        <h2 class="h2">
-          <span class="hash">## </span>recent devlog
-        </h2>
-        <div class="comment">// pulled from /devlog — most recent first</div>
-        <div>
-          {recentDevlog.map((entry) => (
-            <div class="devlog-row">
-              <span class="date">{fmtDate(entry.data.publishDate)}</span>
-              <a class="title" href={`/devlog/${entry.id}`}>
-                {entry.data.title}
-              </a>
-              {entry.data.project && <span class="tag">#{entry.data.project}</span>}
-            </div>
-          ))}
-        </div>
-        <a href="/devlog" class="link more-link">
-          → all devlog entries
-        </a>
       </section>
     )
   }
@@ -160,6 +107,62 @@ const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
           ))}
         </div>
         <a href="/tools" class="link more-link">→ all tools</a>
+      </section>
+    )
+  }
+
+  <!-- RECENT DEVLOG -->
+  {
+    recentDevlog.length > 0 && (
+      <section class="section">
+        <h2 class="h2">
+          <span class="hash">## </span>recent devlog
+        </h2>
+        <div class="comment">// pulled from /devlog — most recent first</div>
+        <div>
+          {recentDevlog.map((entry) => (
+            <div class="devlog-row">
+              <span class="date">{fmtDate(entry.data.publishDate)}</span>
+              <a class="title" href={`/devlog/${entry.id}`}>
+                {entry.data.title}
+              </a>
+              {entry.data.project && <span class="tag">#{entry.data.project}</span>}
+            </div>
+          ))}
+        </div>
+        <a href="/devlog" class="link more-link">
+          → all devlog entries
+        </a>
+      </section>
+    )
+  }
+
+  <!-- LATEST ARTICLE -->
+  {
+    latestArticle && (
+      <section class="section">
+        <h2 class="h2">
+          <span class="hash">## </span>latest article
+        </h2>
+        <div class="article-hero">
+          <div class="meta">
+            {fmtDate(latestArticle.data.publishDate)}
+            {latestArticle.data.tags.length > 0 && (
+              <span class="tags">
+                {latestArticle.data.tags.map((t) => `#${t}`).join(' ')}
+              </span>
+            )}
+          </div>
+          <a class="title" href={`/articles/${latestArticle.id}`}>
+            {latestArticle.data.title}
+          </a>
+          <div class="dek">{latestArticle.data.dek}</div>
+          <div class="read">
+            <a href={`/articles/${latestArticle.id}`} class="link">
+              read article →
+            </a>
+          </div>
+        </div>
       </section>
     )
   }
