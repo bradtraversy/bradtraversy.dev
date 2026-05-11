@@ -72,4 +72,4 @@ this is a personal site. typo fixes and broken-link reports via issues are welco
 
 ## license
 
-content (articles, devlog, project pages) is © brad traversy, all rights reserved. site code (everything under `src/components`, `src/layouts`, `src/pages`, `src/styles`) is free to read and lift from — i'll attach a formal LICENSE when the repo goes public.
+all rights reserved. this repo is public for transparency and reading — not for reuse. you can read the code and reference patterns, but please don't copy, fork, or republish it to build your own site or product. if there's something here you'd like to use, [reach out](mailto:traversymedia@gmail.com) — most reasonable asks get a yes. see [`LICENSE`](LICENSE) for the long version.
