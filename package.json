@@ -19,6 +19,7 @@
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@iconify-json/lucide": "^1.2.105",
     "@tailwindcss/vite": "^4.2.4",
+    "@vercel/analytics": "^2.0.1",
     "astro": "^6.2.1",
     "astro-icon": "^1.1.5",
     "rehype-autolink-headings": "^7.1.0",

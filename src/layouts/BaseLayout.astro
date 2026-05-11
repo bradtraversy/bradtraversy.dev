@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
+import Analytics from '@vercel/analytics/astro';
 
 type Section = 'home' | 'articles' | 'devlog' | 'projects' | 'tools' | 'now' | 'about';
 
@@ -404,6 +405,8 @@ const searchIndex: SearchEntry[] = [
       </div>
     </dialog>
     <script is:inline type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
+
+    <Analytics />
 
     <script>
       // Activity-bar Explorer icon (☰) toggles the explorer at every width.
