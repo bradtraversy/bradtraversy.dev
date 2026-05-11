@@ -56,6 +56,58 @@ const tabs: Array<{ label: string; href: string; section: Section; kind: 'md' | 
 ];
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+
+// Command-palette search index. Flat list across every navigable surface.
+// Sorted recent-first so an empty query shows the latest activity.
+const allArticles = await getCollection('articles', ({ data }) => !data.draft || import.meta.env.DEV);
+
+type SearchEntry = {
+  kind: 'project' | 'tool' | 'devlog' | 'article' | 'page';
+  title: string;
+  url: string;
+  hint?: string;
+  date?: number;
+};
+
+const searchIndex: SearchEntry[] = [
+  ...allProjects.map((p): SearchEntry => ({
+    kind: 'project',
+    title: p.data.name,
+    url: `/projects/${p.id}`,
+    hint: p.data.tagline,
+    date: p.data.publishDate.valueOf(),
+  })),
+  ...allTools.filter((t) => !t.data.archived).map((t): SearchEntry => ({
+    kind: 'tool',
+    title: t.data.name,
+    url: `/tools/${t.id}`,
+    hint: t.data.tagline,
+    date: t.data.publishDate.valueOf(),
+  })),
+  ...allDevlog.map((d): SearchEntry => ({
+    kind: 'devlog',
+    title: d.data.title,
+    url: `/devlog/${d.id}`,
+    hint: d.data.project ? `#${d.data.project}` : undefined,
+    date: d.data.publishDate.valueOf(),
+  })),
+  ...allArticles.map((a): SearchEntry => ({
+    kind: 'article',
+    title: a.data.title,
+    url: `/articles/${a.id}`,
+    hint: a.data.dek,
+    date: a.data.publishDate.valueOf(),
+  })),
+  ...([
+    { kind: 'page', title: 'home', url: '/', hint: 'index.astro' },
+    { kind: 'page', title: 'projects', url: '/projects', hint: 'all projects' },
+    { kind: 'page', title: 'tools', url: '/tools', hint: 'all tools' },
+    { kind: 'page', title: 'devlog', url: '/devlog', hint: 'all devlog entries' },
+    { kind: 'page', title: 'articles', url: '/articles', hint: 'all articles' },
+    { kind: 'page', title: 'now', url: '/now', hint: 'currently working on' },
+    { kind: 'page', title: 'about', url: '/about', hint: 'about brad' },
+  ] satisfies SearchEntry[]),
+].sort((a, b) => (b.date ?? 0) - (a.date ?? 0));
 ---
 
 <!doctype html>
@@ -153,7 +205,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
           >
             <Icon name="lucide:files" />
           </button>
-          <div class="ico" title="Search"><Icon name="lucide:search" /></div>
+          <button
+            class="ico"
+            id="search-toggle"
+            type="button"
+            title="Search (⌘K)"
+            aria-label="Open search"
+          ><Icon name="lucide:search" /></button>
           <a
             class="ico"
             href="https://github.com/bradtraversy/bradtraversy.dev"
@@ -323,6 +381,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       <kbd>⌘</kbd> <kbd>K</kbd> &nbsp;to navigate
     </div>
 
+    <!-- COMMAND PALETTE -->
+    <dialog class="palette" id="search-palette" aria-label="Search">
+      <form class="palette-input" method="dialog">
+        <span class="prompt" aria-hidden="true">$</span>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="search projects, tools, devlog, articles…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search query"
+          aria-controls="search-results"
+        />
+        <kbd class="esc-hint" aria-hidden="true">esc</kbd>
+      </form>
+      <ul class="palette-results" id="search-results" role="listbox"></ul>
+      <div class="palette-footer" aria-hidden="true">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>esc</kbd> close</span>
+      </div>
+    </dialog>
+    <script is:inline type="application/json" id="search-index" set:html={JSON.stringify(searchIndex)}></script>
+
     <script>
       // Activity-bar Explorer icon (☰) toggles the explorer at every width.
       // Desktop (>=1025): toggles `body.explorer-hidden` to collapse/restore
@@ -381,6 +463,179 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       });
 
       sync();
+    </script>
+
+    <script>
+      // Command palette — terminal-flavored fuzzy nav across all content.
+      // Vanilla JS, no framework. The index is rendered as JSON in the page;
+      // we parse it once on first open. Filtering is substring + token AND;
+      // ranking favors title matches, then hints/kind.
+      type Entry = {
+        kind: 'project' | 'tool' | 'devlog' | 'article' | 'page';
+        title: string;
+        url: string;
+        hint?: string;
+        date?: number;
+      };
+
+      const palette = document.getElementById('search-palette') as HTMLDialogElement | null;
+      const input = document.getElementById('search-input') as HTMLInputElement | null;
+      const list = document.getElementById('search-results') as HTMLUListElement | null;
+      const toggle = document.getElementById('search-toggle');
+      const indexNode = document.getElementById('search-index');
+
+      if (palette && input && list && indexNode) {
+        let entries: Entry[] = [];
+        try {
+          entries = JSON.parse(indexNode.textContent || '[]');
+        } catch {
+          entries = [];
+        }
+        let active = 0;
+        let current: Entry[] = entries.slice(0, 12);
+
+        const score = (entry: Entry, q: string): number => {
+          if (!q) return 0;
+          const hay = `${entry.title} ${entry.hint ?? ''} ${entry.kind}`.toLowerCase();
+          const title = entry.title.toLowerCase();
+          const tokens = q.toLowerCase().split(/\s+/).filter(Boolean);
+          let s = 0;
+          for (const t of tokens) {
+            if (!hay.includes(t)) return -1;
+            if (title.startsWith(t)) s += 100;
+            else if (title.includes(t)) s += 50;
+            else s += 10;
+          }
+          return s;
+        };
+
+        const filter = (q: string): Entry[] => {
+          if (!q.trim()) return entries.slice(0, 12);
+          const scored = entries
+            .map((e) => ({ e, s: score(e, q) }))
+            .filter((x) => x.s >= 0)
+            .sort((a, b) => b.s - a.s);
+          return scored.slice(0, 12).map((x) => x.e);
+        };
+
+        const render = () => {
+          if (!list) return;
+          list.innerHTML = '';
+          if (current.length === 0) {
+            const li = document.createElement('li');
+            li.className = 'palette-empty';
+            li.textContent = '// no matches';
+            list.appendChild(li);
+            return;
+          }
+          current.forEach((entry, i) => {
+            const li = document.createElement('li');
+            li.className = 'palette-row';
+            li.setAttribute('role', 'option');
+            li.dataset.url = entry.url;
+            if (i === active) {
+              li.classList.add('active');
+              li.setAttribute('aria-selected', 'true');
+            }
+            const arrow = document.createElement('span');
+            arrow.className = 'palette-arrow';
+            arrow.textContent = i === active ? '→' : ' ';
+            const kind = document.createElement('span');
+            kind.className = `palette-kind kind-${entry.kind}`;
+            kind.textContent = `[${entry.kind}]`;
+            const title = document.createElement('span');
+            title.className = 'palette-title';
+            title.textContent = entry.title;
+            li.append(arrow, kind, title);
+            if (entry.hint) {
+              const hint = document.createElement('span');
+              hint.className = 'palette-hint';
+              hint.textContent = entry.hint;
+              li.appendChild(hint);
+            }
+            li.addEventListener('mouseenter', () => {
+              active = i;
+              update(false);
+            });
+            li.addEventListener('click', () => {
+              navigate(entry.url);
+            });
+            list.appendChild(li);
+          });
+        };
+
+        const update = (resetActive: boolean) => {
+          current = filter(input!.value);
+          if (resetActive) active = 0;
+          if (active >= current.length) active = Math.max(0, current.length - 1);
+          render();
+        };
+
+        const navigate = (url: string) => {
+          palette!.close();
+          window.location.href = url;
+        };
+
+        const open = () => {
+          if (!palette || palette.open) return;
+          input!.value = '';
+          active = 0;
+          current = entries.slice(0, 12);
+          render();
+          palette.showModal();
+          // Defer focus past the showModal frame so iOS Safari grabs the caret.
+          requestAnimationFrame(() => input!.focus());
+        };
+
+        toggle?.addEventListener('click', open);
+
+        // Keyboard shortcuts: ⌘K / Ctrl+K and "/" (when not already typing
+        // somewhere). Skip "/" if focus is in an editable target.
+        document.addEventListener('keydown', (e) => {
+          const isMac = navigator.platform.toLowerCase().includes('mac');
+          const cmdOrCtrl = isMac ? e.metaKey : e.ctrlKey;
+          if (cmdOrCtrl && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            open();
+            return;
+          }
+          if (palette!.open) return;
+          if (e.key === '/' && !isEditableTarget(e.target)) {
+            e.preventDefault();
+            open();
+          }
+        });
+
+        function isEditableTarget(t: EventTarget | null): boolean {
+          if (!(t instanceof HTMLElement)) return false;
+          const tag = t.tagName;
+          return tag === 'INPUT' || tag === 'TEXTAREA' || t.isContentEditable;
+        }
+
+        // Within the palette: filter as you type; arrow keys move selection;
+        // Enter opens the active row; Esc closes (also handled natively by dialog).
+        input.addEventListener('input', () => update(true));
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            active = Math.min(current.length - 1, active + 1);
+            render();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            active = Math.max(0, active - 1);
+            render();
+          } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const target = current[active];
+            if (target) navigate(target.url);
+          }
+        });
+
+        // Backdrop click closes
+        palette.addEventListener('click', (e) => {
+          if (e.target === palette) palette.close();
+        });
+      }
     </script>
   </body>
 </html>

@@ -1002,6 +1002,168 @@ a.ico {
 }
 
 /* ==========================================================================
+   Command palette — terminal-feel modal for navigating projects, tools,
+   devlog, articles, and singleton pages. Triggered by Search icon, ⌘/Ctrl+K,
+   or "/" outside an editable. Vanilla dialog + js.
+   ========================================================================== */
+.palette {
+  width: min(720px, calc(100vw - 32px));
+  max-height: 70vh;
+  padding: 0;
+  margin: 12vh auto auto;
+  background: var(--bg-2);
+  color: var(--fg);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-strong);
+  font-family: inherit;
+  overflow: hidden;
+}
+.palette::backdrop {
+  background: rgba(8, 10, 16, 0.7);
+  backdrop-filter: blur(2px);
+}
+.palette[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.palette-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-1);
+}
+.palette-input .prompt {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  user-select: none;
+}
+.palette-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 0;
+  caret-color: var(--accent);
+}
+.palette-input input::placeholder {
+  color: var(--fg-comment);
+}
+.palette-input .esc-hint {
+  background: var(--bg-3);
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 2px 7px;
+  font-family: inherit;
+  font-size: 10px;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.palette-results {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  overflow-y: auto;
+  max-height: calc(70vh - 100px);
+}
+.palette-row {
+  display: grid;
+  grid-template-columns: 18px 80px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px;
+  font-size: 13px;
+  color: var(--fg-muted);
+  cursor: pointer;
+  border-left: 2px solid transparent;
+}
+.palette-row.active {
+  background: var(--bg-3);
+  color: var(--fg);
+  border-left-color: var(--accent);
+}
+.palette-arrow {
+  color: var(--accent);
+  font-weight: 700;
+  text-align: center;
+  white-space: pre;
+}
+.palette-kind {
+  font-size: 11px;
+  color: var(--fg-comment);
+  letter-spacing: 0.02em;
+}
+.palette-kind.kind-project { color: var(--accent); }
+.palette-kind.kind-tool    { color: var(--green); }
+.palette-kind.kind-devlog  { color: var(--blue); }
+.palette-kind.kind-article { color: var(--orange); }
+.palette-kind.kind-page    { color: var(--fg-comment); }
+.palette-title {
+  color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.palette-hint {
+  color: var(--fg-comment);
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 280px;
+  text-align: right;
+}
+.palette-empty {
+  padding: 14px 16px;
+  color: var(--fg-comment);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.palette-footer {
+  display: flex;
+  gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-1);
+  font-size: 11px;
+  color: var(--fg-comment);
+}
+.palette-footer kbd {
+  background: var(--bg-3);
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: inherit;
+  font-size: 10px;
+  color: var(--fg-muted);
+  margin-right: 4px;
+}
+
+@media (max-width: 640px) {
+  .palette {
+    margin: 6vh auto auto;
+    width: calc(100vw - 16px);
+  }
+  .palette-row {
+    grid-template-columns: 18px 64px 1fr;
+  }
+  .palette-hint {
+    display: none;
+  }
+}
+
+/* ==========================================================================
    RESPONSIVE BREAKPOINTS + EXPLORER TOGGLE
    The activity bar is visible at every width and its Explorer icon is the
    nav toggle. The explorer's visibility uses two state classes that never
