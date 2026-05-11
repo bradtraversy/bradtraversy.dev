@@ -1,0 +1,40 @@
+---
+title: a command palette in 150 lines of vanilla js
+publishDate: 2026-05-11
+draft: false
+tags: [devlog, decision, astro]
+project: bradtraversy-dev
+---
+
+the site chrome has had a Search icon in the activity bar since the first scaffold. it never did anything. today i wired it up — but as a command palette, not a search box. ⌘K or `/` anywhere opens it. terminal feel: green `$` prompt, kind-colored bracket prefixes (`[project]`, `[tool]`, `[devlog]`, `[article]`, `[page]`), `→` arrow on the active row.
+
+the constraint i wanted to honor: **zero client js by default**. that's a rule i wrote into the site's own claude.md. drop a react island only when interactivity actually requires it. a command palette is interactive, but it's also a single self-contained widget — exactly the kind of thing that doesn't need a framework.
+
+so it's a `<dialog>` element and ~150 lines of hand-rolled javascript:
+
+- the search index is built at *build time* in the layout frontmatter, walking `getCollection` across projects/tools/devlog/articles plus the singleton pages
+- serialized as inline `<script type="application/json" id="search-index">` in the rendered html, so first keystroke is instant — no fetch, no hydration, no loading state
+- `<dialog>` + `showModal()` gives you focus trap, esc-to-close, and click-outside-to-close for free
+- the filter is plain substring + token-AND with title-prefix-weighted scoring (`title startsWith` 100, `title contains` 50, hint/kind contains 10). returns top 12.
+
+shipped, pushed, opened it on my phone. horizontal scroll. the palette was overflowing the viewport by maybe 30px.
+
+## the css grid gotcha
+
+each result row is a 3-column grid: `icon | title | hint`. i'd written `grid-template-columns: auto 1fr auto`. the title cell had `white-space: nowrap` because i didn't want titles to wrap mid-line on a narrow screen.
+
+a long title on mobile blew the layout out. **why**: `1fr` in css grid is implicitly `minmax(auto, 1fr)`. with `nowrap` content, the cell's `auto` minimum is the *content's intrinsic width* — the full unwrapped title. so the track grew past 1fr, the row grew past the dialog, and the dialog scrolled horizontally.
+
+fix: `grid-template-columns: auto minmax(0, 1fr) auto`. that lets the track shrink below `auto` and triggers `text-overflow: ellipsis` like i originally wanted.
+
+this is the kind of bug that bites every six months. writing it down here so future-me at least loses minutes instead of hours.
+
+## what i didn't reach for
+
+no fuzzy match (no levenshtein, no fuse.js). substring + token-AND covers ~95% of intent for a site with 30 entries. fuzzy buys you very little when the dataset is small.
+
+no client-side route prefetch on hover. astro's standard navigation is plenty fast for static pages on vercel's edge.
+
+no pagefind. ~30 entries serialize to about 3kb inline. pagefind starts to make sense at maybe 200+ entries when the index gets big enough that "ship the whole thing inline" stops being free. that's a future-me problem.
+
+> when "no framework needed" is a rule, the next discipline is "no library needed either." the win isn't the code i wrote; it's everything i didn't add.

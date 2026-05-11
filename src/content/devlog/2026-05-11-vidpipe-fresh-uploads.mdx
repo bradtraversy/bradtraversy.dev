@@ -1,0 +1,37 @@
+---
+title: youtube has two rss feeds and one of them works
+publishDate: 2026-05-11
+draft: false
+tags: [devlog, postmortem, decision]
+project: vidpipe
+---
+
+vidpipe's channel auto-gen has worked for months on established channels. connect your channel, upload a video, an article shows up in your dashboard 30-60 minutes later. fine.
+
+except it kept silently failing for fresh uploads on small or brand-new channels. uploaded a test video, waited an hour, nothing. waited two hours, still nothing. checked the channel's rss feed directly: zero entries. checked the public youtube page: video right there.
+
+turns out youtube exposes two rss endpoints that look interchangeable but aren't:
+
+- `https://www.youtube.com/feeds/videos.xml?channel_id=UCxxx` — the obvious one
+- `https://www.youtube.com/feeds/videos.xml?playlist_id=UUxxx` — the channel's uploads playlist, where `UU` is the same suffix as `UC`
+
+both return the same xml schema. for established channels they return identical content. but the `channel_id` feed has severe propagation lag on new or low-volume channels — sometimes never populating for the first few uploads. the `playlist_id` feed updates near-instantly because it's backed by a different youtube system.
+
+swapped one prefix. discovery now fires within minutes of upload.
+
+## the second bug
+
+with discovery fixed, kickoff fired for a fresh upload. then immediately failed. youtube's auto-captions weren't ready yet.
+
+two problems stacked on top of each other:
+
+1. **no wait, no retry.** kickoff ran the moment we saw the video. if captions weren't ready, we failed permanently and refunded the credit. user has to come back later and manually retry.
+2. **supadata's "no captions" response is http 200, not 404.** body shape is `{ error, message, details, documentationUrl }` with no `content` array. my code blindly called `data.content.map()` on undefined, threw a `TypeError`, which the `instanceof TranscriptNotAvailableError` retry guard couldn't catch. semantic failure inside a successful http envelope is bad api design but it's what they ship.
+
+fixed the crash with a one-line `Array.isArray(data.content)` guard. then built a real wait-and-retry path: 15-minute min-age delay before kickoff fires, plus a one-shot 10-minute auto-retry if captions still aren't ready. worst case is ~25 minutes from kickoff to permanent failure ui. typical case the delay alone is enough.
+
+## the validator i dropped
+
+while in there, ripped out a title-match validator that was rejecting transcripts when the video title didn't share keywords with the spoken content. false-positived on generic titles like "Test Video" and on anything multilingual. the framing that decided it: **if a user uploads a video, it should work.** the spam guards i kept (duplicate-marker detection, minimum length, non-english ratio) are about caption quality. matching the title to the body is about something else, and it was throwing away real captions to catch fake-sounding ones.
+
+> the most expensive bugs are the ones where two systems each look correct in isolation. http 200 + no retry path = silent failure. the fix wasn't either one; it was both.
