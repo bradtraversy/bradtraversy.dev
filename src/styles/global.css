@@ -1074,11 +1074,12 @@ a.ico {
   margin: 0;
   padding: 6px 0;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: calc(70vh - 100px);
 }
 .palette-row {
   display: grid;
-  grid-template-columns: 18px 80px 1fr auto;
+  grid-template-columns: 18px 80px minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
   padding: 7px 16px;
@@ -1086,6 +1087,7 @@ a.ico {
   color: var(--fg-muted);
   cursor: pointer;
   border-left: 2px solid transparent;
+  min-width: 0;
 }
 .palette-row.active {
   background: var(--bg-3);
@@ -1154,12 +1156,23 @@ a.ico {
   .palette {
     margin: 6vh auto auto;
     width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px);
   }
   .palette-row {
-    grid-template-columns: 18px 64px 1fr;
+    grid-template-columns: 18px 60px minmax(0, 1fr);
+    padding: 7px 12px;
+    gap: 8px;
+  }
+  .palette-input {
+    padding: 12px;
   }
   .palette-hint {
     display: none;
+  }
+  .palette-footer {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 12px;
   }
 }
 
