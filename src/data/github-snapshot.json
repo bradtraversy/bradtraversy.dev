@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-05-12T11:33:42.612Z",
+  "updatedAt": "2026-05-12T12:52:24.302Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 320,
-    "followers": 75845,
+    "followers": 75846,
     "totalStars": 165757
   },
   "topRepos": [
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65511,
+      "stars": 65512,
       "forks": 12027,
       "language": null,
       "pushedAt": "2026-04-13T10:23:07Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16021,
+      "stars": 16020,
       "forks": 4394,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -93,6 +93,42 @@
     {
       "type": "PushEvent",
       "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-12T12:39:11Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-12T12:24:34Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-12T12:18:29Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-12T11:54:03Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-12T11:49:21Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-12T11:36:52Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
       "createdAt": "2026-05-12T11:28:28Z",
       "details": "pushed to main"
     },
@@ -113,46 +149,10 @@
       "repo": "memcrate/memcrate",
       "createdAt": "2026-05-12T10:56:53Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "memcrate/memcrate",
-      "createdAt": "2026-05-12T10:49:45Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-11T21:50:48Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PublicEvent",
-      "repo": "memcrate/memcrate",
-      "createdAt": "2026-05-11T12:12:11Z",
-      "details": "made the repo public"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-11T14:19:42Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-11T11:45:44Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-11T11:42:29Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 694,
+    "total": 702,
     "weeks": [
       [
         0,
@@ -625,7 +625,7 @@
       [
         8,
         19,
-        8
+        16
       ]
     ]
   }
