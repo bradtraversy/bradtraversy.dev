@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "draft-newsletter": "node scripts/draft-newsletter.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
