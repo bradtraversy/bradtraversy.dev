@@ -1,0 +1,192 @@
+---
+title: why astro over next
+dek: bradtraversy.dev runs on astro. mission control runs on next. how i pick between them.
+publishDate: 2026-05-12
+draft: false
+tags: [meta, astro, nextjs, stack-decisions]
+relatedProjects: [bradtraversy-dev, mission-control]
+---
+
+both astro and next.js sit on my disk and both ship work to production.
+this site runs astro. mission control — the dashboard that drives my
+homelab — runs next. the question that took me a while to answer
+cleanly: why?
+
+short version: astro is a content tool that knows about apps. next is
+an app tool that knows about content. bradtraversy.dev is a content
+site. mission control is an app. picking the wrong shape doesn't break
+the project, it just makes everything quietly more expensive forever.
+
+## what this site actually is
+
+bradtraversy.dev is, mechanically, a few hundred markdown files behind
+a layout. articles, devlog entries, projects, tools. zero auth. one
+server endpoint (`/api/subscribe` for the newsletter). no database. no
+user accounts. no per-request rendering — every page is the same for
+every visitor.
+
+that's the boring kind of website the web was originally good at. it
+does not need a react runtime to display itself.
+
+next.js can absolutely render this. you set everything to
+`force-static`, you wire up `@next/mdx`, you write your content
+collection abstraction by hand, you keep an eye on bundle drift on
+every pr. the output is fine.
+
+what astro gives you for free, you build by hand in next:
+
+- content collections with zod-validated frontmatter
+- components that serialize to plain html unless you opt them into
+  interactivity
+- mdx as a first-party concern, not a plugin layer
+- a build output that is, by default, html and css and almost no js
+
+## the zero-js default matters more than i expected
+
+every page on this site ships zero client-side javascript except the
+pages that actually need it. the home page, the about page, the now
+page, every article, every devlog entry, every project page, every
+tool detail page — html and css. that's it.
+
+the search palette is a react island because the keyboard handling
+and live-filter state earn the cost. it loads only on pages that
+mount it, only when the user opens it. that's the entire client-side
+js budget for the site.
+
+in next, the default is the opposite. every page is a react component
+and ships react. there are escape hatches — server components, partial
+hydration, the app router's static segments — but the *default* is
+"you are building a react app." if your site is actually a react app,
+that's the right default. if your site is a blog, you're paying a tax
+on every page so the four pages that need state can have it.
+
+the tax isn't huge. you can shrink it with route splitting, you can
+tune it. you can also just not ship it. the second option is astro.
+
+## content collections are the killer feature
+
+astro 5 introduced a way of defining content that fits how content
+actually lives in a repo. the schema for this site is one file:
+
+```ts
+const articles = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/articles' }),
+  schema: z.object({
+    title: z.string(),
+    dek: z.string(),
+    publishDate: z.coerce.date(),
+    draft: z.boolean().default(false),
+    tags: z.array(z.string()).default([]),
+    // ...
+  }),
+});
+```
+
+zod-validated frontmatter, typed access from any component, build-time
+errors when an article is missing a required field. an actual problem
+solved by an actual feature, not an abstraction i had to wire up.
+
+next has nothing equivalent in the framework. you reach for
+contentlayer (mostly unmaintained now), velite, fumadocs, or you roll
+your own. all of these work — i've done it more than once. but
+"what's the canonical way to manage content in next" doesn't have one
+answer, and the answers it has all carry config burden astro spares
+you.
+
+## islands, not whole-page apps
+
+the part of astro i underestimated until i'd shipped a few sites with
+it: the islands model isn't a clever performance trick, it's a
+*mental model* shift.
+
+when i need a piece of interactivity in a next app, i think about the
+whole tree. is this component a server component? does it import a
+client component? does that import another client component? am i
+passing serializable props across the boundary? the boundary moves
+with you and you have to track it.
+
+in astro, the boundary is a directive on a single component:
+`<SearchPalette client:load />`. the rest of the page is html. when i
+add a new piece of interactivity, i think about that piece in
+isolation: what does it need, what frame does it run in, when does it
+load. i do not have to reason about the rest of the tree.
+
+that scales unreasonably well for a site that is mostly static with a
+few interactive corners.
+
+## performance is the side effect
+
+i set the budget for this site in `claude.md`: under 200 kb on most
+pages, under 500 kb on article pages with images, lighthouse 100s on
+the home page. astro hits that without me intervening.
+
+on a next build of the same site, i'd be intervening regularly to keep
+the bundle from creeping up every time i added a feature. not because
+next is bad — because the framework's default is to ship react, and
+defaults compound.
+
+the home page right now is somewhere around 40 kb transferred. zero
+main-thread blocking time. lighthouse 100 / 100 / 100 / 100. nothing
+clever — just the default output of a tool that was designed to ship
+html.
+
+## where i still pick next
+
+mission control runs on next. that's not an oversight, it's the right
+call.
+
+the dashboard is an app:
+
+- live-updating tabs across home, todos, tasks, projects, sessions,
+  network, calendar, agents
+- server-sent events streaming changes from a chokidar watcher
+- write-back actions that need server functions running close to the
+  file system
+- shared client state across panels that need to stay coherent
+
+every one of those is what next is good at. server components for the
+data layer, client components for the live regions, server actions
+for the writes, the app router for navigation. trying to build mission
+control in astro would be fighting the framework on every screen.
+
+the rule i landed on:
+
+- mostly content, occasionally interactive → astro
+- mostly state, occasionally static → next
+
+## what astro is not great at
+
+the article should be useful, not a sales pitch. astro is the wrong
+choice when:
+
+- you have complex client-side state spanning many components — you'll
+  end up either making the whole tree one big island or fighting the
+  architecture
+- you need real-time-everything dashboards — possible but awkward
+- you want deeply nested layouts that hold state across navigations —
+  next's app router is genuinely better here
+- you're reaching for the rich next-shaped ecosystem: auth providers,
+  middleware patterns, edge-runtime utilities
+
+if i were building a saas dashboard, an admin panel, or a multi-step
+form flow with shared state across steps, i'd reach for next without
+thinking about it. astro would be the wrong shape.
+
+## the boring decision rule
+
+every framework choice on this lab follows the same pattern: pick the
+shape, not the hype.
+
+the version of this question i used to ask was "which framework is
+best?" — that's not a real question. the real one is "what's the
+shape of the thing i'm building, and which framework was designed for
+that shape." astro was designed for content sites. next was designed
+for react apps that span content and interactivity. picking by shape
+gives you the right answer roughly every time.
+
+> use the framework that disappears into the work. if you're building
+> an app, that's the one that gives you app primitives. if you're
+> building a content site, that's the one that gets out of your way
+> and ships html.
+
+bradtraversy.dev gets out of the way. that's the entire pitch.

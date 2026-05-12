@@ -1,0 +1,200 @@
+---
+title: lessons from the youtube years
+dek: a long run of teaching on youtube taught me how to ship software. what survived the jump.
+publishDate: 2026-05-12
+draft: false
+tags: [meta, business]
+---
+
+i've been on youtube a long time. long enough that my early videos
+look like a different person made them, long enough to have shipped
+through every algorithm change and platform shift, long enough to
+have figured out — mostly by repetition — what actually works.
+
+a lot of that transferred when i started building software products
+seriously. not the surface stuff. the deeper patterns. the ones
+about how long things should be, how often to ship, what teaching
+does to your skills, and what to do when something isn't working.
+
+these are the things i actually use.
+
+## three-hour courses used to kill. now people want one short video.
+
+this is the shift that surprised me most.
+
+a few years back i could put up a three-hour deep-dive on react or
+node and watch it do real numbers. people would sit through the
+whole thing. they'd comment on something that happened ninety
+minutes in. the long-form course format *was* the format.
+
+today, a three-hour video is a tough sell. and to be honest,
+chopping the same course up into a series of ten-minute videos
+doesn't really save it either. that was my first instinct — same
+content, smaller pieces — and it didn't move the needle the way i
+expected.
+
+what people actually want now is *one short, focused video that
+answers a single question.* not a course. not a series. not a
+playlist they're supposed to commit to. one video, ten minutes or
+less, that solves the specific thing they came looking for.
+
+i don't think this is a sign of the audience getting worse. i think
+it's a sign that the world got noisier and people learned to defend
+their attention. they don't want to be enrolled in your course.
+they want the answer they came for, and then they want their time
+back.
+
+what it taught me about software: ship one thing that does one
+thing. webutils does small web utilities. eyebreak reminds you to
+take a break. typesmith does one specific design task. each of
+those is the software equivalent of a single focused video — the
+person who needs that exact thing finds it, uses it, and is done.
+they don't have to learn a platform. they don't have to commit to
+an ecosystem. one question, one answer.
+
+the impulse to bundle everything into a "v2" launch with five
+features is the same impulse that made me think a three-hour course
+was a flex. it isn't. tight wins.
+
+## cadence beats trying to make a masterpiece
+
+the thing that took me the longest to internalize on youtube: the
+people who actually win are the ones who keep showing up.
+
+not the most talented. not the ones with the best gear. the ones
+who post the next thing, and the next thing, and the next thing —
+for years — while the talented people who agonize burn out and quit.
+
+this is uncomfortable because it implies your taste isn't the
+bottleneck. your output is.
+
+it transferred straight to building products. the projects i have
+that are alive today are alive because i kept shipping into them.
+not because the first version was great. usually because i shipped a
+hundred small versions and the right design only became visible
+after the wrong designs got tried.
+
+caveat: cadence beats perfection *at a quality floor.* shipping
+garbage on a schedule is not the lesson. the lesson is that good
+enough, regularly, compounds in a way that great, occasionally,
+doesn't.
+
+## teaching made me a better developer than building ever did
+
+the most underrated benefit of doing youtube for as long as i have:
+it has made me a much better developer than i would have been
+otherwise. and i don't think i would have figured this out if i
+hadn't been doing it for so long.
+
+you can't fake your way through a tutorial. the moment you sit down
+to record an explanation of how something works, you immediately
+discover every gap in your understanding. you *thought* you
+understood react context until you tried to explain it on camera and
+watched yourself flounder. you *thought* you knew how oauth flows
+worked until you had to draw the diagram for someone else.
+
+every video is a forced honesty pass. either you actually understand
+the thing well enough to explain it cleanly, or you sit back down
+and learn it properly so you can.
+
+the second-order effect is bigger. once you've taught a topic, you
+understand it from multiple angles. you've answered the dumb
+questions and the sharp questions and the questions you didn't know
+to ask. the next time you reach for that pattern in your own code,
+you reach for it correctly — because you've been forced to think
+about it from every direction.
+
+if you're plateauing as a developer, start teaching. write
+tutorials. record explainers. answer questions on a forum. it
+doesn't matter which surface. explaining it forces you to actually
+know it, and there's no shortcut around that.
+
+## the audience is slow, and they will surprise you
+
+you don't learn what your audience wants by asking. you learn by
+shipping and watching what they do.
+
+what they say they want and what they actually engage with are
+often different things. videos i thought would tank sometimes did
+the best. videos i was sure of sometimes landed nowhere. after
+enough cycles you stop predicting and start posting.
+
+same shape with software. the feature i thought users would love
+sometimes gets ignored. the small thing i added on a whim becomes
+the thing they tell me about. i don't try to predict anymore. i
+ship, watch, adjust.
+
+and it takes longer than you think for an audience to form. you're
+looking at a curve that doesn't start to bend for months — sometimes
+years — and the only way to be on the right side of it is to still
+be making things when it starts to.
+
+## kill what isn't working, even if you've put months into it
+
+every long-running youtube channel has a graveyard of series and
+formats that didn't work. the trap is sunk cost: *"i've already
+made five episodes, i should keep going."* you shouldn't. you
+should kill it and put that energy somewhere with a future.
+
+the test that's never failed me: when you imagine killing the
+project, do you feel lighter or emptier?
+
+lighter means kill it. you've been carrying it. emptier means it
+still belongs to you and you should keep going.
+
+heuristics that help:
+
+- if you're waiting for someone else to validate the idea before
+  you ship the next phase, the project is probably already dead
+  and you're stalling
+- if you keep adding scope to make the project more interesting *to
+  yourself*, the original scope wasn't pulling you anymore
+- if every status update sounds like the previous status update
+  with the dates changed, momentum is gone
+
+kill it. free the slot. build the next thing.
+
+## energy is the budget, not time
+
+the amateur model is "i have eight hours, what can i do with them."
+the professional model is "i have so much creative energy per day,
+where am i spending it."
+
+youtube taught me this the hard way. recording, editing, writing,
+planning, replying to comments — these are all "work" but they pull
+from very different reservoirs. you can edit for six hours straight.
+you cannot write a script for six hours straight. trying anyway is
+how you blow out a saturday and have nothing usable on monday.
+
+i now think about my workday in energy lanes. mornings are creative
+work — writing, designing, the architectural decisions. afternoons
+are mechanical work — code review, edits, configuration, the
+deterministic stuff. evenings are nothing. i protect them. the lab
+runs better when its operator does.
+
+the agent fleet exists in part because of this. travis handles the
+deterministic, low-energy work autonomously. claude code handles
+the high-energy pairing. the hardware is in service of the same
+budget — energy, not time.
+
+## build with the lights on
+
+the last one, and maybe the most important.
+
+youtube taught me to be okay being seen while building. you ship
+videos before they're perfect. you publish ideas you might be wrong
+about. you let people watch you change your mind. it's exposing,
+and it's also the thing that makes the work travel — because
+nobody talks about a polished outcome the way they talk about a
+process they got to watch unfold.
+
+this site is the same idea applied to product work. the devlog is
+me working in public. the project pages document what's under
+construction, not just what's finished. the next article exists for
+the same reason.
+
+> the gallery shows you the painting. the lab shows you the
+> painter. people remember the painter.
+
+a long youtube run taught me to trust that. the lab is the same
+bet, made on a different surface.
