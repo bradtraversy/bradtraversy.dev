@@ -1,0 +1,109 @@
+---
+name: Memcrate
+tagline: a portable, markdown-native context vault your ai tools all read from the same place
+description: |
+  one local markdown vault. three verbs — /save, /pin, /load. every ai tool
+  reads the same context, no cloud, no vendor lock-in. ships as a rust cli
+  that scaffolds the vault and installs the skill packs for whichever tool
+  you use.
+status: live
+badge: beta
+repoUrl: https://github.com/memcrate/memcrate
+stack: [Rust, Markdown, Cargo, GitHub Actions]
+heroImage: ./memcrate-hero.png
+heroImageAlt: terminal showing `memcrate init ~/vault` scaffolding a Core/ directory with Context/ and Sessions/ subfolders, followed by a `tree ~/vault` output of the resulting vault — Profile.md, Projects.md, Current State.md inside Context/, _README.md inside Sessions/
+publishDate: 2026-05-12
+featured: true
+---
+
+## what it does
+
+memcrate gives your ai tools a single place to read and write your personal
+context — the projects you're working on, the decisions you've made, the
+sessions you've already had — so you stop re-explaining yourself to every
+new chat.
+
+it's three pieces:
+
+- **a vault format** — a defined `Core/Context/` + `Core/Sessions/` directory
+  shape in plain markdown. human-readable, git-able, no database
+- **three verbs** — `/save` writes a session log, `/pin` promotes a fact to
+  permanent context, `/load` pulls the right context back at the start of a
+  new session
+- **a rust cli** — `memcrate init` scaffolds the vault, `memcrate setup`
+  walks you through filling in `Profile.md` + `Projects.md`, `memcrate
+  install claude-code` drops the skill pack into `~/.claude/skills/`
+
+install one-liner on linux/mac:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/memcrate/memcrate/main/install.sh | sh
+```
+
+on windows:
+
+```powershell
+irm https://raw.githubusercontent.com/memcrate/memcrate/main/install.ps1 | iex
+```
+
+or `cargo install memcrate` if you'd rather build from source.
+
+## why i built it
+
+i use claude code, cowork, and a handful of other ai tools across three
+machines. every one of them started a session knowing nothing about me — so
+i kept pasting the same "here's who i am, here's what i'm working on,
+here's where the project lives" preamble at the top of every conversation.
+
+the `/save` `/pin` `/load` pattern was something i'd been running by hand
+inside my own obsidian vault for a while. it worked. but it was
+claude-code-only, glued to my specific folder layout, with skills i'd
+written for my own machine. nothing portable, nothing another person could
+adopt.
+
+memcrate is that pattern generalized: a defined vault shape that any tool
+can read, a cli that sets it up in one command, and skill packs you install
+per-tool. local files. your context. nothing leaves your machine.
+
+the verb trio generalizes prior art from
+[EliaAlberti/cpr-compress-preserve-resume](https://github.com/EliaAlberti/cpr-compress-preserve-resume) —
+a claude-code-only session-memory skill pack — and adds `/pin` for the
+bridge from session memory to permanent memory.
+
+## how it's built
+
+a quick tour:
+
+- **rust cli** — single static binary, ~644kb stripped. ships the reference
+  vault and skill packs embedded via `include_dir!` so `memcrate init`
+  doesn't need to download anything
+- **github actions release pipeline** — tag push triggers a matrix build
+  across linux x86_64, mac arm64, and windows x86_64; uploads tarballs +
+  zip + sha256 to github releases
+- **install scripts** — `install.sh` (posix) and `install.ps1` (windows)
+  detect the platform, download the right archive from
+  `releases/latest/download/`, and drop the binary on PATH. both honor
+  `MEMCRATE_VERSION` and `MEMCRATE_INSTALL_DIR` env overrides
+- **cargo publish** — `cargo install memcrate` works as the universal
+  fallback (intel mac, anything weirder, anything without a release asset)
+- **skill packs** — `skills/claude-code/{save,load,pin}/SKILL.md` files
+  embedded in the binary. `memcrate install claude-code` extracts to
+  `~/.claude/skills/` (or `--target` somewhere else)
+- **license split** — code is MIT, the format spec under
+  `docs/spec/` is CC0. the format is the load-bearing part; anyone should
+  be able to implement against it
+
+## what's next
+
+- **more skill packs** — cursor (`.cursorrules`), aider (`.aider.conf.yml`),
+  cowork (claude desktop), an mcp server for tools that prefer that
+  surface. format-first means every new tool is a thin pack, not a fork
+- **30-day dogfood window** — i'm running the public skills against my own
+  vault to surface friction before any broader announce
+- **a launch piece** — once the dogfood window is up, an article on
+  bradtraversy.dev walking through the verb trio and why local-markdown is
+  the right shape for personal context
+
+> the next thing is making the "every ai tool already knows me" experience
+> work the same way on a brand-new machine as it does on my main one — install
+> the cli, run init, run setup, and the context is portable infrastructure.

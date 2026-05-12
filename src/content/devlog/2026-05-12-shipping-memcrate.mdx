@@ -1,0 +1,97 @@
+---
+title: shipping memcrate
+publishDate: 2026-05-12
+draft: false
+tags: [devlog, decision, rust, cli, tool-launch]
+project: memcrate
+---
+
+`/save` `/load` `/pin` had been running in my own vault for months — three
+verbs that let claude code (and cowork, and anything else with a skill
+surface) read and write a defined markdown directory shape. it worked for
+me. the project was generalizing it so anyone else could pick it up: a
+local vault format any ai tool reads, a cli that scaffolds the vault in one
+command, and skill packs you install per-tool.
+
+three days from "no public code yet" to v0.3.1 on crates.io. here's how
+each day looked.
+
+## phase 1: skills go public + the single-shape decision
+
+ported three skill md files out of `~/.claude/skills/`, stripped the
+brad-specifics, parameterized the vault path. ported the spec docs into
+the repo's `docs/`. restructured the reference vault to ship with the
+binary.
+
+the load-bearing decision: killed the "minimum vs full" two-shape
+distinction. earlier spec had `memcrate init` running two modes — `Core/`
+only versus `Core/` plus optional `Projects/` `Daily/` `Tasks/` `Inbox/`.
+that drove a fallback resolution table into every skill. always-on `Core/`
+is the right floor; optional folders sit alongside when wanted. every "or"
+in a spec is a place implementers can drift. thirty minutes of work that
+killed the two-shape branch in the future mcp server, the future docs
+site, and the future test matrix.
+
+## phase 2 v0.1: rust cli + install pipeline
+
+scope: just `memcrate init`. embed the reference-vault into the binary at
+compile time via `include_dir!`, ship as one ~564kb stripped binary, no
+install-time fetch. github actions release workflow on a `v*.*.*` tag
+push — matrix build across linux x86_64 and mac arm64, tarballs uploaded
+with sha256s.
+
+then the install one-liner:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/memcrate/memcrate/main/install.sh | sh
+```
+
+verified end-to-end on a fresh multipass ubuntu vm: ~90 seconds from
+`multipass launch` to a populated `Core/Context/` and the `.memcrate`
+marker on disk.
+
+the same-day reversal i didn't see coming: i'd shipped the repo as
+`bradtraversy/memcrate` in the morning. the strategic rationale was
+defensible (audience equity for a public repo). it didn't survive seeing
+the install URL out loud — every other brand surface read `memcrate`, and
+the install one-liner is the most visible product surface there is.
+migrated to a `memcrate/memcrate` org mid-session; github redirects
+preserve the old urls forever. lesson: brand-surface decisions deserve a
+"say it out loud as a user would see it" check before locking, not just a
+strategic-rationale check.
+
+## v0.3.1 in 24 hours
+
+`memcrate install claude-code` extracts the embedded skills to
+`~/.claude/skills/`. `memcrate setup` is an optional four-question wizard
+that writes real content into `Profile.md` + `Projects.md` so day-one
+`/load` has something to read instead of a placeholder. vault
+auto-discovery — `setup` finds your vault if you ran `init` somewhere
+other than the default `~/vault`.
+
+windows added as first-class with a parallel `install.ps1`:
+
+```powershell
+irm https://raw.githubusercontent.com/memcrate/memcrate/main/install.ps1 | iex
+```
+
+mac intel binaries got dropped along the way. github retired the free
+`macos-13` runner image in early 2026 — jobs targeting it queue
+indefinitely with no error, no timeout, just silent failure. paid
+larger-runners aren't worth it for a defensive build target. intel mac
+users fall through to `cargo install memcrate` instead.
+
+published as a real binary crate on crates.io to replace yesterday's 0.0.0
+placeholder. `cargo install memcrate` is now the universal fallback —
+intel mac, anything weirder, anything without a github release asset for
+that platform.
+
+end of day three: v0.3.1 live on github releases and crates.io. install
+one-liner works on linux, mac arm64, windows. `cargo install memcrate`
+covers the rest. the three verbs install in one command.
+
+> the velocity came from the spec settling first. once "memcrate is the
+> format, the cli is one implementation" was locked, every implementation
+> decision got smaller — brand-surface check, single-shape collapse, rust
+> + `include_dir!`, install.sh + actions matrix — none of them needed
+> re-litigation because the format wasn't moving underneath them.
