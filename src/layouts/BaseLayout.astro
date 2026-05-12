@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 import Analytics from '@vercel/analytics/astro';
 
-type Section = 'home' | 'articles' | 'devlog' | 'projects' | 'tools' | 'now' | 'about';
+type Section = 'home' | 'articles' | 'devlog' | 'projects' | 'tools' | 'now' | 'about' | 'github';
 
 interface Props {
   title: string;
@@ -215,11 +215,9 @@ const searchIndex: SearchEntry[] = [
           ><Icon name="lucide:search" /></button>
           <a
             class="ico"
-            href="https://github.com/bradtraversy/bradtraversy.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="View source on GitHub"
-            aria-label="View source on GitHub"
+            href="/github"
+            title="GitHub activity"
+            aria-label="GitHub activity"
           ><Icon name="lucide:github" /></a>
         </div>
 

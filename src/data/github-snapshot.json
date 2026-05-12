@@ -1,0 +1,632 @@
+{
+  "updatedAt": "2026-05-12T11:33:42.612Z",
+  "user": {
+    "login": "bradtraversy",
+    "name": "Brad Traversy",
+    "publicRepos": 320,
+    "followers": 75845,
+    "totalStars": 165757
+  },
+  "topRepos": [
+    {
+      "name": "design-resources-for-developers",
+      "fullName": "bradtraversy/design-resources-for-developers",
+      "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
+      "url": "https://github.com/bradtraversy/design-resources-for-developers",
+      "stars": 65511,
+      "forks": 12027,
+      "language": null,
+      "pushedAt": "2026-04-13T10:23:07Z"
+    },
+    {
+      "name": "50projects50days",
+      "fullName": "bradtraversy/50projects50days",
+      "description": "50+ mini web projects using HTML, CSS & JS",
+      "url": "https://github.com/bradtraversy/50projects50days",
+      "stars": 40546,
+      "forks": 9763,
+      "language": "CSS",
+      "pushedAt": "2025-02-26T13:49:39Z"
+    },
+    {
+      "name": "vanillawebprojects",
+      "fullName": "bradtraversy/vanillawebprojects",
+      "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
+      "url": "https://github.com/bradtraversy/vanillawebprojects",
+      "stars": 16021,
+      "forks": 4394,
+      "language": "JavaScript",
+      "pushedAt": "2024-03-28T13:15:34Z"
+    },
+    {
+      "name": "proshop_mern",
+      "fullName": "bradtraversy/proshop_mern",
+      "description": "Shopping cart built with MERN & Redux",
+      "url": "https://github.com/bradtraversy/proshop_mern",
+      "stars": 2027,
+      "forks": 1217,
+      "language": "JavaScript",
+      "pushedAt": "2024-01-15T16:26:04Z"
+    },
+    {
+      "name": "devconnector_2.0",
+      "fullName": "bradtraversy/devconnector_2.0",
+      "description": "Social network for developers, built on the MERN stack",
+      "url": "https://github.com/bradtraversy/devconnector_2.0",
+      "stars": 1963,
+      "forks": 1273,
+      "language": "JavaScript",
+      "pushedAt": "2024-08-11T06:35:28Z"
+    },
+    {
+      "name": "node_passport_login",
+      "fullName": "bradtraversy/node_passport_login",
+      "description": "Node.js login, registration and access control using Express and Passport",
+      "url": "https://github.com/bradtraversy/node_passport_login",
+      "stars": 1756,
+      "forks": 1291,
+      "language": "EJS",
+      "pushedAt": "2026-05-01T10:37:00Z"
+    },
+    {
+      "name": "react-crash-2021",
+      "fullName": "bradtraversy/react-crash-2021",
+      "description": "Task tracking application from the React crash course",
+      "url": "https://github.com/bradtraversy/react-crash-2021",
+      "stars": 1366,
+      "forks": 1665,
+      "language": "JavaScript",
+      "pushedAt": "2023-05-27T02:22:47Z"
+    },
+    {
+      "name": "chatcord",
+      "fullName": "bradtraversy/chatcord",
+      "description": "Realtime chat app with rooms",
+      "url": "https://github.com/bradtraversy/chatcord",
+      "stars": 1209,
+      "forks": 1155,
+      "language": "HTML",
+      "pushedAt": "2024-07-26T22:26:30Z"
+    }
+  ],
+  "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-12T11:28:28Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-12T11:19:09Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-12T11:06:14Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-12T10:56:53Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-12T10:49:45Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-11T21:50:48Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PublicEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-11T12:12:11Z",
+      "details": "made the repo public"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-11T14:19:42Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-11T11:45:44Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-11T11:42:29Z",
+      "details": "pushed to main"
+    }
+  ],
+  "contributions": {
+    "total": 694,
+    "weeks": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        11,
+        13,
+        6,
+        7,
+        5
+      ],
+      [
+        3,
+        5,
+        2,
+        11,
+        9,
+        7,
+        4
+      ],
+      [
+        3,
+        6,
+        5,
+        6,
+        7,
+        2,
+        6
+      ],
+      [
+        3,
+        5,
+        7,
+        6,
+        13,
+        6,
+        2
+      ],
+      [
+        2,
+        9,
+        3,
+        12,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        6,
+        5,
+        0
+      ],
+      [
+        0,
+        31,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        3,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        10,
+        22,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        6,
+        5,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        10,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        6,
+        3,
+        3
+      ],
+      [
+        2,
+        1,
+        3,
+        3,
+        7,
+        6,
+        0
+      ],
+      [
+        0,
+        5,
+        6,
+        6,
+        9,
+        9,
+        4
+      ],
+      [
+        0,
+        11,
+        11,
+        9,
+        11,
+        5,
+        1
+      ],
+      [
+        0,
+        6,
+        10,
+        4,
+        6,
+        6,
+        0
+      ],
+      [
+        0,
+        2,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        2,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        3,
+        8,
+        6,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        2,
+        3,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        8,
+        4,
+        3,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        5,
+        12,
+        0
+      ],
+      [
+        0,
+        12,
+        27,
+        21,
+        7,
+        19,
+        25
+      ],
+      [
+        8,
+        19,
+        8
+      ]
+    ]
+  }
+}
