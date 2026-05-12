@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import snapshot from '../data/github-snapshot.json';
+
+const { user, topRepos, recentEvents, contributions, updatedAt } = snapshot;
+
+const fmtNum = (n: number) => {
+  if (n >= 1000) return (n / 1000).toFixed(n >= 10000 ? 0 : 1) + 'k';
+  return String(n);
+};
+
+const fmtRelative = (iso: string | null | undefined) => {
+  if (!iso) return '';
+  const then = new Date(iso).getTime();
+  const now = Date.now();
+  const diff = Math.max(0, now - then);
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 30) return `${d}d ago`;
+  const mo = Math.floor(d / 30);
+  if (mo < 12) return `${mo}mo ago`;
+  return `${Math.floor(mo / 12)}y ago`;
+};
+
+// Map raw daily contribution count to a 0–4 intensity bucket.
+// Mirrors GitHub's own buckets roughly enough to look familiar.
+const bucket = (count: number) => {
+  if (count <= 0) return 0;
+  if (count < 3) return 1;
+  if (count < 6) return 2;
+  if (count < 10) return 3;
+  return 4;
+};
+
+const lastSync = updatedAt ? fmtRelative(updatedAt) : null;
+---
+
+<BaseLayout
+  title="github — brad traversy"
+  description="latest repos, activity, and contributions from github.com/bradtraversy."
+  pageTitle="github.md"
+  currentSection="github"
+>
+  <section class="section">
+    <h1 class="h1"><span class="hash"># </span>github</h1>
+    <p class="lede">
+      a curated window into{' '}
+      <a class="link" href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
+        github.com/{user.login}
+      </a>
+      . pulled from the api every 6 hours by{' '}
+      <a class="link" href="https://github.com/bradtraversy/bradtraversy.dev/blob/main/.github/workflows/sync-github.yml" target="_blank" rel="noopener noreferrer">a small action</a>
+      , rendered statically here.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="comment">// at-a-glance numbers</div>
+    <div class="stats">
+      <a class="stat" href={`https://github.com/${user.login}?tab=repositories`} target="_blank" rel="noopener noreferrer">
+        <span class="stat-num">{fmtNum(user.publicRepos)}</span>
+        <span class="stat-label">public repos</span>
+      </a>
+      <div class="stat">
+        <span class="stat-num">{fmtNum(user.totalStars)}</span>
+        <span class="stat-label">total stars</span>
+      </div>
+      <a class="stat" href={`https://github.com/${user.login}?tab=followers`} target="_blank" rel="noopener noreferrer">
+        <span class="stat-num">{fmtNum(user.followers)}</span>
+        <span class="stat-label">followers</span>
+      </a>
+      <div class="stat">
+        <span class="stat-num">{fmtNum(contributions.total)}</span>
+        <span class="stat-label">contribs (last year)</span>
+      </div>
+    </div>
+  </section>
+
+  {contributions.weeks.length > 0 && (
+    <section class="section">
+      <h2 class="h2"><span class="hash">## </span>contribution graph</h2>
+      <div class="comment">// {contributions.total} contributions in the last year</div>
+      <div class="contrib-wrap">
+        <div class="contrib-grid" role="img" aria-label={`${contributions.total} contributions in the last year`}>
+          {contributions.weeks.map((week) => (
+            <div class="contrib-col">
+              {Array.from({ length: 7 }).map((_, i) => {
+                const count = week[i] ?? 0;
+                return (
+                  <span
+                    class={`cell lvl-${bucket(count)}`}
+                    title={`${count} contribution${count === 1 ? '' : 's'}`}
+                  />
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        <div class="contrib-legend">
+          <span>less</span>
+          <span class="cell lvl-0" />
+          <span class="cell lvl-1" />
+          <span class="cell lvl-2" />
+          <span class="cell lvl-3" />
+          <span class="cell lvl-4" />
+          <span>more</span>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>top repos</h2>
+    <div class="comment">// the {topRepos.length} most-starred public repos</div>
+    {topRepos.length === 0 ? (
+      <p class="empty">snapshot hasn't run yet — first sync will populate this.</p>
+    ) : (
+      <div class="repos">
+        {topRepos.map((r) => (
+          <a class="repo" href={r.url} target="_blank" rel="noopener noreferrer">
+            <div class="repo-head">
+              <span class="repo-name">{r.name}</span>
+              {r.language && <span class="repo-lang">{r.language}</span>}
+            </div>
+            {r.description && <p class="repo-desc">{r.description}</p>}
+            <div class="repo-meta">
+              <span>★ {fmtNum(r.stars)}</span>
+              <span>⑂ {fmtNum(r.forks)}</span>
+              <span class="repo-pushed">updated {fmtRelative(r.pushedAt)}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>recent activity</h2>
+    <div class="comment">// last {recentEvents.length} public events</div>
+    {recentEvents.length === 0 ? (
+      <p class="empty">snapshot hasn't run yet — first sync will populate this.</p>
+    ) : (
+      <ul class="events">
+        {recentEvents.map((e) => (
+          <li class="event">
+            <span class="event-when">{fmtRelative(e.createdAt)}</span>
+            <span class="event-text">
+              {e.details}{' '}
+              <a class="link" href={`https://github.com/${e.repo}`} target="_blank" rel="noopener noreferrer">
+                {e.repo}
+              </a>
+            </span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+
+  <section class="section">
+    <p class="comment-prose">
+      // snapshot last refreshed <strong>{lastSync ?? 'never'}</strong>.{' '}
+      <a class="link" href="https://github.com/bradtraversy/bradtraversy.dev" target="_blank" rel="noopener noreferrer">
+        view this site's source ↗
+      </a>
+    </p>
+  </section>
+
+  <div class="comment" style="margin-top: 24px;">
+    // EOF github.md<span class="cursor"></span>
+  </div>
+</BaseLayout>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  @media (min-width: 640px) {
+    .stats {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-2);
+    text-decoration: none;
+    color: var(--fg-1);
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+  a.stat:hover {
+    border-color: var(--border-strong);
+  }
+  .stat-num {
+    font-size: 20px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label {
+    color: var(--fg-muted);
+    font-size: 12px;
+  }
+
+  .contrib-wrap {
+    margin-top: 12px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .contrib-grid {
+    display: inline-flex;
+    gap: 3px;
+  }
+  .contrib-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .cell {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--bg-3, #1a1f2e);
+  }
+  .cell.lvl-0 { background: rgba(122, 162, 247, 0.08); }
+  .cell.lvl-1 { background: rgba(122, 162, 247, 0.30); }
+  .cell.lvl-2 { background: rgba(122, 162, 247, 0.55); }
+  .cell.lvl-3 { background: rgba(122, 162, 247, 0.78); }
+  .cell.lvl-4 { background: rgba(122, 162, 247, 1.00); }
+  .contrib-legend {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    color: var(--fg-muted);
+    font-size: 11px;
+  }
+  .contrib-legend .cell {
+    width: 10px;
+    height: 10px;
+  }
+
+  .repos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  @media (min-width: 720px) {
+    .repos {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .repo {
+    display: block;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-2);
+    text-decoration: none;
+    color: var(--fg-1);
+    transition: border-color 0.12s ease, background 0.12s ease;
+  }
+  .repo:hover {
+    border-color: var(--border-strong);
+  }
+  .repo-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .repo-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent, var(--fg-1));
+  }
+  .repo-lang {
+    color: var(--fg-muted);
+    font-size: 11.5px;
+  }
+  .repo-desc {
+    margin: 6px 0 10px;
+    color: var(--fg-muted);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .repo-meta {
+    display: flex;
+    gap: 12px;
+    color: var(--fg-muted);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .repo-pushed {
+    margin-left: auto;
+  }
+
+  .events {
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .event {
+    display: flex;
+    gap: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .event:last-child {
+    border-bottom: none;
+  }
+  .event-when {
+    flex-shrink: 0;
+    width: 70px;
+    color: var(--fg-muted);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .event-text {
+    color: var(--fg-1);
+  }
+
+  .empty {
+    margin-top: 12px;
+    color: var(--fg-muted);
+    font-size: 13px;
+    font-style: italic;
+  }
+  .comment-prose {
+    color: var(--fg-comment);
+    font-size: 12.5px;
+  }
+</style>
