@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-13T12:55:17.978Z",
+  "updatedAt": "2026-05-13T18:47:21.101Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 320,
-    "followers": 75846,
-    "totalStars": 165776
+    "followers": 75848,
+    "totalStars": 165777
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65525,
+      "stars": 65526,
       "forks": 12027,
       "language": null,
       "pushedAt": "2026-04-13T10:23:07Z"
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40547,
-      "forks": 9760,
+      "forks": 9759,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16023,
-      "forks": 4394,
+      "forks": 4393,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -83,13 +83,31 @@
       "fullName": "bradtraversy/chatcord",
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
-      "stars": 1209,
+      "stars": 1210,
       "forks": 1154,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-13T17:48:49Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-13T17:26:39Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-13T12:00:58Z",
+      "details": "pushed to main"
+    },
     {
       "type": "PushEvent",
       "repo": "memcrate/memcrate",
@@ -131,28 +149,10 @@
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-05-12T11:49:21Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-12T11:36:52Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "memcrate/memcrate",
-      "createdAt": "2026-05-12T11:28:28Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-12T11:19:09Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 706,
+    "total": 708,
     "weeks": [
       [
         0,
@@ -626,7 +626,7 @@
         8,
         19,
         17,
-        3
+        5
       ]
     ]
   }
