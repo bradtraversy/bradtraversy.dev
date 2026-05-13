@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-13T07:14:31.574Z",
+  "updatedAt": "2026-05-13T12:55:17.978Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 320,
-    "followers": 75845,
-    "totalStars": 165771
+    "followers": 75846,
+    "totalStars": 165776
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65521,
-      "forks": 12028,
+      "stars": 65525,
+      "forks": 12027,
       "language": null,
       "pushedAt": "2026-04-13T10:23:07Z"
     },
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40546,
-      "forks": 9762,
+      "stars": 40547,
+      "forks": 9760,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -93,6 +93,18 @@
     {
       "type": "PushEvent",
       "repo": "memcrate/memcrate",
+      "createdAt": "2026-05-13T12:13:34Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-13T11:57:10Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "memcrate/memcrate",
       "createdAt": "2026-05-12T12:39:11Z",
       "details": "pushed to main"
     },
@@ -137,22 +149,10 @@
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-05-12T11:19:09Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "memcrate/memcrate",
-      "createdAt": "2026-05-12T11:06:14Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "memcrate/memcrate",
-      "createdAt": "2026-05-12T10:56:53Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 702,
+    "total": 706,
     "weeks": [
       [
         0,
@@ -625,8 +625,8 @@
       [
         8,
         19,
-        16,
-        0
+        17,
+        3
       ]
     ]
   }
