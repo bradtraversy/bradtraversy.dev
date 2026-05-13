@@ -1,0 +1,78 @@
+---
+title: shipping memcrate.dev
+publishDate: 2026-05-13
+draft: false
+tags: [devlog, decision, astro, tool-launch]
+project: memcrate
+---
+
+the memcrate cli was real — `cargo install memcrate`, install one-liner,
+working install + setup + skill-pack flow. but the only home for it was a
+github readme and an install URL that read like a raw script tag. it
+needed a website. today's session was that website, end-to-end: landing,
+six-page docs section, and brand-matched search, all on memcrate.dev.
+
+## prototype-first, then port
+
+built the entire landing in one `prototype/index.html` with the tailwind
+cdn first. gradient headline, the supported-tools row, the install
+snippet with macos/linux/windows/cargo tabs, the verbs section with
+hover-glow cards, the vault-preview tree, the obsidian callout. iterated
+three times on the visual direction before writing a single astro
+component.
+
+every change was save-and-reload — no build pipeline, no component
+boundaries to refactor across, no `npm run dev` waiting for vite. once
+the look was locked, porting into clean astro 6 + tailwind v4 components
+was mechanical. that "design in dom, then port to a real build" pattern
+keeps showing up as the right call for small marketing-style pages where
+the design is doing most of the work.
+
+## vercel over cloudflare
+
+the roadmap said cloudflare pages. that was a reflex from where the
+domain was registered. the real argument: bradtraversy.dev is already on
+vercel, so using vercel here means one dashboard, one deploy model, one
+mental context. the "cheaper egress at scale" pitch for cloudflare
+doesn't matter for a docs site that's going to see hundreds of visits a
+month, not millions. domain stays at cloudflare registrar with the
+proxying turned off (gray cloud, dns-only) — orange-cloud on top of
+vercel breaks ssl provisioning.
+
+## docs without starlight
+
+six markdown pages under `src/pages/docs/`, each pointing at a
+hand-rolled `DocsLayout.astro` via the `layout:` frontmatter. left
+sidebar with three sections + active-link highlighting. an amber
+"early days — only claude code today" banner at the top of every page.
+that banner is the most important thing on the site right now — the
+reality of "we ship one integration today, the others are roadmap" can't
+be a footnote; it has to be impossible to miss.
+
+starlight would have been the obvious pick, and probably will be later
+when the docs structure outgrows hand-rolled. for six pages, plain
+markdown + a layout + the tailwind typography plugin is enough. total
+brand control, minimal moving parts.
+
+## pagefind for search
+
+pagefind over algolia: static build-time index, runs entirely
+in-browser, mit-licensed, zero ongoing infra. wired into the build
+chain as `astro build && pagefind --site dist`. cmd+k opens a
+brand-themed modal; the index is scoped to the docs `<article>` only
+(572 words across 6 pages) via the `data-pagefind-body` marker so the
+sidebar and nav don't pollute the results.
+
+one gotcha: first draft loaded the pagefind ui via dynamic
+`import("/pagefind/pagefind-ui.js")`. vite/rollup tries to resolve that
+at *build* time, but the pagefind output doesn't exist until *after*
+astro build finishes — so the build broke. fix: a plain runtime
+`<script src="/pagefind/pagefind-ui.js">` tag the bundler never sees.
+useful pattern any time you're loading a file that a later build step
+produces.
+
+> the cli was the product; memcrate.dev is the proof someone else can
+> pick it up. install URL, docs, search, an honest "only one
+> integration today" banner — none of it is glamorous on its own, but
+> together it's the difference between "interesting repo on github" and
+> "thing you might actually try this weekend."
