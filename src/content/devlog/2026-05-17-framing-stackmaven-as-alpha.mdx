@@ -1,0 +1,92 @@
+---
+title: framing stackmaven as alpha
+publishDate: 2026-05-17
+draft: false
+tags: [devlog, decision, astro, lesson]
+project: stackmaven
+---
+
+[stackmaven](https://stackmaven.io) is the publication brand i've been
+pouring evenings into — opinionated dev/ai tool catalog with a news
+layer and (later) a stack recommender. the site went live a few days
+ago. today was about locking down what the version number actually
+means and tightening the hero so it stops feeling like an empty room.
+
+## versioning, pegged to the roadmap
+
+the new scheme:
+
+- **v0.1** — phase 1 shipped (scaffold + seed catalog). that was 5/15
+- **v0.2** — phase 2 (catalog depth + news cadence). where we are now
+- **v0.3** — phase 2 complete (250 entries, sustained news, 1k subs)
+- **v1.0** — the recommender ships and monetization is live
+
+free-floating semver tells you nothing. pegging each version bump to a
+phase in the roadmap means every future bump has an unambiguous
+meaning — and "v1" gets reserved for the thing that actually makes
+stackmaven _stackmaven_ (the recommender), not just "the site went
+live."
+
+the in-product signal is a small `v0.2 · alpha` chip next to the
+wordmark in the header. amber styling, tooltip explains, click-through
+to `/now` for current state. deliberately not a "work in progress"
+banner — editorial publications don't wear hazard tape, and stackmaven
+is supposed to read like a publication, not a beta-staged saas app.
+
+## fill negative space with your own content
+
+the hero was text-heavy on the left with a dead column on the right at
+desktop. could've reached for a generic illustration. most saas sites
+do — abstract gradient, swooping lines, the works.
+
+but no editorial publication you respect has a stock graphic in the
+hero. the new yorker doesn't. the wirecutter doesn't. they fill that
+space with their own content — pull-quotes, picks, recent issues. so
+that's what landed: an **editor's picks** vertical panel on the right,
+11 hand-curated entries sorted by canonical category order so it reads
+as a tour, not a chronology.
+
+now the headline ("opinionated and current") gets proven in the same
+viewport instead of just claimed.
+
+one pattern from the panel i want to keep using: **mask-image fade +
+ghost scrollbar**. the list is taller than the panel so you can scroll
+to see all 11, but the bottom edge fades into the background and the
+scrollbar is barely visible at rest:
+
+```css
+.picks-list {
+  mask-image: linear-gradient(to bottom, black calc(100% - 40px), transparent);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+.picks-list::-webkit-scrollbar { width: 4px; }
+```
+
+reads as "publication content extending below the fold" rather than
+"scrollable list with a clipped edge." reusable for any bounded
+surface that needs a "more below" affordance without a saas-y `show
+more` button.
+
+## github stars are a directory tic
+
+almost wired up github star counts on every tool card. the cost was
+nothing — github's rest api is 5k/hr authenticated, a daily action
+rewriting frontmatter and letting vercel rebuild is under a minute of
+ci per day.
+
+reason i held off: **stars are a directory tic**. futurepedia,
+theresanaiforthat, stackshare — every catalog leans on them.
+popularity becomes the signal. stackmaven is positioned against
+directory framing on purpose: the `stackmaven_verdict` paragraph on
+each entry is the signal. if you want a number, the verdict comes
+first.
+
+probably dropping stars from the cards entirely and keeping them on
+detail pages as one stat among several. context, not headline.
+
+> editorial voice is mostly a series of small NOs — no hero
+> illustration, no "work in progress" banner, no github stars on the
+> cards. each one is tiny on its own. the cumulative effect is what
+> makes a publication read like a publication instead of a directory
+> with a fancier homepage.
