@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-18T07:38:02.978Z",
+  "updatedAt": "2026-05-18T13:27:47.836Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 320,
     "followers": 75870,
-    "totalStars": 165835
+    "totalStars": 165843
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65563,
+      "stars": 65569,
       "forks": 12026,
       "language": null,
       "pushedAt": "2026-04-13T10:23:07Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40552,
+      "stars": 40553,
       "forks": 9757,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -92,6 +92,30 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-18T10:15:09Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-18T10:02:55Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-18T09:47:18Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-18T09:40:18Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "bradtraversy/apiprobe",
       "createdAt": "2026-05-13T21:33:56Z",
       "details": "pushed to main"
@@ -125,34 +149,10 @@
       "repo": "bradtraversy/apiprobe",
       "createdAt": "2026-05-13T21:27:46Z",
       "details": "merged pull request #7"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/apiprobe",
-      "createdAt": "2026-05-13T21:27:38Z",
-      "details": "opened pull request #7"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/apiprobe",
-      "createdAt": "2026-05-13T21:27:06Z",
-      "details": "created branch chore/refresh-screenshot"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-13T17:48:49Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-13T17:26:39Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 715,
+    "total": 721,
     "weeks": [
       [
         0,
@@ -624,7 +624,7 @@
       ],
       [
         2,
-        0
+        6
       ]
     ]
   }
