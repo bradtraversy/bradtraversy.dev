@@ -16,19 +16,21 @@ const currentlyBuilding = allProjects
 // Update these when the focus shifts; if a project isn't listed, the card
 // still renders with its tagline as fallback.
 const focusNotes: Record<string, string> = {
+  memcrate:
+    'v0.3.3 shipped to crates.io. memcrate.dev landing + docs + pagefind search live. next is more skill packs (cursor, aider, mcp) on top of the format.',
   vidpipe:
-    'shipping the channel-connection pivot. just added a transcript-provider fallback. publishing destinations (wordpress, medium) are next.',
+    'channel-connection pivot live. transcript-provider fallback in. publishing destinations (wordpress, medium, ghost) are next when i swing back.',
   'bradtraversy-dev':
-    'phase 3 launch content. project + tool pages filling out. dns wiring + soft launch are the remaining gates.',
+    'launched — daily content polish, project + tool pages filling out, devlog cadence holding.',
   'mission-control':
-    'running daily on the homelab. write-back on calendar + agent heartbeats are the next two adds.',
+    'running daily on the homelab. write-back on calendar + per-profile heartbeats next. paperclip will eventually take over the task lane.',
   devsheets:
     'on autopilot — sheets land via the create/audit/validate/sync skill chain when i pick a topic from the backlog.',
   webutils:
     'maintenance mode — adding a tool when i need one and can\'t find a clean version of it elsewhere.',
 };
 
-const lastUpdated = '2026-05-09';
+const lastUpdated = '2026-05-17';
 ---
 
 <BaseLayout
@@ -48,16 +50,22 @@ const lastUpdated = '2026-05-09';
   <section class="section">
     <h2 class="h2"><span class="hash">## </span>right now</h2>
     <p>
-      deepest into <a href="/projects/vidpipe" class="link">vidpipe</a> — the
-      channel-connection pivot is the headline build. you connect a youtube
-      channel, every new upload generates an article + newsletter + social
-      posts, and auto-publishing to wordpress / medium / ghost is the next
-      phase. on the side, bradtraversy.dev itself gets daily content polish:
-      new project pages, devlog backfill, the tool catalog filling out.
+      deepest into <a href="https://stackmaven.io" class="link">stackmaven</a> —
+      a curated catalog of dev/AI tools, models, and frameworks with a news
+      layer and (later) a stack recommender. v0.2 alpha is live; phase 2 is
+      catalog depth (15 → 250 entries) and sustained news cadence.
     </p>
     <p>
-      this is a heads-down month. less youtube production than usual. more
-      shipping.
+      on the homelab side, just cut over from a single autonomous agent
+      (travis on openclaw) to a four-profile hermes setup — sysadmin,
+      developer, creator, secretary — one runtime, one shared vault, four
+      lanes. <a href="/devlog/2026-05-17-from-travis-to-hermes" class="link">devlog</a>.
+    </p>
+    <p>
+      vidpipe is still real but slower-cadence now that the channel
+      pivot is in. bradtraversy.dev keeps getting daily content polish —
+      project + tool pages, devlog cadence, the homelab article. less
+      youtube production than usual. more shipping.
     </p>
   </section>
 
@@ -86,21 +94,25 @@ const lastUpdated = '2026-05-09';
     <h2 class="h2"><span class="hash">## </span>what i'm thinking about</h2>
     <ul class="prose-list">
       <li>
-        how agent workflows actually change content production cadence — not
-        in theory, but for someone shipping every day
+        whether specialization beats generalization for autonomous agents —
+        one agent doing everything vs. four lanes that don't overlap. the
+        hermes swap is the bet i'm making on this
+      </li>
+      <li>
+        editorial-voice publication brands as standalone businesses — what
+        does "the wirecutter for dev tools" look like when it's also an
+        active recommender, not just a directory
       </li>
       <li>
         whether "indie builder + known person" beats "new company brand + same
         products" for distribution. (rebranding the public site from a brand
-        name to my personal name was the bet i made on this)
-      </li>
-      <li>
-        the right shape for fallback economics on third-party apis — when do
-        you pay for stability, when do you pay for low-cost insurance
+        name to my personal name was the bet i made on that one — stackmaven
+        is the opposite bet, brand-first)
       </li>
       <li>
         what a vault-native dashboard looks like when the markdown <em>is</em>{' '}
-        the database — not a cms, not a sync layer, just files
+        the database — and what an orchestration layer on top of it (paperclip)
+        does that the dashboard doesn't
       </li>
     </ul>
   </section>
