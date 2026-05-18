@@ -66,20 +66,22 @@ updates without a refresh.
   agent — not boxed into "from-browser-only"
 - **agent task contract.** a top-level `Tasks/` folder holds work
   units as markdown files with `agent`, `status`, and `priority`
-  frontmatter. travis (my autonomous runner) polls that folder and
-  claims items tagged for him; claude code surfaces queued items at
-  session start; the dashboard is a third lens on the same data
+  frontmatter. autonomous profiles on the homelab poll that folder
+  and claim items tagged for their lane; claude code surfaces queued
+  items at session start; the dashboard is a third lens on the same
+  data
 
 ## what's in it
 
 - **home** — current focus, today's calendar, recent activity feed
 - **todos** — three-column board (now / soon / later) with check-off,
   move-between-columns, inline add. ids and tags live in frontmatter
-- **tasks** — kanban with agent filter (travis / claude / me).
-  add, status-flip, ping-an-agent from the top bar
+- **tasks** — kanban with agent filter, one column per lane (sysadmin,
+  developer, creator, secretary, claude, me). add, status-flip,
+  ping-an-agent from the top bar
 - **projects** — cards with status pills, drilling into the
   project's vault folder
-- **sessions** — unified feed of claude and openclaw session logs
+- **sessions** — unified feed of claude and hermes-profile session logs
 - **research / network / calendar / agents** — same pattern, each
   reading from a known vault region
 
@@ -87,7 +89,7 @@ updates without a refresh.
 
 - progress bars on project cards (blocked on a tag-taxonomy decision
   for tasks)
-- agent heartbeat integration so the autonomous runner stamps a
+- per-profile heartbeat integration so each autonomous lane stamps a
   liveness signal back to the dashboard
 - two-way calendar — currently read-only; write-back deferred
 

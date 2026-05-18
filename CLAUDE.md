@@ -41,7 +41,7 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 - **Comments**: never on-page. CTAs route to Twitter/X reply, email, or GitHub issues. No Giscus, Disqus, or in-house.
 - **Repo visibility**: private during build, public at Phase 6 launch. Don't reference the public repo URL in copy until Phase 6.
 - **Visual identity**: AI iteration in code, `home-mockup-airy.html` is the North Star.
-- **Agent workflow page**: a flagship article first ("How Travis works"), no dedicated `/agents` section in v1.
+- **Agent workflow page**: a flagship article first ("How the agent fleet works" — covering the four-profile Hermes setup), no dedicated `/agents` section in v1.
 - **Pre-launch announcement**: build in silence. No coming-soon page, no email-capture landing page.
 - **Project billing**: each paid project keeps its own checkout. No unified billing layer on this site in v1.
 - **Devlog source**: hand-curated for v1 launch via the `polish-devlog` skill (chat-invoked). Auto-pipeline lands in v1.1, not v1.
