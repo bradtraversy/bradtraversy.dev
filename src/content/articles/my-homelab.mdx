@@ -27,10 +27,10 @@ five machines carry real load. each one has a clear job.
   design rather than terminal pairing.
 - **`trav-ai`** — dedicated local-ai box. **ubuntu** on a gmktec
   evo-x2, amd ryzen ai max+ 395, 48 gb unified memory. ollama for
-  local model inference, open webui for a chat ui, openclaw for the
-  autonomous agent (i call him travis). also where mission control
-  runs. lan-only — bound to the local network, never exposed to the
-  internet.
+  local model inference, open webui for a chat ui, hermes hosting the
+  autonomous fleet (four named profiles — sysadmin, developer,
+  creator, secretary). also where mission control runs. lan-only —
+  bound to the local network, never exposed to the internet.
 - **`trav-studio`** — recording machine. **macos** on a mac studio
   (apple m4 max, 64 gb). every youtube video, course module, and
   screencast i record runs through this box. obs + screen studio for
@@ -63,10 +63,12 @@ on top of the hardware:
   the simple-task surface area — triage, classification, quick
   summarization, anything that doesn't need frontier intelligence.
   i use local for simple tasks only. it stays in its lane.
-- **openclaw** also on `trav-ai`. an open-source autonomous claude
-  agent runtime. it's what hosts travis — runs on a cron, picks up
-  tasks, makes decisions, writes back to the vault. (a longer "how
-  travis works" article is coming; this is the headline tour.)
+- **hermes** also on `trav-ai`. an open-source autonomous agent
+  runtime that hosts four named profiles — `sysadmin`, `developer`,
+  `creator`, `secretary`. each profile runs on its own cron, picks up
+  tasks tagged for its lane, makes decisions, writes back to the
+  vault. (a longer "how the agent fleet works" article is coming;
+  this is the headline tour.)
 - **mission control** also on `trav-ai`, port 8890. a next.js app i
   built. reads my obsidian vault directly and renders a live dashboard
   for everything in it.
@@ -81,14 +83,15 @@ on top of the hardware:
 
 ## the agent fleet
 
-three claude agents, one shared brain.
+two claudes for the interactive lane, four hermes profiles for the
+autonomous lane, one shared brain.
 
 **claude code** — interactive, terminal-based. running on **opus
 4.7**. when i'm in the editor, this is who i'm pairing with. it knows
 the vault, it writes a session log at the end of each session via a
-`/compress` skill, and it picks up queued tasks at the start of the
-next via `/resume`. so even though sessions don't share memory, the
-agent does — through the vault.
+`/save` skill, and it picks up queued tasks at the start of the next
+via `/load`. so even though sessions don't share memory, the agent
+does — through the vault.
 
 **cowork** — interactive, desktop-app-based. same model (opus 4.7),
 different runtime. claude desktop has mcp connections claude code
@@ -97,22 +100,34 @@ about the deadline?" — cowork handles it. also better for planning
 sessions where i want a back-and-forth conversation rather than a
 code session.
 
-**travis** — autonomous, openclaw on `trav-ai`, running on **gpt-5.5**.
-ticks every minute on a cron, claims queued tasks tagged
-`agent: travis`, executes one turn, marks done. no human in the loop.
-handles network health checks, vault security scans, calendar sync,
-daily session archival, vault backups — the deterministic work that
-should just happen.
+then the four autonomous profiles, all hosted by **hermes** on
+`trav-ai` and running on **gpt-5.5** via the openai codex device flow:
+
+- **sysadmin** — the operations lane. cron-driven health checks,
+  vault security scans, nas backups, network monitoring. terse,
+  alert-mode, no opinions
+- **developer** — autonomous coding. picks up `agent: developer`
+  tasks, makes the change, opens the pr. practical and precise
+- **creator** — content creation + research synthesis. drafts devlog
+  posts, summarizes weekly digests, helps with article outlines
+- **secretary** — calendar, email triage, daily briefings, task
+  queue hygiene. the lane closest to a personal assistant
+
+role names match across every surface: the cli command, the profile
+id, the SOUL.md file, the discord display name. `@sysadmin` in
+discord is the same identity as `hermes sysadmin run` in the
+terminal. no character names anywhere.
 
 different agents, different models, on purpose. opus is the right
-shape for the open-ended judgment work — designing a feature,
-debugging weird state, drafting prose. gpt-5.5 is the right shape for
-the bounded loop work travis runs — well-defined task, structured
-output, predictable steps. and qwen on the local box handles the
-small stuff that doesn't need either.
+shape for the open-ended judgment work the two claudes pair on —
+designing a feature, debugging weird state, drafting prose. gpt-5.5
+is the right shape for the bounded-loop work each hermes profile
+runs — well-defined task, structured output, predictable steps. and
+qwen on the local box handles the small stuff that doesn't need
+either.
 
-all three share the same obsidian vault. they read each other's
-session logs, share context files, and coordinate through a task queue.
+all six share the same obsidian vault. they read each other's session
+logs, share context files, and coordinate through a task queue.
 
 ## the vault is the database
 
@@ -168,22 +183,23 @@ each task is a markdown file with frontmatter like:
 
 ```yaml
 ---
-agent: travis | claude-code | claude-cowork | brad
+agent: sysadmin | developer | creator | secretary | claude-code | claude-cowork | brad
 status: queued | claimed | done
 priority: low | medium | high
 ---
 ```
 
-travis polls every minute and claims his queued tasks. claude code's
-`/resume` skill surfaces queued items at session start. cowork has a
-five-minute task runner on the same pattern. all three honor a
+each hermes profile polls its own lane every minute and claims
+queued tasks tagged with its name. claude code's `/load` skill
+surfaces queued items at session start. cowork has a five-minute task
+runner on the same pattern. all of them honor a
 `Tasks/_control.json` pause flag if i need to halt the queue.
 
-the practical effect: i can leave a task for travis at midnight
-("rotate the nas backup logs"), drop a task for cowork in the morning
-("check for new sponsor emails and draft replies for me to review"),
-and let claude code surface me anything queued for it the next time i
-open the terminal.
+the practical effect: i can leave a task for `sysadmin` at midnight
+("rotate the nas backup logs"), drop a task for `secretary` in the
+morning ("check for new sponsor emails and draft replies for me to
+review"), and let claude code surface me anything queued for it the
+next time i open the terminal.
 
 work moves between agents the way it moves between teammates. that's
 not a metaphor — it's literally the same coordination model.
@@ -192,30 +208,37 @@ not a metaphor — it's literally the same coordination model.
 
 a typical weekday, condensed:
 
-- **05:00** — travis runs his daily jobs. calendar sync, vault backup
-  to nas, vault security scan. all cron-driven, all writing heartbeats
-  to the vault that mission control surfaces in the agents tab.
-- **05:15** — cowork's task runner picks up the daily tech digest.
-  fetches news, summarizes, writes a digest file to `Research/Digests/`.
-- **05:30** — the youtube idea generator runs. reads today's digest,
-  writes structured idea notes for me to triage later.
+- **05:00** — `sysadmin` runs its daily ops jobs. vault backup to nas,
+  vault security scan, network health check. all cron-driven, all
+  writing heartbeats to the vault that mission control surfaces in
+  the agents tab.
+- **05:15** — `creator` picks up the daily tech digest. fetches news,
+  summarizes, writes a digest file to `Research/Digests/`. the
+  youtube idea generator chains off the same digest a few minutes
+  later.
+- **06:30** — `secretary` runs calendar sync and assembles the
+  morning briefing — today's schedule, anything overdue, queued tasks
+  worth surfacing.
 - **08:00** — i sit down at `trav-dev`. open mission control on a side
-  monitor. open claude code, run `/resume`. it reads the night's
+  monitor. open claude code, run `/load`. it reads the night's
   session logs and queued tasks and gives me a one-paragraph
-  orientation: "yesterday you shipped X, vidpipe deploy is green, three
-  new ideas surfaced for review."
+  orientation: "yesterday you shipped X, vidpipe deploy is green,
+  three new ideas surfaced for review."
 - **morning** — paired coding with claude code on whatever the active
   project is. usually vidpipe lately. session logs compress at the end
-  via `/compress`; the next session picks up where this one left off.
+  via `/save`; the next session picks up where this one left off.
 - **lunch** — switch to cowork on the macbook. lighter work — gmail
   triage, calendar review, drafting devlog entries from session logs
   via a `polish-devlog` skill.
 - **afternoon** — back to `trav-dev`. record video, edit, write
   articles. claude code stays open in the terminal even when i'm not
   actively pairing — i'll drop "here's a snippet, fix the bug" between
-  takes.
-- **evening** — close down. travis keeps running. mission control is
-  still up. the next day starts with the same `/resume` loop.
+  takes. `developer` picks up any autonomous coding tasks in the
+  background — small refactors, dependency bumps, anything well-scoped
+  enough not to need pairing.
+- **evening** — close down. the hermes profiles keep running on their
+  crons. mission control is still up. the next day starts with the
+  same `/load` loop.
 
 the core point: the agents do the deterministic work and the boring
 work; i do the creative work and the judgment calls. the homelab is
@@ -232,11 +255,11 @@ already in the cloud?
 - **privacy.** sponsor emails, financial notes, half-formed product
   ideas — i'd rather these sit on a box in my house than on a
   third-party server, even one with strong privacy policies.
-- **reliability.** the local agent doesn't get rate-limited. it
+- **reliability.** the local fleet doesn't get rate-limited. it
   doesn't depend on a hosted service being up. when the internet goes
-  down, travis keeps running on schedule.
+  down, the hermes profiles keep running on schedule.
 - **agency.** running my own runtime means i can change anything.
-  openclaw is open source. i can tweak the prompt, add tools, change
+  hermes is open source. i can tweak the prompt, add tools, change
   the cron schedule, swap models. the lock-in surface is roughly zero.
 
 the cloud is for the work that actually needs frontier intelligence.
@@ -251,13 +274,13 @@ a few things on the roadmap, none of them urgent:
 - nightly vault backup is already running, but an offsite copy is
   overdue
 - write-back on the calendar tab in mission control (read-only today)
-- travis-side heartbeat integration so liveness signals are first-class
-  in mission control's agents tab
-- exploring **hermes agent** — either as a replacement for openclaw on
-  the autonomous side, or as a layer that sits *above* the existing
-  agents and oversees the whole lab. undecided. the appeal of the
-  overseer shape is having one surface that can route work between
-  claude code, cowork, and travis instead of me being the dispatcher.
+- per-profile heartbeat integration so each hermes lane stamps a
+  liveness signal back to the agents tab
+- **paperclip** — an orchestration layer planned to sit *above* the
+  hermes profiles, owning task state and routing work between lanes.
+  routine-driven coordination instead of me being the dispatcher.
+  default is to start it after the four-profile setup has soaked for
+  a few weeks.
 
 the system works. iteration is in service of small quality-of-life
 wins, not feature parity with a hosted solution.
