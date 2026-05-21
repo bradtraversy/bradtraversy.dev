@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-21T01:06:24.760Z",
+  "updatedAt": "2026-05-21T07:29:47.160Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 320,
-    "followers": 75871,
-    "totalStars": 165893
+    "followers": 75874,
+    "totalStars": 165897
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65594,
-      "forks": 12028,
+      "stars": 65597,
+      "forks": 12031,
       "language": null,
       "pushedAt": "2026-04-13T10:23:07Z"
     },
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40565,
-      "forks": 9757,
+      "stars": 40567,
+      "forks": 9759,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -63,7 +63,7 @@
       "fullName": "bradtraversy/node_passport_login",
       "description": "Node.js login, registration and access control using Express and Passport",
       "url": "https://github.com/bradtraversy/node_passport_login",
-      "stars": 1755,
+      "stars": 1754,
       "forks": 1291,
       "language": "EJS",
       "pushedAt": "2026-05-01T10:37:00Z"
