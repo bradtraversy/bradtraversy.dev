@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-22T07:25:48.575Z",
+  "updatedAt": "2026-05-22T13:01:42.532Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 320,
-    "followers": 75885,
-    "totalStars": 165910
+    "followers": 75886,
+    "totalStars": 165911
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65606,
-      "forks": 12032,
+      "stars": 65609,
+      "forks": 12031,
       "language": null,
       "pushedAt": "2026-04-13T10:23:07Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40568,
+      "stars": 40569,
       "forks": 9758,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16049,
+      "stars": 16047,
       "forks": 4393,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -91,6 +91,12 @@
   ],
   "recentEvents": [
     {
+      "type": "WatchEvent",
+      "repo": "anthropics/claude-code",
+      "createdAt": "2026-05-22T10:54:08Z",
+      "details": "starred this repo"
+    },
+    {
       "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-05-18T10:15:09Z",
@@ -143,12 +149,6 @@
       "repo": "bradtraversy/apiprobe",
       "createdAt": "2026-05-13T21:27:47Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/apiprobe",
-      "createdAt": "2026-05-13T21:27:46Z",
-      "details": "merged pull request #7"
     }
   ],
   "contributions": {
