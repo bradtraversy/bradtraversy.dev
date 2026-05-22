@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-22T13:01:42.532Z",
+  "updatedAt": "2026-05-22T18:44:53.480Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 320,
-    "followers": 75886,
-    "totalStars": 165911
+    "followers": 75890,
+    "totalStars": 165944
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65609,
-      "forks": 12031,
+      "stars": 65637,
+      "forks": 12041,
       "language": null,
       "pushedAt": "2026-04-13T10:23:07Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40569,
+      "stars": 40571,
       "forks": 9758,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -91,6 +91,12 @@
   ],
   "recentEvents": [
     {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-22T14:28:03Z",
+      "details": "pushed to main"
+    },
+    {
       "type": "WatchEvent",
       "repo": "anthropics/claude-code",
       "createdAt": "2026-05-22T10:54:08Z",
@@ -143,16 +149,10 @@
       "repo": "bradtraversy/apiprobe",
       "createdAt": "2026-05-13T21:27:50Z",
       "details": "deleted branch chore/refresh-screenshot"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/apiprobe",
-      "createdAt": "2026-05-13T21:27:47Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 721,
+    "total": 722,
     "weeks": [
       [
         0,
@@ -628,7 +628,7 @@
         0,
         0,
         0,
-        0
+        1
       ]
     ]
   }
