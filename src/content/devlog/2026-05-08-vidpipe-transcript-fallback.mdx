@@ -12,7 +12,7 @@ shipped three things on top of that.
 
 ## a retry button
 
-failed channel videos are now retriable. one click resets the row, drops the stale video record, and re-kicks the pipeline. the same applies to videos that were skipped for being out of credits — once you top up, retry pulls the row through.
+failed channel videos are now retriable. one click resets the row, drops the stale video record, and re-kicks the pipeline. the same applies to videos that were skipped for being out of credits. once you top up, retry pulls the row through.
 
 i considered reusing the existing video record on retry, but you inherit stale state (`articleStatus: 'failed'`, etc.) and the surface gets messy. cleaner to drop and recreate. the worker already refunds on failure, so the second charge is the only charge that sticks.
 
@@ -20,16 +20,16 @@ i considered reusing the existing video record on retry, but you inherit stale s
 
 when supadata returns a 5xx, a 429, or a network timeout, the orchestrator now falls through to a second provider, youtube-transcript.io. validation runs at the orchestrator level so junk-caption detection works the same regardless of which vendor served.
 
-the criterion for fallback is **transient errors only**. a 404 stays a 404 — a different vendor can't conjure captions that don't exist.
+the criterion for fallback is **transient errors only**. a 404 stays a 404. a different vendor can't conjure captions that don't exist.
 
 picking the fallback was the more interesting part. four alternatives looked at:
 
-- **searchapi.io** — strongest stability signal (anthropic, scale ai listed as customers; monthly changelogs; us corp; 99.9% sla). but a meaningful monthly minimum that doesn't fit a fallback that should rarely fire.
-- **apify `codepoetry` actor** — pay-per-run, has whisper fallback for caption-less videos. but the actor is a solo-dev hobby project (~160 lifetime users, no reviews). apify-the-platform is rock-solid; individual *actors* are third-party developer code. the trust signal is the actor, not the platform.
-- **youtube-transcript.io** — smaller vendor, less brand signal, but a flat monthly fee and a working api. picked it.
-- **transcriptapi.com** — too thin for either role.
+- **searchapi.io**: strongest stability signal (anthropic, scale ai listed as customers; monthly changelogs; us corp; 99.9% sla). but a meaningful monthly minimum that doesn't fit a fallback that should rarely fire.
+- **apify `codepoetry` actor**: pay-per-run, has whisper fallback for caption-less videos. but the actor is a solo-dev hobby project (~160 lifetime users, no reviews). apify-the-platform is rock-solid; individual *actors* are third-party developer code. the trust signal is the actor, not the platform.
+- **youtube-transcript.io**: smaller vendor, less brand signal, but a flat monthly fee and a working api. picked it.
+- **transcriptapi.com**: too thin for either role.
 
-the framing that helped: **a fallback has different economics than a primary.** for a primary you pay for stability — sla, customer logos, the works. for a fallback that should rarely fire, you want a flat low cost so the idle months don't burn money on insurance you barely use. that ruled out the high-floor option for this slot, even though it would have been the right pick if i needed a primary.
+the framing that helped: **a fallback has different economics than a primary.** for a primary you pay for stability (sla, customer logos, the works). for a fallback that should rarely fire, you want a flat low cost so the idle months don't burn money on insurance you barely use. that ruled out the high-floor option for this slot, even though it would have been the right pick if i needed a primary.
 
 ## the email i didn't send
 
@@ -37,7 +37,7 @@ side quest. while testing, a separate failure mode surfaced: videos that exceed 
 
 i started building a notification path: schema field, email function, dedupe table, the works. then i stopped. did i actually want to send an email for this?
 
-probably not. the action this nudge wants ("maybe upgrade") isn't urgent the way "you ran out of credits" is. it's a soft signal, not a hard ceiling. and email fatigue is real — every notification you add raises the cost of the legitimate ones.
+probably not. the action this nudge wants ("maybe upgrade") isn't urgent the way "you ran out of credits" is. it's a soft signal, not a hard ceiling. and email fatigue is real. every notification you add raises the cost of the legitimate ones.
 
 ripped the email path out and shipped the five-line fix instead: render the existing skip reason in red below the date on failed rows. immediate clarity, zero new infrastructure.
 

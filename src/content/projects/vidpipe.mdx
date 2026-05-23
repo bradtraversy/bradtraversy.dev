@@ -1,6 +1,6 @@
 ---
 name: Vidpipe
-tagline: turn youtube videos into publish-ready content — articles, newsletters, social posts, transcripts
+tagline: turn youtube videos into publish-ready content. articles, newsletters, social posts, transcripts
 description: |
   a saas that takes a youtube url (or a connected channel) and produces
   a publish-ready blog post, newsletter draft, social posts, and a clean
@@ -45,13 +45,13 @@ you get:
 - a set of social posts (twitter / linkedin) shaped for each platform
 - a clean, timestamped transcript
 
-ownership is verified through google oauth (`youtube.readonly`) — no
+ownership is verified through google oauth (`youtube.readonly`). no
 attestation checkboxes, no "trust me i own this." once you connect,
 new uploads flow through the system without you touching anything.
 
 drafts land in your dashboard for review. you decide what ships and
 what gets edited or trashed. the goal is to take the friction down to
-zero — not to take you out of the loop.
+zero, not to take you out of the loop.
 
 ## auto-publishing _(coming soon)_
 
@@ -61,11 +61,11 @@ another tab."
 
 planned destinations:
 
-- **wordpress** — direct publish to a connected wp site (self-hosted
+- **wordpress**: direct publish to a connected wp site (self-hosted
   or wordpress.com), with category and tag mapping
-- **medium** — push as a draft or a published story under your account
-- **ghost** — connect a ghost site and publish to a tag/collection
-- **dev.to / hashnode** — community platforms via their api
+- **medium**: push as a draft or a published story under your account
+- **ghost**: connect a ghost site and publish to a tag/collection
+- **dev.to / hashnode**: community platforms via their api
 - more to come based on what people actually want to ship to
 
 connect a destination once, choose per-channel defaults (auto-publish
@@ -77,7 +77,7 @@ into "vidpipe ships the post."
 
 i've shipped hundreds of long-form videos. every one of them is also a
 blog post, a newsletter, a thread, and a transcript that someone could
-search — but the cost of producing those side artifacts manually is
+search. but the cost of producing those side artifacts manually is
 high enough that they mostly don't get made. when they do, they're an
 afterthought.
 
@@ -94,16 +94,16 @@ a quick tour:
 - **bullmq** worker on a separate droplet that polls connected channels
   and queues per-video generation jobs (added during the pipeline pivot
   in early may)
-- **anthropic + openrouter** for model routing — different stages of
+- **anthropic + openrouter** for model routing. different stages of
   the pipeline use different models depending on length and quality
   ceiling
-- **stripe** for both billing modes — credit packs that never expire,
+- **stripe** for both billing modes: credit packs that never expire,
   and monthly subscriptions
 - **google oauth (`youtube.readonly`)** to verify channel ownership
   before any auto-generation flows
 
-the system has two distinct shapes — a synchronous "paste-a-url"
-generator, and an async "connected-channel" pipeline — sharing the
+the system has two distinct shapes (a synchronous "paste-a-url"
+generator, and an async "connected-channel" pipeline) sharing the
 same generation core. that split is the heart of the product, and
 also where most of the recent engineering effort has gone.
 
@@ -112,18 +112,18 @@ also where most of the recent engineering effort has gone.
 shipped to a soft launch in early may behind a preview banner. the
 build-up looked roughly like this:
 
-- **prelaunch hardening** — multi-model routing through openrouter,
+- **prelaunch hardening**: multi-model routing through openrouter,
   abuse protection on free generation, transcript validator unblocked,
   full admin user-detail surface
-- **pipeline pivot** — the schema, backend api, frontend, and async
+- **pipeline pivot**: the schema, backend api, frontend, and async
   worker for connected channels. shipped in two phases on a feature
   branch, fully gated behind an env flag until oauth landed
-- **oauth + soft launch** — replaced the temporary "i confirm i own
+- **oauth + soft launch**: replaced the temporary "i confirm i own
   this channel" attestation with a real google oauth verification, then
   flipped the preview banner on
-- **pricing rework + payment audit** — locked in solo / pro / studio
+- **pricing rework + payment audit**: locked in solo / pro / studio
   tiers across both billing modes, then audited and patched 11 bugs
   across the consume / refund / webhook paths
 
-> the next thing isn't a bigger model or a fancier ui — it's making the
+> the next thing isn't a bigger model or a fancier ui. it's making the
 > connected-channel flow feel like infrastructure, not a feature.

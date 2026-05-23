@@ -1,6 +1,6 @@
 ---
 name: BundleView
-tagline: visual analyzer for javascript bundles — treemap, source maps, optimization insights
+tagline: visual analyzer for javascript bundles. treemap, source maps, optimization insights
 category: dev
 kind: web
 tags: [javascript, performance, bundlers, webpack, vite]
@@ -18,22 +18,22 @@ get a visual breakdown of what's actually shipping to your users.
 
 ## what it does
 
-- **interactive treemap** — modules sized by bytes, color-coded by chunk.
+- **interactive treemap**: modules sized by bytes, color-coded by chunk.
   hover for details, click to drill in. immediately tells you "what's
   taking up space"
-- **file explorer** — sortable list of every module in the bundle with
+- **file explorer**: sortable list of every module in the bundle with
   raw size, gzipped size, and chunk membership
-- **optimization insights** — flags large dependencies, code-splitting
+- **optimization insights**: flags large dependencies, code-splitting
   opportunities, duplicate modules across chunks, and gzip-compression
   efficiency
-- **multiple input formats** — webpack-bundle-analyzer json (richest
+- **multiple input formats**: webpack-bundle-analyzer json (richest
   output), `.js.map` source maps (works with vite, rollup, esbuild),
   raw compiled `.js` files (best-effort fallback)
 
 ## how to use
 
-1. drop a file onto the upload area at [bundleview.dev](https://bundleview.dev)
-   — webpack analyzer json gives the most detail
+1. drop a file onto the upload area at [bundleview.dev](https://bundleview.dev).
+   webpack analyzer json gives the most detail
 2. switch between the **insights**, **treemap**, and **files** tabs
 3. follow the recommendations: code-split the big modules, dedupe shared
    deps, drop the lodash/moment-shaped weights
@@ -45,8 +45,8 @@ processing happens client-side. nothing about your bundle leaves the browser.
 bundle bloat is one of those problems where you know you should care but
 the existing tooling makes it a chore. webpack-bundle-analyzer is great
 when you have it wired up; less great when you just have a build output
-sitting in front of you. bundleview takes whatever you've got — a json
-report, a source map, a minified file — and gives you the same picture
+sitting in front of you. bundleview takes whatever you've got (a json
+report, a source map, a minified file) and gives you the same picture
 without needing a working dev server.
 
 it's free, open source, and runs entirely in your browser.

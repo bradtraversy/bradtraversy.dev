@@ -1,6 +1,6 @@
 ---
 name: NameScout CLI
-tagline: check a project name across domains, package registries, code hosts, and plugin marketplaces — from the terminal
+tagline: check a project name across domains, package registries, code hosts, and plugin marketplaces, from the terminal
 category: dev
 kind: cli
 tags: [cli, node, naming, availability, npm]
@@ -9,10 +9,10 @@ repoUrl: https://github.com/bradtraversy/namescout-cli
 free: true
 publishDate: 2026-05-11
 heroImage: ./namescout-cli-hero.png
-heroImageAlt: terminal output of npx namescout-cli piper showing a 21/100 collision-risk score with a full per-provider breakdown — domains, package registries (npm/pypi/crates/rubygems/packagist), github, vs code marketplace, and docker hub
+heroImageAlt: terminal output of npx namescout-cli piper showing a 21/100 collision-risk score with a full per-provider breakdown across domains, package registries (npm/pypi/crates/rubygems/packagist), github, vs code marketplace, and docker hub
 ---
 
-the terminal companion to [namescout.dev](/projects/namescout) — same checks,
+the terminal companion to [namescout.dev](/projects/namescout). same checks,
 same scoring, same providers, no browser needed. one command, one report,
 straight in the shell.
 
@@ -22,7 +22,7 @@ npx namescout-cli redis
 
 ## what it does
 
-- hits 12+ providers in parallel — domains, npm, pypi, crates.io, rubygems,
+- hits 12+ providers in parallel: domains, npm, pypi, crates.io, rubygems,
   packagist, homebrew, docker hub, github, vs code marketplace
 - mode-weighted scoring so the verdict matches what you're building
   (`saas-product`, `developer-tool`, `library-framework`, `extension-plugin`)
@@ -51,7 +51,7 @@ namescout <name>
 # default scan (developer-tool mode)
 npx namescout-cli vidpipe
 
-# saas mode — domains weighted higher
+# saas mode, domains weighted higher
 npx namescout-cli my-app --mode saas-product
 
 # include alternative-name suggestions
@@ -78,7 +78,7 @@ npx namescout-cli my-tool --json | jq .verdict.score
 ## why a cli
 
 the web report at [namescout.dev](https://namescout.dev) is the richer
-surface — it has the per-provider explanations, near-matches, and a
+surface. it has the per-provider explanations, near-matches, and a
 shareable url. the cli is for the moment when you're already in the
 terminal, already typing `npm init`, and you don't want to context-switch
 to a browser just to find out the name's been taken since you thought of

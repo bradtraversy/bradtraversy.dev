@@ -30,13 +30,14 @@ the architecture is small:
   `EventSource`, debounces incoming events for 200ms, and calls
   `router.refresh()` on the next tick
 
+
 debounce on both sides matters. the writers in mc use `.tmp + rename`,
 which chokidar will emit as `add` then `change` if you don't tell it
 to wait. `awaitWriteFinish: { stabilityThreshold: 50, pollInterval: 25 }`
 coalesces those into one event.
 
-`router.refresh()` is coarse — it re-fetches the current page's server
-data and re-renders — but for a server-component-heavy app on a
+`router.refresh()` is coarse. it re-fetches the current page's server
+data and re-renders. but for a server-component-heavy app on a
 single-user lan, "coarse but always right" beats "surgical and
 sometimes stale."
 
@@ -72,7 +73,7 @@ the parser shape is intentionally simple:
 ```
 
 `### ` strictly delimits agents. labels are read as written. it's
-structural, not schema-enforcing — if i add a new field tomorrow, the
+structural, not schema-enforcing. if i add a new field tomorrow, the
 parser picks it up automatically.
 
 ## "needs content" pills
@@ -84,8 +85,8 @@ the card header shows a count ("6 fields needs content"). the tab
 becomes a visible to-do list for itself.
 
 a small thing: react-markdown drops raw `<foo>`-shaped html by default.
-two-line workaround — pre-transform `<fill in[^>]*>` to
-`*⟨needs content⟩*` before rendering — and the placeholder stays
+two-line workaround: pre-transform `<fill in[^>]*>` to
+`*⟨needs content⟩*` before rendering. the placeholder stays
 visible without enabling rehype-raw.
 
 > the dashboard reaches "live where it needs to be" with this. tomorrow

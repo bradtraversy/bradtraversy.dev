@@ -12,10 +12,10 @@ except it kept silently failing for fresh uploads on small or brand-new channels
 
 turns out youtube exposes two rss endpoints that look interchangeable but aren't:
 
-- `https://www.youtube.com/feeds/videos.xml?channel_id=UCxxx` — the obvious one
-- `https://www.youtube.com/feeds/videos.xml?playlist_id=UUxxx` — the channel's uploads playlist, where `UU` is the same suffix as `UC`
+- `https://www.youtube.com/feeds/videos.xml?channel_id=UCxxx`: the obvious one
+- `https://www.youtube.com/feeds/videos.xml?playlist_id=UUxxx`: the channel's uploads playlist, where `UU` is the same suffix as `UC`
 
-both return the same xml schema. for established channels they return identical content. but the `channel_id` feed has severe propagation lag on new or low-volume channels — sometimes never populating for the first few uploads. the `playlist_id` feed updates near-instantly because it's backed by a different youtube system.
+both return the same xml schema. for established channels they return identical content. but the `channel_id` feed has severe propagation lag on new or low-volume channels, sometimes never populating for the first few uploads. the `playlist_id` feed updates near-instantly because it's backed by a different youtube system.
 
 swapped one prefix. discovery now fires within minutes of upload.
 
@@ -33,5 +33,6 @@ fixed the crash with a one-line `Array.isArray(data.content)` guard. then built 
 ## the validator i dropped
 
 while in there, ripped out a title-match validator that was rejecting transcripts when the video title didn't share keywords with the spoken content. false-positived on generic titles like "Test Video" and on anything multilingual. the framing that decided it: **if a user uploads a video, it should work.** the spam guards i kept (duplicate-marker detection, minimum length, non-english ratio) are about caption quality. matching the title to the body is about something else, and it was throwing away real captions to catch fake-sounding ones.
+
 
 > the most expensive bugs are the ones where two systems each look correct in isolation. http 200 + no retry path = silent failure. the fix wasn't either one; it was both.

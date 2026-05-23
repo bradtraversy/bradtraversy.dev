@@ -1,19 +1,19 @@
 ---
-title: linesmith — typesmith's sibling for code
+title: linesmith, typesmith's sibling for code
 publishDate: 2026-05-21
 draft: false
 tags: [devlog, decision, typescript]
 ---
 
 [typesmith](https://pypi.org/project/typesmith/) types prose into
-whatever window has focus — i built it back in april to write
+whatever window has focus. i built it back in april to write
 narration into davinci resolve while recording. it works because
 prose targets are dumb pipes. code editors are not. vs code
 autocompletes, auto-indents, pairs brackets, finishes snippets. a
 keystroke-injection tool would spend its life fighting the editor.
 
-so the sibling tool is an extension instead. **linesmith** — same
-family, "lines of code" is the unit it operates on. types code into
+so the sibling tool is an extension instead. **linesmith** is in the
+same family, with "lines of code" as the unit it operates on. types code into
 the active vs code editor during tutorial recording, using
 `TextEditor.edit()` directly into the buffer instead of synthesizing
 keystrokes. no autocomplete to fight, no platform-specific deps,
@@ -29,7 +29,7 @@ the killer feature pulled hard toward extension and never let go.
 real tutorial editing isn't top-to-bottom. you write a function
 signature, jump back into the parens to add types, then up two lines
 to drop in a docstring. that's cursor choreography. keystroke
-injection literally cannot do it — the cursor is wherever the user
+injection literally cannot do it. the cursor is wherever the user
 last clicked. a scripted extension owns the cursor. ships in v0.2 and
 becomes the thing a typesmith-style tool can't match.
 
@@ -54,8 +54,8 @@ return <button onClick={() => setCount(count + 1)}>{count}</button>
 
 language-agnostic by design. the typing engine inserts characters;
 whether they're rust, python, html, or yaml is the target editor's
-concern. indentation preserved literally — matters for python and
-yaml.
+concern. indentation preserved literally, which matters for python
+and yaml.
 
 ## v0 ships smaller than the killer feature
 
@@ -63,7 +63,7 @@ v0.1 is clean typing into vs code with `.linesmith` files, a
 chunk-list panel with a `play next` button, and a `.linesmith`
 language contribution (file icon + `---` separator highlight). no
 cursor choreography yet. that ships in v0.2 with `@directive`
-frontmatter (`@cursor end-of-line`, `@speed 60`) — picked `@`-prefixed
+frontmatter (`@cursor end-of-line`, `@speed 60`). picked `@`-prefixed
 syntax because `---` is already load-bearing and yaml-style
 frontmatter would have collided with the chunk separator.
 

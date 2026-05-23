@@ -1,16 +1,16 @@
 ---
 name: Mission Control
-tagline: vault-native ops dashboard — todos, tasks, projects, sessions, calendar, all live, all on the LAN
+tagline: vault-native ops dashboard with todos, tasks, projects, sessions, calendar, all live, all on the LAN
 description: |
   a private nextjs dashboard that reads and writes my obsidian vault
-  directly. one surface for every running thing — todos, agent tasks,
-  projects, session logs, scheduled jobs, calendar — with live updates
+  directly. one surface for every running thing (todos, agent tasks,
+  projects, session logs, scheduled jobs, calendar) with live updates
   via chokidar + sse. no database. the markdown is the database.
 status: local
 repoUrl: https://github.com/travxlabs/mission-control
 stack: [Next.js, React, TypeScript, Tailwind, chokidar, SSE]
 heroImage: ./mission-control-hero.png
-heroImageAlt: mission control dashboard — vault-native ops surface running on the homelab
+heroImageAlt: mission control dashboard, vault-native ops surface running on the homelab
 screenshots:
   - ./mission-control-tasks.webp
   - ./mission-control-network.webp
@@ -29,7 +29,7 @@ writes back to those same files without breaking obsidian compatibility.
 
 it's not on the public internet. it's bound to the LAN, runs as a
 systemd-user service, and is only useful if you have access to the
-vault behind it. the surface is private — the architecture is the
+vault behind it. the surface is private. the architecture is the
 interesting part.
 
 ## why i built it
@@ -40,7 +40,7 @@ cli, and obsidian for everything else. each surface had its own write
 contract and none of them coordinated. checking on the system meant
 opening four tabs and trusting they all agreed.
 
-i wanted one page that was honest about the vault — read straight
+i wanted one page that was honest about the vault: read straight
 from disk, write straight back, no caching layer to drift. and i
 wanted live updates: when an agent flips a task to done, my screen
 updates without a refresh.
@@ -49,11 +49,11 @@ updates without a refresh.
 
 - **vault is the database.** every read parses markdown directly. no
   postgres, no sqlite, no shadow store. obsidian stays a first-class
-  ui — i can edit any file from either side and the other reflects
+  ui. i can edit any file from either side and the other reflects
   within a second
 - **writes are atomic and frontmatter-safe.** instead of round-tripping
   through a yaml parser (which would reformat keys, reorder, mangle
-  comments), every writer does line surgery — regex-match the exact
+  comments), every writer does line surgery: regex-match the exact
   line, substitute, write via `.tmp + rename`. files come out
   byte-identical to a manual edit
 - **live updates via chokidar + sse.** a single watcher singleton
@@ -63,7 +63,7 @@ updates without a refresh.
   pipeline
 - **route handlers, not server actions.** the write surface is a real
   http api so it's curl-testable, scriptable, and reachable from any
-  agent — not boxed into "from-browser-only"
+  agent, not boxed into "from-browser-only"
 - **agent task contract.** a top-level `Tasks/` folder holds work
   units as markdown files with `agent`, `status`, and `priority`
   frontmatter. autonomous profiles on the homelab poll that folder
@@ -73,16 +73,16 @@ updates without a refresh.
 
 ## what's in it
 
-- **home** — current focus, today's calendar, recent activity feed
-- **todos** — three-column board (now / soon / later) with check-off,
+- **home**: current focus, today's calendar, recent activity feed
+- **todos**: three-column board (now / soon / later) with check-off,
   move-between-columns, inline add. ids and tags live in frontmatter
-- **tasks** — kanban with agent filter, one column per lane (sysadmin,
+- **tasks**: kanban with agent filter, one column per lane (sysadmin,
   developer, creator, secretary, claude, me). add, status-flip,
   ping-an-agent from the top bar
-- **projects** — cards with status pills, drilling into the
+- **projects**: cards with status pills, drilling into the
   project's vault folder
-- **sessions** — unified feed of claude and hermes-profile session logs
-- **research / network / calendar / agents** — same pattern, each
+- **sessions**: unified feed of claude and hermes-profile session logs
+- **research / network / calendar / agents**: same pattern, each
   reading from a known vault region
 
 ## what's next
@@ -91,7 +91,7 @@ updates without a refresh.
   for tasks)
 - per-profile heartbeat integration so each autonomous lane stamps a
   liveness signal back to the dashboard
-- two-way calendar — currently read-only; write-back deferred
+- two-way calendar: currently read-only; write-back deferred
 
 > the lesson i keep relearning: when the storage format is already
 > human-readable, the dashboard layer is small. the trick is not

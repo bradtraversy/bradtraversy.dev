@@ -1,6 +1,6 @@
 ---
 name: Stackmaven
-tagline: a curated, opinionated catalog of dev and ai tools — with a news layer and (later) a stack recommender
+tagline: a curated, opinionated catalog of dev and ai tools, with a news layer and (later) a stack recommender
 description: |
   a publication-style catalog of dev and ai tools, models, and frameworks.
   every entry is human-reviewed with an opinionated verdict, news articles
@@ -11,7 +11,7 @@ status: alpha
 url: https://stackmaven.io
 stack: [Astro, Tailwind, MDX, Vercel, Resend, Anthropic]
 heroImage: ./stackmaven-hero.png
-heroImageAlt: stackmaven.io homepage — neutral-editorial header bar with the v0.2 alpha chip, the headline "The dev and AI tooling reference, opinionated and current.", a "browse the catalog" cta, an editor's picks panel on the right with curated tools across categories, and a latest-entries row of recently reviewed catalog cards below
+heroImageAlt: stackmaven.io homepage with a neutral-editorial header bar, the v0.2 alpha chip, the headline "The dev and AI tooling reference, opinionated and current.", a "browse the catalog" cta, an editor's picks panel on the right with curated tools across categories, and a latest-entries row of recently reviewed catalog cards below
 publishDate: 2026-05-18
 featured: true
 ---
@@ -19,22 +19,22 @@ featured: true
 ## what it does
 
 stackmaven is a curated catalog of dev and ai tools, models, and
-frameworks — with a news layer covering what just shipped, and a stack
+frameworks, with a news layer covering what just shipped, and a stack
 recommender on the way.
 
-- **catalog** — every tool, model, and framework has a hub page:
+- **catalog**: every tool, model, and framework has a hub page:
   overview, pricing, alternatives, and an opinionated
   `stackmaven_verdict` paragraph. human-reviewed before publish, no
   ai-generated slop, no seo directory filler
-- **news** — articles connect back to catalog hubs as spokes: launches,
+- **news**: articles connect back to catalog hubs as spokes: launches,
   beat reports, comparisons, 30/60/90-day follow-up scorecards, stack
   snapshots. the news exists to update the catalog, not the other way
   around
-- **stack recommender (v1.0)** — describe a project, get a structured
+- **stack recommender (v1.0)**: describe a project, get a structured
   stack back with every item linked to its catalog entry. free tier
   rate-limited, pro tier unlimited + private stacks + iterative
   recommender. ships in phase 3
-- **stackmaven pro (later)** — paid tier for unlimited recommender
+- **stackmaven pro (later)**: paid tier for unlimited recommender
   runs, extended depth, deep-cuts newsletter, early scorecards, and
   catalog api access
 
@@ -43,7 +43,7 @@ recommender on the way.
 "i feel behind on dev and ai tooling" is the dominant emotional state
 for working devs in 2026. returning devs, senior devs busy with
 management, indie hackers picking stacks, hobbyists trying to figure
-out where to start — all asking the same question, and all getting
+out where to start: all asking the same question, and all getting
 served by the same shape of bad answer.
 
 existing catalogs are seo-spam directories with no editorial bar.
@@ -51,7 +51,7 @@ stackshare has stale data and no news layer. nobody owns the position
 of "high-quality, opinionated, browsable reference + active news +
 recommender that actually picks."
 
-stackmaven is the version of that publication i'd want to read myself —
+stackmaven is the version of that publication i'd want to read myself,
 and one i'm in an unusual position to build, because "show devs what's
 out there" is literally the dna i've been running for fifteen years
 on traversy media.
@@ -59,7 +59,7 @@ on traversy media.
 it's also deliberately not a personal-brand project. the publication
 speaks as stackmaven, not as me. the voice is neutral-editorial, like
 a wire service. opinion is segregated into clearly labeled `verdict`
-paragraphs. the brand can grow independently — sellable, spinnable,
+paragraphs. the brand can grow independently: sellable, spinnable,
 not bound to the personal name.
 
 ## how it's built
@@ -68,19 +68,19 @@ a quick tour:
 
 - **astro 6** + tailwind v4 (via `@tailwindcss/vite`) + mdx, deployed
   on vercel. node 24 runtime, pnpm, zod 4 for content-collection schemas
-- **content lives in git** — every catalog entry and article is an mdx
+- **content lives in git**: every catalog entry and article is an mdx
   file with validated frontmatter. no cms, no database in v1. the
   recommender (v1.0) reads a build-exported `/public/catalog.json`
   manifest instead of querying a db at runtime
-- **resend for newsletter** — single audience with topics-based
+- **resend for newsletter**: single audience with topics-based
   segmentation. resend topics handle the multi-newsletter case for free,
   no per-newsletter pricing tier needed
 - **anthropic claude opus 4.7** drives drafting (offline pipeline:
   vendor changelogs + release notes → review queue) and (v1.0) the
   recommender
-- **pagefind for search** — static, in-browser, mit-licensed. same
+- **pagefind for search**: static, in-browser, mit-licensed. same
   pattern memcrate.dev uses; same reasoning
-- **json-ld on every page type** — software catalog entries get
+- **json-ld on every page type**: software catalog entries get
   `SoftwareApplication` schema, articles get `NewsArticle`, the
   recommender will get `WebApplication`. structured data is the cheapest
   seo lever for a publication that has to compete with established
@@ -88,16 +88,16 @@ a quick tour:
 
 ## what's next
 
-- **phase 2 (now)** — catalog depth from 15 → 50 → 250 entries,
+- **phase 2 (now)**: catalog depth from 15 → 50 → 250 entries,
   sustained news cadence, 1K newsletter subs. daily tool-update workflow
   against vendor changelogs is the load-bearing automation here
-- **phase 3** — recommender mvp, first sponsorship, affiliate revenue
+- **phase 3**: recommender mvp, first sponsorship, affiliate revenue
   from tool partnerships (vercel, supabase, stripe etc.)
-- **phase 4** — pro tier live, scale to revenue. v1.0 ships when the
+- **phase 4**: pro tier live, scale to revenue. v1.0 ships when the
   recommender lands; "v1" doesn't equal "site shipped," it equals
   "the recommender works"
 
 > nobody owns "the high-quality opinionated tooling reference + news +
-> recommender" lane yet. that's the bet — that the position is real,
+> recommender" lane yet. that's the bet: that the position is real,
 > the editorial bar is the moat, and the recommender turns the catalog
 > from a thing you browse into a thing you ask.

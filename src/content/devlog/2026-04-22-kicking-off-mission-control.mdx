@@ -12,8 +12,8 @@ homelab's network state without juggling four browser tabs and a
 terminal. today i scoped it out end to end and named it mission control.
 
 the thing that finally made me start was watching alex finn's video
-on the same pattern. most of his concrete ideas weren't right for me —
-the 2d office, the experimental tabs, his agent names — but three
+on the same pattern. most of his concrete ideas weren't right for me
+(the 2d office, the experimental tabs, his agent names), but three
 were good enough to steal: progress bars on project cards as a glance
 metric, a calendar split that proves what the agents actually
 scheduled, and heartbeat-driven task polling as the autonomy loop.
@@ -25,7 +25,7 @@ i'm taking those and skipping the rest.
 every read parses markdown directly from my obsidian vault; every
 write goes back into the same files. obsidian stays a first-class ui.
 
-this is not a performance argument — it's a trust argument. i already
+this is not a performance argument. it's a trust argument. i already
 write into these files by hand all day. i don't want a second source
 of truth that drifts whenever the dashboard caches something stale.
 if the dashboard's view ever disagrees with the file on disk, the
@@ -33,13 +33,13 @@ file wins.
 
 the practical consequence: writes have to be careful. round-tripping
 markdown through a yaml parser will reformat frontmatter, reorder
-keys, strip comments, normalize quotes — anything that touches the
+keys, strip comments, normalize quotes. anything that touches the
 file should leave it byte-identical to a manual edit. that constraint
 shapes the whole write layer.
 
 ## tasks vs todos
 
-i already have a todos system in the vault — three files (now / soon /
+i already have a todos system in the vault: three files (now / soon /
 later), global ids `#1`–`#N`, my personal list. i was tempted to make
 mission control's "tasks" tab just be a friendlier ui for todos.
 
@@ -48,9 +48,9 @@ sits there until i check it off; a task gets queued, claimed, run,
 maybe failed, retried, completed. trying to overload the same schema
 made both halves worse. so:
 
-- **todos** — bounded, human-curated, ids assigned globally, three
+- **todos**: bounded, human-curated, ids assigned globally, three
   files i edit by hand
-- **tasks** — unbounded, one markdown file per work unit, frontmatter
+- **tasks**: unbounded, one markdown file per work unit, frontmatter
   drives a state machine (`queued` → `claimed` → `done`), an `agent`
   field routes the work to the right runner
 
@@ -60,25 +60,25 @@ separate folders, separate lifecycles, two tabs in the dashboard.
 
 each task carries one frontmatter field that decides who picks it up:
 
-- `agent: travis` — my autonomous runner polls every minute and claims
+- `agent: travis`: my autonomous runner polls every minute and claims
   the oldest queued one
-- a couple of interactive agents — surface queued items at session
+- a couple of interactive agents: surface queued items at session
   start, when i'm sitting at the keyboard
-- `agent: brad` — self-assigned, no agent picks it up
+- `agent: brad`: self-assigned, no agent picks it up
 
 a top-level `_control.json` file with `paused: true` blocks every
-agent from claiming anything. it's the dashboard's emergency brake —
+agent from claiming anything. it's the dashboard's emergency brake.
 one click in the top bar flips the file, the heartbeat loops respect
 it, work stops.
 
 ## the handoff pattern
 
 the planning and vault-exploration side of this scope happened on the
-desktop agent — the one with email / calendar / drive context. the
+desktop agent, the one with email / calendar / drive context. the
 actual build goes to the cli agent on the dev box, where it can run a
 dev server, push commits, test against the live vault. i'm
-increasingly leaning on this split — exploration on one surface,
-execution on another — and today's the cleanest example so far.
+increasingly leaning on this split (exploration on one surface,
+execution on another) and today's the cleanest example so far.
 
 > the brief is written. the next session is a scaffold and the first
 > read-only tab. nothing about this is novel except the discipline of

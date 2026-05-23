@@ -6,7 +6,7 @@ tags: [devlog, decision, agent-workflow]
 ---
 
 travis is retiring. for the last few months he was my single autonomous
-agent — one openclaw runtime on the homelab, one persona, one prompt
+agent: one openclaw runtime on the homelab, one persona, one prompt
 config, doing everything from network health checks to calendar sync to
 "hey go polish that session log into a devlog draft." it worked. but
 "one agent doing everything" meant one tone for ops alerts and content
@@ -14,42 +14,42 @@ drafts both, one config file holding everything, and a growing mismatch
 between the kinds of work he was being asked to do.
 
 today's swap: out with openclaw + travis, in with hermes running four
-named profiles — `sysadmin`, `developer`, `creator`, `secretary`.
+named profiles: `sysadmin`, `developer`, `creator`, `secretary`.
 
 ## why four
 
 each profile owns a lane that doesn't really overlap with the others:
 
-- **sysadmin** — the operations agent. cron-driven health checks,
+- **sysadmin**: the operations agent. cron-driven health checks,
   vault security scans, backups, network monitoring. terse, alert-mode,
   no opinions. the spiritual successor to travis on the ops side
-- **developer** — autonomous coding lane. picks up `agent: developer`
+- **developer**: autonomous coding lane. picks up `agent: developer`
   tasks, makes the change, opens the PR, moves on. practical, precise,
   doesn't ask permission for obvious calls
-- **creator** — content creation + research synthesis. drafts devlog
+- **creator**: content creation + research synthesis. drafts devlog
   posts, summarizes weekly digests, helps with article outlines.
-  (originally "researcher" — renamed mid-session because creation is
+  (originally "researcher", renamed mid-session because creation is
   the deliverable, research is the input mode)
-- **secretary** — calendar, email triage, daily briefings, task queue
+- **secretary**: calendar, email triage, daily briefings, task queue
   hygiene. the lane closest to a personal assistant
 
 role names match across every surface: the CLI command, the profile
 id, the SOUL.md file, the discord display name. `@sysadmin` in discord
 is the same identity as `hermes sysadmin run` in the terminal. no
-character names anywhere — that part was deliberate.
+character names anywhere. that part was deliberate.
 
 ## one runtime, four personas
 
 hermes is a single agent runtime hosting four profiles, each living
 at `~/.hermes/profiles/<name>/` with its own config, environment, cron
 folder, and session log directory. all four share the vault as
-`terminal.cwd` so they read and write the same source of truth — same
+`terminal.cwd` so they read and write the same source of truth: same
 `Profile.md`, same `Projects.md`, same task queue. SOUL.md files are
 symlinked from the vault so identity is canonical there too.
 
 all four run on **gpt-5.5** via the openai codex device flow (codex got
 folded into gpt-5.5, no separate codex variant anymore). install as
-user systemd services on the homelab — no sudo, restart on reboot via
+user systemd services on the homelab: no sudo, restart on reboot via
 linger, easy to promote to system services later if needed.
 
 ## the cutover
@@ -58,7 +58,7 @@ runtime up, four discord bots online in a fresh server with their own
 channels (`#sysadmin`, `#developer`, `#creator`, `#secretary`,
 `#tasks`, `#alerts`), cron jobs ported from openclaw to the right
 profile, openclaw archived. travis is gone. the lane each cron lives
-in now matches the lane that owns the work — vault security scans,
+in now matches the lane that owns the work: vault security scans,
 backups, and network health are sysadmin; the morning briefing and
 calendar sync land on secretary; the youtube idea generator and tech
 digest go to creator.
@@ -72,7 +72,7 @@ script" task at midnight and know it goes to developer, not to the
 agent that's also responsible for the morning calendar brief. the
 mental model of "which agent is good for this" stops being a tax.
 
-> the next thing is paperclip — an orchestration layer above hermes
+> the next thing is paperclip: an orchestration layer above hermes
 > that owns task state and routes work between profiles. routine-driven
 > coordination instead of me being the dispatcher. that's phase 3, after
 > the four-profile setup has soaked for a few weeks.

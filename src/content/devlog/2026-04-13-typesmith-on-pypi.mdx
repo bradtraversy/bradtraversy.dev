@@ -1,5 +1,5 @@
 ---
-title: typesmith on pypi — a terminal auto-typer for clean recordings
+title: typesmith on pypi, a terminal auto-typer for clean recordings
 publishDate: 2026-04-13
 draft: false
 tags: [devlog, tool-launch, python]
@@ -33,9 +33,9 @@ a fixed delay between keystrokes feels wrong because it's too regular.
 typing actually has a rhythm. typesmith mimics it with four small tricks:
 
 - **gaussian jitter** around the base delay (controlled by `--variance`)
-- **word boundary pause** — small extra delay after a space
-- **punctuation hesitation** — slightly longer pauses after `. , ; : ! ?`
-- **thinking pauses** — ~2% of keystrokes get a 0.2–0.5s pause, like
+- **word boundary pause**: small extra delay after a space
+- **punctuation hesitation**: slightly longer pauses after `. , ; : ! ?`
+- **thinking pauses**: ~2% of keystrokes get a 0.2–0.5s pause, like
   someone briefly thinking
 
 at speed 8–12 chars/sec it looks convincingly human. above 20 it starts
@@ -44,7 +44,7 @@ to look mechanical again.
 ## the safer default
 
 initial release ran every command immediately. great for live demos,
-terrifying for recordings — i don't want a stray `rm` to take out a real
+terrifying for recordings. i don't want a stray `rm` to take out a real
 file mid-take.
 
 flipped a couple commits later: **display-only is now the default,
@@ -56,11 +56,11 @@ on camera" case. defaults should be safe.
 
 started as "keysmith." renamed before the first pypi push because (1)
 keysmith is already a niche password-manager-adjacent name, and (2)
-"typesmith" reads more naturally for what it actually does — it forges
+"typesmith" reads more naturally for what it actually does. it forges
 typing, not keys.
 
 source at [github.com/bradtraversy/typesmith](https://github.com/bradtraversy/typesmith).
-linux + macos only — uses posix terminal controls, won't work on windows
+linux + macos only. uses posix terminal controls, won't work on windows
 without wsl.
 
 > the next few small open-source tools are going to follow this pattern:
