@@ -1,0 +1,83 @@
+---
+title: shipping linesmith
+publishDate: 2026-05-22
+draft: false
+tags: [devlog, ship, typescript, vscode]
+project: linesmith
+---
+
+[linesmith v0.1.0](https://marketplace.visualstudio.com/items?itemName=bradtraversy.linesmith)
+is live on the vs code marketplace and
+[open vsx](https://open-vsx.org/extension/bradtraversy/linesmith).
+yesterday's [spec post](/devlog/2026-05-21-linesmith-spec/) covered
+why it's an extension instead of a keystroke tool. today it shipped,
+one session, scaffold through publish.
+
+## what dogfooding caught
+
+three bugs synthetic testing would have missed. all of them are the
+kind of thing where running an actual recording surfaces what
+"it works in dev host" never does.
+
+**chunks ran together.** chunk one ended `from 'react';` at end of
+line. chunk two started `function Counter() {` right after the
+semicolon, no separator. fix: `ensureFreshLine` checks cursor
+position and inserts `\n` or `\n\n` before each chunk based on
+whether the previous chunk ended mid-line. small thing; immediately
+obvious during a real take, invisible in a smoke test.
+
+**pause and stop greyed out the whole time playback ran.** the
+webview was only being told about engine status on `idle` or
+`cancelled` transitions, so it rendered the engine as idle while
+typing was happening. fix: push state to the webview on every
+transition. the kind of bug where the implementation looks right and
+the ux is broken.
+
+**the killer one was detached panels.** the detach-panel command
+moves the webview into its own os window via
+`workbench.action.moveEditorToNewWindow`. the point is to drag
+the controls off-screen so a screen recording captures only the
+editor. visually it worked. playback did nothing. cached
+`TextEditor` references go stale when an editor moves to an
+auxiliary window. fix: store document uris, not editor references,
+and look up the live editor at play time via
+`vscode.window.visibleTextEditors`, with `showTextDocument` as
+fallback.
+
+i'd have shipped without these and gotten three day-one bug reports.
+running it on my own recording during the build was the cheap
+version.
+
+## both registries on day one
+
+the vs code marketplace is the obvious target. but cursor and
+windsurf (which most of my audience is actually using) pull from
+[open vsx](https://open-vsx.org), not from microsoft. so day-one
+publish to both registries was a hard requirement, not a v0.2
+follow-up.
+
+mechanically it's two commands once setup is done:
+
+- marketplace: azure devops pat scoped to **marketplace > manage**,
+  then `vsce publish`
+- open vsx: eclipse foundation account + publisher agreement, then
+  `ovsx publish`
+
+one gotcha each. the marketplace upload timed out the first try:
+the 1.65mb demo gif slowed it past the gateway limit; retry
+succeeded. on open vsx the namespace has to be created first
+(`ovsx create-namespace bradtraversy`) or publish 404s with a
+misleading "not authenticated" error.
+
+## the next thing is recording with it
+
+i'm not starting v0.2 (cursor choreography) until i've recorded
+something real with v0.1. the design of the `@directive` system will
+shift based on what the actual recording flow exposes. synthetic
+dogfooding already caught three bugs in one session; trust the same
+loop for v0.2 scoping.
+
+> [install linesmith](https://marketplace.visualstudio.com/items?itemName=bradtraversy.linesmith)
+> on vs code, or search "linesmith" in cursor / windsurf. mit, free,
+> source at
+> [github.com/bradtraversy/linesmith](https://github.com/bradtraversy/linesmith).

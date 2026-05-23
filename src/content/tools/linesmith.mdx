@@ -1,0 +1,79 @@
+---
+name: Linesmith
+tagline: vs code extension that types code into your editor on cue for tutorial recordings
+category: dev
+kind: desktop
+tags: [vscode, cursor, extension, recording, typescript]
+url: https://marketplace.visualstudio.com/items?itemName=bradtraversy.linesmith
+repoUrl: https://github.com/bradtraversy/linesmith
+free: true
+publishDate: 2026-05-22
+---
+
+a vs code / cursor / windsurf extension that types code into the
+active editor on cue. uses the extension api directly (`TextEditor.edit()`)
+instead of synthesizing keystrokes. no autocomplete to fight, no
+bracket auto-close, no `formatOnType`. built so recording tutorials
+stops being a typo-and-retake loop.
+
+sibling to [typesmith](/tools/typesmith/). same family, different
+surface (terminal vs editor).
+
+## demo
+
+<img
+  src="/linesmith-demo.gif"
+  alt="linesmith typing a debounce function into the editor, one chunk at a time"
+  style="display: block; width: 100%; max-width: 820px; border: 1px solid var(--border-strong); border-radius: 6px;"
+/>
+
+## what it does
+
+- **typing engine that uses `TextEditor.edit()` directly**: bypasses
+  autocomplete, snippets, bracket pairing, and `formatOnType`; works
+  in remote sessions (ssh, wsl, codespaces) where keystroke injection
+  often can't reach
+- **`.linesmith` script files**: plain text with `---` on its own
+  line separating chunks. the file is the textarea; edit it in a
+  normal vs code tab with the full editor chrome
+- **target tracking by uri**: the target editor is whichever
+  non-`.linesmith` tab you last clicked into. the panel shows it in
+  the header so it's never ambiguous, and the link survives a panel
+  detach to its own os window
+- **clipboard fast path**: copy code anywhere, focus the target
+  editor, hit `ctrl+alt+shift+l` (or `cmd+alt+shift+l`) to type the
+  clipboard contents at the cursor
+- **detach panel into its own window**: for recording mode, drag
+  the control panel off-screen, the capture only sees the editor
+- **reset between takes**: clear the target and re-arm all chunks
+  for the next attempt
+- **language-agnostic**: engine inserts characters; the language is
+  the target editor's concern. same `.linesmith` file works for html,
+  python, rust, anything
+
+## install
+
+| editor | how |
+| --- | --- |
+| vs code | search **linesmith** in extensions, or [install from the marketplace](https://marketplace.visualstudio.com/items?itemName=bradtraversy.linesmith) |
+| cursor / windsurf / vscodium | search **linesmith**, resolves via [open vsx](https://open-vsx.org/extension/bradtraversy/linesmith) |
+| source | [github.com/bradtraversy/linesmith](https://github.com/bradtraversy/linesmith) |
+
+## why i built it
+
+i record a lot of code on camera. pasting looks fake. typing live
+means typos, autocomplete getting in the way, and the retake loop.
+[typesmith](/tools/typesmith/) solved this for the terminal back in
+april. but code editors are not dumb pipes the way prose targets are,
+and a keystroke-injection tool would spend its life fighting vs code.
+linesmith is the editor sibling: type real code at a controlled pace,
+on take one, every time, with the editor's actual edit api doing the
+inserting.
+
+**v0.2 next**: cursor choreography via per-chunk `@directive`
+frontmatter (`@cursor end-of-line`, `@speed 60`), so a recording can
+jump back into a function signature to add types, then up two lines
+for a docstring. the killer feature, deferred so v0.1 could ship
+narrow.
+
+mit · free.
