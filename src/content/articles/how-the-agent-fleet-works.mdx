@@ -1,0 +1,244 @@
+---
+title: how the agent fleet works
+dek: seven agents, one shared vault, and a task queue that lets work move between them. the actual setup, not a research demo.
+publishDate: 2026-05-23
+draft: false
+tags: [agents, agent-workflow, meta, claude]
+relatedProjects: [mission-control]
+---
+
+a few months back i was running a single autonomous agent on the
+homelab. one runtime, one persona named travis, one prompt config,
+doing every autonomous job i could throw at him. ops alerts. content
+drafts. research summaries. calendar review. it worked. but it kept
+hitting the same wall.
+
+one prompt config holding everything meant the tone for a 3am
+disk-full alert was the same tone as a devlog draft, which was the
+same tone as a politely-worded reply to a sponsor email. ops wants
+terse and alert-mode. content wants opinion and voice. assistance
+wants warmth. all three don't fit on one personality, and rewriting
+prompts on the fly was a tax i kept paying.
+
+so a couple weeks back i broke travis up into four profiles, each
+running its own lane: `sysadmin`, `developer`, `creator`, `secretary`.
+a few days after that a fifth lane revealed itself (`keeper`, for
+personal-life logging from a phone) and i broke that out too. claude
+code and cowork sit on top as the interactive layer. seven agents
+total. one shared brain.
+
+this is the actual setup.
+
+## why specialization beat one-agent-everything
+
+the cost of generalization is invisible until you measure it.
+
+with travis, every task started with the same tax: re-explain the
+lane, re-set the tone, re-anchor the priorities. "you're the sysadmin
+right now, terse and alert-mode" before every ops task. "you're
+drafting prose now, warm up the voice" before every content task. the
+agent did fine work. but i was the dispatcher and the prompt engineer
+for every kind of work.
+
+split into specialized lanes and that tax disappears. sysadmin's
+config says "you are the ops agent. terse. no opinions." its
+cron-driven jobs land in `#alerts` and never need a tone reset.
+creator's config carries the voice anchors. its drafts land in the
+workbench and stop sounding like ops chatter. keeper's config is
+archival and recorder-first. it never volunteers opinions on a gym
+log entry.
+
+the second-order benefit is the queue. tasks now route by lane
+(`agent: sysadmin`, `agent: developer`, etc.), which means dropping a
+"rewrite this build script" task at midnight goes to developer, not
+to the agent that also owns the morning calendar brief. "which agent
+is good for this" stops being a tax i pay every time i create a task.
+
+specialization isn't a novel idea. it's just been undervalued in
+agent setups, where the marketing usually wants you to believe one
+frontier model can do everything well. it can. but doing everything
+well at the same time, with the same prompt, in the same channel, is
+harder than splitting the work.
+
+## the seven agents
+
+two interactive claudes and five autonomous hermes profiles. labels
+first, then the real jobs.
+
+**claude code**. interactive, terminal-based, opus 4.7. lives on
+`trav-dev` where the actual coding happens. this is the pairing
+partner. it knows the vault, writes a session log at the end of each
+session via a `/save` skill, picks up queued tasks at the start of
+the next via `/load`.
+
+**cowork**. interactive, desktop-app-based, also opus 4.7 (different
+runtime: claude desktop). has mcp connections that claude code
+doesn't, namely gmail, calendar, drive, and vercel. so when a task
+needs *"did the sponsor reply about the deadline?"*, cowork handles
+it. also better for planning conversations where i want
+back-and-forth dialogue rather than terminal pairing.
+
+**sysadmin**. autonomous, ops lane. cron-driven health checks, vault
+security scans, network monitoring, backup verification. terse,
+alert-mode, no opinions. its discord channel is `#alerts` and `#sysadmin`.
+
+**developer**. autonomous, coding lane. picks up coding tasks scoped
+narrowly enough to not need pairing. small refactors, dependency
+bumps, test fixes. opens prs against the relevant repo.
+
+**creator**. autonomous, content lane. daily tech digest, youtube
+idea generator, devlog polish drafts. ingests raw input (news feeds,
+session logs) and outputs structured content i edit before
+publishing.
+
+**secretary**. autonomous, assistance lane. morning briefing,
+calendar sync, sponsor email triage, daily task queue hygiene. the
+profile closest to a personal assistant.
+
+**keeper**. autonomous, personal-life lane. gym sessions, journal
+entries, household notes, personal-finance decisions. the
+differentiator is the input surface: keeper listens on discord from
+my phone, since gym logging happens after a workout, not from a
+desk. cowork and claude code aren't reachable from mobile; keeper is.
+tone is archival and recorder-first. it never volunteers opinions
+about a workout or a journal entry.
+
+different agents, different models, on purpose. opus is the right
+shape for the open-ended judgment work the two claudes pair on:
+feature design, weird-state debugging, prose drafting. gpt-5.5 is the
+right shape for the bounded-loop work each hermes profile runs:
+well-defined task, structured output, predictable steps. qwen via
+ollama on the local box handles the small stuff that doesn't need
+either: triage classification, embedding work, anything where
+local-and-free beats frontier-and-billed.
+
+## one runtime, five personas
+
+hermes is the runtime that hosts the autonomous lane. an open-source
+agent host that runs all five profiles, each living at
+`~/.hermes/profiles/<name>/` with its own config, env, cron folder,
+and session log directory. all five share the vault as `terminal.cwd`
+so they read and write the same source of truth: same `Profile.md`,
+same `Projects.md`, same task queue.
+
+identity files (`SOUL.md`) are symlinked back to the vault so the
+canonical version lives with the other context files. when i change
+a profile's identity, i change one file and every runtime picks it
+up.
+
+profiles install as user systemd services. no sudo, restart on
+reboot via linger, easy to promote to system services later. user
+level has been enough so far.
+
+## how work moves between agents
+
+`Tasks/*.md` is where work flows between lanes.
+
+each task is a markdown file with frontmatter:
+
+```yaml
+---
+agent: sysadmin | developer | creator | secretary | keeper | claude-code | claude-cowork | brad
+status: queued | claimed | done
+priority: low | medium | high
+---
+```
+
+each hermes profile has a one-minute cron that polls its lane for
+queued items and claims them. claude code surfaces queued items at
+session start via `/load`. cowork has a five-minute runner on the
+same pattern. a `_control.json` pause flag halts the whole queue if i
+need a quiet window.
+
+the practical effect: i can drop a task for sysadmin at midnight
+("rotate the nas backup logs"), a task for secretary in the morning
+("check the sponsor inbox and draft replies for me to review"), and
+let claude code surface me anything queued for me the next time i sit
+at the terminal.
+
+real handoff example from this past week:
+
+1. cowork pulls a sponsor email thread out of gmail in the morning.
+   writes a summary + drafted reply to `Tasks/<file>.md` with
+   `agent: brad`. it lands in my queue for review.
+2. i edit the reply in obsidian. change `agent: brad` to
+   `agent: secretary`, mark `status: queued`.
+3. secretary picks it up next cron. sends the reply via gmail. marks
+   `status: done`.
+
+three agents touched the thread. none of us had to re-state context
+to the next one. the task carried it.
+
+work moves between agents the way it moves between teammates. that
+isn't a metaphor. it's literally the same coordination model.
+
+## identity discipline
+
+role names match across every surface. the cli command, the profile
+id, the `SOUL.md` file, the discord display name, the `agent:` field
+on a task. `@sysadmin` in discord is the same identity as
+`hermes sysadmin run` in the terminal, which is the same identity as
+`agent: sysadmin` on a queued task.
+
+no character names anywhere. travis was a character name. it carried
+personality, which is what made him fun to work with, but the
+personality leaked into the lane. an alert from "travis" landed in
+ops and half my brain processed it as "what does travis think"
+instead of "what's the alert." role names cut that out. an alert
+from sysadmin reads as an alert.
+
+different lanes have different voices, which is fine. but they have
+role identities, not character identities. the voice belongs to the
+lane.
+
+## what's still rough
+
+honest list, no spin:
+
+**handoff visibility.** when a task moves through multiple agents,
+the trail lives in the task's status updates plus session logs from
+each agent. there's no single "this task's history" view yet.
+mission control surfaces the queue but not the cross-agent thread.
+
+**no in-vault review surface.** when developer opens a pr, i still
+review it in github like any other pr. there's no diff view in
+mission control, no "approve from the dashboard" button. fine for
+now; eventually i want the review loop closer to the source.
+
+**claude code and cowork overlap.** the lane split is interactive vs
+autonomous, but within interactive, the two claudes have ~70%
+overlap. cowork's mcp surfaces (gmail, calendar) are the only real
+differentiator. that's a feature today; might consolidate if a
+single runtime gains both surface types.
+
+**paperclip is still vapor.** the orchestration layer above hermes
+that would own task state and route work between profiles is the
+next thing i want, but it hasn't shipped. so i'm still the
+dispatcher when work needs to flow across lanes in a non-obvious
+order.
+
+**model drift.** each model update carries small voice shifts. the
+claudes pick those up immediately. the hermes profiles are more
+stable since gpt-5.5 has been steady. but a model change that
+breaks a long-running cron is a thing that happens.
+
+## what's next
+
+paperclip is the headline. orchestration layer above hermes that
+owns task state and routes work between profiles based on routines
+instead of cron schedules. the current design has it tracking task
+lineage (which agents touched what, when) and running coordinated
+multi-step flows that today require me as the bridge.
+
+after that, the smaller items: write-back on the calendar tab in
+mission control, per-profile heartbeats stamping liveness into the
+agents tab, an offsite backup for the vault, bitwarden self-hosted
+to replace lastpass.
+
+none of it is urgent. the system works. iteration is in service of
+small quality-of-life wins, not parity with a hosted product.
+
+> the headline isn't seven agents. it's that the work moves between
+> them without me re-explaining what we're doing every time. that's
+> the part i didn't have a year ago, and the part i can't imagine
+> giving up.
