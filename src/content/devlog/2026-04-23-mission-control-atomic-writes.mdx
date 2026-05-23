@@ -8,7 +8,7 @@ project: mission-control
 
 mission control is a dashboard for my obsidian vault. it reads
 markdown straight off disk, no database. today i shipped the write
-layer — todos check-off, todos move, todos add, tasks status flip,
+layer: todos check-off, todos move, todos add, tasks status flip,
 tasks add, pause toggle, plus a "ping travis" button that drops a
 new task file. six commits, one big constraint.
 
@@ -19,8 +19,8 @@ typed by hand. obsidian is still a first-class editor of these files;
 if mission control reformats frontmatter or reorders keys, every save
 fights every other save and someone loses.
 
-the obvious approach — `gray-matter parse → mutate → stringify → write`
-— breaks that. yaml libraries don't preserve key order, comment
+the obvious approach (`gray-matter parse → mutate → stringify → write`)
+breaks that. yaml libraries don't preserve key order, comment
 position, quoting style, or trailing whitespace. round-tripping a
 clean file through one comes back subtly different every time, and
 those differences pile up in git history.
@@ -42,26 +42,26 @@ done. the rest of the file is untouched, byte for byte.
 for "add a new todo," the writer needs to know two things: the next
 global id, and where to insert. the id comes from scanning all three
 todo files for the highest `#N` and adding one. the position is just
-above the first `- [x]` line in the target column — that keeps fresh
+above the first `- [x]` line in the target column. that keeps fresh
 todos at the bottom of the open block instead of buried below
 already-done items.
 
 `addTodo` also bumps the file's `next_id` frontmatter on the way out,
 because mine were stale (now said 9, soon said 28, the actual max
-across all files was 27). that's still line surgery — it finds the
+across all files was 27). that's still line surgery: it finds the
 `next_id:` line and rewrites just that line.
 
 ## .tmp + rename
 
 writing to `path.tmp` and then `rename` to `path` is the old unix
 trick that makes a write atomic at the filesystem level. either the
-new file is fully there or the old file is unchanged — you never see
+new file is fully there or the old file is unchanged. you never see
 a half-written file. on the same filesystem `rename` is atomic; obsidian
 and chokidar both observe a single change event instead of a write
 storm.
 
 i tested every writer by round-tripping against the live vault and
-diffing — `now.md` came back byte-identical after a check / move / add
+diffing. `now.md` came back byte-identical after a check / move / add
 cycle followed by a restore. `_control.json` round-tripped through a
 pause toggle the same way.
 
@@ -97,7 +97,7 @@ status: queued`, and that's the whole feature. travis's heartbeat
 loop on the autonomous runner picks it up the next minute, claims
 it, runs it.
 
-today the loop isn't fully closed — travis-side task scanning is
+today the loop isn't fully closed. travis-side task scanning is
 still in his own codebase, not this one, and i haven't wired vault
 sync between dev and the autonomous box yet. so right now ping travis
 is a write-only "leave a note" button, and i have to manually copy

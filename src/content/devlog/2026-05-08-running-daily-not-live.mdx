@@ -6,7 +6,7 @@ tags: [devlog, decision]
 project: bradtraversy-dev
 ---
 
-added a new project to the showcase today: mission control. it's a vault-native ops dashboard — todos, agent tasks, projects, sessions, scheduled jobs, calendar, all live, all reading and writing markdown directly. it's been running on my homelab for a few weeks. it's not on the public internet, and it shouldn't be.
+added a new project to the showcase today: mission control. it's a vault-native ops dashboard (todos, agent tasks, projects, sessions, scheduled jobs, calendar, all live, all reading and writing markdown directly). it's been running on my homelab for a few weeks. it's not on the public internet, and it shouldn't be.
 
 which surfaced a small problem with the project status taxonomy.
 
@@ -28,11 +28,11 @@ const projectStatus = z.enum([
 ]);
 ```
 
-a one-word taxonomy decision, but the kind that bugs me when it's wrong. "live" was overloaded — it conflated "publicly accessible" with "operational," and those are different things.
+a one-word taxonomy decision, but the kind that bugs me when it's wrong. "live" was overloaded. it conflated "publicly accessible" with "operational," and those are different things.
 
 ## click-to-zoom hero on every project page
 
-while i was over there, the hero screenshots got a small upgrade: click any project hero (or tool hero) and it opens in a modal. native `<dialog>` element, no react island, no library — about twelve lines of vanilla js for the open/close. you get focus trap, esc-to-close, and backdrop semantics for free.
+while i was over there, the hero screenshots got a small upgrade: click any project hero (or tool hero) and it opens in a modal. native `<dialog>` element, no react island, no library, about twelve lines of vanilla js for the open/close. you get focus trap, esc-to-close, and backdrop semantics for free.
 
 mc's hero shows a wider view of the dashboard than fits on the project page itself, so the modal is more than cosmetic. you can actually read the cards.
 

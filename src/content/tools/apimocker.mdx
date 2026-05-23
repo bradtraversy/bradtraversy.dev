@@ -30,14 +30,14 @@ with relationships you can navigate (`/users/1/posts`, `/posts/1/comments`).
 
 ## what you can do
 
-- **full crud** — `GET / POST / PUT / PATCH / DELETE` on every resource
-- **pagination** — `_page=1&_limit=10`, returns `X-Total-Count` for the ui
-- **filtering + sorting** — `?completed=true&_sort=title&_order=asc`,
+- **full crud**: `GET / POST / PUT / PATCH / DELETE` on every resource
+- **pagination**: `_page=1&_limit=10`, returns `X-Total-Count` for the ui
+- **filtering + sorting**: `?completed=true&_sort=title&_order=asc`,
   `title_like=react` for fuzzy text match
-- **global search** — `/users/search?q=john`, scoped per resource
-- **response delays** — `?_delay=2000` to test loading states without
+- **global search**: `/users/search?q=john`, scoped per resource
+- **response delays**: `?_delay=2000` to test loading states without
   faking timeouts in your client
-- **error simulation** — dedicated endpoints that return specific status
+- **error simulation**: dedicated endpoints that return specific status
   codes so you can write robust error-handling code
 
 ## how to use

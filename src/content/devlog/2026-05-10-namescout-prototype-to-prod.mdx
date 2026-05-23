@@ -1,5 +1,5 @@
 ---
-title: namescout — prototype to deployed in a weekend
+title: namescout, prototype to deployed in a weekend
 publishDate: 2026-05-10
 draft: false
 tags: [devlog, nextjs, launch, decision]
@@ -8,7 +8,7 @@ project: namescout
 
 namescout started as a prototype: a developer-first name availability scanner.
 type a project name, get one report covering domains, packages, code hosts, and
-plugin marketplaces — the routine i run every time i start a new repo, collapsed
+plugin marketplaces. it's the routine i run every time i start a new repo, collapsed
 into a single query. spent a weekend turning the prototype into something i was
 willing to deploy.
 
@@ -28,7 +28,7 @@ shrank to about 14 lines whose only job is "fan out over the registry, collect
 the results." 11 live providers landed in the first pass: 6 domains, npm, pypi,
 crates, rubygems, packagist, homebrew, docker hub, github, vs code marketplace.
 
-a scoring module went next to the same shape — one `score(results, mode)`
+a scoring module went next to the same shape: one `score(results, mode)`
 function with weights per mode. `saas-product` weights domains heaviest,
 `library-framework` weights packages, `developer-tool` cares about both, and so
 on. the prototype accepted a `mode` argument and ignored it; making it actually
@@ -44,7 +44,7 @@ synchronously, every data section gets its own `<Suspense>` boundary with a
 skeleton. ttfb dropped to ~40ms. `cache()` dedupes the shared fetcher so the
 same data only crosses the wire once even if four components reach for it.
 
-the experience changes shape — the report fills in as providers respond instead
+the experience changes shape: the report fills in as providers respond instead
 of standing dark until the slowest one finishes. for a tool whose whole pitch
 is "many sources, one view," that's the right perceived behavior.
 
@@ -52,7 +52,7 @@ is "many sources, one view," that's the right perceived behavior.
 
 every search result page gets its own og image generated at request time:
 score, verdict band, top three taken sources, color-coded by tier. uses
-`next/og` (satori under the hood, which means flexbox + a subset of css —
+`next/og` (satori under the hood, which means flexbox + a subset of css,
 no tailwind classes, inline styles only). cdn-cached for an hour.
 
 the payoff is that share links from namescout look like a *result*, not the
@@ -61,18 +61,18 @@ score, not a generic logo.
 
 ## fuzzy matches across three sources
 
-if the name is taken, the report also surfaces near-matches — names you might
+if the name is taken, the report also surfaces near-matches: names you might
 get confused with. three sources stitched together:
 
-- **npm** — the public search api (`registry.npmjs.org/-/v1/search`) returns
+- **npm**: the public search api (`registry.npmjs.org/-/v1/search`) returns
   ranked matches, easy
-- **github** — repo search by stars. tighter rate limit than the rest api
+- **github**: repo search by stars. tighter rate limit than the rest api
   (10/min unauth, 30/min auth), so `GITHUB_TOKEN` is near-mandatory in prod
-- **pypi** — pypi's official search api is deprecated. workaround: test common
+- **pypi**: pypi's official search api is deprecated. workaround: test common
   naming variants in parallel (`{q}-py`, `py-{q}`, `python-{q}`) against the
   json api and surface the ones that exist
 
-each result is tagged with a colored source badge. not perfect coverage — those
+each result is tagged with a colored source badge. not perfect coverage. those
 are the three registries where collisions cost the most.
 
 ## ai suggestions with a fallback
@@ -80,10 +80,10 @@ are the three registries where collisions cost the most.
 an opt-in `?suggest=1` panel calls openai for alternative names. cached for an
 hour per `(query, mode, count)` tuple so the same name doesn't pay tokens
 twice. without an `OPENAI_API_KEY` set, it falls back to a programmatic prefix/
-suffix shuffle — the panel still renders, the suggestions are just less
+suffix shuffle. the panel still renders, the suggestions are just less
 imaginative. the api endpoint at `/api/v1/suggest` is the same surface.
 
-the price point makes the fallback feel almost academic — `gpt-5.4-nano` on
+the price point makes the fallback feel almost academic. `gpt-5.4-nano` on
 this prompt is well under $0.0001 per call. an hour of cache means the same
 query costs nothing twice. but having a no-key path means the repo will run
 end-to-end for anyone who clones it, which is the kind of thing i'd want when
@@ -93,10 +93,10 @@ i'm evaluating someone else's open-source code.
 
 deployed to vercel with namescout.dev as the canonical url and namescout.com
 redirecting to it. there's also a public `/api/v1/check` endpoint with 30 req/
-min per ip and standard `x-ratelimit-*` headers — open now, paid tier later
+min per ip and standard `x-ratelimit-*` headers: open now, paid tier later
 if someone actually asks for one.
 
 > from prototype to deployed in a weekend means the prototype was the right shape.
-> the rewrite wasn't a teardown, it was a swap of internals — registry instead
+> the rewrite wasn't a teardown, it was a swap of internals: registry instead
 > of monolith, streaming instead of blocking, generated cards instead of static.
 > the product idea didn't move an inch.

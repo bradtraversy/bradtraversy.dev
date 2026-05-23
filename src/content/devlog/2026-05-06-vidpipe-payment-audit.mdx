@@ -24,7 +24,7 @@ pack credits:       creditsTotal   / creditsUsed
 ```
 
 consumption order is sub-first, then fall through to credits. refunds
-try to mirror. that sounds clean. it's not — see below.
+try to mirror. that sounds clean. it's not. see below.
 
 i considered merging them into a single counter (give subscribers N
 "credits" / month) but it loses information you need at refund time
@@ -63,7 +63,7 @@ maxed.** without persisting which bucket originally charged a video,
 refund-time has to guess. naive heuristic: if the user has any
 subscription usage, refund the sub. but if the sub was already at
 quota when the article generated, the consume *fell through* to pack
-credits — refund needs to go back to credits, not the empty-anyway
+credits, so refund needs to go back to credits, not the empty-anyway
 sub bucket. the fix is a smarter heuristic, but the **proper** fix is
 adding `Video.creditSource: String?` so we always know which bucket
 to refund. that's on the followup list.
@@ -81,14 +81,14 @@ in the controller.
 
 **6. `'canceling'` wasn't honored everywhere `'active'` was.**
 `requireCredits`, `getRemainingCredits`, `userCanConnectChannel`,
-`getUserMaxVideoDuration` — five different middleware / helper
+`getUserMaxVideoDuration`: five different middleware / helper
 functions, each with their own status check. one of them
 (`getUserMaxVideoDuration`) was missing `canceling`, which meant
 subscribers in their grace period silently lost their max video
 length. fixed all of them; should probably be one helper but that's
 refactor work for another day.
 
-the remaining five are smaller — guest claim refunds, dashboard stat
+the remaining five are smaller: guest claim refunds, dashboard stat
 tiles, the duplicate `credits` / `billing` sidebar item, the
 `undefined credits monthly` bug on `/billing`, structured-data offers
 on the public pricing page.
@@ -98,8 +98,8 @@ on the public pricing page.
 a few real loose ends:
 
 - **`past_due` subscribers** currently fall through to pack credits
-  (only `active` / `canceling` allow the sub bucket). probably wrong
-  — past_due is stripe's normal retry window for a failed payment,
+  (only `active` / `canceling` allow the sub bucket). probably wrong.
+  past_due is stripe's normal retry window for a failed payment,
   not "subscription is gone." flagged.
 - **mid-cycle downgrades** don't clamp `articlesUsedInPeriod` to the
   new lower quota. ux is fine (shows 0 remaining until rollover) but

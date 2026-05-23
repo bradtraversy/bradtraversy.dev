@@ -14,7 +14,7 @@ oldest queued task wouldn't see it for one to two cron ticks. fast
 enough for batch work, slow enough to feel laggy when i wanted
 something to happen.
 
-so i started scoping an "http wake-ping" — a tiny endpoint on the
+so i started scoping an "http wake-ping": a tiny endpoint on the
 runner that the desktop agent could hit to say "hey, new work in the
 vault." the dev agent on the other machine pushed back during a
 design review, and the pushback was simple: mission control already
@@ -45,7 +45,7 @@ is redundant.
 the desktop agent now defaults to `POST http://<homelab>/api/tasks`
 for any task creation, with a fallback to a local file write only if
 the post fails. obsidian sync is no longer in the critical path for
-agent-to-agent work — it's still there as a safety net for everything
+agent-to-agent work. it's still there as a safety net for everything
 else, but the loop that matters most is direct.
 
 a subtle benefit: the runner doesn't need to know which agent
@@ -53,7 +53,7 @@ originated the task, the desktop agent doesn't need to know the
 runner's schedule, and the vault still has the task file as the
 durable record. the http call is just the delivery mechanism.
 
-## one more thing — owners
+## one more thing, owners
 
 i added an `owner` field to my automations registry today. each
 scheduled job records who runs it (the dev agent, the desktop agent,

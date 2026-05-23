@@ -1,5 +1,5 @@
 ---
-title: vidpipe channels — oauth verification, then a soft launch
+title: vidpipe channels, oauth verification then a soft launch
 publishDate: 2026-05-05
 draft: false
 tags: [devlog, decision, tool-launch]
@@ -29,12 +29,12 @@ who can connect a channel has actually proven they own it.
 
 ## the oauth flow
 
-google `youtube.readonly` scope. raw oauth — no passport strategy
+google `youtube.readonly` scope. raw oauth, no passport strategy
 swap, no refresh-token persistence. the access token gets used **once**
 to call `channels.list?mine=true`, the resulting list of owned channels
 gets stashed in the user's session for 15 minutes, and the token gets
 thrown away. when the user picks a channel to connect, it has to be in
-the verified list — anything else is rejected at the controller.
+the verified list. anything else is rejected at the controller.
 
 this is the minimum amount of state to make the verification stick. if
 i ever need full-history backfill via the data api, i'll revisit token
@@ -42,7 +42,7 @@ persistence then. until then, the access token is a one-shot.
 
 verified channels get `verificationMethod='oauth_youtube'` and
 `verifiedAt = now()`. the schema fields were already in place from
-phase 1 — only the callback and the verified badge in the ui needed
+phase 1. only the callback and the verified badge in the ui needed
 adding. no migration, no breaking change. that future-proofing paid
 back exactly the way it was supposed to.
 
@@ -58,7 +58,7 @@ creator's personal google login can administer but isn't actively
 
 so the connect flow looks like: click connect → see only your personal
 channel (subscribers: 12, last upload: never) → confusion. the actual
-fix lives at youtube.com — avatar menu → switch account → pick the
+fix lives at youtube.com via avatar menu → switch account → pick the
 brand account → re-run the oauth flow. now the picker shows the real
 channel.
 
@@ -76,7 +76,7 @@ instead of waiting for verification before flipping the feature flag,
 i did the opposite: turned on `FEATURE_CHANNELS=true` in prod and let
 the unverified-app warning act as the natural soft-launch gate. most
 visitors will bail at "google hasn't verified this app." that's
-**fine** — i want this in front of the small number of people willing
+**fine**. i want this in front of the small number of people willing
 to click through, not the public, until it's stable.
 
 paired the flip with:
@@ -93,7 +93,7 @@ the verification packet is ready. demo video and submission are next.
 ## the security hotfix
 
 phase 2 set `creditAlreadyReserved: true` on channel-driven generations
-as a transitional shortcut — credits were getting deprecated anyway,
+as a transitional shortcut. credits were getting deprecated anyway,
 why wire a check that's about to be replaced. but with the feature
 live, that shortcut became a real free-spend hole: a free signup could
 connect their own channel and burn $0.50–$1.50/article × N videos in

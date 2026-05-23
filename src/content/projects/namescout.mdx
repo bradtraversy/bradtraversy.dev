@@ -1,6 +1,6 @@
 ---
 name: NameScout
-tagline: check the name before you start the repo — domains, packages, code hosts, and plugin marketplaces in one report
+tagline: check the name before you start the repo. domains, packages, code hosts, and plugin marketplaces in one report
 description: |
   a developer-first name availability scanner. type a project name, get a
   single report covering domains, package registries, code hosts, and plugin
@@ -20,13 +20,13 @@ featured: true
 type a project name. get back one report covering everywhere a collision
 could trip you up:
 
-- **domains** — .com, .dev, .io, .app, .ai, .co
-- **package registries** — npm, pypi, rubygems, packagist, homebrew, docker hub
-- **code hosts** — github user/org, github repo search
-- **plugin marketplaces** — vs code, obsidian (coming), chrome web store (coming)
+- **domains**: .com, .dev, .io, .app, .ai, .co
+- **package registries**: npm, pypi, rubygems, packagist, homebrew, docker hub
+- **code hosts**: github user/org, github repo search
+- **plugin marketplaces**: vs code, obsidian (coming), chrome web store (coming)
 
 each provider returns taken / available / unknown. a mode-weighted score
-(0–100) rolls everything into one verdict — `mostly clear`, `usable but
+(0–100) rolls everything into one verdict: `mostly clear`, `usable but
 watch it`, or `collision risk`. modes shift the weights: **saas** prioritizes
 domains, **library** prioritizes packages, **developer tool** prioritizes both.
 
@@ -43,7 +43,7 @@ forget at least one source every time. by the time i've named the repo,
 half the namespaces are already gone.
 
 namescout is that routine collapsed into one query. the goal isn't to be
-clever — it's to never have to remember which 12 places to look.
+clever. it's to never have to remember which 12 places to look.
 
 ## the cli
 
@@ -63,28 +63,28 @@ same checks, same scoring, terminal-pretty output. `--mode`, `--suggest`,
 a quick tour:
 
 - **next 16** app on vercel, react 19, tailwind 4
-- **per-provider registry** — every check is one `{ id, check(name) }` entry.
+- **per-provider registry**: every check is one `{ id, check(name) }` entry.
   adding a provider is a single array append, not a refactor
-- **streaming via suspense** — page shell renders synchronously at ~40ms ttfb;
+- **streaming via suspense**: page shell renders synchronously at ~40ms ttfb;
   each provider fans out in its own suspense boundary. react `cache()` dedupes
   the shared fetcher across the report so 11 components don't each refetch
-- **dynamic og images** at `/og` — per-query card with score, verdict, and the
+- **dynamic og images** at `/og`: per-query card with score, verdict, and the
   top taken providers, generated server-side via `next/og`
-- **`/api/v1/*` endpoints** — `check`, `suggest`, `near-matches`, all open with
+- **`/api/v1/*` endpoints**: `check`, `suggest`, `near-matches`, all open with
   30 req/min per ip and standard `x-ratelimit-*` headers
-- **ai-assisted suggestions** — opt-in `?suggest=1` panel, openai backed with a
+- **ai-assisted suggestions**: opt-in `?suggest=1` panel, openai backed with a
   programmatic fallback. cached per (query, mode, count) for an hour so the same
   name doesn't burn tokens twice
 
 ## what's next
 
-- premium **watch** feature — pick a name, get pinged when a key namespace
+- premium **watch** feature: pick a name, get pinged when a key namespace
   changes (a `.dev` opens up, an npm package is unpublished, etc.). $5/mo, the
   one piece of real recurring revenue this tool can sustain
-- registrar **affiliate** integration — when a domain is available, link
+- registrar **affiliate** integration: when a domain is available, link
   through to a registrar with an affiliate id. passive monetization that
   doesn't get in the user's way
-- open-sourcing the main repo once the watch feature ships — the cli is
+- open-sourcing the main repo once the watch feature ships. the cli is
   already [public on github](https://github.com/bradtraversy/namescout-cli)
 
 > the next thing is making the report run a watch in the background, so

@@ -9,14 +9,14 @@ project: stackmaven
 [stackmaven](https://stackmaven.io) is sitting at 70 entries today, on
 the way to 250+. each one has a stars count, a latest version, a
 "latest news" section, a `last_reviewed` date. all of it goes stale
-within days. the catalog's whole pitch is current and opinionated —
+within days. the catalog's whole pitch is current and opinionated.
 let it drift and the pitch dies.
 
 a few sessions this week shipped the automation that keeps that from
 happening. three layers, with hard rules about what the machine is
 allowed to touch and what stays editorial.
 
-## layer 1 — detect
+## layer 1: detect
 
 a pure node esm script (`scripts/detect-refresh.mjs`) reads every
 tool's frontmatter, hits the github api for stars + releases, and
@@ -25,16 +25,16 @@ writes a markdown digest + json manifest to `tmp/`. doesn't touch
 applying changes is a separate step.
 
 smoke test on the full catalog: 70 entries, 38 github-tracked, 20 with
-new releases. fixed two false-positive bugs the first day — same-day
+new releases. fixed two false-positive bugs the first day: same-day
 patch releases firing because github stores full iso timestamps and my
 frontmatter stores date-only; htmx publishing `v4.0.0-beta3` as a
 "stable" release per github's `prerelease` flag when the tag name is
 clearly a beta. defense in depth: reject prerelease tags by name
 pattern too, not just by the api flag.
 
-## layer 2 — apply, in a pr
+## layer 2: apply, in a pr
 
-original spec was per-tool interactive review — me approving each
+original spec was per-tool interactive review: me approving each
 entry's diff. i killed it mid-build. with 70 entries today and 250
 incoming, that's two hours of work daily. by tool 15 of a 20-tool
 batch the human rubber-stamps. the editorial moat collapses.
@@ -43,12 +43,12 @@ new shape: `apply-refresh.mjs` runs autonomously, applies mechanical
 updates directly (`github_stars`, `latest_version`, `last_reviewed`),
 drafts "latest news" prose with claude, opens a single pr on a
 `refresh/YYYY-MM-DD` branch. i review via the github web ui in ~10
-minutes — skim the diff, merge or inline-edit specific drafts.
+minutes: skim the diff, merge or inline-edit specific drafts.
 
 the cap split is load-bearing here: 14 of today's 37 actionable items
 were tools whose star count drifted by less than a percent. that's
 noise, not editorial work. so the daily cap (20 tools) measures real
-review burden — version bumps and news — while stars-only updates
+review burden (version bumps and news) while stars-only updates
 bulk-apply with no limit.
 
 ## what the automation never touches
@@ -56,7 +56,7 @@ bulk-apply with no limit.
 four frontmatter fields are off-limits, no exceptions:
 `stackmaven_verdict`, `verdict_label`, `bullet_summary`, `trade_offs`.
 those carry the editorial position. claude can ground a "latest news"
-paragraph in actual release notes — fabrication risk is bounded by
+paragraph in actual release notes, where fabrication risk is bounded by
 the source. it cannot ground a verdict shift in anything but my
 judgment.
 

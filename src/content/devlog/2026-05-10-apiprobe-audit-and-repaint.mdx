@@ -5,7 +5,7 @@ draft: false
 tags: [devlog, decision, nextjs, tailwind]
 ---
 
-apimocker got a redesign last week. apiprobe is its sister tool — same family,
+apimocker got a redesign last week. apiprobe is its sister tool: same family,
 same audience, same "just works in the browser" pitch. it shouldn't look like
 a different app. so today: an audit, a sweep, and a full repaint.
 
@@ -13,7 +13,7 @@ a different app. so today: an audit, a sweep, and a full repaint.
 
 ran a code audit across the 35 source files. 22 findings: 0 critical, 3 highs,
 9 mediums, 10 lows. for a tool that's been sitting quietly, that's about what
-i expected — no real bugs, but plenty of paper cuts.
+i expected. no real bugs, but plenty of paper cuts.
 
 closed all 10 lows in one pass: aria-labels on icon-only buttons, the
 `onKeyPress → onKeyDown` migration, a missing `useMemo` around response-body
@@ -21,7 +21,7 @@ formatting, removing a debug `console.log`, dropping a misleading "ssrf
 protection" line from the readme. the kind of stuff that doesn't change
 behavior but raises the floor.
 
-mediums and highs are deferred — they need real thinking, not just typing.
+mediums and highs are deferred. they need real thinking, not just typing.
 the most interesting one: `DOMPurify` is running on the response body, which
 for an api testing tool is actively wrong. it strips tags from the response
 and shows you bytes that aren't what the api returned. react already escapes
@@ -33,7 +33,7 @@ getting its own session.
 pulled apimocker.com's stylesheet down, extracted the tokens, and rebuilt
 apiprobe on the same palette: `#0b0b0c` canvas, `#1c1c20` surface, an emerald
 green accent used sparingly, inter for ui, jetbrains mono for endpoints and
-code. method colors stay consistent across both tools — get emerald, post
+code. method colors stay consistent across both tools: get emerald, post
 blue, put amber, patch purple, delete red. now if you bounce between the
 two, you don't get whiplash.
 
@@ -45,7 +45,7 @@ no config file. cleanest custom-palette setup i've used in a next.js app.
 ## the next.js bump
 
 vercel's build then failed on a critical rce in next.js. patched up the 15.5
-backport line (15.5.2 → 15.5.18) instead of jumping to 16.x — minimal blast
+backport line (15.5.2 → 15.5.18) instead of jumping to 16.x. minimal blast
 radius, no breaking changes, ship it. dompurify also got a 3.2.6 → 3.4.2
 bump for an xss chain, even though the plan is to remove it entirely next
 session.

@@ -1,5 +1,5 @@
 ---
-title: phase 1 shipped — chrome and the activity-bar nav
+title: phase 1 shipped, chrome and the activity-bar nav
 publishDate: 2026-05-05
 draft: false
 tags: [meta, astro]
@@ -15,9 +15,9 @@ what shipped:
 - astro 6 + tailwind v4 via `@tailwindcss/vite` (no separate config file; theming via the `@theme` directive)
 - self-hosted jetbrains mono via `@fontsource-variable/jetbrains-mono` (no google fonts cdn)
 - content collections at `src/content.config.ts` (singular form, src root, per astro 5+) for `articles`, `devlog`, `projects`, `tools`
-- lucide svg icons in the activity bar (unicode glyphs rendered at noticeably different sizes in jetbrains mono — `⚙` and `⌕` came in visibly smaller than `☰`)
+- lucide svg icons in the activity bar (unicode glyphs rendered at noticeably different sizes in jetbrains mono. `⚙` and `⌕` came in visibly smaller than `☰`)
 - two state classes that never fight: `body.explorer-hidden` (desktop collapse) and `body.nav-open` (mobile drawer), each only firing inside its own breakpoint media query
 
-biggest learning: chrome's UA stylesheet for `[hidden]` is `!important`, so you can't use the `hidden` attribute as a belt-and-suspenders for FOUC and then reveal the element via a class. the real fix is structural — move the would-be-flashing element out of the grid container entirely. grid can't be broken by elements that aren't its children.
+biggest learning: chrome's UA stylesheet for `[hidden]` is `!important`, so you can't use the `hidden` attribute as a belt-and-suspenders for FOUC and then reveal the element via a class. the real fix is structural: move the would-be-flashing element out of the grid container entirely. grid can't be broken by elements that aren't its children.
 
 next up: real content for the projects + tools pages, the `/api/subscribe` endpoint to buttondown, and the launch article.

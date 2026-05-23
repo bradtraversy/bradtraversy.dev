@@ -8,8 +8,8 @@ project: namescout
 
 the namescout homepage already had a terminal demo in the hero. small black
 window, `$ npx namescout-cli redis`, output streaming down. except: there was
-no cli. it was a mock-up. fixing the mismatch — build a real cli that does
-exactly what the demo promises — was today's work, alongside a sweep through
+no cli. it was a mock-up. fixing the mismatch (building a real cli that does
+exactly what the demo promises) was today's work, alongside a sweep through
 the homepage itself.
 
 ## the cli
@@ -39,7 +39,7 @@ output and the readme are the entire docs.
 
 ## the name
 
-the obvious npm slot — `namescout` — was already taken when i went to publish.
+the obvious npm slot, `namescout`, was already taken when i went to publish.
 not by a squatter; by someone else who'd shipped a real tool under the same
 name a few days earlier. no story to tell there. shipped as `namescout-cli`
 instead and added a second bin alias in `package.json` so both invocations
@@ -58,7 +58,7 @@ shifting between npm versions.
 
 the cli lives in its own [public repo](https://github.com/bradtraversy/namescout-cli).
 the main namescout app stays private for now, but devs (rightly) don't trust
-closed-source clis that hit remote apis — splitting the cli out was the
+closed-source clis that hit remote apis. splitting the cli out was the
 single biggest credibility move i could make today.
 
 ## homepage polish
@@ -68,7 +68,7 @@ while the cli was building, swept the homepage:
 - **three report views collapsed into one.** the page was rendering the same
   data three different ways (header card, registry breakdown, terminal-styled
   report). pick the best one, delete the other two. nav anchors retitled
-  `styles / sample report / providers` → `search / report / providers` — the
+  `styles / sample report / providers` → `search / report / providers`. the
   old labels were internal jargon
 - **inline cli demo in the hero.** the terminal block i described earlier
   used to be a separate banner farther down the page. moved it inline below
