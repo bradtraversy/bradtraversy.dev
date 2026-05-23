@@ -28,8 +28,8 @@ five machines carry real load. each one has a clear job.
 - **`trav-ai`**: dedicated local-ai box. **ubuntu** on a gmktec
   evo-x2, amd ryzen ai max+ 395, 48 gb unified memory. ollama for
   local model inference, open webui for a chat ui, hermes hosting the
-  autonomous fleet (four named profiles: sysadmin, developer,
-  creator, secretary). also where mission control runs. lan-only,
+  autonomous fleet (five named profiles: sysadmin, developer,
+  creator, secretary, keeper). also where mission control runs. lan-only,
   bound to the local network, never exposed to the internet.
 - **`trav-studio`**: recording machine. **macos** on a mac studio
   (apple m4 max, 64 gb). every youtube video, course module, and
@@ -64,11 +64,11 @@ on top of the hardware:
   summarization, anything that doesn't need frontier intelligence.
   i use local for simple tasks only. it stays in its lane.
 - **hermes** also on `trav-ai`. an open-source autonomous agent
-  runtime that hosts four named profiles: `sysadmin`, `developer`,
-  `creator`, `secretary`. each profile runs on its own cron, picks up
-  tasks tagged for its lane, makes decisions, writes back to the
-  vault. (a longer "how the agent fleet works" article is coming;
-  this is the headline tour.)
+  runtime that hosts five named profiles: `sysadmin`, `developer`,
+  `creator`, `secretary`, `keeper`. each profile runs on its own
+  cron, picks up tasks tagged for its lane, makes decisions, writes
+  back to the vault. the longer tour is in
+  [how the agent fleet works](/articles/how-the-agent-fleet-works).
 - **mission control** also on `trav-ai`, port 8890. a next.js app i
   built. reads my obsidian vault directly and renders a live dashboard
   for everything in it.
@@ -83,7 +83,7 @@ on top of the hardware:
 
 ## the agent fleet
 
-two claudes for the interactive lane, four hermes profiles for the
+two claudes for the interactive lane, five hermes profiles for the
 autonomous lane, one shared brain.
 
 **claude code**: interactive, terminal-based. running on **opus
@@ -100,7 +100,7 @@ about the deadline?"), cowork handles it. also better for planning
 sessions where i want a back-and-forth conversation rather than a
 code session.
 
-then the four autonomous profiles, all hosted by **hermes** on
+then the five autonomous profiles, all hosted by **hermes** on
 `trav-ai` and running on **gpt-5.5** via the openai codex device flow:
 
 - **sysadmin**: the operations lane. cron-driven health checks,
@@ -112,6 +112,10 @@ then the four autonomous profiles, all hosted by **hermes** on
   posts, summarizes weekly digests, helps with article outlines
 - **secretary**: calendar, email triage, daily briefings, task
   queue hygiene. the lane closest to a personal assistant
+- **keeper**: personal-life logging. gym sessions, journal entries,
+  household notes, personal-finance decisions. primary input is
+  discord on my phone, so logging happens where the activity ends.
+  archival, recorder-first, no unsolicited coaching
 
 role names match across every surface: the cli command, the profile
 id, the SOUL.md file, the discord display name. `@sysadmin` in
@@ -126,7 +130,7 @@ runs: well-defined task, structured output, predictable steps. and
 qwen on the local box handles the small stuff that doesn't need
 either.
 
-all six share the same obsidian vault. they read each other's session
+all seven share the same obsidian vault. they read each other's session
 logs, share context files, and coordinate through a task queue.
 
 ## the vault is the database
@@ -279,7 +283,7 @@ a few things on the roadmap, none of them urgent:
 - **paperclip**: an orchestration layer planned to sit *above* the
   hermes profiles, owning task state and routing work between lanes.
   routine-driven coordination instead of me being the dispatcher.
-  default is to start it after the four-profile setup has soaked for
+  default is to start it after the five-profile setup has soaked for
   a few weeks.
 
 the system works. iteration is in service of small quality-of-life
