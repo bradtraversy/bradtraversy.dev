@@ -20,34 +20,34 @@ is the full tour.
 
 five machines carry real load. each one has a clear job.
 
-- **`trav-dev`** — main dev box. **ubuntu 24.04** on 13th gen intel
+- **`trav-dev`**: main dev box. **ubuntu 24.04** on 13th gen intel
   core i9-13900k, rtx 4070 ti, 64 gb ram. where i write code and run
   the local dev servers for every project i'm shipping. claude code
   runs here. so does cowork (claude desktop) when i want back-and-forth
   design rather than terminal pairing.
-- **`trav-ai`** — dedicated local-ai box. **ubuntu** on a gmktec
+- **`trav-ai`**: dedicated local-ai box. **ubuntu** on a gmktec
   evo-x2, amd ryzen ai max+ 395, 48 gb unified memory. ollama for
   local model inference, open webui for a chat ui, hermes hosting the
-  autonomous fleet (four named profiles — sysadmin, developer,
-  creator, secretary). also where mission control runs. lan-only —
+  autonomous fleet (four named profiles: sysadmin, developer,
+  creator, secretary). also where mission control runs. lan-only,
   bound to the local network, never exposed to the internet.
-- **`trav-studio`** — recording machine. **macos** on a mac studio
+- **`trav-studio`**: recording machine. **macos** on a mac studio
   (apple m4 max, 64 gb). every youtube video, course module, and
   screencast i record runs through this box. obs + screen studio for
   capture, davinci resolve for the edit. it's deliberately separate
-  from `trav-dev` — recording load and dev load fight each other badly
+  from `trav-dev`. recording load and dev load fight each other badly
   when they share a machine, and a clean macos environment for
   capture is one fewer variable when something goes wrong mid-take.
-- **`trav-gaming`** — windows desktop. **windows 11** on an originpc,
+- **`trav-gaming`**: windows desktop. **windows 11** on an originpc,
   intel i9-14900k, rtx 5080, 32 gb ram. dual-purpose: actual gaming,
   plus the windows-only stuff that doesn't fit anywhere else
   (occasional adobe work, the rare windows app i need to test
   something against, lighter browsing when i'm not at the dev box).
-- **`trav-nas`** — synology ds918+, 4-bay, running dsm. primary file
+- **`trav-nas`**: synology ds918+, 4-bay, running dsm. primary file
   storage. backups, raw video footage, and the obsidian vault is
   mirrored here nightly.
 
-a couple of macs sit alongside as portable pickups — a macbook pro for
+a couple of macs sit alongside as portable pickups: a macbook pro for
 travel work, a macbook air that lives on the dj setup. neither one
 carries serious workflow weight.
 
@@ -60,11 +60,11 @@ that need to talk to each other and a printer that mostly behaves.
 on top of the hardware:
 
 - **ollama + open webui** on `trav-ai`. qwen is the workhorse for
-  the simple-task surface area — triage, classification, quick
+  the simple-task surface area: triage, classification, quick
   summarization, anything that doesn't need frontier intelligence.
   i use local for simple tasks only. it stays in its lane.
 - **hermes** also on `trav-ai`. an open-source autonomous agent
-  runtime that hosts four named profiles — `sysadmin`, `developer`,
+  runtime that hosts four named profiles: `sysadmin`, `developer`,
   `creator`, `secretary`. each profile runs on its own cron, picks up
   tasks tagged for its lane, makes decisions, writes back to the
   vault. (a longer "how the agent fleet works" article is coming;
@@ -76,7 +76,7 @@ on top of the hardware:
   actually coding. interactive, picks up queued tasks at the start of
   every new session via a `/resume` skill.
 - **cowork** also on `trav-dev` and on the macbook. same model as
-  claude code, different runtime — claude desktop. mcp connections to
+  claude code, different runtime: claude desktop. mcp connections to
   gmail, calendar, drive, vercel give it surfaces claude code doesn't
   have.
 - **obsidian** on every box. the vault is the source of truth.
@@ -86,31 +86,31 @@ on top of the hardware:
 two claudes for the interactive lane, four hermes profiles for the
 autonomous lane, one shared brain.
 
-**claude code** — interactive, terminal-based. running on **opus
+**claude code**: interactive, terminal-based. running on **opus
 4.7**. when i'm in the editor, this is who i'm pairing with. it knows
 the vault, it writes a session log at the end of each session via a
 `/save` skill, and it picks up queued tasks at the start of the next
 via `/load`. so even though sessions don't share memory, the agent
-does — through the vault.
+does, through the vault.
 
-**cowork** — interactive, desktop-app-based. same model (opus 4.7),
+**cowork**: interactive, desktop-app-based. same model (opus 4.7),
 different runtime. claude desktop has mcp connections claude code
-doesn't. so when a task needs gmail context — "did the sponsor reply
-about the deadline?" — cowork handles it. also better for planning
+doesn't. so when a task needs gmail context ("did the sponsor reply
+about the deadline?"), cowork handles it. also better for planning
 sessions where i want a back-and-forth conversation rather than a
 code session.
 
 then the four autonomous profiles, all hosted by **hermes** on
 `trav-ai` and running on **gpt-5.5** via the openai codex device flow:
 
-- **sysadmin** — the operations lane. cron-driven health checks,
+- **sysadmin**: the operations lane. cron-driven health checks,
   vault security scans, nas backups, network monitoring. terse,
   alert-mode, no opinions
-- **developer** — autonomous coding. picks up `agent: developer`
+- **developer**: autonomous coding. picks up `agent: developer`
   tasks, makes the change, opens the pr. practical and precise
-- **creator** — content creation + research synthesis. drafts devlog
+- **creator**: content creation + research synthesis. drafts devlog
   posts, summarizes weekly digests, helps with article outlines
-- **secretary** — calendar, email triage, daily briefings, task
+- **secretary**: calendar, email triage, daily briefings, task
   queue hygiene. the lane closest to a personal assistant
 
 role names match across every surface: the cli command, the profile
@@ -119,10 +119,10 @@ discord is the same identity as `hermes sysadmin run` in the
 terminal. no character names anywhere.
 
 different agents, different models, on purpose. opus is the right
-shape for the open-ended judgment work the two claudes pair on —
+shape for the open-ended judgment work the two claudes pair on:
 designing a feature, debugging weird state, drafting prose. gpt-5.5
 is the right shape for the bounded-loop work each hermes profile
-runs — well-defined task, structured output, predictable steps. and
+runs: well-defined task, structured output, predictable steps. and
 qwen on the local box handles the small stuff that doesn't need
 either.
 
@@ -132,12 +132,12 @@ logs, share context files, and coordinate through a task queue.
 ## the vault is the database
 
 obsidian as a second brain isn't new. obsidian as the literal source
-of truth for an entire workflow — that's the part that took some
+of truth for an entire workflow, that's the part that took some
 unlearning.
 
 every project has a folder. every project has an `Overview.md`. every
 active piece of work has a session log. the homelab's hardware
-inventory, network map, automation registry — all markdown files in
+inventory, network map, automation registry: all markdown files in
 the vault. there's no parallel database, no source-of-truth-elsewhere.
 the markdown *is* the database.
 
@@ -165,14 +165,14 @@ the dashboard is the lens i look at the system through.
 one web surface for everything: tabs across the top for home, todos,
 tasks, projects, sessions, research, network, calendar, agents. each
 tab is built by parsing the relevant region of the vault. live updates
-via chokidar + server-sent events — when an agent writes a file, my
+via chokidar + server-sent events. when an agent writes a file, my
 screen refreshes within a second. when i edit a file in obsidian, the
 same.
 
 it runs as a systemd-user service on `trav-ai`, bound to the lan. i
 never want it on the internet. the value is the integration with my
 private vault; the moment it's exposed, the security model gets
-complicated and the upside is zero — i'm not building this for anyone
+complicated and the upside is zero. i'm not building this for anyone
 else. lan-only is a feature, not a limitation.
 
 ## the task queue
@@ -202,41 +202,41 @@ review"), and let claude code surface me anything queued for it the
 next time i open the terminal.
 
 work moves between agents the way it moves between teammates. that's
-not a metaphor — it's literally the same coordination model.
+not a metaphor. it's literally the same coordination model.
 
 ## a day in the life
 
 a typical weekday, condensed:
 
-- **05:00** — `sysadmin` runs its daily ops jobs. vault backup to nas,
+- **05:00**: `sysadmin` runs its daily ops jobs. vault backup to nas,
   vault security scan, network health check. all cron-driven, all
   writing heartbeats to the vault that mission control surfaces in
   the agents tab.
-- **05:15** — `creator` picks up the daily tech digest. fetches news,
+- **05:15**: `creator` picks up the daily tech digest. fetches news,
   summarizes, writes a digest file to `Research/Digests/`. the
   youtube idea generator chains off the same digest a few minutes
   later.
-- **06:30** — `secretary` runs calendar sync and assembles the
-  morning briefing — today's schedule, anything overdue, queued tasks
+- **06:30**: `secretary` runs calendar sync and assembles the
+  morning briefing. today's schedule, anything overdue, queued tasks
   worth surfacing.
-- **08:00** — i sit down at `trav-dev`. open mission control on a side
+- **08:00**: i sit down at `trav-dev`. open mission control on a side
   monitor. open claude code, run `/load`. it reads the night's
   session logs and queued tasks and gives me a one-paragraph
   orientation: "yesterday you shipped X, vidpipe deploy is green,
   three new ideas surfaced for review."
-- **morning** — paired coding with claude code on whatever the active
+- **morning**: paired coding with claude code on whatever the active
   project is. usually vidpipe lately. session logs compress at the end
   via `/save`; the next session picks up where this one left off.
-- **lunch** — switch to cowork on the macbook. lighter work — gmail
+- **lunch**: switch to cowork on the macbook. lighter work like gmail
   triage, calendar review, drafting devlog entries from session logs
   via a `polish-devlog` skill.
-- **afternoon** — back to `trav-dev`. record video, edit, write
+- **afternoon**: back to `trav-dev`. record video, edit, write
   articles. claude code stays open in the terminal even when i'm not
-  actively pairing — i'll drop "here's a snippet, fix the bug" between
+  actively pairing. i'll drop "here's a snippet, fix the bug" between
   takes. `developer` picks up any autonomous coding tasks in the
-  background — small refactors, dependency bumps, anything well-scoped
+  background. small refactors, dependency bumps, anything well-scoped
   enough not to need pairing.
-- **evening** — close down. the hermes profiles keep running on their
+- **evening**: close down. the hermes profiles keep running on their
   crons. mission control is still up. the next day starts with the
   same `/load` loop.
 
@@ -253,7 +253,7 @@ already in the cloud?
   small-model surface area saves real money over running every call
   against a frontier api.
 - **privacy.** sponsor emails, financial notes, half-formed product
-  ideas — i'd rather these sit on a box in my house than on a
+  ideas. i'd rather these sit on a box in my house than on a
   third-party server, even one with strong privacy policies.
 - **reliability.** the local fleet doesn't get rate-limited. it
   doesn't depend on a hosted service being up. when the internet goes
@@ -276,7 +276,7 @@ a few things on the roadmap, none of them urgent:
 - write-back on the calendar tab in mission control (read-only today)
 - per-profile heartbeat integration so each hermes lane stamps a
   liveness signal back to the agents tab
-- **paperclip** — an orchestration layer planned to sit *above* the
+- **paperclip**: an orchestration layer planned to sit *above* the
   hermes profiles, owning task state and routing work between lanes.
   routine-driven coordination instead of me being the dispatcher.
   default is to start it after the four-profile setup has soaked for
@@ -286,6 +286,6 @@ the system works. iteration is in service of small quality-of-life
 wins, not feature parity with a hosted solution.
 
 > the lab is the work happening, in a place where it can keep
-> happening. the homelab is the floor underneath that. nothing fancy
-> — just the smallest viable setup that does the things i actually
+> happening. the homelab is the floor underneath that. nothing fancy.
+> just the smallest viable setup that does the things i actually
 > need.
