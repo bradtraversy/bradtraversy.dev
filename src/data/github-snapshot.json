@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-24T07:16:39.224Z",
+  "updatedAt": "2026-05-24T12:33:28.047Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75895,
-    "totalStars": 166034
+    "followers": 75897,
+    "totalStars": 166047
   },
   "topRepos": [
     {
@@ -13,18 +13,18 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65723,
-      "forks": 12048,
+      "stars": 65733,
+      "forks": 12050,
       "language": null,
-      "pushedAt": "2026-04-13T10:23:07Z"
+      "pushedAt": "2026-05-24T10:07:48Z"
     },
     {
       "name": "50projects50days",
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40573,
-      "forks": 9761,
+      "stars": 40574,
+      "forks": 9762,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -84,12 +84,60 @@
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
       "stars": 1208,
-      "forks": 1154,
+      "forks": 1153,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
   ],
   "recentEvents": [
+    {
+      "type": "IssueCommentEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T10:08:07Z",
+      "details": "commented on issue #1588"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T10:07:49Z",
+      "details": "pushed to master"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T09:41:03Z",
+      "details": "pushed to master"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T09:35:36Z",
+      "details": "commented on issue #1595"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-04-18T15:38:36Z",
+      "details": "closed pull request #1595"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T09:33:50Z",
+      "details": "pushed to master"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T09:31:36Z",
+      "details": "commented on issue #1593"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T09:20:00Z",
+      "details": "closed pull request #1593"
+    },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
@@ -101,58 +149,10 @@
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-05-23T10:34:55Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/linesmith",
-      "createdAt": "2026-05-23T10:27:47Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-23T10:08:24Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PublicEvent",
-      "repo": "bradtraversy/linesmith",
-      "createdAt": "2026-05-22T21:34:13Z",
-      "details": "made the repo public"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-22T14:28:03Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "WatchEvent",
-      "repo": "anthropics/claude-code",
-      "createdAt": "2026-05-22T10:54:08Z",
-      "details": "starred this repo"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-18T10:15:09Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-18T10:02:55Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-18T09:47:18Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 752,
+    "total": 755,
     "weeks": [
       [
         0,
@@ -623,7 +623,7 @@
         9
       ],
       [
-        0
+        3
       ]
     ]
   }
