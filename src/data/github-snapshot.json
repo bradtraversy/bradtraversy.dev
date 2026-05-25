@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-25T07:48:21.682Z",
+  "updatedAt": "2026-05-25T13:20:41.567Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75902,
-    "totalStars": 166071
+    "followers": 75897,
+    "totalStars": 166066
   },
   "topRepos": [
     {
@@ -14,7 +14,7 @@
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
       "stars": 65757,
-      "forks": 12053,
+      "forks": 12052,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40575,
+      "stars": 40574,
       "forks": 9762,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16048,
+      "stars": 16047,
       "forks": 4393,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -64,7 +64,7 @@
       "description": "Node.js login, registration and access control using Express and Passport",
       "url": "https://github.com/bradtraversy/node_passport_login",
       "stars": 1754,
-      "forks": 1291,
+      "forks": 1290,
       "language": "EJS",
       "pushedAt": "2026-05-23T12:19:58Z"
     },
@@ -73,7 +73,7 @@
       "fullName": "bradtraversy/react-crash-2021",
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
-      "stars": 1365,
+      "stars": 1363,
       "forks": 1664,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
