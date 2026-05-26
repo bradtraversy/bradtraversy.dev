@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-26T07:25:28.555Z",
+  "updatedAt": "2026-05-26T13:13:25.942Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
     "followers": 75901,
-    "totalStars": 166082
+    "totalStars": 166089
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65769,
-      "forks": 12053,
+      "stars": 65773,
+      "forks": 12054,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40573,
+      "stars": 40574,
       "forks": 9762,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16048,
+      "stars": 16049,
       "forks": 4393,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -91,6 +91,24 @@
   ],
   "recentEvents": [
     {
+      "type": "WatchEvent",
+      "repo": "Open-Dev-Society/OpenStock",
+      "createdAt": "2026-05-26T11:42:53Z",
+      "details": "starred this repo"
+    },
+    {
+      "type": "WatchEvent",
+      "repo": "Axorax/awesome-free-apps",
+      "createdAt": "2026-05-26T11:42:37Z",
+      "details": "starred this repo"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-26T11:16:59Z",
+      "details": "pushed to main"
+    },
+    {
       "type": "IssueCommentEvent",
       "repo": "bradtraversy/design-resources-for-developers",
       "createdAt": "2026-05-24T10:08:07Z",
@@ -131,28 +149,10 @@
       "repo": "bradtraversy/design-resources-for-developers",
       "createdAt": "2026-05-24T09:31:36Z",
       "details": "commented on issue #1593"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T09:20:00Z",
-      "details": "closed pull request #1593"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-23T12:23:31Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-23T10:34:55Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 755,
+    "total": 756,
     "weeks": [
       [
         0,
@@ -625,7 +625,7 @@
       [
         3,
         0,
-        0
+        1
       ]
     ]
   }
