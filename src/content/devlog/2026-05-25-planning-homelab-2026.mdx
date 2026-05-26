@@ -1,0 +1,116 @@
+---
+title: planning the next homelab build
+publishDate: 2026-05-25
+draft: false
+tags: [devlog, homelab]
+---
+
+the [my homelab](/articles/my-homelab) article describes five boxes
+that carry my actual day-to-day work. this devlog is about what's
+about to change. nothing's racked yet. the workstation is ordered,
+the rest is in spec / decision mode.
+
+## what's actually getting added
+
+two new boxes and one replacement, plus a NAS swap and one rename:
+
+- **trav-dev** gets replaced. new puget mini-itx, ryzen 9 9900x, 96gb
+  ddr5, 2tb nvme, rtx 5060 ti 16gb, ubuntu 24.04 lts. nr200p sff
+  case, sf 1000w platinum. shipped under next-day. the existing
+  trav-dev becomes part of the inventory list to pick over before it
+  retires.
+- **trav-web** is new. empowered pcs quiet 2u rackmount, intel ultra
+  9 285, 96gb, 4tb nvme. dedicated to web projects (dev + hosting),
+  nothing else. ships with windows 11 pro which gets wiped on arrival.
+- **trav-exp** is new. dell r630 (~$1,800), proxmox + linux vms,
+  learning sandbox only. no production workloads, no real services
+  depend on it. it exists so i can run the "hosting-company model"
+  of one-vm-per-service with its own dedicated storage as a
+  teaching frame, without putting anything important behind it.
+- **NAS swap**: new qnap (4x 8tb sata ssds, raid5, 10g) takes over
+  primary storage. the existing synology gets demoted to backup-only.
+- **rename**: `trav-ai` → `trav-agents`. the name's a lie now (see
+  below).
+
+## the locks
+
+three rules that came out of the planning session:
+
+**one box, one role.** considered consolidating (hermes + mission
+control + web hosting all on the new rackmount) and rejected it.
+the budget already supports separation, and i'd rather have a box
+i can wipe and reinstall without taking down something unrelated.
+trav-web is web only. trav-agents is hermes + mission control only.
+when something breaks i know which box i'm logging into.
+
+**naming by purpose, not software.** considered `trav-prox` for the
+r630 and rejected it. proxmox is what's running on it today; the
+box's actual job is "experimentation." `trav-exp` survives any
+future hypervisor swap. same reasoning that kept `trav-agents`
+purpose-named instead of something like `trav-hermes` (hermes is
+the current fleet, not necessarily the next one).
+
+**linux-only homelab.** windows lives on `trav-gaming` and nowhere
+else. trav-web's pre-installed w11 pro gets wiped. distro for
+trav-web is still tbd (ubuntu lts for parity with trav-dev, or
+debian for server-lean).
+
+## the trav-nas inheritance trick
+
+there are 15+ vault files that reference `trav-nas` by hostname:
+the main `CLAUDE.md`, the network profile, the automations registry,
+several runbooks, course docs. renaming the existing synology to
+something else and giving the new qnap a new hostname would mean
+chasing all those refs.
+
+so the new qnap inherits `trav-nas`. the old synology gets renamed
+`trav-backup`. dns flip during cutover, every existing reference
+keeps working, only one new hostname enters the system.
+
+small trick. saves a real day of grep-and-edit.
+
+## why the gmktec stopped being the ai box
+
+the `trav-ai` name made sense when the gmktec was chosen for its
+strix halo unified-memory iGPU — the bet was that local LLM
+inference would benefit from that architecture. it does, technically.
+but the actual inference workload moved to the mac studio (apple
+silicon turned out to be the better inference target for the models
+i actually use), and the GMKTec's job collapsed down to "small
+linux box running hermes and mission control."
+
+so it gets renamed. `trav-agents` reflects the real job. mac
+studio becomes the exclusive inference target. hermes itself moves
+to the openai api for the autonomous lane, which removes any
+dependency on local inference and makes the gmktec genuinely
+just-another-linux-box.
+
+## what's still open
+
+a lot, honestly:
+
+- which qnap model exactly (needs 4-bay 10g + 4x 8tb sata ssds)
+- linux distro for trav-web
+- 10g path off the new trav-dev (sff case = single pcie slot, so
+  it's thunderbolt/usb4 adapter or nothing — waiting on puget's
+  recommendation)
+- whether trav-web exposes anything to the public internet, or
+  stays lan-only behind a cloudflare tunnel
+- whether to keep `trav-ai` as a permanent dns alias for
+  `trav-agents` or drop it after a week's safety net
+
+the build doc tracks all of this. cutover plan is sequenced so
+networking lands first, then nas, then renames (one variable at a
+time), then new boxes whenever they arrive. dhcp reservations
+land on the eero before any new mac address shows up so the
+ip layout doesn't shuffle.
+
+## why share a plan, not a result
+
+usually i wait until something's done to write about it. the
+planning itself is most of the interesting work here though.
+the decisions (one role per box, purpose-based naming, the
+inheritance trick, the mac-studio repositioning) are locked now
+and won't read differently after the gear arrives. once it's
+racked, [/articles/my-homelab](/articles/my-homelab) gets the
+rewrite. until then this is the plan as it stands today.

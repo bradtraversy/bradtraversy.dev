@@ -1,0 +1,88 @@
+---
+title: auditing all 79 devsheets in one pass
+publishDate: 2026-05-25
+draft: false
+tags: [devlog, agent-workflow, claude]
+project: devsheets
+---
+
+[devsheets](https://devsheets.io) is up to 79 cheat sheets now. the
+2026-05-02 rebuild day handled five of them surgically (python,
+fastapi, tailwind, sql, rust). that approach doesn't scale to the
+whole catalog. so today was the opposite: audit everything at once,
+fix what's structurally wrong, then modernize the ones drifting
+hardest from current docs.
+
+## the audit pattern
+
+pulled the section and item titles for all 79 sheets in one query.
+~50kb of structural snapshot, no body content. enough signal to spot
+gaps from titles alone plus what i know about each tech, without
+loading the full sheet bodies into context.
+
+came out of it with a prioritized report: structural bugs first
+(things actually broken), then content gaps (things stale or
+missing). 20 items queued. the audit step is read-only. nothing gets
+touched until the report's reviewed and the priorities are set.
+
+## structural bugs
+
+five things were quietly wrong across the catalog:
+
+- `javascript-fundamentals` had two sections sharing `order: 10`
+- `csharp` had a "basic syntax" section duplicating two others (the `dynamic` keyword was the one unique snippet to preserve)
+- `express` skipped section 7
+- `openclaw` skipped sections 8 and 9
+- **30 sheets** had their first section at `order: 1` instead of `order: 0`
+
+the last one's the headline: about 38% of the catalog had
+inconsistent section-order conventions. ui sorts by `order` so
+behavior was identical either way, but it was a landmine for any
+future bulk script that assumed zero-indexed sections. bulk-normalized
+all 30 in a single sync. one batch, 32 sheets updated, cache
+revalidated.
+
+## modernization sweep
+
+20 sheets total across two sessions. shape was the same every time:
+inspect → write a one-shot `update-X-sheet.ts` → run → verify in dev
+→ sync to prod → log to changelog → delete the script.
+
+the big ones:
+
+- **angular** leads with standalone components and `@if`/`@for`/`@switch` control flow now. legacy syntax kept in the detailed tab with the migration command. added `@defer` triggers and the signal outputs / `linkedSignal` / `resource` / `httpResource` block (angular 17.3-19.2)
+- **react-hooks** got a new "react 19 hooks" section: `use()`, `useActionState`, `useFormStatus`, `useOptimistic`
+- **react-custom-hooks** went from 4 items in 3 sections to 10 items in 5 sections. browser/storage hooks, debounce/click-outside, intersection observer with `freezeOnceVisible`
+- **css** added scroll-driven animations (`animation-timeline: scroll()/view()`), view transitions (same-doc + cross-doc mpa), anchor positioning (`anchor-name`, `position-anchor`, `position-area`, `position-try-fallbacks`)
+- **next.js** got parallel routes (`@slots`), intercepting routes for modals, partial prerendering, `instrumentation.ts`, `after()` and the `revalidateTag`/`revalidatePath` patterns
+- **php** split the old "8.1+ features" item and added 8.3 (typed class constants, `#[\Override]`) and 8.4 (property hooks, asymmetric visibility, `array_find`/`array_any`/`array_all`)
+- **tailwind v4** picked up the `@source` / `@plugin` / `@utility` directives with `--value()`, `@custom-variant`, and `@reference`
+- **astro** got server islands (`server:defer`), actions (`defineAction`, `ActionError` codes), and the experimental sessions api
+- **node** added `node:` import prefix, built-in fetch with `AbortSignal.timeout`, and the `node:test` runner with mock + subtests + ts via `--experimental-strip-types`
+- **bun** added html imports as routes (bun bundles the js/css/ts into the response)
+- **svelte** added `$state.raw`, `$derived.by`, `$inspect.with`/`.trace`, `$effect.pre`, `$effect.root`
+- **drizzle** got `defineRelations` (0.36+) and the `drizzle-kit push` vs migrations workflow
+- **async-js** added `await using` and `Promise.withResolvers` (es2024)
+- **js-fundamentals** and **js-array-methods** both picked up the es2023+ pack: `toSorted`/`toReversed`/`toSpliced`/`with`, `Object.groupBy`/`Map.groupBy`, `findLast`/`findLastIndex`, `Array.fromAsync`, iterator helpers
+- **git** reordered stashing above fixing mistakes, added `.gitignore`/cherry-pick/reflog, split merging and rebasing, leads with `git switch` and `git restore` now
+- **python** added enums, async/await, logging, the `{x=}` f-string debug syntax, the `__main__` guard, and the `uv` toolchain. bumped to intermediate, read time 10 → 18 min
+
+final sync caught 18 changed sheets: the 11 from this session plus
+7 with prior dev/prod drift (angular, react-hooks, javascript, claude
+code, cursor, sveltekit, swift). worth knowing about the sync script:
+it's whole-db diff, not slug-targeted, so every run silently catches
+up earlier dev edits that weren't pushed at the time.
+
+## the takeaway
+
+the audit pattern is the unlock. pulling structure for the whole
+catalog at once costs almost nothing (titles only, no bodies), but
+it surfaces things that are invisible sheet-by-sheet: the order-0
+vs order-1 inconsistency, the duplicate sections, the gaps.
+
+deep-dive content modernization still has to happen one sheet at a
+time. but the gate at the front (one query, full catalog, prioritized
+list) is what turns "i should probably audit the sheets someday"
+into a single afternoon.
+
+20 items shipped, audit backlog cleared. all live on devsheets.io.
