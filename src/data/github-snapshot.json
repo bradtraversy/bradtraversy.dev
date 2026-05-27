@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-26T18:56:36.220Z",
+  "updatedAt": "2026-05-27T01:06:34.212Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75903,
-    "totalStars": 166090
+    "followers": 75904,
+    "totalStars": 166089
   },
   "topRepos": [
     {
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40573,
+      "stars": 40572,
       "forks": 9763,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -91,6 +91,18 @@
   ],
   "recentEvents": [
     {
+      "type": "PushEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-05-26T20:25:02Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-05-26T20:21:07Z",
+      "details": "pushed to main"
+    },
+    {
       "type": "WatchEvent",
       "repo": "Open-Dev-Society/OpenStock",
       "createdAt": "2026-05-26T11:42:53Z",
@@ -137,22 +149,10 @@
       "repo": "bradtraversy/design-resources-for-developers",
       "createdAt": "2026-04-18T15:38:36Z",
       "details": "closed pull request #1595"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T09:33:50Z",
-      "details": "pushed to master"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T09:31:36Z",
-      "details": "commented on issue #1593"
     }
   ],
   "contributions": {
-    "total": 756,
+    "total": 768,
     "weeks": [
       [
         0,
@@ -255,7 +255,7 @@
       ],
       [
         1,
-        3,
+        4,
         0,
         0,
         0,
@@ -286,7 +286,7 @@
         0,
         0,
         0,
-        3,
+        4,
         0
       ],
       [
@@ -337,26 +337,26 @@
       [
         0,
         4,
-        1,
-        0,
-        0,
-        0,
-        0
-      ],
-      [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      [
-        0,
-        0,
-        0,
         2,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        4,
         0,
         0,
         0
@@ -602,7 +602,7 @@
         21,
         7,
         19,
-        25
+        31
       ],
       [
         8,
@@ -625,7 +625,8 @@
       [
         3,
         0,
-        1
+        2,
+        0
       ]
     ]
   }
