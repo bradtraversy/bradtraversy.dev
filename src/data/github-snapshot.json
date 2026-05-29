@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-29T07:32:57.939Z",
+  "updatedAt": "2026-05-29T13:20:08.261Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75912,
-    "totalStars": 166196
+    "followers": 75914,
+    "totalStars": 166198
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65870,
+      "stars": 65873,
       "forks": 12059,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40578,
-      "forks": 9757,
+      "forks": 9755,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16056,
-      "forks": 4392,
+      "forks": 4393,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -91,6 +91,24 @@
   ],
   "recentEvents": [
     {
+      "type": "PushEvent",
+      "repo": "Traversy-Media/startdev-vscode-theme",
+      "createdAt": "2026-05-29T12:01:58Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "Traversy-Media/startdev-vscode-theme",
+      "createdAt": "2026-05-29T11:54:06Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "Traversy-Media/startdev-vscode-theme",
+      "createdAt": "2026-05-29T11:39:14Z",
+      "details": "created branch main"
+    },
+    {
       "type": "WatchEvent",
       "repo": "hardikpandya/stop-slop",
       "createdAt": "2026-05-28T12:17:58Z",
@@ -131,28 +149,10 @@
       "repo": "bradtraversy/design-resources-for-developers",
       "createdAt": "2026-05-24T10:08:07Z",
       "details": "commented on issue #1588"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T10:07:49Z",
-      "details": "pushed to master"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T09:41:03Z",
-      "details": "pushed to master"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T09:35:36Z",
-      "details": "commented on issue #1595"
     }
   ],
   "contributions": {
-    "total": 768,
+    "total": 781,
     "weeks": [
       [
         0,
@@ -627,8 +627,8 @@
         0,
         2,
         0,
-        0,
-        0
+        9,
+        4
       ]
     ]
   }
