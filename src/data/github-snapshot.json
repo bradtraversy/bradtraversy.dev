@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-05-30T12:35:10.957Z",
+  "updatedAt": "2026-05-30T18:31:09.864Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75926,
-    "totalStars": 166215
+    "followers": 75931,
+    "totalStars": 166214
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65887,
+      "stars": 65885,
       "forks": 12058,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40579,
-      "forks": 9755,
+      "forks": 9753,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16062,
+      "stars": 16063,
       "forks": 4393,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -92,6 +92,12 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-05-30T12:37:48Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "Traversy-Media/startdev-vscode-theme",
       "createdAt": "2026-05-29T12:01:58Z",
       "details": "pushed to main"
@@ -143,16 +149,10 @@
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-05-26T11:16:59Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T10:08:07Z",
-      "details": "commented on issue #1588"
     }
   ],
   "contributions": {
-    "total": 781,
+    "total": 782,
     "weeks": [
       [
         0,
@@ -629,7 +629,7 @@
         0,
         9,
         4,
-        0
+        1
       ]
     ]
   }
