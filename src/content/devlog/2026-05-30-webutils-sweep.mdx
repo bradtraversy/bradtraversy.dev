@@ -1,0 +1,67 @@
+---
+title: "a webutils sweep: banners, a cve, and a silent csp"
+publishDate: 2026-05-30
+draft: false
+tags: [devlog, nextjs, postmortem]
+project: webutils
+---
+
+webutils is the free pile of browser tools: json formatter, fake-data
+generator, flexbox playground, image background remover, a couple dozen more.
+it's been running quietly for a while, so i cloned it down for a morning sweep.
+ended up shipping five fixes, none of them touching the database. four were
+ten-minute jobs. one had been failing silently in production and i only found
+it by opening the console on the live site.
+
+## the quick ones
+
+three were just cleanup. removed a leftover beta banner, since the tool is
+well past beta. removed an old devhunt launch banner that had outlived its
+launch. and added dark, cross-browser scrollbars (`::-webkit-scrollbar` plus
+firefox's `scrollbar-width` / `scrollbar-color`) so the chrome matches the dark
+ui instead of falling back to the os default light track. none of these change
+what the tools do. they stop the app looking half-finished.
+
+## the deploy that built fine and failed anyway
+
+`next@15.5.0` carries the react server components cve. vercel lets the build
+run all the way to completion, then flips the deployment to `Error` *after*
+"build completed" because of the security gate. so the build log is green and
+the deploy still refuses to go out. that's a confusing failure mode the first
+time you hit it: nothing in the build is wrong.
+
+bumped to `15.5.9`, which is vercel's own prepared remediation for this repo,
+rather than jumping to the latest `15.5.18`. smaller blast radius, the version
+they actually tested for this codebase. worth knowing too: a failed vercel
+deploy doesn't take the site down. it keeps serving the last good deploy. the
+live site was never broken, the new one just wasn't allowed out the door.
+
+## the silent one
+
+the real find. a content-security-policy block in `next.config.ts` was quietly
+blocking three things at once, and not one of them threw an error i'd ever
+notice in normal use:
+
+- **vercel analytics.** `@vercel/analytics` was installed and looked fine, but
+  `va.vercel-scripts.com` wasn't in `script-src`, so the script never loaded
+  and analytics recorded nothing. no error, no warning in the app. just a
+  dashboard sitting at zero.
+- **the image background remover.** it pulls its model and wasm from
+  `cdn.jsdelivr.net` at runtime via mediapipe. that origin wasn't in
+  `connect-src`, so the fetch was blocked and the tool just did nothing.
+- the old devhunt banner script, which i'd removed anyway.
+
+the fix was three origins: `va.vercel-scripts.com` and `cdn.jsdelivr.net` into
+`script-src`, `cdn.jsdelivr.net` into `connect-src`.
+
+a too-strict csp doesn't crash your app. it removes capabilities one at a time,
+quietly. analytics stops collecting, a feature stops fetching, and the console
+on your own machine usually looks clean because csp violations report to a
+channel you have to opt into watching. you find this stuff by loading the live
+site, opening devtools, and actually reading every warning.
+
+> the four visible fixes took about ten minutes. the invisible one, a single
+> csp policy that had been zeroing out analytics and silently breaking a tool
+> in prod, is the one that mattered. note to self: every so often, open the
+> console on the deployed site and read it line by line. the bugs that never
+> throw are the ones that live the longest.
