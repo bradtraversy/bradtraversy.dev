@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-01T08:02:47.372Z",
+  "updatedAt": "2026-06-01T14:14:09.245Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65907,
-      "forks": 12063,
+      "stars": 65910,
+      "forks": 12064,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40581,
+      "stars": 40578,
       "forks": 9753,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,8 +33,8 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16067,
-      "forks": 4394,
+      "stars": 16068,
+      "forks": 4393,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -93,6 +93,18 @@
     {
       "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-06-01T13:29:49Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-06-01T13:26:45Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-05-30T12:37:48Z",
       "details": "pushed to main"
     },
@@ -137,22 +149,10 @@
       "repo": "Open-Dev-Society/OpenStock",
       "createdAt": "2026-05-26T11:42:53Z",
       "details": "starred this repo"
-    },
-    {
-      "type": "WatchEvent",
-      "repo": "Axorax/awesome-free-apps",
-      "createdAt": "2026-05-26T11:42:37Z",
-      "details": "starred this repo"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-26T11:16:59Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 740,
+    "total": 741,
     "weeks": [
       [
         3,
@@ -624,7 +624,7 @@
       ],
       [
         0,
-        0
+        1
       ]
     ]
   }
