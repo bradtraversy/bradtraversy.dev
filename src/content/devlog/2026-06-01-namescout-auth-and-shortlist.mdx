@@ -1,0 +1,96 @@
+---
+title: namescout gets accounts and a shortlist
+publishDate: 2026-06-01
+draft: false
+tags: [devlog, nextjs, vercel, decision]
+project: namescout
+---
+
+namescout has been a stateless tool since day one: type a name, read the
+report, leave. today it grew a memory. github login is live on
+namescout.dev, and behind it there's a per-user shortlist so you can save the
+names you're still chewing on. on the way there i also killed an openai bill
+that was scaling the wrong way and added a whole new category of checks.
+
+## the bill that scaled with a query param
+
+before any of the account work, i went hunting for an openai cost that was
+way higher than the traffic justified. the model was already the cheap tier,
+so price-per-call wasn't it — call *volume* was.
+
+the "suggest alternative names" feature caches its llm output, but the cache
+key was `(name, mode, count)`. `count` is a public 1–20 query param. so
+`?count=5` and `?count=6` for the same name were two separate cache misses,
+two separate api calls, for what is essentially the same request. anyone
+paging through counts was minting fresh llm calls each time.
+
+fix: generate a fixed batch of 20 suggestions, cache that per `(name, mode)`,
+and slice locally to whatever `count` asked for. one call per name+mode,
+ever, until the cache expires. the lesson i keep relearning — never let a
+public, high-cardinality param into a cache key for something you pay per
+call on.
+
+## the auth stack, and why
+
+namescout is a dev tool, so the login choice was easy: **github oauth**.
+the people using it already have github accounts, and the app already carried
+a github token for its own checks. no new identity to create.
+
+- **auth.js v5** for the session layer
+- **drizzle** over prisma — lighter, and it plays nicely with neon's
+  serverless driver
+- **neon postgres** for storage, on a dev branch and a production branch
+
+migrations run as part of the build (`drizzle-kit migrate && next build`), so
+a deploy applies schema changes on its own with no separate step to remember.
+
+## debugging auth.js in prod
+
+login worked locally and then threw `error=Configuration` the moment it hit
+production. that error is a generic catch-all — it tells you nothing. the
+real message was sitting in the runtime logs: `incorrect_client_credentials`
+from github's token endpoint, i.e. the client secret in prod didn't match the
+oauth app's client id.
+
+two things worth writing down:
+
+- **dev and prod need separate oauth apps.** the callback url has to match
+  the host exactly, so localhost and the live domain can't share one.
+- **env var changes need a redeploy.** updating the secret in the dashboard
+  doesn't touch already-running functions.
+
+the diagnostic ladder that isolated it: `/api/auth/providers` confirms the
+provider and callback are registered, `/api/auth/csrf` returning 200 means
+the secret is present, `/api/auth/session` returning 200 means the core is
+healthy — which narrows the failure down to the token-exchange step. login
+now works on namescout.dev.
+
+## profiles & handles
+
+separately, namescout learned to check handle availability across
+**bluesky, dev.to, linktree, hugging face, keybase**, plus gitlab and
+codeberg for code hosting. i only added platforms with a clean,
+server-checkable endpoint. the big social networks — x, reddit, instagram,
+tiktok, telegram, product hunt — are deliberately left out: they block
+datacenter ips or gate the check behind a paid api, so all i could honestly
+return for them is "unknown," and a result that's always unknown is worse
+than no result.
+
+i called the category **"profiles & handles,"** not "social" — social implies
+twitter, and that's exactly the surface i can't check. they render as a
+compact grid of brand-mark chips so the report doesn't sprawl.
+
+## the shortlist
+
+the headline feature: a **★ save to shortlist** block under every report.
+saved names land on a `/shortlist` page scoped to your account, each with a
+status, a notes field, a re-check button, and remove. it's built and verified
+end-to-end against the real database, sitting on a branch waiting for the
+go-ahead to ship.
+
+## what's next
+
+- group saved names into named projects, with a "where do i register this"
+  claim checklist once a name is picked
+- move the rate limiter to a shared store — the in-memory one doesn't really
+  limit anything on serverless
