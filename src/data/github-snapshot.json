@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-02T07:51:45.340Z",
+  "updatedAt": "2026-06-02T13:31:06.840Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
     "followers": 75934,
-    "totalStars": 166252
+    "totalStars": 166254
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65920,
+      "stars": 65925,
       "forks": 12065,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40579,
+      "stars": 40578,
       "forks": 9754,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16069,
+      "stars": 16070,
       "forks": 4394,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
