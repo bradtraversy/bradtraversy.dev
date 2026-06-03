@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-02T19:24:56.429Z",
+  "updatedAt": "2026-06-03T01:18:37.292Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75949,
-    "totalStars": 166260
+    "followers": 75956,
+    "totalStars": 166259
   },
   "topRepos": [
     {
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40578,
+      "stars": 40577,
       "forks": 9755,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16072,
+      "stars": 16073,
       "forks": 4395,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -73,7 +73,7 @@
       "fullName": "bradtraversy/react-crash-2021",
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
-      "stars": 1364,
+      "stars": 1363,
       "forks": 1664,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
@@ -625,6 +625,7 @@
       [
         0,
         1,
+        0,
         0
       ]
     ]
