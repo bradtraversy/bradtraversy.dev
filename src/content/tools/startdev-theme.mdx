@@ -1,0 +1,55 @@
+---
+name: start.dev theme
+tagline: warm, low-contrast dark theme for vs code, cursor, and vscodium
+category: dev
+kind: desktop
+tags: [vscode, cursor, theme, color-theme]
+url: https://marketplace.visualstudio.com/items?itemName=traversymedia.startdev-theme
+repoUrl: https://github.com/Traversy-Media/startdev-vscode-theme
+free: true
+publishDate: 2026-05-29
+heroImage: ./startdev-theme-hero.png
+heroImageAlt: the start.dev vs code theme showing graphite chrome with warm amber accents and one dark pro syntax colors
+---
+
+a dark vs code theme with the same palette as the in-browser editor on
+[start.dev](https://start.dev): a graphite chassis lit by a single
+warm amber accent, with quiet chrome so the syntax does the talking.
+built on the bones of one dark pro and retuned to a true-neutral
+graphite ramp.
+
+## what it does
+
+- **graphite chrome, no cool cast**: every workbench neutral (sidebar,
+  tabs, status bar, terminal) reads true-gray instead of one dark
+  pro's faint blue tint
+- **amber as the one interaction color**: cursor, selection, focus
+  ring, active-tab accent, and active line number all share a single
+  warm `#F1B467`
+- **warm terminal palette**: the ansi ramp is recolored to match the
+  graphite-and-amber identity
+- **familiar syntax colors**: the one dark pro token colors stay as
+  they are, so code reads the way you already know
+- **dark only** for now; no light or high-contrast variant yet
+
+## install
+
+| editor | how |
+| --- | --- |
+| vs code | search **start.dev** in extensions, or [install from the marketplace](https://marketplace.visualstudio.com/items?itemName=traversymedia.startdev-theme) |
+| cursor / windsurf / vscodium | search **start.dev**, resolves via [open vsx](https://open-vsx.org/extension/traversymedia/startdev-theme) |
+| source | [github.com/Traversy-Media/startdev-vscode-theme](https://github.com/Traversy-Media/startdev-vscode-theme) |
+
+then `ctrl+k ctrl+t` (or `cmd+k cmd+t` on macos) and pick **start.dev**.
+
+## why i built it
+
+the start.dev learning platform runs a full vs code-compatible theme
+object in its in-browser editor, so the colors students learn in
+already existed in the right shape. packaging them as a real extension
+was mostly an audit pass: kill the cool cast on the chrome, make amber
+the single interaction color, warm up the terminal, leave the syntax
+alone. now the editor you learn in and the editor you work in can look
+the same.
+
+mit · free.
