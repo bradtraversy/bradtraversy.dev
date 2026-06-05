@@ -1,0 +1,53 @@
+---
+title: the start.dev editor as a vs code theme
+publishDate: 2026-05-29
+draft: false
+tags: [devlog, tool-launch, vscode]
+---
+
+the in-browser editor on [start.dev](https://start.dev) has its own
+look: graphite backgrounds, a single amber accent, quiet chrome so
+the syntax does the talking. people kept asking for it in their real
+editor. so it's a theme now, live on the
+[vs code marketplace](https://marketplace.visualstudio.com/items?itemName=traversymedia.startdev-theme)
+and [open vsx](https://open-vsx.org/extension/traversymedia/startdev-theme)
+(so cursor, windsurf, and vscodium pick it up too).
+
+## why it was a day, not a week
+
+the platform editor already runs a full vs code-compatible theme
+object. it's the same `colors` + `tokenColors` shape a `.vscode-theme`
+file wants, and it drives both the monaco editor students type in and
+the shiki blocks in the lessons. so 95% of a published theme already
+existed. the actual work was packaging it as an extension and one
+audit pass.
+
+## the audit: kill the cool cast
+
+the theme started life as a one dark pro fork (credit to binaryify),
+and one dark pro carries a faint blue cast on the chrome. sidebar,
+tabs, and status bar all sit a few points bluer than neutral.
+start.dev's design system has a hard rule against that: no neutral may
+read cooler than true gray. so i walked every workbench color and
+swapped the cool-cast neutrals for their graphite-ramp equivalents.
+
+then i made amber the *only* interaction color. cursor, selection,
+focus ring, active-tab accent, active line number all use the same
+warm `#F1B467`, where one dark pro used blue. the terminal ansi ramp
+got warmed up the same way. the syntax colors stayed exactly as they
+are, since students already learn in them and information design beats
+warmth-purity for token roles.
+
+the result reads as one deliberate thing instead of a reskin with the
+name changed.
+
+## what's not in it yet
+
+dark only. no light variant, no high-contrast pass, no italic-free
+option. all of that is demand-driven later. v0.1 is the daily-driver
+dark theme and nothing else.
+
+> install **start.dev** from the
+> [marketplace](https://marketplace.visualstudio.com/items?itemName=traversymedia.startdev-theme),
+> or search "start.dev" in cursor / windsurf / vscodium. then
+> `ctrl+k ctrl+t` and pick it. mit, free.

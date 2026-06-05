@@ -1,0 +1,63 @@
+---
+title: standing up trav-web
+publishDate: 2026-06-03
+draft: false
+tags: [devlog, homelab]
+---
+
+the [homelab plan](/devlog/2026-05-25-planning-homelab-2026) called
+for a box that does web projects and nothing else: dev and staging,
+never anything customer-facing. that box is trav-web, and this week it
+went from fresh ubuntu to a real docker host with internal dns and
+clean urls. three small layers, each one teachable on its own.
+
+## the foundation
+
+docker engine, a shared user-defined bridge network, and a directory
+split that matters more than its names: configs live in `/opt`, data
+lives in `/srv/data`, and the backup target is just `/srv/data`. the
+shared network is the whole reason containers can reach each other by
+name instead of by ip. the default bridge doesn't do dns, but a
+network you create yourself does.
+
+## .lab dns with adguard
+
+i wanted every service to answer at a real hostname like
+`bradtraversy.lab` instead of an ip and a port i have to remember. so
+adguard home runs as a **lean dns resolver**: blocklists off, no
+ad-blocking, just dns. one wildcard rewrite (`*.lab` points at
+trav-web) covers every current and future subdomain with zero per-site
+config, and the eero hands that resolver to the whole network.
+
+the reframe that made it click: adguard with the filters turned off
+*is* a dns server. the ad-block is a dormant layer you can switch on
+later, not the reason to run it. the query log and the wildcard ui are.
+
+## clean urls with nginx proxy manager
+
+dns gets you to the box; it doesn't know which container owns
+`adguard.lab` vs `npm.lab`. that's a second layer. nginx proxy manager
+sits on ports 80/443 and routes by hostname, forwarding to each
+container by name over the shared network. so the port-less urls just
+work, and every service, whether coolify-deployed or hand-rolled
+compose, goes through one uniform front door.
+
+## the gotcha that cost an hour
+
+after pointing the eero at adguard, `.lab` still wouldn't resolve on my
+workstation. the eero serves dns to clients directly over dhcp instead
+of proxying, so existing devices keep their old lease and their old isp
+resolver until they renew. the tell is exact: `dig @adguard-ip name`
+works but plain `dig name` comes back empty. a `reapply` doesn't
+refresh the dns; a full connection bounce does.
+
+## the hard rule
+
+trav-web has one rule sitting at the top of its build doc, same weight
+as anything else i won't break: **nothing any user reaches lives here.**
+no tunnel, no port-forward, no public dns pointing at it. staging is
+lan-only. it's a box i can wipe and rebuild without taking anything
+real down, which is the entire point of having it.
+
+next up: coolify, then push a `staging` branch of this very site and
+watch `bradtraversy.lab` build itself.
