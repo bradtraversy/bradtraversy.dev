@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-05T07:41:48.511Z",
+  "updatedAt": "2026-06-05T13:13:57.174Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75955,
-    "totalStars": 166280
+    "followers": 75960,
+    "totalStars": 166285
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 65943,
-      "forks": 12073,
+      "stars": 65946,
+      "forks": 12076,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40580,
+      "stars": 40579,
       "forks": 9754,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -53,7 +53,7 @@
       "fullName": "bradtraversy/devconnector_2.0",
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
-      "stars": 1963,
+      "stars": 1964,
       "forks": 1271,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
@@ -90,6 +90,12 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-06-05T10:20:29Z",
+      "details": "pushed to main"
+    },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
@@ -143,16 +149,10 @@
       "repo": "bradtraversy/apimocker",
       "createdAt": "2026-05-26T20:21:07Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "WatchEvent",
-      "repo": "Open-Dev-Society/OpenStock",
-      "createdAt": "2026-05-26T11:42:53Z",
-      "details": "starred this repo"
     }
   ],
   "contributions": {
-    "total": 741,
+    "total": 742,
     "weeks": [
       [
         3,
@@ -628,7 +628,7 @@
         0,
         0,
         0,
-        0
+        1
       ]
     ]
   }
