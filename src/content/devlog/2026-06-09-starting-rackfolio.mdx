@@ -1,0 +1,72 @@
+---
+title: starting rackfolio — naming it, scaffolding it, drawing it
+publishDate: 2026-06-09
+draft: false
+tags: [devlog, nextjs, design, homelab]
+project: rackfolio
+---
+
+new project. rackfolio: an inventory and a portfolio for your homelab. you add
+every device, disk, and service once, and it gives you the numbers homelabbers
+actually care about — total power draw, estimated monthly cost, terabytes,
+cores, rack units used — then, later, a page worth showing off.
+
+this is the routine i never had a good home for. my own lab lives in a markdown
+file that drifts out of date the week after i touch it.
+
+## naming it with my own tool
+
+i ran the candidates through namescout, which is exactly what i built it for.
+the `.com` landscape for anything homelab-shaped is a graveyard — rackdex,
+racknest, rigster, labfolio, geardex, all gone. dozens checked, almost nothing
+left short and clean.
+
+rackfolio survived, and it was the only good one open on `.com`, `.dev`, and
+`.io` all at once. it also says the product out loud: rack + folio, a portfolio
+of your rack. registered the `.com` before writing this — naming a thing in
+public before you own the domain is how you lose the domain.
+
+## the foundation
+
+- next 16 (app router), react 19, typescript, tailwind v4 on the css-first
+  `@theme` setup
+- postgres 17 running locally in docker — `docker compose up -d`, persistent
+  named volume, `DATABASE_URL` wired. neon later; local first so the repo runs
+  for anyone who clones it
+- prisma teed up, schema next
+
+nothing fancy yet. `page.tsx` still says hello world. this entry is foundation
+and design, not a working app — the react port and the data layer are the next
+session.
+
+## drawing it before building it
+
+before writing components, the screens started as static tailwind mockups —
+the lab overview with the stat block (power, est. cost at your $/kWh, devices,
+storage), the device strip, a device-detail page. dark, a little industrial,
+one orange accent. this is the prototype layer, and it's where i let ai help:
+roughing out layouts fast so i can make design calls while they're cheap.
+
+the react port is the opposite — that's a translation job i do by hand.
+
+## the plan
+
+the ordering is the strategy: a genuinely good private tool first, sharing as a
+layer on top, community last.
+
+1. **the tool** — private inventory, the live stat block, devices and services.
+   no auth, no sharing. i'll dogfood it on my own lab.
+2. **profiles** — accounts, claim a username, flip a lab public at
+   `/u/<name>`. the part you'd post to r/homelab.
+3. **the catalog** — a seeded gear database so power and cost stop being
+   hand-typed guesses and start being real.
+4. **community** — browse other people's labs, filter by what they run, and
+   the leaderboards i actually want to see: most powerful, best watts-per-core,
+   biggest storage.
+
+the boundary on this one: ai is for support and prototypes — naming, scoping,
+roughing out the design — and that's it. the application code is hand-written.
+i've spent a long stretch building with ai in the loop and i can feel a few
+muscles going soft, so on rackfolio the code is mine, keystroke by keystroke.
+
+> tool first. the part everyone sees comes after the part only i see is good.
