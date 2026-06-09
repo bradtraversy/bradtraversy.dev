@@ -1,0 +1,75 @@
+---
+name: Rackfolio
+tagline: an inventory and a portfolio for your homelab — every device, what it costs, what it draws, and how much rack you've used
+description: |
+  a homelab inventory tool with shareable profiles. add every server, switch,
+  disk, and service once, and rackfolio gives you the numbers homelabbers
+  actually care about — total power draw, estimated monthly cost, terabytes,
+  cores, and rack units used. private tool first; public profiles and a
+  community layer come on top.
+status: planning
+stack: [Next.js, React, TypeScript, Tailwind, PostgreSQL, Prisma, Vercel]
+heroImage: ./rackfolio-hero.png
+heroImageAlt: rackfolio's lab overview — a dark, industrial dashboard for "Main Rack" showing 439W idle power, $47/mo estimated cost at $0.15/kWh, 8 devices, 100TB storage, a vertical rack diagram with open-U gaps, and a device list (pve-01 Dell R720, nas-01 TrueNAS, sw-01 UniFi switch, pi-01 offline) with per-device wattage and running status
+publishDate: 2026-06-09
+featured: false
+---
+
+## what it does
+
+add your homelab gear once — servers, network, storage, the ups, the pi in the
+corner — plus the services running on each box. rackfolio rolls it into the
+numbers you can never remember off the top of your head:
+
+- **power draw** while idle, and the **estimated monthly cost** at your $/kWh
+- **total invested** across the rack
+- **rack units used** of your total
+- **cores, ram, storage** (raw and usable)
+- what's **running** across everything (proxmox, truenas, pfsense, plex…)
+
+it's private by default. later it becomes a profile you can share — the
+"what's in my homelab" page you'd otherwise hand-write for the hundredth time.
+
+> power and cost are **estimates** until a gear catalog backs them (a later
+> phase). the app says so, out loud, rather than pretending the watts are gospel.
+
+## why i built it
+
+my own lab lives in a markdown file that's out of date the week after i touch
+it. i forget which drives are in which bay, when the ups battery is due, what
+that third mini pc was even for. and i've never actually known my lab's total
+power draw or monthly cost until something forced the math.
+
+pcpartpicker exists for desktop builds. there's no clean equivalent for a rack.
+rackfolio is that — manage it privately, see the totals automatically, and
+eventually show it with one link.
+
+## how i'm building it
+
+one rule on rackfolio: ai helps me plan, name, and prototype, but it doesn't
+write the application code. i've spent a long stretch building with ai in the
+loop, and i want to keep the part of me that actually builds things sharp. so
+the scoping, the naming, the design mockups — ai is fair game there. the code
+that ships is hand-written.
+
+## the plan
+
+the ordering is the strategy: a genuinely good private tool first, sharing as a
+layer on top, community last. each phase is useful on its own.
+
+1. **the tool** — private inventory, the live stat block, devices and services.
+   no auth, no sharing. i dogfood it on my own lab.
+2. **profiles** — accounts, claim a username, flip a lab public at
+   `/u/<name>`. the part you'd post to r/homelab.
+3. **the catalog** — a seeded gear database so power and cost stop being
+   hand-typed guesses and start being real.
+4. **community** — browse other people's labs, filter by what they run, and
+   the leaderboards i want to see: most powerful, best watts-per-core, biggest
+   storage.
+
+## what's next
+
+right now the foundation is down — next.js scaffold, a dockerized postgres, and
+the screens designed as static mockups (that's the hero above). next up is the
+react port and the data layer: the prisma schema, create/edit devices and
+services, and the live stat block running against a real database.
