@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-15T19:27:12.047Z",
+  "updatedAt": "2026-06-16T01:19:23.601Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75984,
-    "totalStars": 166418
+    "followers": 75985,
+    "totalStars": 166421
   },
   "topRepos": [
     {
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16083,
+      "stars": 16084,
       "forks": 4395,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -623,6 +623,7 @@
         0
       ],
       [
+        0,
         0,
         0
       ]
