@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-17T08:05:11.012Z",
+  "updatedAt": "2026-06-17T13:26:29.274Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
-    "followers": 75989,
-    "totalStars": 166437
+    "followers": 75991,
+    "totalStars": 166440
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66064,
+      "stars": 66067,
       "forks": 12089,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16086,
-      "forks": 4395,
+      "forks": 4394,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -127,28 +127,28 @@
       "details": "pushed to main"
     },
     {
-      "type": "PushEvent",
-      "repo": "Traversy-Media/startdev-vscode-theme",
-      "createdAt": "2026-05-29T12:01:58Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "Traversy-Media/startdev-vscode-theme",
-      "createdAt": "2026-05-29T11:54:06Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "Traversy-Media/startdev-vscode-theme",
-      "createdAt": "2026-05-29T11:39:14Z",
-      "details": "created branch main"
-    },
-    {
       "type": "WatchEvent",
       "repo": "hardikpandya/stop-slop",
       "createdAt": "2026-05-28T12:17:58Z",
       "details": "starred this repo"
+    },
+    {
+      "type": "WatchEvent",
+      "repo": "Open-Dev-Society/OpenStock",
+      "createdAt": "2026-05-26T11:42:53Z",
+      "details": "starred this repo"
+    },
+    {
+      "type": "WatchEvent",
+      "repo": "Axorax/awesome-free-apps",
+      "createdAt": "2026-05-26T11:42:37Z",
+      "details": "starred this repo"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T10:08:07Z",
+      "details": "commented on issue #1588"
     }
   ],
   "contributions": {
