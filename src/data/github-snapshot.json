@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-18T18:56:51.319Z",
+  "updatedAt": "2026-06-19T01:19:20.965Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 321,
     "followers": 75996,
-    "totalStars": 166520
+    "totalStars": 166526
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66139,
-      "forks": 12094,
+      "stars": 66143,
+      "forks": 12095,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40584,
+      "stars": 40585,
       "forks": 9747,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -84,7 +84,7 @@
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
       "stars": 1205,
-      "forks": 1152,
+      "forks": 1151,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
@@ -121,12 +121,6 @@
       "details": "pushed to main"
     },
     {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-05-30T12:37:48Z",
-      "details": "pushed to main"
-    },
-    {
       "type": "WatchEvent",
       "repo": "hardikpandya/stop-slop",
       "createdAt": "2026-05-28T12:17:58Z",
@@ -149,6 +143,12 @@
       "repo": "bradtraversy/design-resources-for-developers",
       "createdAt": "2026-05-24T10:08:07Z",
       "details": "commented on issue #1588"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "bradtraversy/design-resources-for-developers",
+      "createdAt": "2026-05-24T09:35:36Z",
+      "details": "commented on issue #1595"
     }
   ],
   "contributions": {
@@ -623,6 +623,7 @@
         0
       ],
       [
+        0,
         0,
         0,
         0,
