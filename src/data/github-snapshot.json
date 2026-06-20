@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-20T12:47:20.884Z",
+  "updatedAt": "2026-06-20T18:38:13.315Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76000,
-    "totalStars": 166547
+    "followers": 76003,
+    "totalStars": 166551
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66157,
-      "forks": 12096,
+      "stars": 66160,
+      "forks": 12097,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40584,
+      "stars": 40585,
       "forks": 9746,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -92,6 +92,18 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-06-20T12:55:48Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-20T12:54:50Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-06-20T12:06:01Z",
       "details": "pushed to main"
@@ -137,22 +149,10 @@
       "repo": "warpdotdev/warp",
       "createdAt": "2026-06-07T12:26:43Z",
       "details": "starred this repo"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-05T10:20:29Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "WatchEvent",
-      "repo": "hardikpandya/stop-slop",
-      "createdAt": "2026-05-28T12:17:58Z",
-      "details": "starred this repo"
     }
   ],
   "contributions": {
-    "total": 680,
+    "total": 683,
     "weeks": [
       [
         3,
@@ -629,7 +629,7 @@
         0,
         0,
         6,
-        7
+        10
       ]
     ]
   }
