@@ -1,0 +1,79 @@
+---
+name: AI Blueprint
+tagline: a repeatable, spec-driven process for building real software with ai, without vibe coding
+description: |
+  a workflow you overlay onto any scaffolded app. you hand-write two short
+  planning docs; everything else (the project overview, every feature spec) is
+  generated from them by skills. you build one feature at a time and review
+  every diff before it lands. tool-agnostic via AGENTS.md, published as a public
+  repo you drop in with one command.
+status: live
+repoUrl: https://github.com/bradtraversy/ai-blueprint
+stack: [Markdown, Claude Code, AGENTS.md, Mermaid]
+heroImage: ./ai-blueprint-hero.png
+heroImageAlt: the ai blueprint pipeline as a flowchart — two hand-written plans (project-plan.md, build-plan.md) feed /overview, which generates project-overview.md as the source of truth; that branches into /prototype, /feature, and /fix, flowing through current-feature.md to /implement (build + iterate, reviewed) and /complete (commit + merge + log), archiving to docs/features and looping back to the next feature
+publishDate: 2026-06-20
+featured: false
+---
+
+## what it does
+
+a process layer you overlay onto an already-scaffolded app, not an app
+skeleton. the loop:
+
+- **you write two files** — `project-plan.md` (the what and why) and
+  `build-plan.md` (an ordered feature list). that's the only input you maintain.
+- **everything else is generated** — `/overview` distills the two plans into a
+  single source of truth, surfacing contradictions as open questions to fix in
+  the plans.
+- **build one feature at a time** — `/feature` specs the next item and stops at
+  a review gate; `/implement` builds it step by step, showing and explaining
+  every diff; `/complete` logs it, commits it as one feature, and squash-merges.
+- **three gates keep the ai on a leash** — spec before code, small reviewable
+  steps, exactly one feature in flight at a time.
+
+## why i built it
+
+vibe coding is describing a vague thing and accepting whatever comes back. it's
+fast until it isn't: you end up with code nobody understands and a project that
+can't be changed safely. i wanted the opposite, a way to keep the ai genuinely
+useful while staying in control of a codebase it's helping me write.
+
+it also solves a quieter problem. when the load-bearing rules of a project live
+only in a human-readable README, two different ai sessions will re-derive them
+differently and contradict each other. the blueprint encodes those rules where
+agents actually read them. it's the same workflow that underpins my Coding With
+AI course, extracted into something anyone can drop into their own repo.
+
+## how it's built
+
+a quick tour:
+
+- **AGENTS.md is the canonical entry** — the open cross-tool standard read by
+  Codex, Cursor, Copilot, Gemini CLI, Aider, and 20+ others. `CLAUDE.md` slims
+  down to import it plus the `context/` auto-loads, so there's one source of
+  truth, not two.
+- **six single-purpose skills** — `/overview`, `/feature`, `/fix`, `/implement`,
+  `/complete`, `/prototype`, each a plain-markdown `SKILL.md`. distinct verbs
+  over subcommands, chosen for learnability.
+- **scaffold then overlay** — scaffold the app in an empty dir, then drop the
+  blueprint on top with `npx degit bradtraversy/ai-blueprint . --force`. the
+  one-command overlay is why the repo is public.
+- **the feature is the unit of history** — `/implement` offers optional per-step
+  checkpoints on a branch; `/complete` makes the one real feature commit and
+  squash-merges, so `main` stays one clean commit per feature no matter how many
+  checkpoints accumulated.
+- **ship nothing a fresh scaffold also creates** — everything is namespaced
+  under `context/`, `docs/`, `.claude/`, plus `CLAUDE.md` and `AGENTS.md`, so the
+  overlay never collides with your app's boilerplate.
+
+## what's next
+
+it's already public and in use, validated on a couple of sample builds. the open
+threads are optional: per-tool native command shims (`.cursor/commands/`,
+`.github/prompts/`) for native slash-commands outside Claude Code, and a
+`code-scanner` subagent the plan references. mostly, the next move is teaching
+it, since it's the spine of the Coding With AI course.
+
+> the point was never to type less. it's to stay in control of a codebase the ai
+> is helping you write.

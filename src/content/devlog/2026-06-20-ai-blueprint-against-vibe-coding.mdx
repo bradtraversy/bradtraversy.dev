@@ -1,0 +1,44 @@
+---
+title: the ai blueprint — building with ai, without vibe coding
+publishDate: 2026-06-20
+draft: false
+tags: [devlog, agent-workflow, claude, decision]
+project: ai-blueprint
+---
+
+published [ai blueprint](https://github.com/bradtraversy/ai-blueprint), a
+repeatable process for building real software with an ai assistant without vibe
+coding. vibe coding is describing a vague thing and accepting whatever comes
+back. it's fast until it isn't, and then you're stuck with code nobody
+understands. this is the opposite: keep the ai genuinely useful while staying in
+control of a codebase it's helping you write.
+
+it's a layer you overlay onto an already-scaffolded app, not an app skeleton.
+you hand-write two short planning docs; everything else is generated from them
+by skills. there are three gates: spec before code, small reviewable steps, and
+exactly one feature in flight at a time.
+
+what got built this round:
+
+- **six single-purpose skills** — `/overview`, `/feature`, `/fix`,
+  `/implement`, `/complete`, `/prototype`. distinct verbs over subcommands, so
+  it's learnable.
+- **AGENTS.md as the canonical entry** — the open cross-tool standard read by
+  Codex, Cursor, Copilot, Gemini CLI, and others. `CLAUDE.md` slims to import
+  it, so there's one source of truth instead of two that drift.
+- **scaffold then overlay** — `npx degit bradtraversy/ai-blueprint . --force`
+  drops it onto any app. that one-command overlay is why the repo is public.
+
+the bug that shaped the design was subtle: two different ai sessions kept
+contradicting each other on whether to scaffold inside the blueprint dir. the
+rule lived only in the README, which agents don't treat as load-bearing. the fix
+was to encode the identity where agents actually read first, in `AGENTS.md` and
+`CLAUDE.md`.
+
+then i reworked the commit model so the feature is the unit of history.
+`/implement` offers optional per-step checkpoints on a branch; `/complete` makes
+the one real feature commit and squash-merges to main. however many checkpoints
+pile up on the branch, main stays one clean commit per feature.
+
+> the point was never to type less. it's to stay in control of a codebase the ai
+> is helping you write.
