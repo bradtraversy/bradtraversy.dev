@@ -1,0 +1,71 @@
+---
+name: Multiprompter
+tagline: a mac teleprompter where one script drives many scroll-synced windows
+description: |
+  a mac-only teleprompter built in swift. one markdown script drives any number
+  of frameless viewer windows, all kept in precise scroll sync, so a big
+  talking-head prompter and a thin strip floating over your code stay on the
+  exact same line. my first swift app.
+status: beta
+stack: [Swift, SwiftUI, AppKit, macOS]
+publishDate: 2026-06-20
+featured: false
+---
+
+{/* TODO: hero + body screenshots pending — capture the editor + a couple of synced viewer windows */}
+
+## what it does
+
+write your script once, run it across as many windows as you want:
+
+- **one script, n windows** — a markdown editor with live preview drives any
+  number of frameless viewer windows
+- **precise cross-window scroll sync** — every window stays on the same spot,
+  even at different font sizes, because sync is by logical position (a source
+  line plus how far you are through that paragraph), not pixel scroll
+- **per-viewer font, top-anchored** — each window sizes its own text; they match
+  on the top line, which is what actually helps when your screens aren't
+  physically centered
+- **persistence** — viewers and the editor frame reopen exactly where you left
+  them
+
+## why i built it
+
+i record a lot of tutorials and talking-head videos, and i wanted a teleprompter
+that could run more than one window at once: a large prompter for my face cam and
+a thin strip sitting over my editor, both scrolling together. every teleprompter
+i found is single-window. it's also the standalone, multi-window cousin of
+[linesmith](/tools/linesmith), my vs code teleprompter.
+
+the other reason: it's my first swift app. i wanted to learn the language by
+building something real i'd actually use, not a toy.
+
+## how it's built
+
+a quick tour:
+
+- **swift + swiftui + appkit** — swiftui for the shell, appkit where it counts
+- **one shared scroll engine** — the editor, the preview, and every viewer scroll
+  through the same `NSTextView`-based line-mapping engine, after swiftui's
+  `scrollPosition` proved too coarse and a beat behind
+- **fractional sync position** — the sync unit is `line + fraction through the
+  paragraph`, so long wrapped paragraphs can't let two windows drift apart
+- **echo suppression for "who's driving"** — any window broadcasts as it scrolls
+  and ignores the one scroll it caused by following, which beat the scroll-phase
+  and hover approaches that kept getting stuck
+- **borderless AppKit windows** — viewers are frameless `NSWindow`s, the
+  groundwork for always-on-top and exclude-from-capture later
+
+## what's next
+
+- **v1.5 viewer types** — teleprompter (large, centered), strip, and window, each
+  with its own defaults
+- **exclude-from-capture** — the strip floats over your code but stays invisible
+  in the screen recording. the killer feature.
+- per-viewer opacity, always-on-top, click-through, global hotkeys, layout presets
+- a real app icon, and `multiprompter.app` as the home
+- **phase 2: voice tracking** — your voice drives the same scroll position the
+  windows already share
+
+> the windows sharing one position is the whole app. everything after this,
+> voice tracking included, is just another thing that moves that position.

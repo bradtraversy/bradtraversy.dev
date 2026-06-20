@@ -1,0 +1,44 @@
+---
+title: building multiprompter, my first swift app
+publishDate: 2026-06-16
+draft: false
+tags: [devlog, swift, decision]
+project: multiprompter
+---
+
+built multiprompter from an empty xcode project to a feature-complete v1 in one
+sitting: a mac teleprompter where one markdown script drives any number of
+frameless viewer windows, all in precise scroll sync. it's the standalone,
+multi-window cousin of [linesmith](/tools/linesmith), and it's the first swift i
+have ever written.
+
+the whole app is one idea: many windows sharing a single scroll position. a big
+prompter for the face cam, a thin strip floating over the editor, both on the
+exact same line. so i built the sync before anything else, before even open and
+save.
+
+the interesting problems were all in that sync:
+
+- **logical position, not pixels.** syncing by pixel scroll ratio falls apart
+  the moment two windows have different font sizes. the sync unit became a source
+  line index instead, and then a *fractional* position (line plus how far through
+  that paragraph), because long wrapped paragraphs let whole-line sync drift.
+  font-independent, width-independent.
+- **one shared scroll engine.** swiftui's `scrollPosition` is block-granular and
+  a beat behind, which was visible when driving from a big-font window. the
+  editor, the preview, and every viewer now scroll through the same
+  `NSTextView`-based engine. that asymmetry, swiftui laggy but appkit precise, is
+  the whole reason i dropped down to appkit.
+- **who is driving?** the windows broadcast as they scroll, so you need to stop
+  feedback loops. scroll-phase detection failed for the mouse wheel; hover-based
+  gating got stuck. the fix that stuck was echo suppression: any window can
+  drive, and each one ignores the single scroll change it caused by following.
+  no persistent flag to wedge.
+
+a lot of this was learning the platform from zero: xcode's run loop, schemes,
+code signing, the sandbox entitlement you flip to actually save a file, and why a
+borderless `NSWindow` won't drag until you call `performDrag` yourself. the build
+itself taught me swift faster than any tutorial would have.
+
+> the windows sharing one position is the app. voice tracking, the next phase, is
+> just one more thing that moves that position.
