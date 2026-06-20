@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-20T07:30:48.824Z",
+  "updatedAt": "2026-06-20T12:47:20.884Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
-    "publicRepos": 321,
-    "followers": 75998,
-    "totalStars": 166546
+    "publicRepos": 322,
+    "followers": 76000,
+    "totalStars": 166547
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66154,
+      "stars": 66157,
       "forks": 12096,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -53,7 +53,7 @@
       "fullName": "bradtraversy/devconnector_2.0",
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
-      "stars": 1965,
+      "stars": 1964,
       "forks": 1271,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
@@ -92,6 +92,42 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-20T12:06:01Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-06-20T12:01:10Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-20T11:45:21Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-20T11:33:35Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-20T11:11:33Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-20T11:07:27Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-06-09T14:23:25Z",
       "details": "pushed to main"
@@ -109,50 +145,14 @@
       "details": "pushed to main"
     },
     {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-01T13:29:49Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-01T13:26:45Z",
-      "details": "pushed to main"
-    },
-    {
       "type": "WatchEvent",
       "repo": "hardikpandya/stop-slop",
       "createdAt": "2026-05-28T12:17:58Z",
       "details": "starred this repo"
-    },
-    {
-      "type": "WatchEvent",
-      "repo": "Open-Dev-Society/OpenStock",
-      "createdAt": "2026-05-26T11:42:53Z",
-      "details": "starred this repo"
-    },
-    {
-      "type": "WatchEvent",
-      "repo": "Axorax/awesome-free-apps",
-      "createdAt": "2026-05-26T11:42:37Z",
-      "details": "starred this repo"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T10:08:07Z",
-      "details": "commented on issue #1588"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/design-resources-for-developers",
-      "createdAt": "2026-05-24T09:35:36Z",
-      "details": "commented on issue #1595"
     }
   ],
   "contributions": {
-    "total": 667,
+    "total": 680,
     "weeks": [
       [
         3,
@@ -628,8 +628,8 @@
         0,
         0,
         0,
-        0,
-        0
+        6,
+        7
       ]
     ]
   }
