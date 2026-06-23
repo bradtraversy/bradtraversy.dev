@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-23T09:52:11.503Z",
+  "updatedAt": "2026-06-23T15:11:55.957Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76009,
-    "totalStars": 166582
+    "followers": 76010,
+    "totalStars": 166589
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66181,
-      "forks": 12099,
+      "stars": 66183,
+      "forks": 12098,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40590,
+      "stars": 40594,
       "forks": 9744,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16097,
-      "forks": 4390,
+      "forks": 4389,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -73,7 +73,7 @@
       "fullName": "bradtraversy/react-crash-2021",
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
-      "stars": 1361,
+      "stars": 1362,
       "forks": 1665,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
@@ -90,6 +90,30 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-23T12:59:09Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-06-23T11:57:37Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-23T11:48:45Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-06-23T11:44:39Z",
+      "details": "pushed to main"
+    },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
@@ -125,34 +149,10 @@
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-06-21T11:15:09Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-21T10:59:54Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-20T12:55:48Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-20T12:54:50Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-20T12:06:01Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 649,
+    "total": 655,
     "weeks": [
       [
         2,
@@ -625,7 +625,7 @@
       [
         5,
         3,
-        0
+        6
       ]
     ]
   }
