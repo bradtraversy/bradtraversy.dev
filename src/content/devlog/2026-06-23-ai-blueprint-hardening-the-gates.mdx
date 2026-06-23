@@ -1,0 +1,51 @@
+---
+title: ai blueprint — hardening the gates after launch
+publishDate: 2026-06-23
+draft: false
+tags: [devlog, agent-workflow, claude, decision]
+project: ai-blueprint
+---
+
+shipped [ai blueprint](https://github.com/bradtraversy/ai-blueprint) a few days
+ago, then spent the rest of the week using it on a real app and fixing the
+places where it was thin. the original three gates held up; the work was making
+each one sharper and adding the moments i kept reaching for and not finding.
+
+a few things changed.
+
+- **a real checkpoint prompt during a build.** each step now stops on a
+  four-option choice: continue, commit a checkpoint, walk me through it, or stop.
+  "walk me through it" loops back with a line-level explanation and then re-asks,
+  so i can understand a diff before deciding, not after.
+- **every step proves itself.** a step ends with what it delivered, one line per
+  file on the why, and the done-when shown with actual evidence: build output, a
+  screenshot, or a passing assertion. explain it, and prove it.
+- **mid-feature resume for free.** build steps are a checklist; `/implement`
+  checks them off and a fresh session picks up at the first unchecked box. the
+  blueprint already is a save/load system, the state lives in files, so clearing
+  context between steps is safe.
+- **one `blueprint/` folder.** the human-authored plans sit at its root where you
+  actually look; everything the ai manages lives in `context/` and `history/`
+  under it. `CLAUDE.md`, `AGENTS.md`, and `.claude/` stay at the repo root
+  because that's the only place tools read them.
+
+then a testing question i'd been dodging: what about a python app? the answer was
+to make testing a gate, not a dependency. the blueprint installs no test runner.
+declare a test command in `AGENTS.md` and tests become a gate for logic-bearing
+steps; declare nothing and the gate is inert, logic still verified by screenshot
+and build. the shared layer names no framework, so a go project and a typescript
+project use the same docs.
+
+last, four new skills to cover the workflow's thinnest moments:
+
+- `/adopt` widens the front door to a repo that already exists, generating the
+  owned plans instead of assuming a clean scaffold.
+- `/feature` now self-critiques its own draft spec before i see it, and leads
+  with what the critique changed. the gate catches the mistake before any code.
+- `/check` runs the app against a feature's done-whens to prove it works, as
+  opposed to reading the code and hoping.
+- `/status` orients me after a context clear, which happens a lot now that
+  clearing is safe.
+
+> the gates were always the point. this week was about making each one
+> impossible to skip by accident.
