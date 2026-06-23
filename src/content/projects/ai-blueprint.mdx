@@ -13,6 +13,7 @@ stack: [Markdown, Claude Code, AGENTS.md, Mermaid]
 heroImage: ./ai-blueprint-hero.png
 heroImageAlt: the ai blueprint pipeline as a flowchart — two hand-written plans (project-plan.md, build-plan.md) feed /overview, which generates project-overview.md as the source of truth; that branches into /prototype, /feature, and /fix, flowing through current-feature.md to /implement (build + iterate, reviewed) and /complete (commit + merge + log), archiving to docs/features and looping back to the next feature
 publishDate: 2026-06-20
+updatedDate: 2026-06-23
 featured: false
 ---
 
@@ -53,9 +54,11 @@ a quick tour:
   Codex, Cursor, Copilot, Gemini CLI, Aider, and 20+ others. `CLAUDE.md` slims
   down to import it plus the `context/` auto-loads, so there's one source of
   truth, not two.
-- **six single-purpose skills** — `/overview`, `/feature`, `/fix`, `/implement`,
-  `/complete`, `/prototype`, each a plain-markdown `SKILL.md`. distinct verbs
-  over subcommands, chosen for learnability.
+- **single-purpose skills** — `/overview`, `/feature`, `/fix`, `/implement`,
+  `/complete`, `/prototype`, plus `/adopt` (onboard an existing repo), `/status`
+  (orient after a context clear), and `/check` (run the app against a feature's
+  done-whens), each a plain-markdown `SKILL.md`. distinct verbs over subcommands,
+  chosen for learnability.
 - **scaffold then overlay** — scaffold the app in an empty dir, then drop the
   blueprint on top with `npx degit bradtraversy/ai-blueprint . --force`. the
   one-command overlay is why the repo is public.
@@ -63,17 +66,26 @@ a quick tour:
   checkpoints on a branch; `/complete` makes the one real feature commit and
   squash-merges, so `main` stays one clean commit per feature no matter how many
   checkpoints accumulated.
-- **ship nothing a fresh scaffold also creates** — everything is namespaced
-  under `context/`, `docs/`, `.claude/`, plus `CLAUDE.md` and `AGENTS.md`, so the
-  overlay never collides with your app's boilerplate.
+- **testing is a gate, not a dependency** — the blueprint installs no test
+  runner. declare a test command in `AGENTS.md` and tests gate logic-bearing
+  steps; declare nothing and logic still rides on screenshot plus build. the
+  shared layer names no framework, so a go project and a typescript project use
+  the same docs.
+- **one `blueprint/` folder** — the two hand-written plans sit at its root where
+  you look; everything the ai manages lives in `context/` and `history/` under
+  it. only `CLAUDE.md`, `AGENTS.md`, and `.claude/` stay at the repo root,
+  because that's where tools read them, so the overlay never collides with your
+  app's boilerplate.
 
 ## what's next
 
-it's already public and in use, validated on a couple of sample builds. the open
-threads are optional: per-tool native command shims (`.cursor/commands/`,
-`.github/prompts/`) for native slash-commands outside Claude Code, and a
-`code-scanner` subagent the plan references. mostly, the next move is teaching
-it, since it's the spine of the Coding With AI course.
+it's public, in use on real apps, and the gates have been hardened against the
+places they were thin. the open threads are optional: a lighter self-critique
+pass inside `/fix`, a second-tier `/debug` skill, a changelog written on
+`/complete`, and per-tool native command shims (`.cursor/commands/`,
+`.github/prompts/`) for slash-commands outside Claude Code. mostly, the next move
+is teaching it, since it's the spine of the Coding With AI course and the subject
+of a tutorial i'm filming soon.
 
 > the point was never to type less. it's to stay in control of a codebase the ai
 > is helping you write.
