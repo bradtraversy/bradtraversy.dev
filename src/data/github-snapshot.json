@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-06-28T12:37:56.691Z",
+  "updatedAt": "2026-06-28T18:32:43.451Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76039,
-    "totalStars": 166654
+    "followers": 76041,
+    "totalStars": 166653
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66235,
+      "stars": 66234,
       "forks": 12105,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40599,
+      "stars": 40600,
       "forks": 9743,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16096,
+      "stars": 16095,
       "forks": 4390,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -54,7 +54,7 @@
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
       "stars": 1964,
-      "forks": 1270,
+      "forks": 1269,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
     },
@@ -73,7 +73,7 @@
       "fullName": "bradtraversy/react-crash-2021",
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
-      "stars": 1362,
+      "stars": 1361,
       "forks": 1665,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
@@ -84,7 +84,7 @@
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
       "stars": 1207,
-      "forks": 1151,
+      "forks": 1150,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
