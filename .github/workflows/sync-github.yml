@@ -1,6 +1,10 @@
 name: sync github snapshot
 
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'src/data/github-snapshot.json'
   schedule:
     # every 6 hours
     - cron: '0 */6 * * *'
