@@ -1,0 +1,36 @@
+---
+title: making vidpipe crawlable
+publishDate: 2026-06-23
+draft: false
+tags: [devlog, postmortem, decision]
+project: vidpipe
+---
+
+vidpipe had a boring seo problem: the marketing pages looked fine to people,
+but crawlers were getting the shell of a client-rendered react app.
+
+the app can stay a spa. the dashboard, editor, channel settings, and account
+flows all earn that shape. the mistake was letting the public pages inherit the
+same output. a product homepage, pricing page, privacy page, and feature pages
+need html that exists before react wakes up.
+
+the fix was build-time prerendering, not a framework migration. after the
+frontend builds, a small script opens the public routes in a headless browser
+and writes the rendered html to static files. those static pages serve first.
+the app fallback still catches the logged-in routes.
+
+what changed:
+
+- 19 public routes now have real html at build time
+- titles, meta descriptions, and canonical urls are route-specific
+- the sitemap went from a tiny placeholder to the actual public surface
+- app routes stay out of the prerender pass and out of the sitemap
+- the render runs logged out, so no private dashboard data can get captured
+
+the interesting bug was Vercel's `cleanUrls`. rewriting every unknown route to
+`/index.html` seems obvious, but with clean urls on, that target redirects and
+breaks the spa fallback. the rewrite target had to be `/`. static prerendered
+files still win before the fallback, so both halves work.
+
+longer writeup: [client-rendered apps and seo](/articles/client-rendered-apps-and-seo).
+

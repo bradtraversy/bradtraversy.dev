@@ -1,0 +1,194 @@
+---
+title: client-rendered apps and seo
+dek: vidpipe taught me where a client-rendered react app stops being fine, and where static html needs to take over.
+publishDate: 2026-06-29
+draft: false
+tags: [react, vercel, decision]
+relatedProjects: [vidpipe]
+---
+
+vidpipe started as an app, not a publication.
+
+paste a youtube url, generate an article, edit it, connect a channel, review
+new outputs, manage billing. those are app screens. they have state. they have
+auth. they have forms and modals and background jobs. a client-rendered react
+app is a perfectly reasonable shape for that.
+
+then the public site grew around it.
+
+homepage. pricing. terms. privacy. feature pages. public product pages are not
+app screens. they are documents with a job: load fast, explain the product,
+show crawlers the real content, and share cleanly in previews.
+
+that is where the original shape broke down.
+
+## the failure mode
+
+the visible site looked fine in a browser. open the homepage, react booted, the
+router mounted, the content appeared. no obvious bug.
+
+but view the raw html and the problem was right there: a root element, a script
+bundle, and not much else.
+
+for an authenticated dashboard, that is fine. the user is already there. google
+is not the audience. a blank app shell that hydrates into the real UI is a
+normal tradeoff.
+
+for public marketing pages, it is a problem. crawlers are better at rendering
+javascript than they used to be, but "google can probably render this later" is
+not a strategy. neither are social cards, link unfurlers, small search bots, or
+the random tool that grabs your page once and never waits for the app.
+
+the page needs to be a page before react starts.
+
+## the options
+
+there were three real paths.
+
+**migrate the app to an ssr framework.** this is the clean architectural answer
+if you are starting from scratch or if every route needs server rendering.
+vidpipe was already on a client router, and most of the product is an
+authenticated app. moving everything just so the public pages have html would
+mean days of framework migration, plus a permanent server-rendering surface to
+maintain.
+
+**split marketing into a separate static site.** this is clean in theory. it
+also creates a second repo or app, duplicated design tokens, duplicated deploy
+mental overhead, and a handoff between the marketing shell and the product app.
+worth it for a larger company. too much ceremony for this stage.
+
+**prerender the public routes at build time.** keep the app shape. after the
+build, open the public routes, let react render them once, save the result as
+static html, and let the existing spa fallback handle everything else.
+
+that third path was the right one for Vidpipe.
+
+## prerendering is not magic
+
+This is not a new rendering model. It is a build step.
+
+The script starts a tiny preview server against the built frontend, opens each
+public route in a headless browser, waits for the app to settle, then writes the
+resulting html to the static output folder.
+
+The important part is the route list.
+
+Marketing pages are in. App routes are out.
+
+That boundary matters. I do not want a logged-in dashboard route captured into
+static output by accident. I also do not want crawler-facing pages depending on
+runtime auth state. The prerender pass runs as a logged-out visitor, and only
+the public routes are included.
+
+The result is simple:
+
+- `/` serves real html
+- `/pricing` serves real html
+- `/privacy` serves real html
+- gated routes fall through to the app
+- the app still behaves like the same client-rendered product after hydration
+
+No database call at request time. No server runtime for the marketing pages. No
+framework migration.
+
+## canonicals matter more than the script
+
+Prerendering the body was only half the fix.
+
+The first pass exposed a different problem: route metadata had been treated like
+an app concern instead of a document concern. Some public routes inherited the
+homepage canonical. Some had thin descriptions. The sitemap only covered a tiny
+slice of the site.
+
+That is the kind of thing you miss when every page is just "the app."
+
+A public page needs its own identity:
+
+- title
+- meta description
+- canonical url
+- open graph title and description
+- sitemap entry
+
+That list is boring. It is also the difference between "we technically render"
+and "this page is a real document on the web."
+
+The final Vidpipe pass took the sitemap from a placeholder-sized surface to the
+actual set of public pages. It also made canonicals route-specific, so every
+page points at itself instead of quietly telling search engines that the
+homepage is the only canonical page.
+
+## the vercel gotcha
+
+The bug that almost made the fix look broken was not seo. It was routing.
+
+Vidpipe's frontend deploy uses Vercel with clean urls. The old fallback rewrote
+unknown routes to `/index.html`, which sounds right for a spa. With clean urls
+enabled, that target can redirect, and the app fallback breaks.
+
+The fix was to rewrite to `/` instead.
+
+Static files still win first. That means a prerendered `/pricing` page serves
+as a static document, while an app route that does not exist as a static file
+falls back to the react app.
+
+Small config detail. Big production difference.
+
+## client-rendered is still fine
+
+This is the part people get weird about. The conclusion is not "client-rendered
+apps are bad for seo."
+
+The conclusion is that different routes have different jobs.
+
+For a logged-in dashboard:
+
+- seo does not matter
+- auth state matters
+- interaction matters
+- loading states are acceptable
+- client-side routing is a good fit
+
+For public product pages:
+
+- the first html response matters
+- metadata matters
+- social unfurls matter
+- crawl budget matters
+- javascript should improve the page, not create it
+
+Those can live in the same codebase. They just should not pretend to be the
+same kind of page.
+
+## when i would not do this
+
+I would not use this trick if the public pages were highly dynamic per request.
+If pricing, availability, localization, personalization, or search results all
+needed request-time data, build-time prerendering would be the wrong shape.
+
+I would also skip it if the app was already on a framework with clean static or
+server rendering for public routes. If the right primitive is already there, use
+it.
+
+This was a retrofit. A practical one.
+
+The test was not "is this the purest architecture." The test was "does this make
+Vidpipe's public surface crawlable without turning a product fix into a
+framework migration."
+
+It did.
+
+## the rule i kept
+
+If a route is trying to acquire a user, it should be a document first and an app
+second.
+
+If a route is helping an existing user do work, it can be an app first.
+
+That split is the whole lesson. The mistake was not choosing a client-rendered
+app. The mistake was letting the marketing pages inherit that choice after their
+job changed.
+
+Vidpipe did not need a new framework. It needed its public pages to exist before
+react arrived.
+
