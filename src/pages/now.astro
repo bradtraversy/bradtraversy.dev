@@ -2,39 +2,43 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const ACTIVE_STATUSES = ['alpha', 'beta', 'live', 'local'];
 const allProjects = await getCollection('projects');
-const currentlyBuilding = allProjects
-  .filter((p) => p.data.featured || ACTIVE_STATUSES.includes(p.data.status))
-  .sort((a, b) => {
-    if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
-    return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
-  })
-  .slice(0, 6);
+const projectsBySlug = new Map(allProjects.map((project) => [project.id, project]));
+const currentlyBuildingSlugs = [
+  'ai-blueprint',
+  'vidpipe',
+  'multiprompter',
+  'mission-control',
+  'bradtraversy-dev',
+  'stackmaven',
+];
+const currentlyBuilding = currentlyBuildingSlugs
+  .map((slug) => projectsBySlug.get(slug))
+  .filter((project) => project !== undefined);
 
 // Manual focus notes per project (1-line "what's the active push here").
 // Update these when the focus shifts; if a project isn't listed, the card
 // still renders with its tagline as fallback.
 const focusNotes: Record<string, string> = {
-  memcrate:
-    'v0.3.3 shipped to crates.io. memcrate.dev landing + docs + pagefind search live. next is more skill packs (cursor, aider, mcp) on top of the format.',
+  'ai-blueprint':
+    'turning the blueprint into the default workflow layer: clearer gates, better resumes, status/check/adopt flows, and real use on active builds.',
   vidpipe:
-    'channel-connection pivot live. transcript-provider fallback in. publishing destinations (wordpress, medium, ghost) are next when i swing back.',
-  'bradtraversy-dev':
-    'launched. daily content polish, project + tool pages filling out, devlog cadence holding.',
+    'back in the product lane. seo prerendering is in, publishing destinations are the next serious feature, and the bundle needs a cleanup pass.',
+  multiprompter:
+    'mac teleprompter experiment. one script driving multiple synced viewer windows, built for recording setups where the script has to follow me.',
   'mission-control':
-    'running daily on the homelab. write-back on calendar + per-profile heartbeats next. paperclip will eventually take over the task lane.',
-  devsheets:
-    'on autopilot. sheets land via the create/audit/validate/sync skill chain when i pick a topic from the backlog.',
-  webutils:
-    'maintenance mode. adding a tool when i need one and can\'t find a clean version of it elsewhere.',
+    'still the private ops surface for the vault. current arc is making the automation fleet easier to see, trust, and hand work to.',
+  'bradtraversy-dev':
+    'using the site as the public trail for what shipped: articles, devlogs, project pages, and the small tool catalog.',
+  stackmaven:
+    'background publication lane. keep the quality bar, but it is not the main sprint while product work gets the deeper block.',
 };
 
-const lastUpdated = '2026-05-23';
+const lastUpdated = '2026-06-29';
 ---
 
 <BaseLayout
-  title="now — brad traversy"
+  title="now | brad traversy"
   description="what i'm actively working on right now."
   pageTitle="now.md"
   currentSection="now"
@@ -50,29 +54,29 @@ const lastUpdated = '2026-05-23';
   <section class="section">
     <h2 class="h2"><span class="hash">## </span>right now</h2>
     <p>
-      deepest into <a href="https://stackmaven.io" class="link">stackmaven</a>,
-      a curated catalog of dev/AI tools, models, and frameworks with a news
-      layer and (later) a stack recommender. v0.2 alpha is live; phase 2 is
-      catalog depth (15 → 250 entries) and sustained news cadence.
+      main focus: using <a href="/projects/ai-blueprint" class="link">ai blueprint</a>
+      as the workflow layer for real builds, not just as a repo template. the
+      goal is to make planning, implementation, checking, status, and adoption
+      feel repeatable enough that every product block starts with the same
+      rails.
     </p>
     <p>
-      on the homelab side, cut over from a single autonomous agent
-      (travis on openclaw) to a five-profile hermes setup (sysadmin,
-      developer, creator, secretary, keeper). one runtime, one shared
-      vault, five lanes. <a href="/devlog/2026-05-17-from-travis-to-hermes" class="link">devlog</a>.
+      product-wise, <a href="/projects/vidpipe" class="link">vidpipe</a> is back
+      near the top of the list. the public pages are crawlable now, the model
+      routing is cleaner, and the next useful push is publishing: wordpress
+      first, then the rest only if the workflow earns it.
     </p>
     <p>
-      shipped <a href="/tools/linesmith" class="link">linesmith</a> this week.
-      vs code extension that types code into your editor on cue for tutorial
-      recordings. editor-side companion to typesmith: same idea, different
-      surface. live on the marketplace and open vsx.
-      <a href="/devlog/2026-05-22-shipping-linesmith" class="link">devlog</a>.
+      <a href="/projects/multiprompter" class="link">multiprompter</a> is the
+      smaller build i keep wanting for recording: one script, multiple synced
+      windows, less awkward script-reading during videos. still beta, but it is
+      the right kind of personal tool.
     </p>
     <p>
-      vidpipe is still real but slower-cadence now that the channel
-      pivot is in. bradtraversy.dev keeps getting daily content polish
-      (project + tool pages, devlog cadence, the homelab article).
-      less youtube production than usual. more shipping.
+      the automation fleet also got rebuilt around a cleaner orchestrator and
+      separate work lanes. that matters less as a public product and more as the
+      operating layer under the rest of the work. i wrote the current shape up
+      in <a href="/articles/my-agent-stack-changed-again" class="link">my agent stack changed again</a>.
     </p>
   </section>
 
@@ -101,25 +105,24 @@ const lastUpdated = '2026-05-23';
     <h2 class="h2"><span class="hash">## </span>what i'm thinking about</h2>
     <ul class="prose-list">
       <li>
-        whether specialization beats generalization for autonomous agents.
-        one agent doing everything vs. four lanes that don't overlap. the
-        hermes swap is the bet i'm making on this
+        how much of product work can be turned into a calm blueprint workflow
+        without making it feel like ceremony. the sweet spot is just enough
+        structure that the ai does not drift
       </li>
       <li>
-        editorial-voice publication brands as standalone businesses. what
-        does "the wirecutter for dev tools" look like when it's also an
-        active recommender, not just a directory
+        whether vidpipe is a product problem or a distribution problem. the
+        crawlable-site work fixed the technical floor; now the question is
+        whether the publishing flow is useful enough to push harder
       </li>
       <li>
-        whether "indie builder + known person" beats "new company brand + same
-        products" for distribution. (rebranding the public site from a brand
-        name to my personal name was the bet i made on that one; stackmaven
-        is the opposite bet, brand-first)
+        personal tools as unfair advantages. multiprompter, linesmith,
+        typesmith, and the agent workflow are all small things that make
+        recording and building less annoying
       </li>
       <li>
-        what a vault-native dashboard looks like when the markdown <em>is</em>{' '}
-        the database, and what an orchestration layer on top of it (paperclip)
-        does that the dashboard doesn't
+        stackmaven is still interesting, but it is lower in the stack right now:
+        maintain the editorial lane, avoid filler, and let the automation catch
+        the high-signal stuff while the product work gets the deeper focus
       </li>
     </ul>
   </section>
