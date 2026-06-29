@@ -1,0 +1,45 @@
+---
+title: rebuilding the automation fleet
+publishDate: 2026-06-29
+draft: false
+tags: [devlog, agent-workflow, claude, decision]
+project: mission-control
+---
+
+the automation stack got rebuilt this week.
+
+the old setup had useful pieces, but the ownership model was getting muddy:
+some work lived in cron, some in agent profiles, some in desktop-connected
+routines, and some in one-off scripts. it worked, which is always the trap.
+working is not the same as understandable.
+
+the new shape is simpler: one orchestrator owns schedules and assignments.
+specialized agents do the work. the notification layer just posts the result.
+
+the fleet now has separate lanes for development, research, content ideas,
+ops, calendar and inbox work, plus one system-admin specialist for homelab
+tasks that need the old toolset. the daily routines are the practical test:
+
+- morning research digest
+- youtube idea generation from that digest
+- calendar sync into the vault
+- morning briefing
+- vault security scan
+- weekly session archive
+
+the key decision was not to mirror every old profile into the new system.
+local Claude and Codex agents are faster for most work, and they already have
+the repo and vault context. the older agent runtime still earns its place for
+one specialist lane and for Discord output, but it no longer has to be the
+center of the system.
+
+the other important change: dev agents run like separate developers. each run
+gets an isolated workspace instead of sharing one checkout. that makes the
+review loop feel more like normal team work: assign task, get branch, inspect
+diff, merge when it earns it.
+
+there is still one routine left to port, but the architecture is finally
+coherent again.
+
+longer follow-up: [my agent stack changed again](/articles/my-agent-stack-changed-again).
+

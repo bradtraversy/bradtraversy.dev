@@ -1,0 +1,193 @@
+---
+title: my agent stack changed again
+dek: the agent setup moved from profile-level automation to one orchestrator, specialized workers, and reviewable workspaces.
+publishDate: 2026-06-29
+draft: false
+tags: [agents, agent-workflow, meta, claude]
+relatedProjects: [mission-control]
+---
+
+I wrote about my agent setup a little over a month ago.
+
+At the time, the architecture was pretty simple: interactive agents when I was
+at the keyboard, autonomous profiles for scheduled work, and a shared markdown
+vault so everyone could pick up context without asking me to repeat myself.
+
+That setup worked.
+
+Then it started to get blurry.
+
+Some routines lived in cron. Some lived inside autonomous profiles. Some were
+desktop-connected because they needed account access. Some were just scripts I
+trusted because I had watched them work three times. None of that was a crisis,
+but it was starting to feel like a system where the map was more complicated
+than the territory.
+
+So I rebuilt the top layer.
+
+The new rule: one orchestrator owns scheduled work and assignments. Specialized
+agents do the work. The vault stays the shared source of truth.
+
+## what changed
+
+The biggest change is not a new model. It is ownership.
+
+Before, each autonomous lane owned a mix of identity, schedule, execution, and
+output. That sounds convenient until you want to answer a boring question:
+
+what is supposed to run tomorrow morning?
+
+If the answer lives across cron files, profile configs, desktop routines, and
+notes in the vault, the system works only as long as I remember it perfectly.
+That is exactly the kind of memory tax I built this setup to avoid.
+
+Now the orchestrator owns the schedule.
+
+Agents own capability.
+
+The vault owns durable context.
+
+Those are separate jobs.
+
+## the current shape
+
+There are still interactive agents and autonomous agents.
+
+The interactive layer is what I use when I am working directly: coding,
+debugging, writing, reviewing diffs, making product decisions. That is still the
+center of real work. I do not want the system pretending I am not in the loop.
+
+The autonomous layer now has clearer lanes:
+
+- **developer agents** for repo work
+- **research** for daily tech intake
+- **creator** for turning research into video ideas
+- **ops** for maintenance and safety checks
+- **secretary** for calendar, inbox, and morning briefing work
+- **system admin** for homelab tasks that need the older specialist runtime
+
+The names are boring on purpose. I do not want characters. I want job titles.
+When something posts an ops alert, I want to read it as an ops alert, not as a
+message from a mascot with opinions.
+
+## why the older runtime stayed
+
+The tempting move would have been to mirror every old profile into the new
+orchestrator: one old developer, one old creator, one old secretary, one old
+sysadmin, all preserved as-is.
+
+I decided against that.
+
+A local Claude or Codex agent already has the repo, the vault, the terminal, and
+the model quality I want for most work. Routing a task through a slower profile
+runtime just because that profile used to own the lane is nostalgia, not
+architecture.
+
+So the older runtime got smaller.
+
+It still earns a place for one specialist system-admin lane and for lightweight
+Discord output. It does not need to be the center of every workflow anymore.
+
+That was the real simplification. Not deleting the old tool. Shrinking it to
+the jobs where it is still the best fit.
+
+## isolated workspaces matter
+
+The developer side changed in a way I care about a lot: runs now use isolated
+workspaces.
+
+That makes the agents feel less like background scripts and more like separate
+developers.
+
+A task gets assigned. The agent works in its own checkout. The output is a
+branch or a diff I can review. If I do not like it, I do not have to untangle my
+working tree from its changes.
+
+This sounds small until you have two agents and one human all touching code in
+the same week.
+
+Shared checkouts are fine when there is one actor. They get annoying fast when
+there are several. The minute an agent can change files without me watching the
+whole time, isolation stops being a nice-to-have.
+
+It becomes the difference between "useful teammate" and "why is my repo dirty."
+
+## the morning pipeline
+
+The best test of the rebuild is the morning routine.
+
+The sequence is intentionally boring:
+
+1. research agent writes the daily tech digest
+2. creator reads the digest and drafts video ideas
+3. secretary syncs the calendar into the vault
+4. secretary writes a morning briefing
+5. ops runs maintenance checks later in the morning
+
+That chain crosses different kinds of work: research, content judgment, account
+context, vault writing, notifications. It is exactly where the old setup was
+starting to blur.
+
+Now each lane has a small job, and the ordering lives in the orchestrator.
+
+The outputs still land in plain files. I can read them in Obsidian, surface them
+inside Mission Control, or ignore them and let the next step consume them. The
+storage did not change. The control plane did.
+
+## what did not change
+
+The vault is still the center.
+
+That is the part I am most confident in. The model changes, the runtime changes,
+the orchestration layer changes, but the durable context stays in markdown files
+I can read without a vendor.
+
+Projects, current state, session logs, task files, daily notes, research
+digests. The agents do not own the truth. They read and write it.
+
+That one constraint keeps the whole setup from turning into a magic box.
+
+It also makes migrations less scary. I can move a routine from one runtime to
+another without migrating the memory of the business. The memory is already in
+the vault.
+
+## what is still rough
+
+The rebuild made the system cleaner, not finished.
+
+There is still one publication routine to port. The automation registry needs a
+fresh pass so the dashboard reflects what is actually live. The old docs need
+to stop talking like the previous setup is current. Some jobs may move back to
+plain cron if they do not benefit from an agent at all.
+
+That last point matters. "Put it in the agent system" is not always the right
+answer.
+
+If a job is deterministic, script it.
+
+If a job needs judgment, assign it.
+
+If a job needs review, make the review surface obvious.
+
+That is the rule I am trying to keep.
+
+## the actual lesson
+
+The agent stack changed again because the work changed.
+
+The first version proved that specialized lanes beat one giant assistant. The
+new version keeps that lesson, but moves scheduling and assignment out of the
+lanes themselves.
+
+That feels right.
+
+Agents should be good at their jobs. They should not each be their own tiny
+operations department.
+
+One orchestrator. Specialized workers. Shared markdown memory. Reviewable
+output.
+
+That is the current shape.
+
+I am sure it will change again.
+
