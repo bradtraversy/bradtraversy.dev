@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-01T07:42:14.908Z",
+  "updatedAt": "2026-07-01T13:06:10.887Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76050,
-    "totalStars": 166688
+    "followers": 76052,
+    "totalStars": 166692
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66259,
+      "stars": 66263,
       "forks": 12104,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -92,67 +92,67 @@
   "recentEvents": [
     {
       "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-29T12:37:35Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-29T12:23:11Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-29T12:14:18Z",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-01T12:55:33Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-25T18:12:02Z",
+      "createdAt": "2026-07-01T12:37:38Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-23T17:57:01Z",
+      "createdAt": "2026-07-01T12:34:46Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-23T12:59:09Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-06-23T11:57:37Z",
+      "createdAt": "2026-07-01T12:31:05Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-23T11:48:45Z",
+      "createdAt": "2026-07-01T11:56:02Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-23T11:44:39Z",
+      "createdAt": "2026-07-01T11:54:05Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-06-22T11:18:25Z",
+      "createdAt": "2026-07-01T11:51:22Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-01T11:47:42Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-01T11:40:08Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-01T11:33:12Z",
       "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 634,
+    "total": 644,
     "weeks": [
       [
         0,
@@ -626,7 +626,7 @@
         0,
         3,
         0,
-        0
+        10
       ]
     ]
   }
