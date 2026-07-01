@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-01T13:06:10.887Z",
+  "updatedAt": "2026-07-01T18:47:32.006Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76052,
-    "totalStars": 166692
+    "followers": 76054,
+    "totalStars": 166693
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66263,
+      "stars": 66264,
       "forks": 12104,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40606,
-      "forks": 9740,
+      "stars": 40607,
+      "forks": 9738,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -44,7 +44,7 @@
       "description": "Shopping cart built with MERN & Redux",
       "url": "https://github.com/bradtraversy/proshop_mern",
       "stars": 2025,
-      "forks": 1221,
+      "forks": 1220,
       "language": "JavaScript",
       "pushedAt": "2024-01-15T16:26:04Z"
     },
@@ -74,7 +74,7 @@
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
       "stars": 1362,
-      "forks": 1665,
+      "forks": 1664,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
     },
