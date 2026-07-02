@@ -1,0 +1,38 @@
+---
+title: ai blueprint becomes a cross-tool workflow
+publishDate: 2026-07-01
+draft: false
+tags: [devlog, agent-workflow, decision]
+project: ai-blueprint
+---
+
+links: [repo](https://github.com/bradtraversy/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+ai blueprint started as a way to make ai-assisted coding less slippery. this
+week it moved a level down: not just a Claude Code workflow, but a portable
+workflow layer that can live in different agent surfaces.
+
+the practical change was adding Codex adapter skills alongside the Claude ones.
+that forced a useful cleanup. if the workflow only makes sense in one tool, it
+is probably leaning too hard on that tool's habits. the core loop should be
+boring enough to survive the surface changing:
+
+- onboard the repo
+- write the plans
+- generate the overview
+- pick one feature
+- implement one step
+- check the result
+- mark the step complete
+
+i also added `/doctor`, which is the command i kept wanting and not having. it
+does not build anything. it reads the setup and tells me whether the blueprint
+overlay, adapters, commands, plans, overview, and git state look sane.
+
+that matters because the workflow is becoming less about prompts and more about
+project hygiene. a good agent workflow should tell me when the project is ready
+to use it, when it has drifted, and what the next action should be.
+
+the funny part is that making it support more tools made the whole thing
+simpler. the abstractions that survived were the ones that belonged in files,
+not in any one chat runtime.
