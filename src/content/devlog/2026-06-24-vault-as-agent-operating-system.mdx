@@ -1,0 +1,32 @@
+---
+title: the vault is the agent operating system
+publishDate: 2026-06-24
+draft: false
+tags: [devlog, agent-workflow, obsidian, meta]
+---
+
+links: private vault | no public repo or live url
+
+one of the unglamorous parts of running multiple ai tools is deciding what they
+read first.
+
+the answer has become more important than the model choice. if each tool starts
+with a different memory, then the system is not really shared. it is just a set
+of assistants with similar vibes and different blind spots.
+
+so i tightened the entrypoint model around the vault.
+
+`AGENTS.md` is the global policy layer. it covers how agents should behave
+across repos and tools. `CLAUDE.md` is the vault operating manual. it explains
+the structure, the memory workflow, the session logs, and the project map.
+root-level compatibility files point into that split instead of copying it.
+
+that sounds like bookkeeping, but it changed the feel of the whole setup. Codex,
+Claude Code, Cowork, and the scheduled agents can all arrive at the same place:
+policy first, operating context second, task context third.
+
+the real lesson is that the vault is not just storage. it is the interface
+between tools. models come and go, and the orchestration layer keeps changing,
+but the durable state is still markdown i can read.
+
+the agents do not own the truth. they visit it.

@@ -1,0 +1,36 @@
+---
+title: scaffolding the ai skills directory
+publishDate: 2026-07-01
+draft: false
+tags: [devlog, agents, decision]
+---
+
+links: repo not public yet | no live url yet
+
+the first real test bed for the updated blueprint is an ai skills directory.
+
+the idea is simple: skills are becoming shareable software, but the trust model
+is terrible. a skill can look like a helpful workflow and still carry risky
+instructions, hidden dependencies, or assumptions that do not belong in someone
+else's environment.
+
+so the directory cannot just be a pile of downloads. the interesting part is
+the review surface.
+
+i scaffolded the app as an Astro workspace with React islands for the places
+that need real interaction. that feels like the right split. most of the site
+is directory and content. upload, validation, and review flows can be islands
+instead of turning the whole thing into a client app.
+
+the first version should probably accept both uploaded skill folders and git
+repo links. uploads are better for casual users. repo links are better for
+maintainers who already version their work.
+
+the part i care about most is the validation language. i do not want a green
+checkmark that pretends to mean "safe." i want clear signals: schema passes,
+metadata present, suspicious instructions found, network or dependency warnings,
+manual review needed.
+
+the directory is useful only if it teaches people not to blindly trust the thing
+they just downloaded. discovery is half the product. skepticism is the other
+half.
