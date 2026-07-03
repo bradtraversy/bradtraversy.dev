@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-07-03T09:26:38.739Z",
+  "updatedAt": "2026-07-03T14:19:48.012Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76056,
+    "followers": 76059,
     "totalStars": 166711
   },
   "topRepos": [
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66284,
+      "stars": 66285,
       "forks": 12106,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -83,7 +83,7 @@
       "fullName": "bradtraversy/chatcord",
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
-      "stars": 1206,
+      "stars": 1205,
       "forks": 1150,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
