@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-04T13:44:12.935Z",
+  "updatedAt": "2026-07-04T19:21:22.435Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76061,
-    "totalStars": 166717
+    "followers": 76064,
+    "totalStars": 166716
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66293,
+      "stars": 66294,
       "forks": 12106,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40604,
+      "stars": 40602,
       "forks": 9733,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,8 +33,8 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16095,
-      "forks": 4387,
+      "stars": 16094,
+      "forks": 4386,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -93,6 +93,24 @@
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-04T14:57:33Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-04T14:49:30Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-04T14:46:39Z",
+      "details": "created branch npx"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-07-04T12:33:38Z",
       "details": "pushed to main"
     },
@@ -131,28 +149,10 @@
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-07-04T11:05:47Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-02T15:27:44Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-02T15:11:43Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-02T14:33:15Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 659,
+    "total": 661,
     "weeks": [
       [
         0,
@@ -629,7 +629,7 @@
         11,
         6,
         0,
-        8
+        10
       ]
     ]
   }
