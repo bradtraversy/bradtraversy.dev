@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-06T10:47:28.017Z",
+  "updatedAt": "2026-07-06T15:43:13.255Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76086,
-    "totalStars": 166743
+    "followers": 76090,
+    "totalStars": 166741
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66313,
+      "stars": 66315,
       "forks": 12107,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40607,
-      "forks": 9733,
+      "stars": 40603,
+      "forks": 9734,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16095,
+      "stars": 16094,
       "forks": 4387,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -83,13 +83,19 @@
       "fullName": "bradtraversy/chatcord",
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
-      "stars": 1205,
+      "stars": 1204,
       "forks": 1150,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-06T11:31:14Z",
+      "details": "pushed to main"
+    },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
@@ -143,16 +149,10 @@
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-07-04T11:09:19Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-04T11:08:09Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 661,
+    "total": 662,
     "weeks": [
       [
         1,
@@ -624,7 +624,7 @@
       ],
       [
         0,
-        1
+        2
       ]
     ]
   }
