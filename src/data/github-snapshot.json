@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-07T14:47:45.493Z",
+  "updatedAt": "2026-07-07T20:02:48.377Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76094,
-    "totalStars": 166753
+    "followers": 76097,
+    "totalStars": 166759
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66321,
-      "forks": 12104,
+      "stars": 66323,
+      "forks": 12105,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40603,
-      "forks": 9732,
+      "stars": 40604,
+      "forks": 9731,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -54,7 +54,7 @@
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
       "stars": 1963,
-      "forks": 1268,
+      "forks": 1269,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
     },
@@ -90,6 +90,18 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-07T17:46:20Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-07T16:04:11Z",
+      "details": "deleted branch npx"
+    },
     {
       "type": "IssueCommentEvent",
       "repo": "bradtraversy/ai-blueprint",
@@ -137,22 +149,10 @@
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-07-04T14:46:39Z",
       "details": "created branch npx"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-04T12:33:38Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-04T12:23:21Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 663,
+    "total": 664,
     "weeks": [
       [
         1,
@@ -625,7 +625,7 @@
       [
         0,
         2,
-        1
+        2
       ]
     ]
   }
