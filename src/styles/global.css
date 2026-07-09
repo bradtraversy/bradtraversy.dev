@@ -531,6 +531,11 @@ a.ico {
   color: var(--blue);
   border-color: rgba(122, 162, 247, 0.28);
 }
+.pill.in-progress {
+  background: rgba(224, 175, 104, 0.15);
+  color: var(--accent);
+  border-color: rgba(224, 175, 104, 0.28);
+}
 /* Pricing */
 .pill.free {
   background: var(--bg-3);

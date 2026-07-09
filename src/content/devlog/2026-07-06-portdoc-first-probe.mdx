@@ -1,0 +1,41 @@
+---
+title: portdoc gets its first real port probe
+publishDate: 2026-07-06
+draft: false
+tags: [devlog, react, typescript, agent-workflow]
+project: portdoc
+---
+
+links: repo: https://github.com/bradtraversy/portdoc | live url pending
+
+PortDoc went from mockups to a real local app in one run through the blueprint
+loop.
+
+the first feature locked the snapshot shape. everything hangs off that json:
+the browser dashboard, the `--json` command, and the probes that eventually
+replace the mock data. i kept the shape plain on purpose: generated timestamp,
+projects, services, ports, exposure labels, process details, and optional stale
+signals.
+
+then the app got its shell. the rust binary starts an axum server on localhost,
+serves the embedded web app, opens the browser by default, and gives scripts a
+json escape hatch. the terminal is a launcher. the browser is the product.
+
+the ui pass moved the prototype into the real app: top nav, cards, grouped
+projects, service rows, status badges, search, refresh, and the graphite theme.
+after that, the probe boundary landed, followed by the first linux probe. it
+reads listening ports through `/proc`, joins them to process metadata when it
+can, and treats unknown owners as real data instead of errors.
+
+what shipped:
+
+- snapshot contract shared by ui and cli
+- embedded react dashboard
+- local axum server and browser launcher
+- probe abstraction with linux-first implementation
+- listening-port scan with pid and process metadata
+
+this is the point where the product starts becoming useful. the next feature is
+the adapter that swaps mock services for the real probe data, then the fun
+part begins: turning `node` and raw ports into project names, framework labels,
+conflict signals, and stale-service hints.

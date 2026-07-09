@@ -1,0 +1,67 @@
+---
+name: PortDoc
+tagline: a local control panel for running dev servers, ports, conflicts, and stale processes
+description: |
+  a local dev server control panel for developers who keep several apps,
+  apis, databases, and docker services running at once. it shows what owns each
+  port, which project it came from, what url to open, and what looks stale.
+status: alpha
+badge: In Progress
+stack: [Rust, Axum, React, TypeScript, Vite, Tailwind, procfs]
+heroImage: ./portdoc-hero.png
+heroImageAlt: PortDoc dashboard showing running service counts, active local project rows for ai-skills-directory, portdoc, and startdev, plus grouped local ports
+publishDate: 2026-07-06
+featured: true
+---
+
+## what it does
+
+PortDoc opens a local web ui that answers the annoying questions around dev
+servers:
+
+- **what is running** across local ports and dev services
+- **which project owns it** based on process metadata and project-root hints
+- **what url to open** for each local app or api
+- **why a port is taken** when a server starts on the wrong number or fails
+- **what looks stale** from an old terminal tab or forgotten repo
+- **which services are exposed** as local-only, lan-visible, docker-bound, or
+  unknown
+
+the terminal launches it. the browser is the product.
+
+## why i built it
+
+i constantly have a few local apps running at once: astro, next, vite, node
+apis, workers, local databases, docker containers, and the occasional process
+that should have died yesterday. the usual answer is some mix of `lsof`, `ss`,
+`ps`, memory, and guessing.
+
+that is fine once. it is not fine as a daily workflow. i wanted a calm dashboard
+that thinks in projects, apps, ports, and urls, not raw socket trivia.
+
+## how it's built
+
+a quick tour:
+
+- **rust single binary**: the app runs locally and ships as one executable
+- **axum server**: serves the browser ui and exposes the local snapshot api
+- **embedded vite app**: react and typescript for the dashboard, bundled into
+  the binary for release builds
+- **snapshot contract**: one json shape feeds the ui and `portdoc --json`
+- **linux probe**: reads listening ports and process metadata through `/proc`
+  with unknown owners treated as data, not failure
+- **dashboard ui**: project cards, services table, status callouts, actions,
+  and a graphite theme tuned for quick scanning
+
+## what's next
+
+the first five build features are in: the snapshot contract, embedded shell,
+dashboard ui, probe boundary, and linux port probe. next is the adapter that
+replaces mock services with real probe data behind the same contract.
+
+after that, the useful work is developer labeling: project root detection,
+framework names, package managers, git branches, stale scoring, and conflict
+signals that feel obvious at a glance.
+
+> the win is not seeing more network data. the win is knowing which old dev
+> server is blocking the thing i actually want to run.

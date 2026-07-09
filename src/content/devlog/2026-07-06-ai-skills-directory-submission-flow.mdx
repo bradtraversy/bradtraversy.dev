@@ -1,0 +1,41 @@
+---
+title: building the ai skills directory submission flow
+publishDate: 2026-07-06
+draft: false
+tags: [devlog, agents, nodejs, react]
+project: ai-skills-directory
+---
+
+links: repo: https://github.com/bradtraversy/ai-skills-directory | live url pending
+
+the ai skills directory stopped being just a directory shell and got its first
+real product loop: getting a skill package into the system safely.
+
+the main path now starts with a github url. the api parses the repo, pins the
+commit, supports skill folders inside monorepos, builds a sorted snapshot, and
+stores that snapshot by content hash. the hash comes from the validator package
+itself, so the submission record and the eventual passport report agree on
+what source was checked.
+
+then i added the fallback path: zip uploads. that needed more paranoia than the
+happy path. the upload flow rejects path traversal, absolute paths, backslashes,
+oversized files, and zip entries that claim one size but inflate to another.
+the original zip gets stored separately, while validation reads from the same
+snapshot shape as the github path.
+
+the other important piece is ownership. normal users can submit repos they own,
+or org repos where membership is public. admins can curate listings directly.
+zip uploads are still honor-system, because there is no repo owner to verify.
+
+what shipped:
+
+- github-url submissions into draft records
+- content-addressed source snapshots
+- owner-scoped submission rules
+- hardened zip upload
+- a real `/submit` page wired to the api
+- the next queue and worker spec split into its own feature
+
+the next useful thing is the validator worker. submissions can get into the
+system now. next they need to turn into job progress, validation reports, and
+public Skill Passports.
