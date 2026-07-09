@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-09T09:48:43.691Z",
+  "updatedAt": "2026-07-09T15:13:23.582Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 322,
-    "followers": 76110,
-    "totalStars": 166788
+    "followers": 76111,
+    "totalStars": 166787
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66347,
-      "forks": 12104,
+      "stars": 66348,
+      "forks": 12103,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -53,7 +53,7 @@
       "fullName": "bradtraversy/devconnector_2.0",
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
-      "stars": 1963,
+      "stars": 1961,
       "forks": 1269,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
@@ -90,6 +90,12 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-07-09T15:12:54Z",
+      "details": "pushed to main"
+    },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
@@ -142,12 +148,6 @@
       "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-07-06T11:31:14Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-06T10:45:20Z",
       "details": "pushed to main"
     }
   ],
