@@ -6,6 +6,8 @@ const projects = await getCollection('projects');
 const sorted = projects.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
 );
+const badgeClass = (badge: string) =>
+  badge.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 ---
 
 <BaseLayout
@@ -36,6 +38,11 @@ const sorted = projects.sort(
               </div>
               <div class="card-status">
                 <span class:list={['pill', project.data.status]}>{project.data.status}</span>
+                {project.data.badge && (
+                  <span class:list={['pill', badgeClass(project.data.badge)]}>
+                    {project.data.badge}
+                  </span>
+                )}
               </div>
             </a>
           ))}

@@ -32,6 +32,8 @@ const relatedArticles = allArticles
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
 const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
+const badgeClass = (badge: string) =>
+  badge.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 ---
 
 <BaseLayout
@@ -49,6 +51,13 @@ const fmtDate = (d: Date) => d.toISOString().slice(0, 10);
 
     <div class="project-meta">
       <span class:list={['pill', entry.data.status]}>{entry.data.status}</span>
+      {
+        entry.data.badge && (
+          <span class:list={['pill', badgeClass(entry.data.badge)]}>
+            {entry.data.badge}
+          </span>
+        )
+      }
       {
         entry.data.stack.length > 0 && (
           <span class="stack">
