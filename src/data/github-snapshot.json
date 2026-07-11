@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-10T19:39:00.708Z",
+  "updatedAt": "2026-07-11T03:14:20.175Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
     "followers": 76126,
-    "totalStars": 166803
+    "totalStars": 166806
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66365,
-      "forks": 12107,
+      "stars": 66369,
+      "forks": 12106,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40609,
-      "forks": 9732,
+      "stars": 40608,
+      "forks": 9733,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16096,
-      "forks": 4386,
+      "forks": 4387,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -64,7 +64,7 @@
       "description": "Node.js login, registration and access control using Express and Passport",
       "url": "https://github.com/bradtraversy/node_passport_login",
       "stars": 1757,
-      "forks": 1288,
+      "forks": 1287,
       "language": "EJS",
       "pushedAt": "2026-05-23T12:19:58Z"
     },
@@ -90,6 +90,24 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-10T22:34:38Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-10T22:34:25Z",
+      "details": "deleted tag v0.1.1-rc.1"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-10T22:30:10Z",
+      "details": "pushed to main"
+    },
     {
       "type": "IssueCommentEvent",
       "repo": "bradtraversy/portdoc",
@@ -131,28 +149,10 @@
       "repo": "bradtraversy/homebrew-tap",
       "createdAt": "2026-07-10T11:27:56Z",
       "details": "created branch main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-07-09T15:12:54Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-08T17:45:25Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-08T16:01:26Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 714,
+    "total": 716,
     "weeks": [
       [
         1,
@@ -628,7 +628,8 @@
         11,
         13,
         4,
-        7
+        9,
+        0
       ]
     ]
   }
