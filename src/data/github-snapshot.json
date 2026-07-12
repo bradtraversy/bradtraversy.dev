@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-12T08:24:12.456Z",
+  "updatedAt": "2026-07-12T10:28:44.411Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76130,
-    "totalStars": 166828
+    "followers": 76132,
+    "totalStars": 166830
   },
   "topRepos": [
     {
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40611,
+      "stars": 40613,
       "forks": 9731,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -92,6 +92,12 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-07-12T10:28:31Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-07-11T13:11:53Z",
       "details": "pushed to main"
@@ -143,16 +149,10 @@
       "repo": "bradtraversy/portdoc",
       "createdAt": "2026-07-10T17:50:01Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-10T16:53:31Z",
-      "details": "commented on issue #1"
     }
   ],
   "contributions": {
-    "total": 720,
+    "total": 721,
     "weeks": [
       [
         0,
@@ -623,7 +623,7 @@
         3
       ],
       [
-        0
+        1
       ]
     ]
   }
