@@ -1,0 +1,40 @@
+---
+title: portdoc.dev is a real site now
+publishDate: 2026-07-12
+draft: false
+tags: [devlog, rust, astro, devtools]
+project: portdoc
+---
+
+links: [site](https://portdoc.dev) | [repo](https://github.com/bradtraversy/portdoc) | [project page](/projects/portdoc)
+
+PortDoc has a real website now. the old `portdoc.dev` deployment was just the
+install-path plumbing. useful, but not something you could send someone to if
+they asked what the app does.
+
+the new site is a small Astro build with one job: show the local-server problem,
+show the dashboard, and make the install paths obvious. it also preserves the
+important redirect behavior:
+
+- `/install.sh` stays a 307 redirect to the latest shell installer
+- `/install.ps1` stays a 307 redirect to the latest PowerShell installer
+- both routes point at GitHub Release assets from the public repo
+
+that 307 detail is boring until it is not. Windows PowerShell 5.1 is picky about
+redirects, so the site cannot casually swap that to a prettier status code.
+
+this also lands after v0.1.1, where the Windows binaries are signed and the
+installer path works cleanly on the fresh Windows VM. the website is not a
+launch campaign yet. it is the public front door that should have existed once
+the release was real.
+
+what shipped:
+
+- `portdoc.dev` serving the new Astro site
+- public repo link to `github.com/bradtraversy/portdoc`
+- install copy for Linux, macOS, Windows, and Homebrew
+- the orange pulse mark as the favicon
+- verified installer redirects after the deployment
+
+the product is still small, but the shape is there now: one binary, local-only
+dashboard, clear install path, no accounts, no telemetry.
