@@ -5,12 +5,16 @@ description: |
   a local dev server control panel for developers who keep several apps,
   apis, databases, and docker services running at once. it shows what owns each
   port, which project it came from, what url to open, and what looks stale.
-status: alpha
-badge: In Progress
-stack: [Rust, Axum, React, TypeScript, Vite, Tailwind, procfs]
+status: live
+badge: v0.1.1
+url: https://portdoc.dev
+repoUrl: https://github.com/bradtraversy/portdoc
+stack: [Rust, Axum, React, TypeScript, Vite, Tailwind, cargo-dist, Astro]
 heroImage: ./portdoc-hero.png
 heroImageAlt: PortDoc dashboard showing running service counts, active local project rows for ai-skills-directory, portdoc, and startdev, plus grouped local ports
+screenshots: ["./portdoc-website.webp"]
 publishDate: 2026-07-06
+updatedDate: 2026-07-12
 featured: true
 ---
 
@@ -26,6 +30,7 @@ servers:
 - **what looks stale** from an old terminal tab or forgotten repo
 - **which services are exposed** as local-only, lan-visible, docker-bound, or
   unknown
+- **how to install it** from `portdoc.dev` on Linux, macOS, and Windows
 
 the terminal launches it. the browser is the product.
 
@@ -48,20 +53,22 @@ a quick tour:
 - **embedded vite app**: react and typescript for the dashboard, bundled into
   the binary for release builds
 - **snapshot contract**: one json shape feeds the ui and `portdoc --json`
-- **linux probe**: reads listening ports and process metadata through `/proc`
-  with unknown owners treated as data, not failure
+- **platform probes**: linux, macOS, and Windows adapters collect socket and
+  process metadata with unknown owners treated as data, not failure
 - **dashboard ui**: project cards, services table, status callouts, actions,
   and a graphite theme tuned for quick scanning
+- **release pipeline**: cargo-dist builds the release artifacts, pushes the
+  Homebrew tap, and signs Windows binaries for v0.1.1
+- **astro site**: [portdoc.dev](https://portdoc.dev) is the public install page
+  and keeps `/install.sh` plus `/install.ps1` as 307 redirects to GitHub
+  Release assets
 
 ## what's next
 
-the first five build features are in: the snapshot contract, embedded shell,
-dashboard ui, probe boundary, and linux port probe. next is the adapter that
-replaces mock services with real probe data behind the same contract.
-
-after that, the useful work is developer labeling: project root detection,
-framework names, package managers, git branches, stale scoring, and conflict
-signals that feel obvious at a glance.
+v0.1.1 is public, the website is live, and Windows binaries are signed. the next
+round is less about proving the product can ship and more about making it useful
+every day: better labels, remembered services, contributor triage, and clearer
+signals for the old dev server that is blocking the one i actually want to run.
 
 > the win is not seeing more network data. the win is knowing which old dev
 > server is blocking the thing i actually want to run.

@@ -1,0 +1,37 @@
+---
+title: ai blueprint gets its own site
+publishDate: 2026-07-11
+draft: false
+tags: [devlog, agents, docs, astro]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/bradtraversy/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint now has a proper public site instead of living only as a GitHub
+README and a project page here.
+
+the site needed to do one thing cleanly: explain the control loop without making
+the workflow feel like a pile of prompt internals. the headline stayed simple:
+build with AI, stay in control. the subtext now names the real problem, vibe
+coding is fast until it breaks, then points to the actual shape of the workflow:
+plan, build, and prove one feature at a time.
+
+the content pass mostly removed weight. stack-specific recipes came out because
+they made the workflow feel less portable than it is. a new writing-your-plans
+doc went in because the two files people actually own, `project-plan.md` and
+`build-plan.md`, deserve a worked example. the docs also got sharper around
+Playwright evidence, prototype cleanup, local-only mode, and context-clear
+resume.
+
+what shipped:
+
+- public site at `ai-blueprint.dev`
+- docs for getting started, writing plans, testing, and command flow
+- GitHub links in the site and docs nav
+- no stack recipe section, keeping the workflow stack-neutral
+- installer-first copy using `npx create-ai-blueprint@latest`
+
+that last part matters. the product is not a scaffolder and not a magic prompt.
+it is a small set of files that keeps the AI honest enough for me to keep using
+it after the first demo works.
