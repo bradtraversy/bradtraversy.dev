@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-15T08:22:18.727Z",
+  "updatedAt": "2026-07-15T12:32:13.687Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76135,
-    "totalStars": 166856
+    "followers": 76136,
+    "totalStars": 166857
   },
   "topRepos": [
     {
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40614,
+      "stars": 40616,
       "forks": 9729,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -44,7 +44,7 @@
       "description": "Shopping cart built with MERN & Redux",
       "url": "https://github.com/bradtraversy/proshop_mern",
       "stars": 2024,
-      "forks": 1221,
+      "forks": 1222,
       "language": "JavaScript",
       "pushedAt": "2024-01-15T16:26:04Z"
     },
@@ -92,6 +92,30 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-07-15T12:31:56Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/apiprobe",
+      "createdAt": "2026-07-15T11:37:19Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-15T11:35:28Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-15T11:33:02Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-07-12T13:09:03Z",
       "details": "pushed to main"
@@ -125,34 +149,10 @@
       "repo": "bradtraversy/portdoc",
       "createdAt": "2026-07-11T09:52:09Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-10T22:34:38Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-10T22:34:25Z",
-      "details": "deleted tag v0.1.1-rc.1"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-10T22:30:10Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-10T17:51:17Z",
-      "details": "commented on issue #1"
     }
   ],
   "contributions": {
-    "total": 721,
+    "total": 726,
     "weeks": [
       [
         0,
@@ -626,7 +626,7 @@
         2,
         0,
         0,
-        0
+        5
       ]
     ]
   }
