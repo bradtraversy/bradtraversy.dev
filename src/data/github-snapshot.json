@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-07-15T12:32:13.687Z",
+  "updatedAt": "2026-07-15T13:52:16.143Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76136,
+    "followers": 76137,
     "totalStars": 166857
   },
   "topRepos": [
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40616,
-      "forks": 9729,
+      "forks": 9728,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -92,6 +92,12 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-15T12:37:24Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-07-15T12:31:56Z",
       "details": "pushed to main"
@@ -143,16 +149,10 @@
       "repo": "bradtraversy/homebrew-tap",
       "createdAt": "2026-07-11T09:58:03Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-11T09:52:09Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 726,
+    "total": 727,
     "weeks": [
       [
         0,
@@ -626,7 +626,7 @@
         2,
         0,
         0,
-        5
+        6
       ]
     ]
   }
