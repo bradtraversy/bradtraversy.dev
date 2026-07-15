@@ -1,4 +1,4 @@
-# CLAUDE.md — bradtraversy.dev site
+# AGENTS.md — bradtraversy.dev site
 
 > Operating rules for any AI agent working on this repo. Read this first, then read the specs as needed.
 
