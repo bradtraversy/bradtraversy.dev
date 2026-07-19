@@ -1,0 +1,29 @@
+---
+title: devsheets gets accounts without losing static pages
+publishDate: 2026-07-18
+draft: false
+tags: [devlog, nextjs, prisma, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+DevSheets now has user accounts in production, with GitHub and Google OAuth both working end to end.
+
+The product question behind this was bigger than auth. A cheatsheet site has a weird problem in the AI era: most of the raw information is easy to ask a model for. The useful version of DevSheets is not just more syntax on a page. It is the faster, trusted, stateful version of that experience.
+
+Accounts are the foundation for that. Once a user can sign in, the site can support saved sheets, favorites, "I know this already" state, and eventually personalized learning paths without turning every page into a dashboard.
+
+what shipped:
+
+- GitHub OAuth
+- Google OAuth
+- Prisma-backed user records
+- JWT sessions so the admin login flow still works
+- header auth that stays out of the statically generated sheet pages
+- a tighter admin authorization check
+- production verification on the live site
+
+The part I cared about most was keeping the public sheets crawlable and fast. Auth belongs around the edges of DevSheets, not in the middle of the page rendering model. The sheet pages still need to behave like good static content: indexable, quick, and boring in the best possible way.
+
+This gives DevSheets a clean next step. The site can stay useful to anonymous visitors while slowly becoming better for repeat users who want memory, progress, and saved reference points.

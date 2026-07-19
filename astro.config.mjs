@@ -16,6 +16,9 @@ import rehypePrettyCode from 'rehype-pretty-code';
 export default defineConfig({
   site: 'https://bradtraversy.dev',
   trailingSlash: 'never',
+  redirects: {
+    '/projects/ai-skills-directory': '/projects/skillpass',
+  },
   output: 'static',
   adapter: vercel(),
   integrations: [

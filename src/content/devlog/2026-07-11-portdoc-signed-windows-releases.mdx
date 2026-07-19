@@ -1,0 +1,28 @@
+---
+title: portdoc ships signed windows releases
+publishDate: 2026-07-11
+draft: false
+tags: [devlog, rust, tool-launch]
+project: portdoc
+---
+
+links: [site](https://portdoc.dev) | [repo](https://github.com/bradtraversy/portdoc) | [project page](/projects/portdoc)
+
+PortDoc v0.1.1 is the first release that feels like a real install path on Windows.
+
+The main goal was getting the Windows binary signed so it could pass the normal trust checks on a fresh machine. That sounds like release plumbing, but for a desktop developer tool it changes the whole feel of the project. A tool can be small, rough, and early, but if the install path feels suspicious, people are going to bounce before they ever see the actual value.
+
+what shipped:
+
+- an Authenticode-signed Windows executable
+- an updated release pipeline that signs, repacks, and verifies artifacts
+- corrected checksums and release metadata after signing
+- a release candidate flow before the final v0.1.1 tag
+- README updates that make the signed Windows path clear
+- a reusable signing pattern for future tools
+
+The tricky bit was that signing happens after the build artifacts already exist. That meant the release workflow had to rebuild the archive around the signed binary, then make sure the checksums and manifest matched the final files that users would download.
+
+I also tested the result on a clean Windows 11 VM. That was the only check that really mattered. If the machine treats the binary like a normal app, the release pipeline is doing its job.
+
+This is not glamorous work, but it is the kind of boring trust layer every serious local tool eventually needs.

@@ -1,0 +1,28 @@
+---
+title: ai skills directory becomes skillpass
+publishDate: 2026-07-13
+draft: false
+tags: [devlog, agents, decision]
+project: skillpass
+---
+
+links: [repo](https://github.com/bradtraversy/skillpass) | live url pending | [project page](/projects/skillpass)
+
+AI Skills Directory has a sharper name now: SkillPass.
+
+The old name described the category. The new name describes the actual product. The differentiator is not just browsing agent skills. It is giving each skill a passport: metadata, validation results, distribution details, and enough trust signals that an agent or human can decide whether it belongs on their machine.
+
+The rebrand also forced a useful cleanup pass. A few placeholder surfaces were pretending the product was broader than it really was. I cut those back and kept the navigation focused on the parts that exist: browsing, submitting, and account actions.
+
+what changed:
+
+- repo renamed to `bradtraversy/skillpass`
+- product copy moved from generic directory language toward validation and passports
+- placeholder navigation links were removed
+- the standalone public validator idea was dropped
+- the CLI package direction was clarified
+- the full test suite stayed green after the rename
+
+Dropping the public validator was the big product decision. It sounded useful at first, but it duplicated the stronger parts of the system. Validation already belongs in ingest, download preflight, and CLI scanning. A separate anonymous checker would add complexity and quota pressure without making the core product much clearer.
+
+That was the theme of the whole session: make the thing more honest. SkillPass should not look larger than it is. It should make the important promise cleanly, then earn the rest over time.

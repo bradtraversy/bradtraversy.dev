@@ -1,0 +1,31 @@
+---
+title: making skillpass small enough to launch
+publishDate: 2026-07-11
+draft: false
+tags: [devlog, agents, nodejs, decision]
+project: skillpass
+---
+
+links: [repo](https://github.com/bradtraversy/skillpass) | live url pending | [project page](/projects/skillpass)
+
+The SkillPass launch plan got smaller in a good way.
+
+The project already had a lot of serious machinery: validation, admin review, reports, manifests, distribution metadata, and an eventual queue path. The risk was not that the system was too simple. The risk was that the launch version would carry too much infrastructure before there was enough traffic to justify it.
+
+So the work moved in two directions at once: keep the trust engine, but make the production footprint lean.
+
+what shipped:
+
+- an admin queue for submitted skills and reports
+- review states for accepting, rejecting, flagging, and resolving work
+- role-aware middleware around the admin surface
+- a launch setup that can run with fewer services
+- manifest inference from `SKILL.md` when no `skill.json` exists
+- distribution CTAs for skills, CLI installs, and external docs
+- a safer manifestless path that still rejects dangerous permissions
+
+The manifest inference piece is important. A strict metadata requirement can make a directory cleaner, but it can also block useful projects before people know the format. SkillPass can now infer reasonable non-critical details from the skill file itself while still refusing anything that needs explicit trust.
+
+That keeps the first version friendly without making it loose.
+
+The broader product call was to keep validation as the spine. The site can feel simple because the presentation is curated and link-first, not because the underlying checks disappear. That is the balance I want: easy to browse, harder to sneak unsafe stuff through.
