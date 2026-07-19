@@ -1,0 +1,27 @@
+---
+title: devsheets favorites and the build that timed out
+publishDate: 2026-07-18
+draft: false
+tags: [devlog, nextjs, prisma, postmortem]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+The accounts work gave DevSheets identity. The next useful bit was saving sheets.
+
+Favorites shipped as a small retention layer: logged-in users can save or unsave a cheat sheet and get a `/favorites` page. The important constraint was the same as auth: public sheet pages stay static. The save button is a client component that asks the API for its own state, so the main sheet content stays fast and crawlable instead of becoming user-specific HTML.
+
+what shipped:
+
+- a `Favorite` join table between users and cheat sheets
+- `POST` and `DELETE` endpoints for saving by slug
+- a per-sheet Save button next to Share
+- a `/favorites` page for logged-in users
+- navigation that exposes favorites when it makes sense
+
+Then production caught the interesting failure. The Vercel build prerenders a lot of pages, which hits the database in a burst. Neon serverless compute can be asleep; Prisma's default connection timeout hit `P1001` partway through the build, not on the first page. That mattered because it pointed away from schema mistakes and toward connection startup.
+
+The fix was tiny: keep the pooler host and add `connect_timeout=30` to the production `DATABASE_URL`. Redeploy went green. I also wrote a Prisma retry wrapper, but left it uncommitted because the environment change fixed the real bottleneck.
+
+Small feature, useful reminder: static-first apps still have runtime edges, and sometimes the bug is the build system waking up a database too aggressively.
