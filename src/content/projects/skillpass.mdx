@@ -1,15 +1,15 @@
 ---
-name: AI Skills Directory
-tagline: a directory for ai agent skills with validation, passports, and safer installs
+name: SkillPass
+tagline: a validated directory for ai agent skills, passports, and safer installs
 description: |
-  a public directory for reusable ai agent skills. it is built around a trust
-  model instead of a download pile: every submitted skill can be validated,
-  inspected, and shown with a public passport before someone installs it.
+  a public directory for reusable ai agent skills, built around a trust model
+  instead of a download pile. every submitted skill can be validated, inspected,
+  and shown with a public passport before someone installs it.
 status: alpha
 badge: In Progress
 stack: [Astro, React, Hono, Drizzle, Neon, Cloudflare R2, BullMQ]
 heroImage: ./ai-skills-directory-hero.png
-heroImageAlt: AI Skills Directory homepage showing the validated skills hero, search box, filters, and a smoke-clean skill listing
+heroImageAlt: SkillPass homepage showing the validated skills hero, search box, filters, and a smoke-clean skill listing
 publishDate: 2026-07-06
 featured: true
 ---
@@ -20,7 +20,7 @@ ai skills are starting to look like real software artifacts: instructions,
 workflow rules, permissions, tool assumptions, and setup requirements packaged
 for agents like Codex, Claude Code, Cursor, and similar tools.
 
-the directory is the public surface for finding and inspecting those skills:
+SkillPass is the public surface for finding and inspecting those skills:
 
 - **browse skills** by tool, category, risk, status, and maintainer
 - **submit a github url or zip** into a draft flow instead of emailing files
@@ -36,7 +36,7 @@ make changes in a repo. that should not be copied around as random markdown with
 no inspection layer.
 
 i wanted a place where skills can be shared, but the default posture is still
-skeptical. every skill starts untrusted. the directory earns confidence by
+skeptical. every skill starts untrusted. SkillPass earns confidence by
 showing what was checked, what was declared, what was detected, and what still
 needs human judgment.
 
@@ -64,7 +64,7 @@ the current push is the validation pipeline: queue the draft submissions,
 run the validator against pinned snapshots, write job progress, and turn the
 result into the first real passport flow.
 
-after that, the directory needs the publish path, source-file viewer, download
+after that, SkillPass needs the publish path, source-file viewer, download
 preflight, and admin review lane. the public URL and screenshots will come once
 there is enough real product to show without explaining the scaffolding.
 
