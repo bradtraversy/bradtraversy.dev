@@ -1,0 +1,41 @@
+---
+title: devsheets gets item search and a cleaner front door
+publishDate: 2026-07-19
+draft: false
+tags: [devlog, nextjs, prisma, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+DevSheets search moved from "find the sheet" to "find the thing inside the
+sheet."
+
+The old search was useful when you already knew the sheet you wanted, but it
+started to feel too shallow once the catalog passed 79 sheets. A query like
+`git rebase` should not just point you at the Git sheet. It should jump straight
+to the item that explains rebasing, conflict resolution, and the command you
+probably came for.
+
+what shipped:
+
+- Postgres full-text search over individual sheet items
+- a generated search vector with a GIN index, so there is no external search
+  service to run
+- prefix-aware queries for search-as-you-type behavior
+- rank boosting for the sheet subject, which keeps broad terms like `git` from
+  getting buried under incidental mentions
+- deep links that open the right sheet and scroll to the matching item
+
+The most interesting bug was the kind search work always seems to produce: the
+first version technically worked, but `git re` was not surfacing the results a
+human would expect. Switching to a prefix-aware query shape and normalizing the
+ranking fixed the feel of it.
+
+After that landed, the homepage got a proper facelift around the new behavior.
+Instead of treating search like a small utility, the front page now feels more
+like a command palette for the whole catalog: search first, fast sheet cards,
+and a dashboard preview for logged-in progress.
+
+This is the shape DevSheets needed. The site is still a cheat-sheet library, but
+the interaction is starting to feel closer to a working developer reference.
