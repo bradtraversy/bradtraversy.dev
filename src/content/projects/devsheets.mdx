@@ -9,7 +9,7 @@ status: live
 url: https://devsheets.io
 stack: [Next.js, React, Prisma, Postgres, Tailwind, Vercel]
 heroImage: ./devsheets-hero.png
-heroImageAlt: devsheets.io homepage with the developer cheat sheets hero, search bar, and 79+ cheat sheets count
+heroImageAlt: devsheets.io command-palette homepage with full-text search, sheet cards, and dashboard preview
 screenshots:
   - ./devsheets-hero.png
   - ./devsheets-git.png
@@ -41,7 +41,10 @@ and short notes. current categories:
 - **tools**: docker, git, npm, bun, prisma, playwright, zod
 - **systems**: apache, nginx, ollama
 
-new sheets land regularly. there's a backlog of 300+ topics still to build.
+new sheets land regularly. there is a backlog of 300+ topics still to build.
+
+search works at item level now. queries like `git rebase` can jump straight to
+the matching item inside the Git sheet instead of only returning a sheet card.
 
 ## stack
 
@@ -83,8 +86,8 @@ and reports back.
 ## what's next
 
 - keep working through the backlog
-- improve search (currently keyword-only, could use embeddings)
-- finish the retention layer with mark-as-known progress state
+- extend item-level search into the full search page
+- keep tightening the logged-in dashboard around progress and favorites
 - make accounts more useful without making accounts required
 
 > the goal is never "the most sheets." it's "the sheet you needed, when
