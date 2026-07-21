@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-21T08:36:02.508Z",
+  "updatedAt": "2026-07-21T14:03:50.151Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76166,
-    "totalStars": 166921
+    "followers": 76167,
+    "totalStars": 166925
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66458,
-      "forks": 12113,
+      "stars": 66460,
+      "forks": 12112,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40625,
+      "stars": 40627,
       "forks": 9729,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -91,6 +91,36 @@
   ],
   "recentEvents": [
     {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-21T11:47:56Z",
+      "details": "deleted branch codex/isolated-environments-mvp"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-21T11:47:45Z",
+      "details": "merged pull request #6"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-21T11:47:46Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-21T11:35:57Z",
+      "details": "opened pull request #6"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-21T11:35:25Z",
+      "details": "created branch codex/isolated-environments-mvp"
+    },
+    {
       "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-07-20T10:24:40Z",
@@ -119,40 +149,10 @@
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-07-19T13:03:14Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-19T10:36:33Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/apimocker",
-      "createdAt": "2026-07-16T17:49:27Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/apimocker",
-      "createdAt": "2026-07-16T16:52:00Z",
-      "details": "created branch codex/unique-post-titles"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-16T12:26:55Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-15T12:37:24Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 735,
+    "total": 740,
     "weeks": [
       [
         0,
@@ -624,8 +624,8 @@
       ],
       [
         4,
-        2,
-        0
+        4,
+        3
       ]
     ]
   }
