@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-20T19:48:22.093Z",
+  "updatedAt": "2026-07-21T03:16:34.058Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
     "followers": 76164,
-    "totalStars": 166911
+    "totalStars": 166915
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66449,
-      "forks": 12110,
+      "stars": 66452,
+      "forks": 12112,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -66,7 +66,7 @@
       "stars": 1756,
       "forks": 1285,
       "language": "EJS",
-      "pushedAt": "2026-05-23T12:19:58Z"
+      "pushedAt": "2026-07-21T01:28:54Z"
     },
     {
       "name": "react-crash-2021",
@@ -624,7 +624,8 @@
       ],
       [
         4,
-        2
+        2,
+        0
       ]
     ]
   }
