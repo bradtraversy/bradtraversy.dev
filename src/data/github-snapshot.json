@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-21T19:37:55.965Z",
+  "updatedAt": "2026-07-22T03:14:40.302Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
@@ -14,7 +14,7 @@
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
       "stars": 66464,
-      "forks": 12115,
+      "forks": 12114,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40628,
-      "forks": 9728,
+      "stars": 40627,
+      "forks": 9729,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -66,7 +66,7 @@
       "stars": 1756,
       "forks": 1285,
       "language": "EJS",
-      "pushedAt": "2026-07-21T01:28:54Z"
+      "pushedAt": "2026-07-21T21:42:47Z"
     },
     {
       "name": "react-crash-2021",
@@ -74,7 +74,7 @@
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
       "stars": 1362,
-      "forks": 1663,
+      "forks": 1664,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
     },
@@ -625,7 +625,8 @@
       [
         4,
         4,
-        3
+        3,
+        0
       ]
     ]
   }
