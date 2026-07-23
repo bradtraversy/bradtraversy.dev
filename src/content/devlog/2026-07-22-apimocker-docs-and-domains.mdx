@@ -1,0 +1,36 @@
+---
+title: apimocker gets docs, domains, and a rocket again
+publishDate: 2026-07-22
+draft: false
+tags: [devlog, astro, nodejs, tool-launch]
+project: apimocker
+---
+
+links: [site](https://apimocker.com) | [repo](https://github.com/bradtraversy/apimocker) | [project page](/projects/apimocker)
+
+ApiMocker crossed the line from "handy public endpoint" into "actual product
+surface" today.
+
+The main change was splitting the public experience into clearer places. The web
+app lives at [apimocker.com](https://apimocker.com). The API lives at
+[api.apimocker.com](https://api.apimocker.com). The docs live on the product
+site and explain the free users, posts, todos, comments, pagination, sorting,
+search, write behavior, reset behavior, and error endpoints without needing a
+separate README hunt.
+
+I also brought back the rocket identity. The small braces mark was tidy, but it
+made the project feel generic. The rocket fits what ApiMocker is better: a fast
+little launchpad for apps, tutorials, and API clients.
+
+The deployment work was less flashy but more important. The monorepo now maps
+to separate services instead of trying to make one process do everything. The
+site and API can deploy independently, and the reset path can be owned by the
+hosting layer instead of hiding forever inside the API process.
+
+One copy decision mattered a lot. ApiMocker has isolated-environment code in
+development, but that is not a public beta yet. No signup, billing, automatic
+provisioning, or customer dashboard exists today. So the public pages now say
+that clearly. The free API is real. The isolated environment product is planned.
+
+That distinction keeps the site honest while still showing where the project is
+going next.

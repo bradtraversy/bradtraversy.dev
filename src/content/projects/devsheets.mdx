@@ -1,10 +1,10 @@
 ---
 name: DevSheets
-tagline: free, growing directory of dev cheat sheets
+tagline: free, validated developer cheat sheets with search, progress, and favorites
 description: |
-  a free reference site for the things developers look up constantly.
-  syntax, config, cli flags, common patterns. each sheet is dense, scannable,
-  and built from real official docs. 79+ sheets live, 300+ in the backlog.
+  a free reference site for the things developers look up constantly. syntax,
+  config, cli flags, common patterns. each sheet is dense, scannable, validated
+  against current docs, and searchable down to individual items.
 status: live
 url: https://devsheets.io
 stack: [Next.js, React, Prisma, Postgres, Tailwind, Vercel]
@@ -16,6 +16,7 @@ screenshots:
   - ./devsheets-all.png
   - ./devsheets-categories.png
 publishDate: 2026-05-07
+updatedDate: 2026-07-22
 featured: true
 ---
 
@@ -28,7 +29,8 @@ made in 2018 and never updated.
 
 devsheets is the version i wanted: dense, current, no ads, and no account
 wall. every sheet is one scrollable page with code blocks that copy cleanly.
-accounts exist now for saved sheets, but the reference experience stays public.
+accounts exist for saved sheets, favorites, and progress, but the reference
+experience stays public.
 
 ## what's in it
 
@@ -41,9 +43,10 @@ and short notes. current categories:
 - **tools**: docker, git, npm, bun, prisma, playwright, zod
 - **systems**: apache, nginx, ollama
 
-new sheets land regularly. there is a backlog of 300+ topics still to build.
+the whole 79-sheet catalog has now been validated against current docs. sheets
+can show version badges and validation dates when those values are meaningful.
 
-search works at item level now. queries like `git rebase` can jump straight to
+search works at item level too. queries like `git rebase` can jump straight to
 the matching item inside the Git sheet instead of only returning a sheet card.
 
 ## stack
@@ -52,43 +55,38 @@ the matching item inside the Git sheet instead of only returning a sheet card.
 next.js 15      # app router, react 19, server components
 prisma          # postgres schema + queries
 tailwind 4      # styling
-prismjs         # syntax highlighting
+prismjs         # server-rendered syntax highlighting
 vercel          # hosting
 ```
 
-sheet content lives in postgres (not markdown files) so it can be edited and
-versioned without a redeploy. there's a dev database and a prod database,
-with a sync step in between so nothing ships before it's been previewed and
-audited.
+sheet content lives in postgres so it can be edited, validated, and synced
+without a redeploy. there is a dev database and a prod database, with a
+stable-id sync step in between so favorites and known-item progress survive
+content updates.
 
 ## how sheets get built
 
 the writing pipeline is the interesting part. each sheet starts as a topic
-from the backlog, then runs through a chain of claude code skills i built
-into the repo:
+from the backlog, then runs through a chain of skills:
 
 ```bash
 /create-sheet    # research + draft a new sheet from official docs
-/audit-sheet     # check coverage vs current docs (read-only report)
-/validate-sheet  # check accuracy vs current docs (read-only report)
-/sync-prod       # diff dev → prod, push, revalidate the cache
+/audit-sheet     # check coverage vs current docs
+/validate-sheet  # cross-check against the current target version
+/sync-prod       # sync dev content to prod and revalidate the cache
 ```
 
-every skill writes its results back to my obsidian vault. creates and syncs
-append to a changelog; audits and validations save individual reports.
-that's the audit trail: i can look at any sheet and see when it was built,
-what gaps were flagged, and what got fixed.
-
-it's a small example of the pattern i keep coming back to: the editor
-isn't just typing code, it's running a workflow that does research, drafts,
-and reports back.
+validation is now a first-class step, not a cleanup chore. new and existing
+sheets get checked against official docs, stamped with versions when useful,
+and synced in a way that preserves stable item IDs.
 
 ## what's next
 
-- keep working through the backlog
-- extend item-level search into the full search page
-- keep tightening the logged-in dashboard around progress and favorites
-- make accounts more useful without making accounts required
+- keep expanding the catalog without dropping the validation bar
+- turn more search and progress data into useful dashboard signals
+- decide between quiz/practice mode and shareable collections as the next
+  retention feature
+- keep accounts useful without making accounts required
 
-> the goal is never "the most sheets." it's "the sheet you needed, when
-> you needed it, in 10 seconds."
+> the goal is never "the most sheets." it's "the sheet you needed, when you
+> needed it, in 10 seconds."

@@ -7,6 +7,7 @@ type ProjectLike = {
 
 export const homepageProjectSlugs = [
   'devsheets',
+  'apimocker',
   'skillpass',
   'portdoc',
   'vidpipe',

@@ -1,0 +1,43 @@
+---
+title: skillpass goes live
+publishDate: 2026-07-21
+draft: false
+tags: [devlog, astro, agents, tool-launch]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [project page](/projects/skillpass)
+
+SkillPass is live now.
+
+The site launched with 17 real Anthropic skills, each flowing through the same
+submit, validate, publish path that normal listings will use. That was important
+to me. A directory like this cannot launch as a hand-edited catalog and then
+hope the trust layer catches up later. The passport has to be part of the
+product from the first real seed.
+
+The launch forced a few product decisions into the open.
+
+First, dynamic skill pages moved to Astro SSR. Static generation was tempting,
+but new skill pages would 404 until the next rebuild. Since the live service is
+already on a paid always-on host, SSR keeps the directory fresh without needing
+a rebuild hook.
+
+Second, the validator had to get less theatrical and more useful. The first
+rules were too eager to flag normal skill behavior. A skill declaring file access
+or shell usage is not automatically dangerous. That belongs in the passport as
+information. Real blockers are things like leaked secrets, catastrophic deletes,
+prompt injection, and unsafe install patterns.
+
+what shipped:
+
+- production web and API services
+- `skillpass.dev` and `api.skillpass.dev`
+- 17 seeded public skills
+- dynamic skill, version, and user pages served with Astro SSR
+- validator tuning so warnings can publish while hard failures still block
+- a clearer passport model for risk, findings, permissions, and source
+
+The next feature that matters is the AI review layer: a cached plain-English
+summary of what a skill does and whether anything looks unsafe. Regex rules are
+good for obvious problems. SkillPass needs semantic review too.

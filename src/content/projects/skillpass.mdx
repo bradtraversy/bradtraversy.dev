@@ -1,32 +1,38 @@
 ---
 name: SkillPass
-tagline: a validated directory for ai agent skills, passports, and safer installs
+tagline: a live directory for validated ai agent skills and public skill passports
 description: |
   a public directory for reusable ai agent skills, built around a trust model
-  instead of a download pile. every submitted skill can be validated, inspected,
-  and shown with a public passport before someone installs it.
-status: alpha
-badge: In Progress
-stack: [Astro, React, Hono, Drizzle, Neon, Cloudflare R2, BullMQ]
-heroImage: ./ai-skills-directory-hero.png
-heroImageAlt: SkillPass homepage showing the validated skills hero, search box, filters, and a smoke-clean skill listing
+  instead of a download pile. submitted skills can be validated, inspected, and
+  shown with a public passport before someone installs them.
+status: live
+badge: 17 skills
+url: https://skillpass.dev
+repoUrl: https://github.com/bradtraversy/skillpass
+stack: [Astro, React, Hono, Drizzle, Neon, Cloudflare R2, BullMQ, Render]
+heroImage: ./skillpass-hero.png
+heroImageAlt: SkillPass homepage showing the validated skills hero, search, filters, and public skill listings
 publishDate: 2026-07-06
+updatedDate: 2026-07-21
 featured: true
 ---
 
 ## what it does
 
 ai skills are starting to look like real software artifacts: instructions,
-workflow rules, permissions, tool assumptions, and setup requirements packaged
-for agents like Codex, Claude Code, Cursor, and similar tools.
+workflow rules, permissions, tool assumptions, scripts, and setup requirements
+packaged for agents like Codex, Claude Code, Cursor, and similar tools.
 
 SkillPass is the public surface for finding and inspecting those skills:
 
 - **browse skills** by tool, category, risk, status, and maintainer
-- **submit a github url or zip** into a draft flow instead of emailing files
+- **submit a github url or zip** into a validation flow
 - **validate the package** before it becomes a trusted listing
 - **show a skill passport** with schema, permissions, findings, risk, and source
-- **teach skepticism** so a green checkmark never pretends to mean "safe"
+- **publish warnings clearly** without pretending a skill is risk-free
+
+the first production seed shipped with 17 real Anthropic skills, all validated
+through the same submit, validate, and publish path that normal listings use.
 
 ## why i built it
 
@@ -36,36 +42,32 @@ make changes in a repo. that should not be copied around as random markdown with
 no inspection layer.
 
 i wanted a place where skills can be shared, but the default posture is still
-skeptical. every skill starts untrusted. SkillPass earns confidence by
-showing what was checked, what was declared, what was detected, and what still
-needs human judgment.
+skeptical. every skill starts untrusted. SkillPass earns confidence by showing
+what was checked, what was declared, what was detected, and what still needs
+human judgment.
 
 ## how it's built
 
 a quick tour:
 
-- **astro + react islands**: static directory pages by default, interactive
-  islands for submission and validation flows
+- **astro + react islands**: fast public pages with interactive submission and
+  validation surfaces
+- **astro ssr**: dynamic skill, version, and maintainer pages stay fresh after
+  publish
 - **hono api**: github sign-in, authenticated submissions, ownership rules, and
-  draft records
+  publish routes
 - **drizzle + neon**: users, submissions, validation jobs, versions, and public
   listing data
 - **cloudflare r2**: content-addressed snapshots and uploaded zip archives
 - **skill schema package**: shared zod contracts for manifests, reports,
   passports, submission enums, and wire types
-- **validator package**: loads a package, computes a source hash, checks
-  structure, secrets, risky instructions, and undeclared permissions
-- **bullmq worker path**: queued validation is the next backend layer, with the
-  api and worker split cleanly
+- **validator package**: checks structure, secrets, risky instructions, and
+  undeclared permissions
 
 ## what's next
 
-the current push is the validation pipeline: queue the draft submissions,
-run the validator against pinned snapshots, write job progress, and turn the
-result into the first real passport flow.
-
-after that, SkillPass needs the publish path, source-file viewer, download
-preflight, and admin review lane. the public URL and screenshots will come once
-there is enough real product to show without explaining the scaffolding.
+the public directory is live. next up is making the passport more useful:
+seed larger source waves, add the AI review layer, improve workflow packs, and
+ship the CLI path that makes `skillpass add` feel native.
 
 > discovery is useful only if the install step gets more skeptical, not less.

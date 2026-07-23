@@ -1,0 +1,73 @@
+---
+name: ApiMocker
+tagline: a free fake rest api becoming a product-grade mock API platform
+description: |
+  a public fake rest api for tutorials, prototypes, and api clients, now split
+  into a dedicated product site, docs, and api service. the free api stays
+  account-free and resets daily; the longer-term product direction is isolated
+  environments with persistent mock data.
+status: live
+badge: Free API
+url: https://apimocker.com
+repoUrl: https://github.com/bradtraversy/apimocker
+stack: [Astro, Express, Node.js, Prisma, PostgreSQL, Railway, pnpm]
+heroImage: ./apimocker-hero.png
+heroImageAlt: ApiMocker homepage with rocket branding, free API docs, endpoint examples, and dataset cards
+publishDate: 2026-07-20
+updatedDate: 2026-07-22
+featured: true
+---
+
+## what it does
+
+ApiMocker is a free fake rest api for app builders, tutorials, examples, tests,
+and API clients. It gives you realistic users, posts, todos, and comments with
+the behavior most demos need:
+
+- **real reads and writes** against the public dataset
+- **pagination, filtering, sorting, and text search**
+- **relationship routes** like users to posts and posts to comments
+- **error endpoints and delay controls** for loading and failure states
+- **daily resets** so public writes stay useful without leaving permanent mess
+- **docs and examples** at [apimocker.com](https://apimocker.com)
+
+The free API is meant to stay free and account-free. The product direction is
+persistent isolated environments for people who need private mock data, higher
+limits, stable credentials, and reset controls.
+
+## why i built it
+
+Every app tutorial eventually needs an API. Most of the time the choice is
+either a throwaway local server, a giant backend setup, or a public fake API that
+does not behave much like a real one.
+
+ApiMocker is the version I wanted for teaching and prototyping: simple enough
+to use in a curl command, but realistic enough to test search, pagination, write
+flows, and error handling.
+
+## how it's built
+
+a quick tour:
+
+- **Astro product site**: homepage, docs, examples, and room for future
+  playground/dashboard surfaces
+- **Express API**: resource routes, search, filtering, writes, rate limits, and
+  health checks
+- **Prisma + PostgreSQL**: deterministic seeded data and future isolated
+  environment models
+- **pnpm monorepo**: separate `apps/web` and `apps/api` services with shared
+  root scripts
+- **Railway services**: one service for the web app and one for the API, with
+  reset scheduling separated from request handling
+- **OpenAPI/docs path**: the free API contract is documented publicly so the
+  tool works as a reference, not just a URL dump
+
+## what's next
+
+The free API is the stable base. The next product layer is private isolated
+environments: owned datasets, reset controls, usage visibility, credentials,
+and eventually billing. Until that is real, the public site keeps the line clear
+between what exists today and what is still being built.
+
+> the point is not to replace your backend. it is to remove the fake-api chore
+> from everything else you are trying to build.

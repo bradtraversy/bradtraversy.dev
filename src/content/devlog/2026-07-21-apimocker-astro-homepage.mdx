@@ -1,0 +1,41 @@
+---
+title: apimocker moves into an astro product site
+publishDate: 2026-07-21
+draft: false
+tags: [devlog, astro, nodejs, decision]
+project: apimocker
+---
+
+links: [site](https://apimocker.com) | [repo](https://github.com/bradtraversy/apimocker) | [project page](/projects/apimocker)
+
+The first ApiMocker homepage was good enough for an API utility. The new version
+needed to do more: explain the free API, show the dataset, link to docs, and
+leave room for the future product without pretending those paid features are
+already available.
+
+The repo moved into a pnpm monorepo with two clear apps. Express owns the API.
+Astro owns the product site. That separation feels obvious now, but it matters:
+the API can stay boring, stable, and direct, while the site can handle docs,
+examples, OpenAPI pages, a future playground, and eventually a dashboard.
+
+I built the homepage as real Astro components instead of copying over the old
+static HTML. The preserved design was useful as source material, but the final
+site needed reusable layout, shared brand chrome, config-driven links, and copy
+that matched the current product boundary.
+
+what shipped:
+
+- a componentized Astro homepage
+- shared site layout, header, footer, and brand components
+- a central config for API base URLs, docs links, and repository links
+- a compact API reference section with a working copy interaction
+- responsive checks across desktop and mobile widths
+
+The tiny interaction bug was the most honest part. Browser clipboard APIs are
+not always available, especially inside embedded browsers, so the copy button
+needed a fallback. It now selects the command and tells you to copy it manually
+when direct clipboard access is blocked.
+
+That is the kind of polish a docs-heavy tool needs. ApiMocker is still an API,
+but the first impression now feels like a product someone can understand in a
+minute.

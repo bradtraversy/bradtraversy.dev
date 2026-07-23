@@ -1,0 +1,39 @@
+---
+title: apimocker gets a product foundation
+publishDate: 2026-07-20
+draft: false
+tags: [devlog, nodejs, prisma, decision]
+project: apimocker
+---
+
+links: [site](https://apimocker.com) | [repo](https://github.com/bradtraversy/apimocker) | [project page](/projects/apimocker)
+
+ApiMocker started as a useful fake API: free endpoints, realistic records, real
+writes, and a daily reset. That is still the heart of it. The work this session
+was about deciding what the next layer should be without ruining that free
+surface.
+
+The answer I landed on is simple: keep the global API free and account-free,
+then build paid value around persistent isolated environments. A tutorial, a
+student project, or a quick prototype should still be able to hit the public API
+with no signup. The paid path is for people who need their own resettable data,
+higher limits, stable credentials, and a dashboard.
+
+The concrete shipped fix was smaller but important. ApiMocker had 100 posts, but
+the post titles reused the same base titles across users. I added deterministic
+per-user subtitles so the seed still resets byte-for-byte while giving every
+post a unique searchable title. That matters because the API teaches real app
+patterns: pagination, filtering, search, sort, and persistence. Duplicate titles
+make those demos weaker.
+
+The bigger work was the product foundation:
+
+- Prisma 7 upgrade path with the PostgreSQL driver adapter
+- backend models for isolated environments, snapshots, usage, and limits
+- a plan to split the app into an Express API and an Astro product site
+- a free-first pricing direction that does not make the public API worse
+- deployment notes for separating the web app, API service, and reset job
+
+The lesson here was to keep the product boundary honest. ApiMocker should not
+become worse at being a free fake API just because there is a paid idea next to
+it. The free thing is the distribution. Isolation is the upgrade.
