@@ -29,7 +29,7 @@ tags: [project, bradtraversy-dev, roadmap]
 
 **Goal**: a working Astro site at `bradtraversy.dev` that renders empty templates correctly.
 
-- ☐ `pnpm create astro@latest` in `~/Code/bradtraversy.dev`
+- ☐ `pnpm create astro@latest` in `~/Code/Live/bradtraversy.dev`
 - ☐ Initialize repo at `github.com/bradtraversy/bradtraversy.dev` — **private during build, flip to public at Phase 6 launch** (per Q9 decided 2026-05-04; OSS goes under `bradtraversy` per the split rule)
 - ☐ Wire up Tailwind v4 + Astro integrations (mdx, sitemap, rss)
 - ☐ Define content collections + Zod schemas (`articles`, `devlog`, `projects`, `tools`)
