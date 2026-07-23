@@ -73,7 +73,7 @@ Tertiary: search-driven readers landing on individual blog posts about specific 
 ## Next Steps
 
 1. Lock the IA and tech stack (this spec round)
-2. Scaffold the Astro project at `~/Code/bradtraversy.dev`
+2. Scaffold the Astro project at `~/Code/Live/bradtraversy.dev`
 3. Build core templates (home, blog post, devlog entry, project page, tool catalog, now, about)
 4. Migrate three pieces of content from the vault as launch seeds
 5. Soft launch (no announcement) to validate the pipeline
