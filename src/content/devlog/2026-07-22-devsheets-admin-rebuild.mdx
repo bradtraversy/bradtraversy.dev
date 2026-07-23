@@ -1,0 +1,29 @@
+---
+title: rebuilding the devsheets admin, and a nextauth footgun
+publishDate: 2026-07-22
+draft: false
+tags: [devlog, nextjs, prisma, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+The DevSheets admin was an area I'd never really looked at. It got scaffolded a while back and then just sat there half-finished, so I opened it up to see what was actually in there.
+
+Two things were true. It was a half-built CMS, with dead nav links, edit and delete buttons that did nothing, and dashboard "stats" generated with `Math.random()`. And it wasn't actually locked down.
+
+The auth part is worth explaining, because it's a clean NextAuth v5 footgun. The middleware looked correct. There was an `authorized` callback with a real role check in it. But the middleware was wired up with the empty wrapper form, `export default auth((req) => {})`, and that form never runs the `authorized` callback. It just attaches the session and lets the request through. The only real gate left was a page-level "is there a session?" check, which any signed-in user passes. So any logged-in visitor could reach the admin. The fix was to move the role check into the middleware body, drop the dead callback, and require the admin role on each page too.
+
+With that closed, I rebuilt the admin as what it should have been from the start: read-only. DevSheets content is created and validated through scripts, so a browser CMS was always going to be a weaker second path into the same data. Now it's a real dashboard instead: view counts, users, validation coverage, most-viewed and most-favorited sheets, plus a users list and per-user profiles.
+
+The last piece was answering "how many times has this person visited?" I added login tracking first, then realized it barely moves. With 30-day sessions, an active user only logs in about once a month. So I added real visit tracking too: a small throttled beacon that counts a visit when a signed-in user comes back after a gap. Both numbers show up per user now.
+
+what shipped:
+
+- a read-only admin dashboard and analytics built on real data, no fake stats
+- the authorization hole closed with role-gated middleware and per-page checks
+- the public site header, banner, and footer removed from the admin
+- a users list and per-user profiles
+- per-user login and visit tracking
+
+The lesson I'm keeping: a middleware that reads like it enforces something is not the same as one that does. Worth actually trying to walk through your own front door.

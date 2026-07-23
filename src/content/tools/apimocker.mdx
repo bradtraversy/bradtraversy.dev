@@ -1,6 +1,6 @@
 ---
 name: ApiMocker
-tagline: free fake rest api with realistic data, pagination, search, and persistence
+tagline: free fake rest api with docs, realistic data, persistence, and daily resets
 category: dev
 kind: api
 tags: [api, mock, testing, rest]
@@ -9,13 +9,12 @@ repoUrl: https://github.com/bradtraversy/apimocker
 free: true
 publishDate: 2026-05-08
 heroImage: ./apimocker-hero.png
-heroImageAlt: apimocker home page showing the dataset summary (10 users, 100 posts, 200 todos, 500 comments) and the features grid
+heroImageAlt: ApiMocker homepage with rocket branding, free API docs, endpoint examples, and dataset cards
 ---
 
-a free, public, fake rest api for development and tutorials. like
-jsonplaceholder, but with full crud, pagination, search, sort, error
-simulation, and a daily reset so you can write to it without leaving a mess
-behind.
+a free, public fake rest api for development, tutorials, and client demos.
+like jsonplaceholder, but with real writes, pagination, filtering, sorting,
+search, error simulation, docs, and a daily reset so public data stays useful.
 
 ## what's in it
 
@@ -26,44 +25,39 @@ a realistic dataset out of the box:
 - **200 todos**
 - **500 comments**
 
-with relationships you can navigate (`/users/1/posts`, `/posts/1/comments`).
+with relationship routes you can navigate, like `/users/1/posts` and
+`/posts/1/comments`.
 
 ## what you can do
 
 - **full crud**: `GET / POST / PUT / PATCH / DELETE` on every resource
-- **pagination**: `_page=1&_limit=10`, returns `X-Total-Count` for the ui
-- **filtering + sorting**: `?completed=true&_sort=title&_order=asc`,
-  `title_like=react` for fuzzy text match
-- **global search**: `/users/search?q=john`, scoped per resource
-- **response delays**: `?_delay=2000` to test loading states without
-  faking timeouts in your client
-- **error simulation**: dedicated endpoints that return specific status
-  codes so you can write robust error-handling code
+- **pagination**: `_page=1&_limit=10`, with total counts for UI work
+- **filtering + sorting**: `?completed=true&_sort=title&_order=asc`
+- **text search**: resource search endpoints and `title_like` filters
+- **response delays**: `?_delay=2000` to test loading states
+- **error simulation**: endpoints that return specific status codes on purpose
+- **docs**: examples and route notes at [apimocker.com](https://apimocker.com)
 
 ## how to use
 
-no auth, no signup, no api key. just hit the endpoints:
+no auth, no signup, no api key. just hit the API:
 
 ```bash
-curl https://apimocker.com/users
-curl https://apimocker.com/posts?userId=1&_limit=5
-curl https://apimocker.com/posts/search?q=react
+curl https://api.apimocker.com/users
+curl "https://api.apimocker.com/posts?userId=1&_limit=5"
+curl "https://api.apimocker.com/posts/search?q=react"
 ```
 
-writes are real but reset at midnight utc, so your dev environment starts
-clean every day. rate limits keep it polite (1000 reads / 100 writes per ip
-per window).
+writes are real but reset daily, so your dev environment starts clean again.
+rate limits keep the shared public API polite.
 
 ## why i built it
 
-every tutorial that touches an api needs an api. jsonplaceholder is the
-default, but it's read-only-with-fake-writes and the dataset hasn't grown
-in a decade. api mocker is what i wished existed: real persistence (with a
-nightly reset), realistic content, and the search/filter/sort/pagination
-behavior most real apis expose.
+every tutorial that touches an api needs an api. ApiMocker keeps that part
+boring: real-ish data, normal REST behavior, docs, and no account wall.
 
-free, open source, hosted. pairs nicely with
-[api probe](/tools/apiprobe) for a full "build an api request, see the
-response" loop without leaving the browser.
+the bigger product direction is isolated mock environments, but the public API
+stays free. for the broader build story, see the
+[ApiMocker project page](/projects/apimocker).
 
-> [open apimocker.com →](https://apimocker.com)
+> [open apimocker.com](https://apimocker.com)

@@ -1,0 +1,41 @@
+---
+title: devsheets closes the validation loop
+publishDate: 2026-07-22
+draft: false
+tags: [devlog, nextjs, agent-workflow, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+This was a loose-ends pass, which is usually where a product starts feeling more
+real.
+
+On the user side, DevSheets got two retention features that had been hanging
+around the edges: mark an entire section known, and reset progress for one sheet
+or all sheets. The dashboard already tracked known items and favorites, but
+those two actions make the state easier to manage once someone is actually using
+the site as a learning reference instead of a static cheat-sheet page.
+
+On the content side, the validation push finally reached 79 out of 79 sheets.
+The last one was OpenClaw, and it was a good reminder that validation is not
+just "ask an agent to check the docs." A prior pass had confused the product
+with an unrelated project that shares the name, which produced bad assumptions.
+The fix was to pin the validation to the real docs, verify the current config
+surface, and apply only the broken or stale items that were actually supported.
+
+what shipped:
+
+- section-level mark-known toggles for standard sheets
+- per-sheet and global reset-progress actions
+- a small API layer for section progress and reset behavior
+- OpenClaw fixes grounded in the real current docs
+- the final validation stamp across the whole 79-sheet catalog
+
+The product lesson was simple: progress tracking has to include escape hatches.
+People need to mark a chunk done quickly, and they need a clean reset when they
+come back later.
+
+The workflow lesson was sharper: validation needs a subject identity check
+before it needs more agents. If the agent is validating the wrong thing, speed
+only makes the wrong answer arrive faster.

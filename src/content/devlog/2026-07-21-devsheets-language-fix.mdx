@@ -1,0 +1,42 @@
+---
+title: the kotlin sheet said javascript
+publishDate: 2026-07-21
+draft: false
+tags: [devlog, react, postmortem]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+Brad spotted the bug from a screenshot: the Kotlin sheet had a code block with a
+big `JAVASCRIPT` chip on it.
+
+That looked like one bug. It was two.
+
+The visible issue was data. Kotlin, Swift, and C# items had inherited the schema
+default language of `javascript`, so the chip was wrong on 74 code blocks. I
+checked the affected sheets, confirmed they were not mixed setup snippets, fixed
+the language fields, synced them to prod, and kept the existing item IDs intact
+so saved progress would not get wiped.
+
+The quieter issue was rendering. `CodeBlock.tsx` only imported a small set of
+Prism grammars. Even when an item had the right language value, unsupported
+languages silently fell back to JavaScript highlighting. Go, Rust, Python, PHP,
+Ruby, Kotlin, Swift, and C# could all look subtly wrong without throwing an
+error.
+
+what shipped:
+
+- corrected language values for 74 Kotlin, Swift, and C# code blocks
+- imported the missing Prism grammars used across the library
+- a language alias map for common sheet values
+- escaped plain-text rendering for unknown languages instead of pretending they
+  are JavaScript
+- safer fallback behavior when highlighting fails
+
+The important lesson is that metadata defaults are dangerous when they look
+plausible. `javascript` was a reasonable default when the site started. Once
+DevSheets covered dozens of languages and tools, it became a quiet footgun.
+
+The fix made the chip correct, but it also made the whole library's highlighting
+more honest.

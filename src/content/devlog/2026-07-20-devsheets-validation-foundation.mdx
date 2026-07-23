@@ -1,0 +1,42 @@
+---
+title: making devsheets accuracy visible
+publishDate: 2026-07-20
+draft: false
+tags: [devlog, nextjs, prisma, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+DevSheets has always had the same promise: short, dense cheat sheets that are
+current enough to trust. The problem is that "current enough" is invisible
+unless the site tracks it.
+
+This pass added the foundation for that. Sheets can now carry a normalized
+version and a `lastValidatedAt` timestamp, and the page can show a version badge
+only when that value is meaningful. No fake "latest" badge. No junk values like
+`CSS3` pretending to be a current version. Just plain visible provenance when it
+is useful.
+
+The first real validation target was the React components sheet. It moved to
+React 19 and forced the workflow to deal with real changes: `propTypes` no
+longer matter at runtime, function-component `defaultProps` are gone, `ref` is
+now a normal prop, and the compiler changes the way manual memoization advice
+should be framed.
+
+what shipped:
+
+- a `lastValidatedAt` field for sheets
+- guarded version badges on sheet pages
+- a triage script to rank stale sheets by volatility, age, and usage
+- a safe single-sheet prod sync path that preserves stable item IDs
+- React 19 fixes for the highest-traffic React sheet
+- server-rendered Prism highlighting so crawlers see code examples in HTML
+
+That last one fixed a visual bug too. Prism was auto-highlighting after render
+and dragging in a theme background that made code blocks look wrong. Moving the
+highlighting to render time made the page cleaner and made the examples more
+crawlable.
+
+The work was not just more content. It was putting an accuracy system under the
+content.
