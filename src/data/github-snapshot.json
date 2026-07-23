@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-07-23T10:26:11.016Z",
+  "updatedAt": "2026-07-23T10:35:15.904Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76174,
+    "followers": 76173,
     "totalStars": 166956
   },
   "topRepos": [
@@ -93,6 +93,36 @@
     {
       "type": "PushEvent",
       "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-23T10:24:42Z",
+      "details": "pushed to codex/environment-availability-copy"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-07-23T10:25:53Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/ai-blueprint",
+      "createdAt": "2026-07-23T10:20:58Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-23T10:26:39Z",
+      "details": "deleted branch codex/frontend-homepage"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/apimocker",
+      "createdAt": "2026-07-23T10:26:38Z",
+      "details": "deleted branch codex/environment-availability-copy"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/apimocker",
       "createdAt": "2026-07-23T10:26:01Z",
       "details": "pushed to main"
     },
@@ -119,40 +149,10 @@
       "repo": "bradtraversy/apimocker",
       "createdAt": "2026-07-23T10:11:52Z",
       "details": "merged pull request #8"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/apimocker",
-      "createdAt": "2026-07-23T10:11:44Z",
-      "details": "opened pull request #8"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/apimocker",
-      "createdAt": "2026-07-23T09:41:42Z",
-      "details": "created branch codex/environment-availability-copy"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-23T09:12:04Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-23T09:10:14Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-22T22:21:56Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 762,
+    "total": 763,
     "weeks": [
       [
         0,
@@ -627,7 +627,7 @@
         4,
         5,
         10,
-        10
+        11
       ]
     ]
   }
