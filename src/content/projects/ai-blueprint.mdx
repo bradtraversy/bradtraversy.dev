@@ -1,12 +1,11 @@
 ---
 name: AI Blueprint
-tagline: a repeatable, spec-driven process for building real software with ai, without vibe coding
+tagline: a gated workflow for building real software with ai, without vibe coding
 description: |
-  a workflow you overlay onto any scaffolded app. you hand-write two short
-  planning docs; everything else (the project overview, every feature spec) is
-  generated from them by skills. you build one feature at a time and review
-  every diff before it lands. tool-agnostic via AGENTS.md, published as a public
-  repo you drop in with one command.
+  a workflow overlay for already-scaffolded apps. you write the product plan and
+  build plan; AI Blueprint turns them into project context, feature specs,
+  proof gates, audit findings, rollbacks, release checks, and written history.
+  it works through Codex skills, Claude Code skills, and AGENTS.md.
 status: live
 url: https://ai-blueprint.dev
 repoUrl: https://github.com/bradtraversy/ai-blueprint
@@ -15,77 +14,142 @@ heroImage: ./ai-blueprint-workflow.png
 heroImageAlt: AI Blueprint fresh-project workflow diagram showing /onboard, planning files, /overview, project-overview.md, optional /prototype and /brief paths, /feature, /fix, /rollback, current-feature.md, /implement, /check, /try, /audit, /complete, and blueprint/history/
 screenshots: ["./ai-blueprint-website.webp"]
 publishDate: 2026-06-20
-updatedDate: 2026-07-12
+updatedDate: 2026-07-23
 featured: false
 ---
 
 ## what it does
 
-a process layer you overlay onto an already-scaffolded app, not an app
-skeleton. the loop:
+AI Blueprint is a process layer you install into an existing app. It is not a
+framework starter and it is not another "generate the whole app" prompt. You
+scaffold the app first, then install the workflow:
 
-- **you write two files**: `project-plan.md` (the what and why) and
-  `build-plan.md` (an ordered feature list). that's the only input you maintain.
-- **everything else is generated**: `/overview` distills the two plans into a
-  single source of truth, surfacing contradictions as open questions to fix in
-  the plans.
-- **build one feature at a time**: `/feature` specs the next item and stops at
-  a review gate; `/implement` builds it step by step, showing and explaining
-  every diff; `/complete` logs it, commits it as one feature, and squash-merges.
-- **three gates keep the ai on a leash**: spec before code, small reviewable
-  steps, exactly one feature in flight at a time.
+```bash
+npx create-ai-blueprint@latest
+```
+
+The point is to make the AI useful inside a controlled loop:
+
+- **plan before context**: you maintain `blueprint/project-plan.md` and
+  `blueprint/build-plan.md`
+- **context before code**: `/overview` turns those plans into the AI-facing
+  project overview and stops on open questions
+- **spec before implementation**: `/feature`, `/fix`, and `/rollback` write the
+  active spec, then stop for review
+- **small reviewed steps**: `/implement` builds one step at a time, shows the
+  diff, proves the done-when, and waits for approval
+- **proof before closeout**: `/check` verifies the spec against the real app,
+  and `/try` gives the human review path
+- **audit before merge**: `/audit` records findings with durable IDs and
+  severities, and `/complete` refuses to merge while P0 or P1 findings still
+  need review
+- **release is separate**: `/release render` and `/release vercel` prepare local
+  config and smoke checks, but do not deploy without a separate yes
+
+That is the whole product: a file-backed control system for AI-assisted
+building.
+
+## the gates
+
+The current loop is stricter than the first version of the project:
+
+```text
+/onboard
+/overview
+/feature or /fix or /rollback
+/implement
+/check
+/try
+/audit
+/complete
+/release
+```
+
+`/onboard` adapts the installed files to the actual repo. `/doctor` checks the
+setup without changing anything. `/brief` previews the next feature before a
+spec is written. `/status` helps recover after a context clear.
+
+The merge gate is the important part. `/complete` does not just commit whatever
+the assistant changed. It checks the active spec, archived history, git state,
+and audit ledger. P0 and P1 findings have to be closed by review, not merely
+patched by the same agent that found them. Push and deploy remain separate
+explicit approvals.
+
+Rollbacks use the same discipline. `/rollback` finds the archived feature and
+the commit that introduced it, checks later dependency risk, writes a guarded
+rollback spec, and then goes through `/implement`, `/check`, and `/complete`.
+It does not rewrite history or delete the original feature archive.
 
 ## why i built it
 
-vibe coding is describing a vague thing and accepting whatever comes back. it's
-fast until it isn't: you end up with code nobody understands and a project that
-can't be changed safely. i wanted the opposite, a way to keep the ai genuinely
-useful while staying in control of a codebase it's helping me write.
+Vibe coding is describing a vague thing and accepting whatever comes back. It is
+fast until it is not: you end up with code nobody understands and a project that
+cannot be changed safely.
 
-it also solves a quieter problem. when the load-bearing rules of a project live
-only in a human-readable README, two different ai sessions will re-derive them
-differently and contradict each other. the blueprint encodes those rules where
-agents actually read them. it's the same workflow that underpins my Coding With
-AI course, extracted into something anyone can drop into their own repo.
+AI Blueprint is my answer to that. The assistant can still plan, build, inspect,
+and iterate, but it has to do that inside a written workflow with review gates.
+The human still owns the plan, the scope, the product decisions, and the final
+approval.
+
+It also solves the context problem. A long chat thread is not project memory.
+The Blueprint stores the plan, generated context, active work, findings, and
+history in markdown files the next AI session can read.
 
 ## how it's built
 
 a quick tour:
 
-- **AGENTS.md is the canonical entry**: the open cross-tool standard read by
-  Codex, Cursor, Copilot, Gemini CLI, Aider, and 20+ others. `CLAUDE.md` slims
-  down to import it plus the `context/` auto-loads, so there's one source of
-  truth, not two.
-- **single-purpose skills**: `/overview`, `/feature`, `/fix`, `/implement`,
-  `/complete`, `/prototype`, plus `/adopt` (onboard an existing repo), `/status`
-  (orient after a context clear), and `/check` (run the app against a feature's
-  done-whens), each a plain-markdown `SKILL.md`. distinct verbs over subcommands,
-  chosen for learnability.
-- **scaffold then install**: scaffold the app in an empty dir, then run
-  `npx create-ai-blueprint@latest`. the installer lets you pick Codex, Claude
-  Code, or both, then drops only the workflow files your app needs.
-- **the feature is the unit of history**: `/implement` offers optional per-step
-  checkpoints on a branch; `/complete` makes the one real feature commit and
-  squash-merges, so `main` stays one clean commit per feature no matter how many
-  checkpoints accumulated.
-- **testing is a gate, not a dependency**: the blueprint installs no test
-  runner. declare a test command in `AGENTS.md` and tests gate logic-bearing
-  steps; declare nothing and logic still rides on screenshot plus build. the
-  shared layer names no framework, so a go project and a typescript project use
-  the same docs.
-- **one `blueprint/` folder**: the two hand-written plans sit at its root where
-  you look; everything the ai manages lives in `context/` and `history/` under
-  it. only `CLAUDE.md`, `AGENTS.md`, and `.claude/` stay at the repo root,
-  because that's where tools read them, so the overlay never collides with your
-  app's boilerplate.
+- **installer package**: `create-ai-blueprint` installs the workflow after an
+  app has already been scaffolded
+- **tool adapters**: Codex uses `.agents/skills`; Claude Code uses
+  `.claude/skills`; both share the same workflow model
+- **AGENTS.md entrypoint**: cross-tool instructions live where modern coding
+  agents already look
+- **blueprint folder**: plans, generated context, current work, findings, and
+  history live under `blueprint/`
+- **managed updates**: `blueprint/.state/manifest.json` tracks managed file
+  hashes so updates can report conflicts instead of overwriting local changes
+- **command docs**: the public site and installed `blueprint/README.md` explain
+  the loop, gates, rollback path, audit ledger, testing gate, and release prep
+
+The updater is intentionally narrow. It manages skill files and the installed
+workflow README. It preserves `AGENTS.md`, `CLAUDE.md`, plans, context, history,
+references, and prototypes unless you explicitly choose otherwise.
+
+## command map
+
+Core build loop:
+
+- `/onboard`: adapt the Blueprint to a fresh or early project
+- `/adopt`: bootstrap planning from an existing codebase
+- `/overview`: turn plans into project context
+- `/feature`: spec the next planned feature
+- `/fix`: spec an unplanned bug or small change
+- `/implement`: build the active spec in reviewed steps
+- `/check`: prove the done-whens against the real app
+- `/try`: write the manual test path for a human reviewer
+- `/audit`: review code quality, security, performance, tests, and drift
+- `/complete`: archive, commit, merge, and log with approval
+
+Supporting commands:
+
+- `/doctor`: read-only setup health check
+- `/brief`: preview scope before writing a spec
+- `/tests`: add the stack-native unit test runner and turn on test gates
+- `/rollback`: plan a reviewed reversal of a completed feature
+- `/release`: prepare Render or Vercel readiness without deploying
+- `/prototype`: explore static mockups before implementation
+- `/status`: recover orientation after a context clear
+- `/autopilot`: explicit opt-in bounded pass that still stops before closeout
 
 ## what's next
 
-it's public, has a real site at [ai-blueprint.dev](https://ai-blueprint.dev),
-and the docs now lead with the control loop instead of a pile of internal skill
-details. the next move is using it in public: the workflow is the spine of the
-Coding With AI course and the reference process for newer projects like PortDoc
-and SkillPass.
+AI Blueprint is public, installable, and documented at
+[ai-blueprint.dev](https://ai-blueprint.dev). The next work is less about the
+idea and more about hardening it through real projects: better examples, more
+e2e scenarios for the gates, clearer docs for findings and rollback, and using
+it as the reference workflow for newer builds like PortDoc, SkillPass, and
+ApiMocker.
 
-> the point was never to type less. it's to stay in control of a codebase the ai
-> is helping you write.
+> the point was never to type less. it is to stay in control of a codebase the
+> ai is helping you write.
