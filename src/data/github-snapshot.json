@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-25T08:12:22.050Z",
+  "updatedAt": "2026-07-25T13:44:54.857Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76174,
-    "totalStars": 166976
+    "followers": 76179,
+    "totalStars": 166977
   },
   "topRepos": [
     {
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40630,
-      "forks": 9732,
+      "stars": 40631,
+      "forks": 9733,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -74,7 +74,7 @@
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
       "stars": 1362,
-      "forks": 1664,
+      "forks": 1663,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
     },
@@ -84,7 +84,7 @@
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
       "stars": 1205,
-      "forks": 1149,
+      "forks": 1148,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
