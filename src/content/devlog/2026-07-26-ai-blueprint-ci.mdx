@@ -1,0 +1,37 @@
+---
+title: ai blueprint gets an explicit ci step
+publishDate: 2026-07-26
+draft: false
+tags: [devlog, agents, agent-workflow, tool-launch]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/bradtraversy/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 0.6.0 adds an explicit `/ci` step for setting up GitHub
+verification.
+
+I kept it separate from onboarding on purpose. `/onboard` and `/adopt` should
+help a project enter the workflow without suddenly creating automation or
+inventing a test suite. They now report the checks a project already has and
+point to `/ci` when GitHub verification is wanted.
+
+The new command builds one stack-aware Verify job from the scripts that
+actually exist in the repository. If the app has linting, type checking, tests,
+or a production build, those can become the gate. If it has no tests, Blueprint
+does not pretend otherwise. Tests remain an explicit choice through `/tests`,
+which can update the existing Verify job later.
+
+Existing GitHub Actions also need to be treated as project code. `/ci` aligns a
+current verification workflow when it can do so safely and creates
+`.github/workflows/verify.yml` only when the repository needs one. It does not
+replace unrelated automation just to force everything into a Blueprint shape.
+
+This closes a gap in the workflow. Blueprint already had planning, feature
+specs, implementation checks, audits, completion gates, and release
+preparation. CI was something the project might have, but the workflow did not
+offer a clear path for creating it.
+
+The release passed the full Blueprint validation suite, including installer
+tests and packed smoke tests for Codex, Claude Code, and both adapters.
+`create-ai-blueprint@0.6.0` is now published on npm.

@@ -1,0 +1,43 @@
+---
+title: hardening all 59 webutils tools
+publishDate: 2026-07-26
+draft: false
+tags: [devlog, nextjs, postmortem]
+project: webutils
+---
+
+links: [site](https://webutils.io) | [project page](/projects/webutils)
+
+WebUtils built successfully, but that did not mean all 59 tools behaved
+correctly.
+
+A full review found real problems across authorization, privacy boundaries,
+resource limits, database migrations, and tool output. Several of them were the
+kind of bug a type checker cannot see. The code compiles, the page renders, and
+the result is still wrong.
+
+I fixed the confirmed critical and high-risk issues, then gave the repository
+one verification command:
+
+```bash
+npm run verify
+```
+
+That command now runs type checking, Node tests, the current ESLint warning
+ceiling, and a production build. The repository also has a managed pre-push
+hook, a pinned Node version, dependency auditing, catalog integrity checks, and
+Playwright coverage that opens every registered tool.
+
+The browser suite matters most here. A converter can render perfectly and
+still produce an invalid file. A generator can accept input and quietly ignore
+a limit. An admin page can build successfully while trusting the wrong identity
+source. The test needs to exercise the behavior, not just prove that React
+mounted.
+
+The final gate passed 64 Node tests and 59 Chromium smoke tests. The production
+build generated 113 pages, the dependency audit was clean, and the fixes were
+verified on the deployed commit.
+
+I also protected `main` with required pull requests and strict verification
+checks. The useful outcome is not one clean audit. It is making the next
+regression harder to merge.
