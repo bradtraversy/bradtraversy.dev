@@ -1,0 +1,41 @@
+---
+title: turning webutils favorites into a personal toolkit
+publishDate: 2026-07-27
+draft: false
+tags: [devlog, nextjs, react, decision]
+project: webutils
+---
+
+links: [site](https://webutils.io) | [project page](/projects/webutils)
+
+WebUtils favorites used to feel like a small feature attached to a directory.
+The latest redesign gives them a clearer job: building a personal toolkit.
+
+Every visitor now sees the heart control on a tool. Signed-in users can save it
+immediately. Signed-out users are taken to authentication with enough context
+to explain that signing in will add the tool to their toolkit. The useful part
+is visible before the account wall instead of appearing only after someone has
+already registered.
+
+I kept email and password authentication because it already has real users, then
+added Google and GitHub alongside it. GitHub account linking only happens after
+the provider returns a verified email. That adds a little more work to the OAuth
+flow, but it avoids trusting an unverified address just to make linking feel
+automatic.
+
+The rest of the site moved toward the same developer workspace idea:
+
+- favorites now live under **My Toolkit**
+- the sidebar starts compact and can be collapsed
+- the directory shows six popular tools first
+- the remaining tools use numbered pagination
+- About and Contact moved out of the main navigation and into the footer
+
+The redesign shipped through the protected pull request path with the shared
+verification gate and all 59 browser smoke tests passing. Production was
+checked against the exact merge commit, and the live toolkit and tools routes
+were verified after deployment.
+
+The next question is whether a clearly named toolkit gives people enough reason
+to create an account. I would rather watch the real registration behavior than
+guess at another account feature immediately.

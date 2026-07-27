@@ -1,0 +1,39 @@
+---
+title: portdoc learns to run in the background
+publishDate: 2026-07-27
+draft: false
+tags: [devlog, tool-launch, decision]
+project: portdoc
+---
+
+links: [site](https://portdoc.dev) | [repo](https://github.com/bradtraversy/portdoc) | [project page](/projects/portdoc)
+
+PortDoc v0.1.2 can now run in the foreground or hand its lifecycle to the
+operating system.
+
+The foreground path is still useful when I want the process tied to a terminal.
+For everyday use, background mode is a better fit. PortDoc now uses
+`systemd --user` on Linux, a LaunchAgent on macOS, and Task Scheduler on
+Windows. None of those paths require administrator privileges.
+
+The command behavior needed a little care. Running plain `portdoc` in an
+interactive terminal asks which mode to use. Noninteractive launches stay
+prompt-free and preserve the existing foreground behavior. The lifecycle
+commands also make a deliberate distinction:
+
+- `portdoc background stop` stops the current process but keeps sign-in startup
+- `portdoc background disable` stops it and removes the operating system entry
+- `portdoc background status` reports what the native manager thinks is running
+
+I considered letting the web dashboard restart PortDoc, but that gives the app
+ownership over its own parent process. The command line and native process
+manager are cleaner boundaries.
+
+The release passed 146 Rust tests, strict Clippy checks, frontend validation,
+and platform CI on Linux, macOS, and Windows. The Windows executable was signed
+and timestamped, and the Homebrew formula and install scripts now resolve to
+v0.1.2.
+
+One upgrade edge remains. If PortDoc is already running in background mode,
+users should stop it, upgrade, and start it again. Coordinating that process
+automatically is the next lifecycle feature.

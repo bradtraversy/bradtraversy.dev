@@ -1,0 +1,39 @@
+---
+title: devsheets gets learning mode
+publishDate: 2026-07-26
+draft: false
+tags: [devlog, nextjs, react, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [project page](/projects/devsheets)
+
+DevSheets now has a Learning Mode for working through a sheet instead of only
+reading it.
+
+The default page still renders the complete cheat sheet on the server. Turning
+on Learning Mode adds three views:
+
+- **All** shows the complete sheet
+- **Unlearned** hides items already marked as known
+- **Known** collects the items already completed
+
+The counts, table of contents, quick-reference links, empty states, and visible
+sections all update together. There is also a small accessibility detail that
+was easy to miss: if marking an item as known removes it from the current view,
+focus returns to the active filter instead of disappearing with the item.
+
+Standalone item pages got useful actions too. A signed-in reader can mark the
+item as known, save the full sheet, or jump back to the complete reference.
+Those controls reuse the existing progress and favorites APIs while the actual
+reference content stays server-rendered and crawlable.
+
+I am keeping the selected Learning Mode filter session-only for now. A URL
+parameter or local storage would make it persistent, but there is no reason to
+add that state until real usage shows it matters.
+
+This work landed while I was reviewing the first Search Console results from a
+small title experiment. The early sample was 7 clicks and 146 impressions, with
+an average position of 13.6. That is a signal, not a conclusion. I am holding
+the next title batch for 2-4 weeks and improving the product experience while
+the search data settles.
