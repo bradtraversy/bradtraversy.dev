@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-27T09:59:26.955Z",
+  "updatedAt": "2026-07-27T14:46:13.405Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
     "followers": 76180,
-    "totalStars": 166983
+    "totalStars": 166986
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66510,
+      "stars": 66513,
       "forks": 12116,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40629,
+      "stars": 40628,
       "forks": 9730,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16097,
+      "stars": 16098,
       "forks": 4385,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -91,68 +91,68 @@
   ],
   "recentEvents": [
     {
-      "type": "DeleteEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:41:03Z",
-      "details": "deleted branch chore/release-v0.1.2-rc.1"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:41:00Z",
-      "details": "merged pull request #4"
-    },
-    {
       "type": "PushEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:41:01Z",
+      "createdAt": "2026-07-27T14:32:05Z",
       "details": "pushed to main"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:37:33Z",
-      "details": "opened pull request #4"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:37:16Z",
-      "details": "created branch chore/release-v0.1.2-rc.1"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:31:49Z",
-      "details": "created branch feature/restart-service"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:25:28Z",
-      "details": "deleted branch feature/restart-service"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:25:20Z",
-      "details": "merged pull request #3"
+      "createdAt": "2026-07-27T14:32:04Z",
+      "details": "merged pull request #6"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:25:21Z",
+      "createdAt": "2026-07-27T14:27:29Z",
+      "details": "pushed to feature/background-run-mode"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T14:21:19Z",
+      "details": "pushed to feature/background-run-mode"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T14:18:32Z",
+      "details": "created branch feature/background-run-mode"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T14:18:48Z",
+      "details": "opened pull request #6"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T11:01:40Z",
+      "details": "deleted branch fix/revert-restart-service"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T11:01:37Z",
       "details": "pushed to main"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-26T21:15:13Z",
-      "details": "opened pull request #3"
+      "createdAt": "2026-07-27T11:01:36Z",
+      "details": "merged pull request #5"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T10:57:44Z",
+      "details": "opened pull request #5"
     }
   ],
   "contributions": {
-    "total": 774,
+    "total": 782,
     "weeks": [
       [
         0,
@@ -624,7 +624,7 @@
       ],
       [
         9,
-        0
+        8
       ]
     ]
   }
