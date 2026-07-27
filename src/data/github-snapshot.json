@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-26T19:18:07.995Z",
+  "updatedAt": "2026-07-27T03:35:52.035Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
     "followers": 76179,
-    "totalStars": 166981
+    "totalStars": 166984
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66510,
+      "stars": 66511,
       "forks": 12116,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40627,
+      "stars": 40628,
       "forks": 9730,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -91,68 +91,68 @@
   ],
   "recentEvents": [
     {
-      "type": "PushEvent",
-      "repo": "bradtraversy/apimocker",
-      "createdAt": "2026-07-26T12:49:34Z",
-      "details": "pushed to main"
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:41:03Z",
+      "details": "deleted branch chore/release-v0.1.2-rc.1"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:41:00Z",
+      "details": "merged pull request #4"
     },
     {
       "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-23T16:39:35Z",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:41:01Z",
       "details": "pushed to main"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:37:33Z",
+      "details": "opened pull request #4"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:37:16Z",
+      "details": "created branch chore/release-v0.1.2-rc.1"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:31:49Z",
+      "details": "created branch feature/restart-service"
     },
     {
       "type": "DeleteEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-23T16:31:52Z",
-      "details": "deleted tag v0.5.2"
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:25:28Z",
+      "details": "deleted branch feature/restart-service"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:25:20Z",
+      "details": "merged pull request #3"
     },
     {
       "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-23T16:20:18Z",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:25:21Z",
       "details": "pushed to main"
     },
     {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-23T16:18:48Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-07-23T16:16:24Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-07-23T11:43:29Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-07-23T10:55:26Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-07-23T10:35:03Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "bradtraversy/apimocker",
-      "createdAt": "2026-07-23T10:26:39Z",
-      "details": "deleted branch codex/unique-post-titles"
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-26T21:15:13Z",
+      "details": "opened pull request #3"
     }
   ],
   "contributions": {
-    "total": 770,
+    "total": 774,
     "weeks": [
       [
         0,
@@ -623,7 +623,8 @@
         0
       ],
       [
-        1
+        9,
+        0
       ]
     ]
   }
