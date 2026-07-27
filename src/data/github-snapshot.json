@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-07-27T14:46:13.405Z",
+  "updatedAt": "2026-07-27T18:40:33.261Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76180,
+    "followers": 76179,
     "totalStars": 166986
   },
   "topRepos": [
@@ -14,7 +14,7 @@
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
       "stars": 66513,
-      "forks": 12116,
+      "forks": 12118,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40628,
+      "stars": 40629,
       "forks": 9730,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -92,67 +92,67 @@
   "recentEvents": [
     {
       "type": "PushEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T14:32:05Z",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-07-27T18:40:21Z",
       "details": "pushed to main"
     },
     {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T14:32:04Z",
-      "details": "merged pull request #6"
+      "type": "PushEvent",
+      "repo": "bradtraversy/homebrew-tap",
+      "createdAt": "2026-07-27T15:28:27Z",
+      "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T14:27:29Z",
-      "details": "pushed to feature/background-run-mode"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T14:21:19Z",
-      "details": "pushed to feature/background-run-mode"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T14:18:32Z",
-      "details": "created branch feature/background-run-mode"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T14:18:48Z",
-      "details": "opened pull request #6"
+      "createdAt": "2026-07-27T15:19:39Z",
+      "details": "pushed to main"
     },
     {
       "type": "DeleteEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T11:01:40Z",
-      "details": "deleted branch fix/revert-restart-service"
+      "createdAt": "2026-07-27T15:08:43Z",
+      "details": "deleted branch feature/restart-service"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T15:08:43Z",
+      "details": "deleted branch feature/background-run-mode"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T11:01:37Z",
+      "createdAt": "2026-07-27T15:07:12Z",
       "details": "pushed to main"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T11:01:36Z",
-      "details": "merged pull request #5"
+      "createdAt": "2026-07-27T15:07:11Z",
+      "details": "merged pull request #7"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/portdoc",
-      "createdAt": "2026-07-27T10:57:44Z",
-      "details": "opened pull request #5"
+      "createdAt": "2026-07-27T15:06:31Z",
+      "details": "opened pull request #7"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T15:02:58Z",
+      "details": "pushed to feature/background-run-mode"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/portdoc",
+      "createdAt": "2026-07-27T14:32:05Z",
+      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 782,
+    "total": 787,
     "weeks": [
       [
         0,
@@ -624,7 +624,7 @@
       ],
       [
         9,
-        8
+        13
       ]
     ]
   }
