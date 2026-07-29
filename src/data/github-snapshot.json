@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-07-29T08:47:31.512Z",
+  "updatedAt": "2026-07-29T14:20:20.335Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 324,
-    "followers": 76181,
-    "totalStars": 167000
+    "followers": 76182,
+    "totalStars": 167004
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66528,
+      "stars": 66531,
       "forks": 12119,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40630,
-      "forks": 9730,
+      "stars": 40628,
+      "forks": 9731,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16096,
-      "forks": 4384,
+      "forks": 4383,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -44,7 +44,7 @@
       "description": "Shopping cart built with MERN & Redux",
       "url": "https://github.com/bradtraversy/proshop_mern",
       "stars": 2024,
-      "forks": 1223,
+      "forks": 1222,
       "language": "JavaScript",
       "pushedAt": "2024-01-15T16:26:04Z"
     },
@@ -54,7 +54,7 @@
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
       "stars": 1958,
-      "forks": 1268,
+      "forks": 1267,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
     },
