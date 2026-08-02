@@ -1,0 +1,29 @@
+---
+title: devsheets gets onboarding and personal sheet sets
+publishDate: 2026-08-01
+draft: false
+tags: [devlog, nextjs, prisma, react]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [project page](/projects/devsheets)
+
+DevSheets started as a public catalog of cheat sheets. This session pushed it closer to a personal learning tool.
+
+What shipped:
+
+- OAuth-aware profile page
+- first-login onboarding
+- role, interests, and experience preferences
+- private personal sheet sets
+- a generated starter set from onboarding choices
+- a homepage section that explains the personalization flow
+- a cleaner login page with real provider icons
+
+The product decision was to keep the account layer useful but quiet. Existing users were backfilled as onboarding-complete so nobody got interrupted. New users go through a checkpoint after sign-in, then either finish or skip onboarding. If they do finish it, DevSheets creates a private starter set from their selected role, interests, and experience level.
+
+I also decided not to build custom avatar uploads. The profile uses the Google or GitHub avatar because that is enough for this product. The useful part is not decorating the account. It is showing learning progress, personal sets, and the things a user came back for.
+
+One operational lesson was less fun: running `next build` while `next dev --turbopack` is still active can trash the shared `.next` output and make every dev route return HTTP 500. The code was fine. The build cache was not. Stop the dev server before a production build, then restart it.
+
+The bigger arc is simple: DevSheets still works without an account, but signing in now has a real payoff.

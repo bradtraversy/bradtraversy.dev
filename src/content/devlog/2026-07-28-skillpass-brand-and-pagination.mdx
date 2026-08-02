@@ -1,0 +1,26 @@
+---
+title: skillpass gets a real identity and a bigger catalog
+publishDate: 2026-07-28
+draft: false
+tags: [devlog, agents, tool-launch]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [project page](/projects/skillpass)
+
+SkillPass had the bones of a useful directory, but it still looked a little too much like an internal test bed. This pass made it feel like a product.
+
+The visible stuff:
+
+- new logo and favicon set
+- blue theme tuned around the logo instead of the old purple cast
+- category swatches in the sidebar
+- client-side pagination at 25 skills per page
+- an honest "coming soon" chip for the CLI install path
+- curated seed waves that took the catalog from 134 to 194 skills
+
+The curation work mattered more than the raw count. I avoided wholesale imports and kept the bar at "would a real person care about this right away?" Official vendor packs made sense. A few broad single-purpose skills made sense. Aggregator repos and almost-format-compatible collections stayed out.
+
+There was also a surprisingly deep image-cleanup rabbit hole. The logo candidates came with fake transparent checkerboards, little watermark sparks, and background artifacts baked into the pixels. The cleanup that worked was closer to forensic masking than normal image editing: isolate the blue-tinted mark, cancel the checkerboard background, keep enclosed interiors opaque, and make sure the 16px favicon still reads.
+
+The tiny lesson: icons are not branding until they survive the boring places. Browser tabs, dark chrome, tiny favicons, sidebars, and repeated rows are where the visual system either holds together or falls apart.

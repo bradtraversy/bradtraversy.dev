@@ -1,0 +1,27 @@
+---
+title: skillpass learns workflow packs
+publishDate: 2026-08-01
+draft: false
+tags: [devlog, agents, typescript]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [project page](/projects/skillpass)
+
+SkillPass can now publish a repo full of related skills as one listing instead of turning it into a wall of singles.
+
+The first real proof was AI Blueprint. It has 19 skills, with Claude Code and Codex variants side by side. That should be one workflow pack. Not 19 scattered entries. Not a hand-written manifest requirement. One repo URL, one listing, one detail page, with the member skills visible underneath.
+
+The detection rules are intentionally practical:
+
+- point at a repo root and SkillPass looks for a pack
+- point at a subpath and it treats that as a single skill
+- paired `.claude/skills/*` and `.agents/skills/*` folders become variants
+- one nested skill stays a single skill
+- a root `SKILL.md` still wins when it exists
+
+That let AI Blueprint go live as the first pack at rank 01 on the directory, with 19 members and Codex variants attached.
+
+There were a few adjacent fixes in the same push. The submit page now teaches the supported layouts with recipe cards instead of making people guess. The detection feedback tells you what SkillPass found before validation. The detail page also now leads with the source repo owner as Author, with the curator shown second. That fixed the weird feeling of curated third-party skills looking like I maintained them.
+
+The catalog ended the day at 195 live skills. Tests moved from 759 to 777. More importantly, SkillPass can now describe real agent workflows, not just one-off command helpers.
