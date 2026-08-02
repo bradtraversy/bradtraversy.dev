@@ -1,0 +1,27 @@
+---
+title: ai blueprint gets findings with teeth
+publishDate: 2026-07-23
+draft: false
+tags: [devlog, agents, agent-workflow]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/bradtraversy/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint grew the part that makes the workflow feel less like a checklist and more like a real quality gate: the findings ledger.
+
+Before this, `/audit` could point out problems, but the workflow still relied too much on the next agent remembering what had been found. Now findings get durable IDs, severities, evidence, and status. The important rule is simple: a repair is not closed just because the implementation agent says it fixed the issue. P0 and P1 findings have to be reviewed before `/complete` can merge the work.
+
+That changed the whole shape of the loop:
+
+- `/audit` records findings instead of dropping them into chat
+- `/implement` can mark a finding fixed, but cannot close its own repair
+- `/complete` blocks on serious unresolved or unreviewed findings
+- accepted and invalid findings need an explicit reason
+- old IDs archive with the work item so references do not drift
+
+The other big piece was testing the workflow itself. I added a live-agent e2e harness that asserts on repo state, file contents, commits, and ledger entries instead of trying to match prose. The first real run caught an actual skill defect: the ledger reset wording was too loose, so the agent invented its own stub. That is exactly the kind of bug static checks miss.
+
+The release side got cleaner too. AI Blueprint moved to npm trusted publishing, so releases go through tag-triggered CI with OIDC instead of a long-lived npm token. Main is the truth, tags are what ship.
+
+This was the moment the project stopped being only "spec before code" and became "findings have consequences."

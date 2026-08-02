@@ -1,0 +1,24 @@
+---
+title: a four-ship skillpass day
+publishDate: 2026-07-27
+draft: false
+tags: [devlog, claude, agents, tool-launch]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [project page](/projects/skillpass)
+
+shipped four things to skillpass.dev today:
+
+- **category browse** - a 12-slug taxonomy with a filter sidebar, every skill classified by haiku
+- **real listing copy** - ai-generated display names and taglines on every row
+- **defused false positives** - the validator stopped accusing security docs of stealing credentials
+- **a "works with" facet** - filter skills by what they integrate with (github, obsidian, office files, mcp...)
+
+the listing copy one came from staring at the homepage and admitting it read like a database dump. skill names were repo slugs (`zeroize-audit`, `aflpp`) and descriptions were SKILL.md frontmatter, which is text written to tell an *agent* when to trigger ("Use when writing, reviewing..."), not to tell a human what they're getting. that's agent-facing data, not storefront copy. the fix: one cheap haiku call per skill generates a display name and a plain-english tagline, cached in the db, with the raw description kept for the detail page where it belongs. 134 skills, about a nickel.
+
+the false-positive story is my favorite. a trail of bits skill that *audits code for secret-leaking bugs* got flagged for "exfiltrates or steals credentials." the offending lines? a heading naming a rust anti-pattern, `Box::leak(secret)`, and the remediation advice right below it: "Avoid `Box::leak` for secrets." the regex saw leak-verb-near-secret-noun and called it harvesting. security education is the worst case for keyword heuristics because it's *about* the attack vocabulary. fixes on three layers: regex lookbehinds for avoid/prevent plus guards for code identifiers, finding labels rewritten as pattern matches instead of verdicts ("matched a credential-exfiltration phrase"), and the evidence box now captions its quote so a "**Fix**:" line from the skill's own docs doesn't read like the site instructing you.
+
+one api lesson worth keeping: structured output does not enforce json-schema `maxLength`. i capped taglines at 120 chars, haiku happily wrote good ones at 127, and a fifth of the batch failed validation for being three words too helpful. validate lengths yourself; treat the cap as a junk bound, not art direction.
+
+test suite went from 700 to 749 across the day. next up: shipping the `skillpass` cli to npm so the install command on every skill page actually works.
