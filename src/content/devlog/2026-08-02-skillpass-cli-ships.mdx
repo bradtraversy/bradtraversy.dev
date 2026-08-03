@@ -1,0 +1,29 @@
+---
+title: skillpass cli ships to npm
+publishDate: 2026-08-02
+draft: false
+tags: [devlog, agents, nodejs, tool-launch]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [npm](https://www.npmjs.com/package/skillpass) | [project page](/projects/skillpass)
+
+The `skillpass` CLI is live on npm now. That matters because a directory for agent skills is only half useful if the install path is still copy, paste, and hope.
+
+This pass shipped the install lifecycle instead of just a first command:
+
+- `search` for finding skills from the terminal
+- `add` for installing single skills and workflow packs
+- `list` for seeing what is installed
+- `outdated` for finding updates
+- `update` for moving installed skills forward
+- `remove` for uninstalling singles or whole packs
+- receipts in `.skillpass.json` so installed skill folders stay byte-identical
+
+The main design choice was to keep receipts outside the installed skill folders. A skill folder should match the published snapshot. The local install metadata belongs next to the area, not inside the thing the agent reads.
+
+The search UI got more attention than I expected. Wide terminals get an aligned table. Narrow terminals get readable two-line rows. Piped output stays plain. Low-risk columns disappear when every row is low risk, because a table full of "low" is not signal.
+
+A review pass caught six CLI input-layer bugs, but the verification core held up: preflight checks, traversal protection, hash re-verification, and install receipts were still the right foundation. So this was not a rewrite. It was the thin outer layer getting less trusting.
+
+The package shipped as one bundled Node CLI with no runtime dependencies. Tests moved from 777 to 870 across the run, and the published 0.2.0 build includes update support from day one.

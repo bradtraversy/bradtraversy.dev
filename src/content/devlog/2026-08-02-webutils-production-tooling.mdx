@@ -1,0 +1,26 @@
+---
+title: webutils ships openpgp tools and targeted browser ci
+publishDate: 2026-08-02
+draft: false
+tags: [devlog, nextjs, react, tool-launch]
+project: webutils
+---
+
+links: [site](https://webutils.io) | [project page](/projects/webutils)
+
+WebUtils had a real production tooling day: two browser-native OpenPGP tools, a tighter CI path, and the first account-conversion flow all landed through verified pull requests.
+
+The OpenPGP work replaced the old quarantined key generator with a real implementation and added a separate encrypt/decrypt tool. Keeping those as two tools was the right split. Key generation is one job. Message handling is another. Both still fit the WebUtils rule: the work happens in the browser, not on a server.
+
+The release also tightened the way new tools enter the site:
+
+- every post-baseline tool needs behavior tests
+- every new interactive tool needs at least one real browser spec
+- pull requests run only the added or changed Playwright specs
+- the full browser suite stays available as a manual gate
+
+That last part is the nice tradeoff. Running every browser test on every pull request was expensive noise. Running the changed specs keeps the gate close to the code that moved, without pretending unrelated tools became safer because they opened again.
+
+The account prompt shipped carefully too. The tools stay usable without an account. The prompt appears only after someone gets value, starting with successful asset downloads, and the sign-in handoff preserves the favorite intent.
+
+Production was checked against the merged commits, not assumed from green previews. Both OpenPGP routes returned 200, the account flow was tested against the live site without touching production user data, and the runtime log scan stayed clean.
