@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-03T11:40:24.725Z",
+  "updatedAt": "2026-08-03T14:49:19.068Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 326,
     "followers": 76220,
-    "totalStars": 167036
+    "totalStars": 167037
   },
   "topRepos": [
     {
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40625,
-      "forks": 9731,
+      "forks": 9732,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16096,
-      "forks": 4382,
+      "forks": 4381,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -92,13 +92,25 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "bradtraversy/editorial-workflow",
+      "createdAt": "2026-08-03T11:50:17Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/editorial-workflow",
+      "createdAt": "2026-08-03T11:46:19Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-08-03T11:40:06Z",
       "details": "pushed to main"
     },
     {
       "type": "CreateEvent",
-      "repo": "bradtraversy/editorial-workflow-skill",
+      "repo": "bradtraversy/editorial-workflow",
       "createdAt": "2026-08-03T11:39:25Z",
       "details": "created branch main"
     },
@@ -137,22 +149,10 @@
       "repo": "bradtraversy/ai-blueprint",
       "createdAt": "2026-08-01T12:11:07Z",
       "details": "opened pull request #2"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/ai-blueprint",
-      "createdAt": "2026-08-01T12:10:58Z",
-      "details": "created branch chore/repository-polish"
-    },
-    {
-      "type": "PublicEvent",
-      "repo": "bradtraversy/bradtraversy.com",
-      "createdAt": "2026-07-26T21:05:41Z",
-      "details": "made the repo public"
     }
   ],
   "contributions": {
-    "total": 793,
+    "total": 795,
     "weeks": [
       [
         0,
@@ -624,7 +624,7 @@
       ],
       [
         1,
-        4
+        6
       ]
     ]
   }
