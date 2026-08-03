@@ -1,9 +1,9 @@
 {
-  "updatedAt": "2026-08-03T11:35:49.841Z",
+  "updatedAt": "2026-08-03T11:40:24.725Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
-    "publicRepos": 325,
+    "publicRepos": 326,
     "followers": 76220,
     "totalStars": 167036
   },
@@ -93,6 +93,18 @@
     {
       "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-08-03T11:40:06Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/editorial-workflow-skill",
+      "createdAt": "2026-08-03T11:39:25Z",
+      "details": "created branch main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
       "createdAt": "2026-08-03T11:35:36Z",
       "details": "pushed to main"
     },
@@ -137,22 +149,10 @@
       "repo": "bradtraversy/bradtraversy.com",
       "createdAt": "2026-07-26T21:05:41Z",
       "details": "made the repo public"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-07-27T18:40:21Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/homebrew-tap",
-      "createdAt": "2026-07-27T15:28:27Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 790,
+    "total": 793,
     "weeks": [
       [
         0,
@@ -624,7 +624,7 @@
       ],
       [
         1,
-        1
+        4
       ]
     ]
   }
