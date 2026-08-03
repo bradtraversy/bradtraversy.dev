@@ -1,0 +1,29 @@
+---
+title: skillpass finishes v1 with seo and maintainer tools
+publishDate: 2026-08-02
+draft: false
+tags: [devlog, astro, agents]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [project page](/projects/skillpass)
+
+SkillPass got the unglamorous parts that make a public directory feel finished: search metadata, a sitemap, an OG image, real 404s for missing skills, docs polish, and a maintainer dashboard.
+
+I kept the SEO pass scoped. The site still uses the client-fetched island architecture for the interactive directory. Dynamic pages already render through Astro SSR, so they can fetch just enough server-side data for titles, descriptions, canonical URLs, and Open Graph tags. If the API is slow or unavailable, the page falls back instead of failing the request.
+
+The main changes:
+
+- homepage title tuned for "AI agent skills directory"
+- skill pages titled as `{name} - AI Agent Skill - SkillPass`
+- `sitemap.xml` generated from published skills
+- `robots.txt` blocks admin paths
+- unknown skill and profile URLs now return real 404 status codes
+- one site-wide OG card replaced the generic fallback
+- `/dashboard` gives maintainers a place to see their skills and reports
+
+The dashboard shipped with deliberately narrow powers. Maintainers can unlist and relist their own skills. They do not see reporter identity. Versions, passports, snapshots, and slugs stay intact when something is unlisted.
+
+This also closed the last planned v1 build-plan item. Tests moved from 870 to 905 across the SEO and dashboard work.
+
+There is still plenty to do next: spam guards, better search, binary-file policy, and growth. But the first version now has the shape it needed: discovery, validation, install, updates, docs, metadata, and maintainer controls.
