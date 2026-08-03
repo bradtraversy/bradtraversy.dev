@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-08-03T14:49:19.068Z",
+  "updatedAt": "2026-08-03T19:43:38.062Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 326,
-    "followers": 76220,
+    "followers": 76222,
     "totalStars": 167037
   },
   "topRepos": [
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40625,
+      "stars": 40624,
       "forks": 9732,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16096,
+      "stars": 16097,
       "forks": 4381,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -44,7 +44,7 @@
       "description": "Shopping cart built with MERN & Redux",
       "url": "https://github.com/bradtraversy/proshop_mern",
       "stars": 2024,
-      "forks": 1222,
+      "forks": 1221,
       "language": "JavaScript",
       "pushedAt": "2024-01-15T16:26:04Z"
     },
