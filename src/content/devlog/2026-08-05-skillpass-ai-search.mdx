@@ -1,0 +1,49 @@
+---
+title: skillpass gets ai search
+publishDate: 2026-08-05
+draft: false
+tags: [devlog, agents, typescript]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [project page](/projects/skillpass)
+
+SkillPass search needed a second mode.
+
+Keyword search is still useful when you know the exact thing you want: "vite",
+"docker", "review", "docs". But agent skills are often discovered by intent,
+not by name. Someone might search for "help me write better articles" and want
+copywriting, content strategy, editorial workflow, or writing-skills results
+even if those exact words are not in every title.
+
+This pass added two pieces to the directory:
+
+- a Featured tab with a curated default order
+- an AI search mode beside keyword search
+
+The Featured tab is the simple editorial layer. It lets the homepage lead with
+the strongest workflow packs and generally useful skills without changing what
+"latest" means. Latest is still latest. Featured is the front shelf.
+
+The AI search side is intentionally boring in the good way. It does not ask an
+LLM to decide what a skill is. SkillPass builds a search document from the
+public listing copy, embeds it with Voyage, stores the vector in pgvector, and
+does cosine search when someone chooses AI mode. The query path returns the same
+public skill summaries as the normal directory, just ordered by semantic
+relevance.
+
+That shape matters because the directory is still about inspection, not magic.
+Semantic search can help someone find the right passport faster, but it should
+not become an opaque recommendation engine. The skill page still shows source,
+permissions, validation status, risk, findings, and install details before
+anything reaches your machine.
+
+There was one API lesson hiding in the Featured work too: the published CLI was
+strict-parsing directory responses, so adding a harmless new field would have
+broken installed clients. The fix was to carry ranking through server-side row
+order instead of expanding the payload. That is the kind of boring compatibility
+detail you only catch once a side project has real users and a real CLI.
+
+The end result is a directory that feels less like a list and more like a tool:
+curated when you are browsing, semantic when you are searching, and still
+skeptical when you are about to install.
