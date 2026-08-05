@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-05T12:25:19.909Z",
+  "updatedAt": "2026-08-05T14:19:39.971Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 326,
-    "followers": 76305,
-    "totalStars": 167065
+    "followers": 76306,
+    "totalStars": 167066
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66583,
+      "stars": 66584,
       "forks": 12123,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
