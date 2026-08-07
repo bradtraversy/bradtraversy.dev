@@ -1,0 +1,80 @@
+---
+title: memcrate is one command now
+publishDate: 2026-08-07
+draft: false
+tags: [devlog, decision, rust, postmortem]
+project: memcrate
+---
+
+memcrate sat untouched all summer. picked it back up today and the first
+thing i wanted was a from-scratch install test, which i'd somehow never
+done. that test is what killed the old design.
+
+setup was four commands: `init` to make the vault, `setup` to fill in your
+profile, `install claude-code` for the skills, and the binary install
+before all of it. each one made sense on its own. running them in order on
+a clean machine felt like homework. so v0.4.0 collapses the whole thing:
+
+```bash
+memcrate
+```
+
+it asks one question, where the vault should live, then creates it and
+installs the skills. `--vault` and `--yes` cover scripts, and `--yes` is
+implied when there's no terminal so it never hangs in CI. the identity
+questions moved to `memcrate profile`, optional, because folding them into
+the main flow turned one question into five and "what do you do?" is a
+terrible prompt.
+
+that's a breaking change. i did it now specifically because npm support
+landed in the same release, and breaking a handful of early users beats
+breaking a larger group later.
+
+## codex, and one skill source for both
+
+codex uses `~/.codex/skills/<name>/SKILL.md`, the exact format claude code
+uses. so instead of maintaining two near-identical copies of ~440 lines to
+change about six, there's one canonical set that installs to both. the
+only genuinely tool-specific part is how each one finds your vault, and
+that names the concrete call per tool inline.
+
+also added `--force` protection that i needed personally: my own `load`,
+`save`, and `pin` skills live at exactly the path memcrate installs to.
+installed skills now carry a marker, and memcrate refuses to replace
+anything it didn't put there.
+
+## the part that actually stung
+
+after shipping, i started clicking around my own site instead of reading
+source. four things were broken:
+
+- `memcrate.dev/install.sh`, the headline command on the homepage, returned
+  a 404 page. anyone copying it piped `NOT_FOUND` into `sh`. i'd added a
+  `_redirects` file, which is netlify and cloudflare syntax. the site runs
+  on vercel, which ignored it silently.
+- the install snippet's windows, npm, and cargo tabs were styled buttons
+  with no javascript behind them. purely decorative.
+- both install scripts ended by telling you to run `memcrate init`, a
+  command that release had just deleted.
+- codex invokes skills with `$load`, not `/load`. every doc taught the
+  slash form, so codex users were handed commands that do nothing.
+
+i'd "audited" the docs twice before finding these, by grepping for strings
+like `memcrate init`. that never matched, because the page renders it as
+`<span>memcrate</span> init`. the audit that works renders the site, strips
+the tags, and checks the visible text. same blind spot bit me on file
+extensions: filtering for `.md` and `.rs` meant `.gitignore` and the
+license file were never scanned, and both had problems.
+
+v0.4.1 shipped the codex fix. install it however you like:
+
+```bash
+curl -fsSL https://memcrate.dev/install.sh | sh
+npm install -g memcrate
+cargo install memcrate
+```
+
+still untested: the windows installer, and running `/load` in a real
+session rather than just verifying the files land correctly. the codex bug
+slipped past every automated check i had, which is a decent argument that
+the live session is the test that counts.
