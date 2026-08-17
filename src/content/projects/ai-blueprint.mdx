@@ -14,7 +14,7 @@ heroImage: ./ai-blueprint-workflow.png
 heroImageAlt: AI Blueprint fresh-project workflow diagram showing /onboard, planning files, /overview, project-overview.md, optional /prototype and /brief paths, /feature, /fix, /rollback, current-feature.md, /implement, /check, /try, /audit, /complete, and blueprint/history/
 screenshots: ["./ai-blueprint-website.webp"]
 publishDate: 2026-06-20
-updatedDate: 2026-07-23
+updatedDate: 2026-08-16
 featured: false
 ---
 
@@ -34,15 +34,20 @@ The point is to make the AI useful inside a controlled loop:
   `blueprint/build-plan.md`
 - **context before code**: `/overview` turns those plans into the AI-facing
   project overview and stops on open questions
+- **optional discovery before plans**: `/discovery` can help draft the plans
+  and waits for approval before writing them
 - **spec before implementation**: `/feature`, `/fix`, and `/rollback` write the
   active spec, then stop for review
+- **diagnosis before repair**: `/debug` reproduces and isolates failures
+  without editing the project
 - **small reviewed steps**: `/implement` builds one step at a time, shows the
   diff, proves the done-when, and waits for approval
 - **proof before closeout**: `/check` verifies the spec against the real app,
   and `/try` gives the human review path
 - **audit before merge**: `/audit` records findings with durable IDs and
-  severities, and `/complete` refuses to merge while P0 or P1 findings still
-  need review
+  severities, supports focused quality, security, performance, and tests
+  lenses, and `/complete` refuses to merge while P0 or P1 findings still need
+  review
 - **release is separate**: `/release render` and `/release vercel` prepare local
   config and smoke checks, but do not deploy without a separate yes
 
@@ -55,8 +60,10 @@ The current loop is stricter than the first version of the project:
 
 ```text
 /onboard
+/discovery
 /overview
 /feature or /fix or /rollback
+/debug when something is failing
 /implement
 /check
 /try
@@ -68,6 +75,15 @@ The current loop is stricter than the first version of the project:
 `/onboard` adapts the installed files to the actual repo. `/doctor` checks the
 setup without changing anything. `/brief` previews the next feature before a
 spec is written. `/status` helps recover after a context clear.
+
+`/discovery` is optional. It is for the early conversations where the product is
+still fuzzy and the plans need help becoming concrete. It drafts the plans,
+shows them for review, and writes them only after approval. Manual plans still
+work exactly the same way.
+
+`/debug` is read-only by design. It follows a failing test, broken build,
+runtime error, or unexpected behavior until it has evidence, then hands actual
+repair work to `/fix` or `/implement`.
 
 The merge gate is the important part. `/complete` does not just commit whatever
 the assistant changed. It checks the active spec, archived history, git state,
@@ -122,13 +138,15 @@ Core build loop:
 
 - `/onboard`: adapt the Blueprint to a fresh or early project
 - `/adopt`: bootstrap planning from an existing codebase
+- `/discovery`: turn a planning conversation into reviewed plan drafts
 - `/overview`: turn plans into project context
 - `/feature`: spec the next planned feature
 - `/fix`: spec an unplanned bug or small change
+- `/debug`: diagnose a failure without changing project files
 - `/implement`: build the active spec in reviewed steps
 - `/check`: prove the done-whens against the real app
 - `/try`: write the manual test path for a human reviewer
-- `/audit`: review code quality, security, performance, tests, and drift
+- `/audit`: review broadly, or focus on quality, security, performance, or tests
 - `/complete`: archive, commit, merge, and log with approval
 
 Supporting commands:
@@ -145,11 +163,11 @@ Supporting commands:
 ## what's next
 
 AI Blueprint is public, installable, and documented at
-[ai-blueprint.dev](https://ai-blueprint.dev). The next work is less about the
-idea and more about hardening it through real projects: better examples, more
-e2e scenarios for the gates, clearer docs for findings and rollback, and using
-it as the reference workflow for newer builds like PortDoc, SkillPass, and
-ApiMocker.
+[ai-blueprint.dev](https://ai-blueprint.dev). The public docs now cover Debug,
+focused Audit lenses, Discovery, evaluations, release prep, and the core build
+loop. The npm package is still `create-ai-blueprint@0.6.0`, so the next release
+step is publishing the updated workflow and proving clean install and update
+paths.
 
 > the point was never to type less. it is to stay in control of a codebase the
 > ai is helping you write.

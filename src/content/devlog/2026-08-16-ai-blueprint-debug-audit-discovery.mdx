@@ -1,0 +1,41 @@
+---
+title: ai blueprint adds debug, audit lenses, and discovery
+publishDate: 2026-08-16
+draft: false
+tags: [devlog, agents, agent-workflow, tool-launch]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/bradtraversy/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint keeps turning into less of a prompt pack and more of a workflow
+system.
+
+The new pieces are all about giving the agent a better lane before it touches
+code.
+
+`/debug` is diagnosis-only. It reproduces a failure, narrows the cause, and
+reports evidence without editing source, tests, config, Blueprint state,
+branches, or commits. If the diagnosis becomes repair work, that moves to
+`/fix` or `/implement`.
+
+`/audit` now has focused lenses: quality, security, performance, and tests.
+The old broad audit still exists, but the focused form matters when I want a
+security pass to stay about security instead of turning into a grab bag of
+style notes.
+
+`/discovery` is the optional planning conversation I wanted without replacing
+manual plans. It can help draft `project-plan.md` and `build-plan.md`, but it
+stops for review before writing them. That keeps the workflow flexible: use
+Discovery when a product is fuzzy, or skip straight to hand-written plans when
+the shape is already clear.
+
+The maintainer side got stricter too. Blueprint now has deterministic routing
+evaluations and explicit live-agent scenarios for the workflow boundaries. The
+live tests cost tokens, so they stay opt-in, but they catch the bugs that only
+show up when an agent is actually asked to behave.
+
+The public docs are already updated at
+[ai-blueprint.dev](https://ai-blueprint.dev). The npm package is still
+`create-ai-blueprint@0.6.0` as of this post, so the next release is the package
+publish and clean install check.
