@@ -1,0 +1,38 @@
+---
+title: memcrate gets live agent tests
+publishDate: 2026-08-09
+draft: false
+tags: [devlog, rust, agents, postmortem]
+project: memcrate
+---
+
+links: [site](https://memcrate.dev) | [repo](https://github.com/memcrate/memcrate) | [project page](/projects/memcrate)
+
+Memcrate v0.4.2 shipped with a lesson I keep relearning: a test that has never
+failed has not earned much trust yet.
+
+The headline change was support for Claude Desktop, but the surprise was that
+there was no new installer target to build. Claude Desktop local agent mode
+reads the same Claude Code skills directory, so the right move was to correct
+the docs and explain the support clearly: Claude Code, Claude Desktop, and
+Codex all work with the same vault pattern.
+
+The real work was live-agent testing. Static checks can prove that the files
+install. They cannot prove that an actual agent finds the vault, reads the
+right note, and uses the context instead of guessing. So the new test creates a
+scratch home, seeds a temporary vault with a canary phrase, installs the current
+skills, runs the agent, and fails unless the answer proves it read the file.
+
+That test failed immediately. The first failure caught a vault-discovery issue
+where the instructions depended too much on tool identity instead of the
+capabilities the agent actually had. The second failure was in the test harness
+itself. Both were useful because they looked like the kind of bug a real user
+would hit: the skill appears installed, but the agent politely misses the
+context and asks for a path.
+
+v0.4.2 also cleaned up docs drift on memcrate.dev and moved the visible site
+version to one place so the header, footer, and hero stop disagreeing.
+
+This is the shape I want for Memcrate releases now: install checks for the
+binary, visible-site checks for the docs, and a live agent test for the part
+that actually matters.

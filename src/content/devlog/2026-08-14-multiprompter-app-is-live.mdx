@@ -1,0 +1,41 @@
+---
+title: multiprompter.app is live
+publishDate: 2026-08-14
+draft: false
+tags: [devlog, swift, tool-launch, business]
+project: multiprompter
+---
+
+links: [site](https://multiprompter.app) | [project page](/projects/multiprompter)
+
+Multiprompter finally has a real home at
+[multiprompter.app](https://multiprompter.app).
+
+This started as my first Swift app: one markdown script driving multiple
+scroll-synced viewer windows. The product is still that simple. Write once,
+read from any display, keep every viewer on the same sentence, and make sure
+the recording never sees the floating prompt.
+
+The last stretch was not more app UI. It was everything around selling and
+trusting a Mac app:
+
+- a real app icon
+- Developer ID signing and notarization
+- a trial and license flow
+- viewer gating after the trial, without locking up the editor or files
+- a public website with docs, changelog, support, and social image
+- copy that shows the actual product UI instead of fake marketing chrome
+
+The design took a few tries. The version that stuck shows the real app pattern:
+one editor window on the main display, a skinny strip beside it, and a larger
+viewer on the camera-facing display. That is the product in one scene.
+
+I also had to keep myself honest on the site. No line-highlighting visual,
+because the app does not do voice tracking yet. No claiming official Homebrew
+until the public distribution path is ready. The landing page can sell the
+idea, but it still has to describe the app that exists.
+
+The next product work is back inside the app: smoother prompting controls,
+auto-scroll, and eventually voice tracking. But getting the website live
+changed the project from "cool thing on my machine" into an actual product
+surface.
