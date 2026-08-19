@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-19T12:55:15.575Z",
+  "updatedAt": "2026-08-19T18:40:26.969Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
-    "publicRepos": 327,
-    "followers": 76415,
-    "totalStars": 167183
+    "publicRepos": 328,
+    "followers": 76419,
+    "totalStars": 167190
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66696,
-      "forks": 12135,
+      "stars": 66699,
+      "forks": 12136,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40614,
-      "forks": 9720,
+      "stars": 40613,
+      "forks": 9719,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16098,
+      "stars": 16101,
       "forks": 4380,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -74,7 +74,7 @@
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
       "stars": 1363,
-      "forks": 1659,
+      "forks": 1658,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
     },
@@ -90,6 +90,30 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/multiprompter-releases",
+      "createdAt": "2026-08-19T17:03:22Z",
+      "details": "created branch main"
+    },
+    {
+      "type": "ReleaseEvent",
+      "repo": "bradtraversy/multiprompter-releases",
+      "createdAt": "2026-08-19T17:03:52Z",
+      "details": "published release v1.1"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-19T12:23:31Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-19T12:25:00Z",
+      "details": "pushed to main"
+    },
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
@@ -125,34 +149,10 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-16T14:37:56Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-15T11:46:29Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-15T10:50:38Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-14T20:53:41Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/homebrew-tap",
-      "createdAt": "2026-08-10T21:39:25Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 853,
+    "total": 856,
     "weeks": [
       [
         0,
@@ -626,7 +626,7 @@
         1,
         3,
         0,
-        3
+        6
       ]
     ]
   }
