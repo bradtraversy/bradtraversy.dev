@@ -5,16 +5,17 @@ description: |
   a workflow overlay for already-scaffolded apps. you write the product plan and
   build plan; AI Blueprint turns them into project context, feature specs,
   proof gates, audit findings, rollbacks, release checks, and written history.
-  it works through Codex skills, Claude Code skills, and AGENTS.md.
+  it works through Codex skills, Claude Code skills, GitHub Copilot support, and
+  AGENTS.md.
 status: live
 url: https://ai-blueprint.dev
-repoUrl: https://github.com/bradtraversy/ai-blueprint
-stack: [Markdown, Astro, TypeScript, Claude Code, Codex, AGENTS.md]
+repoUrl: https://github.com/aiblueprinthq/ai-blueprint
+stack: [Markdown, Astro, TypeScript, Claude Code, Codex, GitHub Copilot, AGENTS.md]
 heroImage: ./ai-blueprint-workflow.png
 heroImageAlt: AI Blueprint fresh-project workflow diagram showing /onboard, planning files, /overview, project-overview.md, optional /prototype and /brief paths, /feature, /fix, /rollback, current-feature.md, /implement, /check, /try, /audit, /complete, and blueprint/history/
 screenshots: ["./ai-blueprint-website.webp"]
 publishDate: 2026-06-20
-updatedDate: 2026-08-16
+updatedDate: 2026-08-21
 featured: false
 ---
 
@@ -118,11 +119,14 @@ a quick tour:
 - **installer package**: `create-ai-blueprint` installs the workflow after an
   app has already been scaffolded
 - **tool adapters**: Codex uses `.agents/skills`; Claude Code uses
-  `.claude/skills`; both share the same workflow model
+  `.claude/skills`; GitHub Copilot reads the shared `AGENTS.md` and adapter
+  files; all of them share the same workflow model
 - **AGENTS.md entrypoint**: cross-tool instructions live where modern coding
   agents already look
 - **blueprint folder**: plans, generated context, current work, findings, and
   history live under `blueprint/`
+- **status CLI**: `blueprint status` gives a read-only snapshot of current work,
+  findings, Git state, drift, completion readiness, and next actions
 - **managed updates**: `blueprint/.state/manifest.json` tracks managed file
   hashes so updates can report conflicts instead of overwriting local changes
 - **command docs**: the public site and installed `blueprint/README.md` explain
@@ -163,11 +167,14 @@ Supporting commands:
 ## what's next
 
 AI Blueprint is public, installable, and documented at
-[ai-blueprint.dev](https://ai-blueprint.dev). The public docs now cover Debug,
-focused Audit lenses, Discovery, evaluations, release prep, and the core build
-loop. The npm package is still `create-ai-blueprint@0.6.0`, so the next release
-step is publishing the updated workflow and proving clean install and update
-paths.
+[ai-blueprint.dev](https://ai-blueprint.dev). The package is now
+`create-ai-blueprint@0.10.0`, with Debug, focused Audit lenses, Discovery, a
+read-only status CLI, GitHub Copilot support, package smoke checks, and the core
+build loop documented in the public repo.
+
+The next careful step is deeper CLI orchestration. I want the command surface to
+earn trust in read-only mode first, then grow into bounded automation without
+weakening the gates that make the workflow useful.
 
 > the point was never to type less. it is to stay in control of a codebase the
 > ai is helping you write.
