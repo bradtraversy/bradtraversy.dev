@@ -1,0 +1,49 @@
+---
+title: multiprompter 1.1 ships for real
+publishDate: 2026-08-20
+draft: false
+tags: [devlog, swift, tool-launch, business]
+project: multiprompter
+---
+
+links: [site](https://multiprompter.app) | [repo](https://github.com/multiprompter/releases) | [project page](/projects/multiprompter)
+
+Multiprompter 1.1 is the first version I can point a stranger at and say:
+buy it, download it, activate it, and get back to recording.
+
+The app was already working. The launch work was everything that turns a native
+Mac utility into an actual product:
+
+- a notarized DMG instead of a zip
+- a permanent latest-download URL on a public releases repo
+- a product-scoped GitHub org with a public Homebrew tap
+- a live Lemon Squeezy checkout
+- a real receipt-to-license flow
+- a support path and public docs that match the shipped app
+
+I also moved the distribution pieces into a better shape. The source stays
+private, but the binaries live in
+[multiprompter/releases](https://github.com/multiprompter/releases), and the tap
+lives in `multiprompter/homebrew-tap`. That lets the site, docs, and install
+commands point at product-owned infrastructure instead of a personal dumping
+ground of release artifacts.
+
+The real smoke test was buying my own app. A $24 checkout went through, the
+license activated inside Multiprompter, and the payout setup matched the company
+side. That sounds mundane, but it is the part a lot of side projects never
+prove. The product is not just built. It can sell.
+
+Launch morning also caught a good lesson: a stale Xcode Debug build can look
+exactly like "the shipped app is broken" when Spotlight launches the wrong copy.
+The signed 1.1 build was clean, the old checkout URL was only in the stale build,
+and the keychain prompts made sense once I remembered that macOS trusts each
+signed build against each keychain item separately. Old local builds are gone now.
+
+I also changed the site after seeing which part people actually understood
+first. The capture-safe viewer is the hook: you see the prompt over your editor,
+but the recording does not. The page now leads with that instead of treating it
+like one feature card among many.
+
+The next app work is smaller but important: proper File menu commands, then
+auto-scroll. But 1.1 is the big transition. Multiprompter is no longer just a
+Swift project on my machine. It is a paid Mac app with a working release path.

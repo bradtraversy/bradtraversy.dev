@@ -1,0 +1,52 @@
+---
+title: ai blueprint gets an org, a status cli, and copilot support
+publishDate: 2026-08-21
+draft: false
+tags: [devlog, agents, agent-workflow, tool-launch]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint moved from "repo under my GitHub account" into a more serious
+project surface this week.
+
+The public repo now lives at
+[aiblueprinthq/ai-blueprint](https://github.com/aiblueprinthq/ai-blueprint), the
+site still lives at [ai-blueprint.dev](https://ai-blueprint.dev), and
+`create-ai-blueprint` is up to `0.10.0` on npm. The old repo URL redirects, but
+the new org matches the shape of the project better: this is becoming a workflow
+product, not just a personal prompt pack.
+
+The bigger product change is the CLI starting to exist for real. Setup still
+begins with:
+
+```bash
+npx create-ai-blueprint@latest
+```
+
+But the package now also exposes a shorter `blueprint` command. I kept that
+global command intentionally narrow: it reports read-only project status. It can
+find the project root, read Blueprint metadata, inspect current work, surface
+open findings, look at Git state, warn about drift, and suggest the next action.
+It does not install, update, commit, push, or run work on its own.
+
+That boundary matters. A status command is useful precisely because it can be
+safe to run in the middle of a messy repo. It gives the next agent, or me after a
+context clear, a clean snapshot without becoming another automation lane too
+early.
+
+The other important addition is GitHub Copilot support. AI Blueprint already had
+Codex and Claude Code adapters, but Copilot belongs in the same workflow world
+now that `AGENTS.md` is becoming a shared instruction surface. Version 0.10.0
+adds Copilot support through the shared `AGENTS.md` and `.agents/skills/`
+adapter files, and makes `--all` the default install mode. The old `--both`
+flag still works as a deprecated alias.
+
+This run also tightened the package as a real dependency: TypeScript output,
+Node 22+, package smoke checks, changelogged releases, and release tags that map
+back to the public repo.
+
+The next step is the one I want to be careful with: turning this CLI foundation
+into deeper orchestration without letting it become "agent runs everything and
+hopes." Status first. Automation later, with gates.
