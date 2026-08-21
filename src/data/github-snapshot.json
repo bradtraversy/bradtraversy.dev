@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-21T12:56:02.228Z",
+  "updatedAt": "2026-08-21T18:41:58.480Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76430,
-    "totalStars": 167219
+    "followers": 76432,
+    "totalStars": 167225
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66718,
-      "forks": 12141,
+      "stars": 66724,
+      "forks": 12140,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40617,
-      "forks": 9720,
+      "forks": 9722,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -93,6 +93,36 @@
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-21T13:52:53Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-08-21T13:36:31Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-08-21T12:30:13Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-08-21T12:18:16Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "akash07k/ai-blueprint",
+      "createdAt": "2026-08-21T11:05:51Z",
+      "details": "pushed to feat/universal-copilot-adapters"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-21T11:07:33Z",
       "details": "pushed to main"
     },
@@ -119,40 +149,10 @@
       "repo": "multiprompter/homebrew-tap",
       "createdAt": "2026-08-20T14:56:30Z",
       "details": "created branch main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "multiprompter/releases",
-      "createdAt": "2026-08-20T14:55:51Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-20T15:12:25Z",
-      "details": "pullrequestreview"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-20T12:13:36Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-20T12:13:09Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-20T11:03:40Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 889,
+    "total": 897,
     "weeks": [
       [
         0,
@@ -628,7 +628,7 @@
         2,
         7,
         8,
-        3
+        11
       ]
     ]
   }
