@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-21T18:41:58.480Z",
+  "updatedAt": "2026-08-22T01:27:03.466Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
     "followers": 76432,
-    "totalStars": 167225
+    "totalStars": 167224
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66724,
+      "stars": 66723,
       "forks": 12140,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -93,6 +93,30 @@
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-21T20:45:36Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-21T18:12:57Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-21T16:47:25Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-21T17:59:49Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-21T13:52:53Z",
       "details": "pushed to main"
     },
@@ -125,34 +149,10 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-21T11:07:33Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-21T11:06:55Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-21T11:06:53Z",
-      "details": "pullrequestreview"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/homebrew-tap",
-      "createdAt": "2026-08-20T14:56:42Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "multiprompter/homebrew-tap",
-      "createdAt": "2026-08-20T14:56:30Z",
-      "details": "created branch main"
     }
   ],
   "contributions": {
-    "total": 897,
+    "total": 899,
     "weeks": [
       [
         0,
@@ -628,7 +628,8 @@
         2,
         7,
         8,
-        11
+        13,
+        0
       ]
     ]
   }
