@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-22T01:27:03.466Z",
+  "updatedAt": "2026-08-22T06:47:22.737Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76432,
-    "totalStars": 167224
+    "followers": 76433,
+    "totalStars": 167232
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66723,
-      "forks": 12140,
+      "stars": 66727,
+      "forks": 12143,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40617,
+      "stars": 40620,
       "forks": 9722,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
