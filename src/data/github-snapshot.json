@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-23T12:48:56.233Z",
+  "updatedAt": "2026-08-23T18:35:28.014Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76439,
-    "totalStars": 167247
+    "followers": 76444,
+    "totalStars": 167253
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66738,
-      "forks": 12145,
+      "stars": 66739,
+      "forks": 12148,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40622,
+      "stars": 40625,
       "forks": 9722,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16099,
+      "stars": 16100,
       "forks": 4379,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -74,7 +74,7 @@
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
       "stars": 1363,
-      "forks": 1657,
+      "forks": 1656,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
     },
@@ -90,6 +90,48 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-23T18:27:12Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-23T18:09:38Z",
+      "details": "commented on issue #5"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-22T15:18:30Z",
+      "details": "closed pull request #5"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-23T18:04:48Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-23T17:57:31Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "IssuesEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-23T17:57:31Z",
+      "details": "closed issue #6"
+    },
+    {
+      "type": "PullRequestReviewEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-23T17:56:56Z",
+      "details": "pullrequestreview"
+    },
     {
       "type": "IssueCommentEvent",
       "repo": "aiblueprinthq/ai-blueprint",
@@ -107,52 +149,10 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-21T18:12:57Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-21T16:47:25Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-21T17:59:49Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-21T13:52:53Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-08-21T13:36:31Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-08-21T12:30:13Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-08-21T12:18:16Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "akash07k/ai-blueprint",
-      "createdAt": "2026-08-21T11:05:51Z",
-      "details": "pushed to feat/universal-copilot-adapters"
     }
   ],
   "contributions": {
-    "total": 899,
+    "total": 904,
     "weeks": [
       [
         0,
@@ -623,7 +623,7 @@
         0
       ],
       [
-        0
+        5
       ]
     ]
   }
