@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-23T06:48:31.678Z",
+  "updatedAt": "2026-08-23T12:48:56.233Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
     "followers": 76439,
-    "totalStars": 167240
+    "totalStars": 167247
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66732,
-      "forks": 12144,
+      "stars": 66738,
+      "forks": 12145,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -91,6 +91,12 @@
   ],
   "recentEvents": [
     {
+      "type": "IssueCommentEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-23T10:29:05Z",
+      "details": "commented on issue #6"
+    },
+    {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-21T20:45:36Z",
@@ -143,12 +149,6 @@
       "repo": "akash07k/ai-blueprint",
       "createdAt": "2026-08-21T11:05:51Z",
       "details": "pushed to feat/universal-copilot-adapters"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-21T11:07:33Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
