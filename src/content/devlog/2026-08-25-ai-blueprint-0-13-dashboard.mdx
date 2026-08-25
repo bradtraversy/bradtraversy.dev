@@ -1,0 +1,49 @@
+---
+title: ai blueprint 0.13 adds dashboard and opencode support
+publishDate: 2026-08-25
+draft: false
+tags: [devlog, agents, agent-workflow, tool-launch]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 0.13 is the release where the CLI became more than a status
+command, but still stayed inside the line I care about.
+
+The new browser view is called Dashboard. `blueprint dashboard` is the canonical
+command, and `blueprint ui` remains as a deprecated alias. It is still local and
+read-only: a way to see project status, current work, findings, git state, and
+workflow health without asking an agent to start changing files.
+
+The installer also got more honest about tool support. Instead of one adapter
+choice, setup now uses a checkbox selector. Interactive installs select all four
+supported tools by default, and script flags can be composed:
+
+```bash
+npx create-ai-blueprint@latest --codex --claude --copilot --opencode
+```
+
+OpenCode is now a supported adapter too. The important part is that logical tool
+support and physical file layout are not the same thing. OpenCode can be an
+explicit choice in the manifest without creating a duplicate `.opencode/skills/`
+tree. It reuses compatible `.agents/skills/` or `.claude/skills/` files, which
+keeps the installed project smaller and easier to update.
+
+One cleanup I like: new installs no longer drop a Blueprint README into the
+consumer project. The app README belongs to the app. Blueprint can document its
+own workflow on the public site and in the package, while installed projects
+keep their own README focused on what they actually build.
+
+0.13 also carries a contributor credit for the `/adopt` visibility work from
+`@sushantrahate`, plus the release plumbing to keep the npm package, changelog,
+GitHub tag, docs site, and updates feed in sync.
+
+The checks were heavier than the copy makes it sound: TypeScript, static
+contracts, routing evals, 53 installer and dashboard tests, packed installer
+smokes for all adapter modes, Node 22 and Node 24 release validation, and public
+docs checks. npm now reports `create-ai-blueprint@0.13.0` as latest.
+
+The next decision is not "what can the dashboard do?" It is "what is useful
+enough to automate without weakening the gates?" Status and dashboard are the
+floor. Anything past that has to earn the extra trust.
