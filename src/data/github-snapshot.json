@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-25T18:44:47.303Z",
+  "updatedAt": "2026-08-26T01:38:47.912Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76449,
-    "totalStars": 167279
+    "followers": 76450,
+    "totalStars": 167283
   },
   "topRepos": [
     {
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40637,
+      "stars": 40638,
       "forks": 9722,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16103,
+      "stars": 16104,
       "forks": 4378,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -84,12 +84,18 @@
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
       "stars": 1207,
-      "forks": 1145,
+      "forks": 1144,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-25T20:59:01Z",
+      "details": "pushed to main"
+    },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
@@ -143,16 +149,10 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-23T10:29:05Z",
       "details": "commented on issue #6"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-21T20:45:36Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 905,
+    "total": 910,
     "weeks": [
       [
         0,
@@ -625,7 +625,8 @@
       [
         5,
         0,
-        1
+        6,
+        0
       ]
     ]
   }
