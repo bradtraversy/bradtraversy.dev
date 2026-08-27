@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-26T19:52:12.632Z",
+  "updatedAt": "2026-08-27T08:30:45.883Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76453,
-    "totalStars": 167281
+    "followers": 76455,
+    "totalStars": 167287
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66752,
-      "forks": 12153,
+      "stars": 66755,
+      "forks": 12154,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40632,
+      "stars": 40636,
       "forks": 9721,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -91,68 +91,68 @@
   ],
   "recentEvents": [
     {
+      "type": "IssueCommentEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-26T22:06:14Z",
+      "details": "commented on issue #10"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-26T22:06:14Z",
+      "details": "commented on issue #8"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-26T22:06:14Z",
+      "details": "commented on issue #9"
+    },
+    {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-25T20:59:01Z",
+      "createdAt": "2026-08-26T22:26:05Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-08-25T13:24:55Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-23T18:27:12Z",
+      "createdAt": "2026-08-26T22:11:08Z",
       "details": "pushed to main"
     },
     {
       "type": "IssueCommentEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-23T18:09:38Z",
-      "details": "commented on issue #5"
+      "createdAt": "2026-08-26T22:06:14Z",
+      "details": "commented on issue #11"
     },
     {
       "type": "PullRequestEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-22T15:18:30Z",
-      "details": "closed pull request #5"
+      "createdAt": "2026-08-26T22:06:04Z",
+      "details": "merged pull request #11"
     },
     {
-      "type": "PushEvent",
+      "type": "PullRequestEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-23T18:04:48Z",
-      "details": "pushed to main"
+      "createdAt": "2026-08-26T22:06:04Z",
+      "details": "merged pull request #8"
     },
     {
-      "type": "PushEvent",
+      "type": "PullRequestEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-23T17:57:31Z",
-      "details": "pushed to main"
+      "createdAt": "2026-08-26T22:06:04Z",
+      "details": "merged pull request #10"
     },
     {
-      "type": "IssuesEvent",
+      "type": "PullRequestEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-23T17:57:31Z",
-      "details": "closed issue #6"
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-23T17:56:56Z",
-      "details": "pullrequestreview"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-23T10:29:05Z",
-      "details": "commented on issue #6"
+      "createdAt": "2026-08-26T22:06:04Z",
+      "details": "merged pull request #9"
     }
   ],
   "contributions": {
-    "total": 910,
+    "total": 918,
     "weeks": [
       [
         0,
@@ -626,6 +626,7 @@
         5,
         0,
         6,
+        8,
         0
       ]
     ]
