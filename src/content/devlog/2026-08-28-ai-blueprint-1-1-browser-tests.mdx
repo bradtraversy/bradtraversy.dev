@@ -1,0 +1,37 @@
+---
+title: ai blueprint 1.1 adds browser tests
+publishDate: 2026-08-28
+draft: false
+tags: [devlog, agents, agent-workflow, tool-launch]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 1.1 is about making the workflow useful for apps you can actually
+see, click, and break. The new `/browser-tests` command adds an optional browser
+automation gate to a project, records the command in the local config, and lets
+Feature, Check, and Continuous Mode use that proof when UI behavior matters.
+
+The release also adds project-level automation policy. A project can say how
+much help it wants from regular commands versus Continuous Mode, and the default
+still stays conservative: audit, check, and try work remain manual unless the
+project opts into more.
+
+What shipped:
+
+- `create-ai-blueprint@1.1.0` on npm
+- browser-test setup for Playwright-friendly JavaScript and TypeScript apps
+- Continuous Mode that works locally, one feature at a time, without pushing or
+  publishing anything
+- a redesigned read-only dashboard over repo state and `blueprint/.state/run.json`
+- sandbox coverage for onboarding, adapters, CLI behavior, and installer paths
+
+I also tightened the docs around where browser automation fits. Unit tests prove
+logic. Build checks prove the project still compiles. Browser tests prove the
+parts that humans actually notice: visual states, auth paths, extension UI,
+interactive flows, and regressions that only show up after a click.
+
+That is the direction I want AI Blueprint to keep moving: more proof, more
+project memory, and more automation only where the project has explicitly asked
+for it.
