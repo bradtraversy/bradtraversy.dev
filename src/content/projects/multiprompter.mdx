@@ -14,7 +14,7 @@ stack: [Swift, SwiftUI, AppKit, macOS, Astro, Lemon Squeezy]
 heroImage: ./multiprompter-website.webp
 heroImageAlt: Multiprompter homepage with the headline "Your script, everywhere you look", pricing copy, a download button, and two product mockups showing synced teleprompter windows.
 publishDate: 2026-06-20
-updatedDate: 2026-08-20
+updatedDate: 2026-08-28
 featured: false
 ---
 
@@ -36,6 +36,10 @@ write your script once, run it across as many windows as you want:
   them
 - **trial and license flow**: the app has a 14-day trial and a one-time license
   model through its own site
+- **native file workflow**: New, Open, Open Recent, Save, Save As, and quit all
+  respect unsaved changes through the macOS File menu
+- **in-app updates**: Sparkle checks the signed appcast so future releases can
+  arrive without a manual download
 - **public release path**: the current notarized DMG lives in a public releases
   repo, with a product-owned Homebrew tap for terminal installs
 
@@ -66,18 +70,21 @@ a quick tour:
 - **borderless AppKit windows**: viewers are frameless `NSWindow`s with the
   capture-exclusion, always-on-top, opacity, and click-through behavior handled
   at the window layer
-- **mac distribution**: Developer ID signing, notarization, a DMG release, and a
-  Homebrew cask path for installing from the terminal
+- **mac distribution**: Developer ID signing, notarization, a DMG release, an
+  appcast-backed Sparkle update path, and a Homebrew cask path for installing
+  from the terminal
+- **release hardening**: file access, keychain writes, undo history, rendered
+  preview updates, and scroll indexing have all been tightened before auto-scroll
 - **public site**: [multiprompter.app](https://multiprompter.app) is an Astro
   site with docs, changelog, support, and a product scene based on the real app
   UI
 
 ## what's next
 
-- **auto-scroll**: the obvious next prompting control now that the core sync
-  and product surface are real
-- **more release hardening**: the public download, license flow, support path,
-  and cask should stay boring and repeatable
+- **auto-scroll in 1.3**: the next prompting control now that the core sync,
+  file workflow, and update path are real
+- **keep releases boring**: the public download, license flow, appcast, support
+  path, and cask should stay repeatable
 - **phase 2: voice tracking**: your voice drives the same scroll position the
   windows already share
 

@@ -10,12 +10,12 @@ description: |
 status: live
 url: https://ai-blueprint.dev
 repoUrl: https://github.com/aiblueprinthq/ai-blueprint
-stack: [Markdown, Astro, TypeScript, Claude Code, Codex, GitHub Copilot, OpenCode, AGENTS.md]
+stack: [Markdown, Astro, TypeScript, Playwright, Claude Code, Codex, GitHub Copilot, OpenCode, AGENTS.md]
 heroImage: ./ai-blueprint-workflow.png
 heroImageAlt: AI Blueprint fresh-project workflow diagram showing /onboard, planning files, /overview, project-overview.md, optional /prototype and /brief paths, /feature, /fix, /rollback, current-feature.md, /implement, /check, /try, /audit, /complete, and blueprint/history/
 screenshots: ["./ai-blueprint-website.webp"]
 publishDate: 2026-06-20
-updatedDate: 2026-08-25
+updatedDate: 2026-08-28
 featured: false
 ---
 
@@ -45,6 +45,8 @@ The point is to make the AI useful inside a controlled loop:
   diff, proves the done-when, and waits for approval
 - **proof before closeout**: `/check` verifies the spec against the real app,
   and `/try` gives the human review path
+- **browser proof when ui matters**: `/browser-tests` adds a project-specific
+  browser automation command that Feature, Check, and Continuous Mode can use
 - **audit before merge**: `/audit` records findings with durable IDs and
   severities, supports focused quality, security, performance, and tests
   lenses, and `/complete` refuses to merge while P0 or P1 findings still need
@@ -67,6 +69,7 @@ The current loop is stricter than the first version of the project:
 /debug when something is failing
 /implement
 /check
+/browser-tests when UI proof matters
 /try
 /audit
 /complete
@@ -91,6 +94,11 @@ the assistant changed. It checks the active spec, archived history, git state,
 and audit ledger. P0 and P1 findings have to be closed by review, not merely
 patched by the same agent that found them. Push and deploy remain separate
 explicit approvals.
+
+Continuous Mode keeps that same shape, but lets a project opt into a local
+one-feature-at-a-time run. It can move through planning, implementation,
+checks, and audit work, but it still follows the project's policy and never
+pushes, deploys, publishes, sends email, or does destructive work on its own.
 
 Rollbacks use the same discipline. `/rollback` finds the archived feature and
 the commit that introduced it, checks later dependency risk, writes a guarded
@@ -129,6 +137,8 @@ a quick tour:
   findings, Git state, drift, completion readiness, and next actions
 - **local dashboard**: `blueprint dashboard` opens a read-only browser view over
   the same project status and workflow state
+- **project config**: the workflow records allowed checks, browser-test commands,
+  and the automation policy for regular commands and Continuous Mode
 - **managed updates**: `blueprint/.state/manifest.json` tracks managed file
   hashes so updates can report conflicts instead of overwriting local changes
 - **command docs**: the public site explains the loop, gates, rollback path,
@@ -155,12 +165,14 @@ Core build loop:
 - `/try`: write the manual test path for a human reviewer
 - `/audit`: review broadly, or focus on quality, security, performance, or tests
 - `/complete`: archive, commit, merge, and log with approval
+- `/continuous`: run the same loop locally under the project's automation policy
 
 Supporting commands:
 
 - `/doctor`: read-only setup health check
 - `/brief`: preview scope before writing a spec
 - `/tests`: add the stack-native unit test runner and turn on test gates
+- `/browser-tests`: add the stack-native browser test runner and turn on UI gates
 - `/rollback`: plan a reviewed reversal of a completed feature
 - `/release`: prepare Render or Vercel readiness without deploying
 - `/prototype`: explore static mockups before implementation
@@ -171,14 +183,14 @@ Supporting commands:
 
 AI Blueprint is public, installable, and documented at
 [ai-blueprint.dev](https://ai-blueprint.dev). The package is now
-`create-ai-blueprint@0.13.0`, with Debug, focused Audit lenses, Discovery, a
-read-only status CLI, a local dashboard, GitHub Copilot and OpenCode support,
-multi-adapter installs, package smoke checks, and the core build loop documented
-in the public repo.
+`create-ai-blueprint@1.1.0`, with Debug, focused Audit lenses, Discovery, a
+read-only status CLI, a local dashboard, browser-test setup, Continuous Mode,
+GitHub Copilot and OpenCode support, multi-adapter installs, package smoke
+checks, and the core build loop documented in the public repo.
 
-The next careful step is deciding what belongs beyond status and dashboard. I
-want the command surface to keep earning trust in read-only mode before it grows
-into bounded automation.
+The next careful step is making the automation feel useful without making it
+casual. Continuous Mode should stay boring, local, and reversible, while browser
+tests give visual apps a better way to prove that the work actually holds up.
 
 > the point was never to type less. it is to stay in control of a codebase the
 > ai is helping you write.
