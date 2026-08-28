@@ -1,0 +1,37 @@
+---
+title: multiprompter 1.3 adds auto-scroll
+publishDate: 2026-08-28
+draft: false
+tags: [devlog, swift, tool-launch, postmortem]
+project: multiprompter
+---
+
+links: [site](https://multiprompter.app) | [docs](https://multiprompter.app/docs/auto-scroll) | [repo](https://github.com/multiprompter/releases) | [project page](/projects/multiprompter)
+
+Multiprompter 1.3 is the auto-scroll release. The app already had the hard
+part: one markdown script driving multiple synced viewer windows. This release
+adds the part you actually need while recording: press play, set a comfortable
+pace, and let every window move together.
+
+The first version of the engine tried to advance by the shared scroll anchor.
+That sounded clean, but it made blank lines crawl and wrapped paragraphs lurch.
+The fix was to pace by pixels in the window being read, then map that back to
+the shared source-line position. One window owns the smooth visual speed, and
+the rest follow the same script position.
+
+What shipped:
+
+- auto-scroll with play, pause, back to top, and speed controls
+- a Playback menu with keyboard shortcuts
+- count-in before playback, configurable in a new Settings window
+- app-wide viewer text and background colors
+- pause-on-user-scroll so grabbing any window immediately gives control back
+- a 1.3 DMG, Homebrew cask update, changelog, docs page, and appcast item
+
+This is also the first release that can reach existing 1.2 users through
+Sparkle. That matters because the release loop is finally acting like a real Mac
+app loop: build it, notarize it, publish the appcast, and let the app tell users
+there is an update.
+
+Auto-scroll was the feature I wanted from the beginning. Voice tracking can come
+later, but now there is a solid thing for it to drive.

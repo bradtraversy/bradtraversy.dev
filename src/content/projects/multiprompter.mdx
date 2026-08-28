@@ -1,11 +1,11 @@
 ---
 name: Multiprompter
-tagline: a mac teleprompter where one script drives many scroll-synced windows
+tagline: a mac teleprompter where one script drives scroll-synced, auto-scrolling windows
 description: |
   a native mac teleprompter built in swift. one markdown script drives any
-  number of frameless viewer windows, all kept in precise scroll sync, so a
-  big talking-head prompt and a thin strip floating over your code stay on the
-  exact same line.
+  number of frameless viewer windows, all kept in precise scroll sync with
+  auto-scroll, so a big talking-head prompt and a thin strip floating over your
+  code stay on the exact same line.
 status: live
 badge: mac app
 url: https://multiprompter.app
@@ -27,9 +27,15 @@ write your script once, run it across as many windows as you want:
 - **precise cross-window scroll sync**: every window stays on the same spot,
   even at different font sizes, because sync is by logical position (a source
   line plus how far you are through that paragraph), not pixel scroll
+- **auto-scroll**: play, pause, speed, and back-to-top controls move the shared
+  script position while every viewer follows
+- **recording count-in**: a configurable countdown appears in the preview and
+  viewer windows before playback starts
 - **per-viewer font, top-anchored**: each window sizes its own text; they match
   on the top line, which is what actually helps when your screens aren't
   physically centered
+- **viewer colors**: app-wide text and background colors make the prompt easier
+  to tune for different recording setups
 - **capture-safe viewer windows**: the floating prompt can sit over the screen
   you record without appearing in that recording
 - **persistence**: viewers and the editor frame reopen exactly where you left
@@ -64,6 +70,9 @@ a quick tour:
   `scrollPosition` proved too coarse and a beat behind
 - **fractional sync position**: the sync unit is `line + fraction through the
   paragraph`, so long wrapped paragraphs can't let two windows drift apart
+- **pixel-paced auto-scroll**: the engine advances through the viewer being
+  read, then maps that offset back into the shared source-line position so the
+  selected window feels smooth
 - **echo suppression for "who's driving"**: any window broadcasts as it scrolls
   and ignores the one scroll it caused by following, which beat the scroll-phase
   and hover approaches that kept getting stuck
@@ -74,17 +83,18 @@ a quick tour:
   appcast-backed Sparkle update path, and a Homebrew cask path for installing
   from the terminal
 - **release hardening**: file access, keychain writes, undo history, rendered
-  preview updates, and scroll indexing have all been tightened before auto-scroll
+  preview updates, and scroll indexing were tightened before the 1.3 auto-scroll
+  release
 - **public site**: [multiprompter.app](https://multiprompter.app) is an Astro
   site with docs, changelog, support, and a product scene based on the real app
   UI
 
 ## what's next
 
-- **auto-scroll in 1.3**: the next prompting control now that the core sync,
-  file workflow, and update path are real
-- **keep releases boring**: the public download, license flow, appcast, support
-  path, and cask should stay repeatable
+- **prove the updater in the wild**: 1.3 is the first release intended to reach
+  1.2 users through Sparkle
+- **keep recording with it**: the count-in default, speed display, and pacing
+  model should be judged against real takes
 - **phase 2: voice tracking**: your voice drives the same scroll position the
   windows already share
 
