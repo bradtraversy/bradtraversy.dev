@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-28T17:09:33.023Z",
+  "updatedAt": "2026-08-28T18:01:02.850Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
@@ -91,6 +91,12 @@
   ],
   "recentEvents": [
     {
+      "type": "ReleaseEvent",
+      "repo": "multiprompter/releases",
+      "createdAt": "2026-08-28T17:32:47Z",
+      "details": "published release v1.3"
+    },
+    {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-28T16:23:37Z",
@@ -143,16 +149,10 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-26T22:26:05Z",
       "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-26T22:11:08Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 921,
+    "total": 924,
     "weeks": [
       [
         0,
@@ -628,7 +628,7 @@
         6,
         8,
         0,
-        3
+        6
       ]
     ]
   }
