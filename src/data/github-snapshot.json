@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-08-29T00:40:28.882Z",
+  "updatedAt": "2026-08-29T06:24:14.078Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76459,
+    "followers": 76457,
     "totalStars": 167301
   },
   "topRepos": [
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40638,
-      "forks": 9720,
+      "forks": 9721,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -91,6 +91,12 @@
   ],
   "recentEvents": [
     {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-08-28T17:09:20Z",
+      "details": "pushed to main"
+    },
+    {
       "type": "ReleaseEvent",
       "repo": "multiprompter/releases",
       "createdAt": "2026-08-28T17:32:47Z",
@@ -143,12 +149,6 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-08-26T22:06:14Z",
       "details": "commented on issue #9"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-26T22:26:05Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
