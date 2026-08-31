@@ -1,0 +1,37 @@
+---
+title: ai blueprint 1.2 adds independent review
+publishDate: 2026-08-31
+draft: false
+tags: [devlog, agents, agent-workflow, tool-launch]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 1.2 is about making "another agent reviewed it" mean something
+specific.
+
+The new path is `/audit independent current`. The builder has to verify a clean
+checkpoint before handoff. The reviewer starts fresh, audits the complete
+branch delta against an allowed base, records commands and evidence, and writes
+a receipt tied to that checkpoint. Then `/complete` checks the receipt before
+it will close the feature.
+
+what shipped:
+
+- `create-ai-blueprint@1.2.0` on npm
+- independent-review policies: manual, when-sensitive, always
+- review receipt metadata for target, merge base, spec hash, reviewer,
+  commands, Check result, findings, and remaining risk
+- staleness detection when code, config, specs, tests, or base changes after
+  review
+- completion blocking for missing, stale, malformed, changes-requested, or
+  serious unresolved review evidence
+- public docs across Audit, configuration, adapters, findings, completion,
+  automation, status, and What's New
+
+The important constraint is honesty. Blueprint can record the requested
+reviewer model and the actual model the reviewer declares, but it is not
+pretending that a local workflow can cryptographically prove fresh-session
+identity. The gate is still useful because it makes review evidence concrete,
+repeatable, and attached to the exact work being merged.
