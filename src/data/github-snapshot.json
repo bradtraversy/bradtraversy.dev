@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-31T15:54:49.714Z",
+  "updatedAt": "2026-08-31T18:20:43.501Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76461,
-    "totalStars": 167330
+    "followers": 76462,
+    "totalStars": 167331
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66790,
+      "stars": 66791,
       "forks": 12159,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -92,6 +92,18 @@
   "recentEvents": [
     {
       "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-31T12:21:12Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-08-31T15:31:58Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
       "repo": "multiprompter/homebrew-tap",
       "createdAt": "2026-08-28T17:32:54Z",
       "details": "pushed to main"
@@ -137,22 +149,10 @@
       "repo": "multiprompter/releases",
       "createdAt": "2026-08-28T13:07:18Z",
       "details": "published release v1.2"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-26T22:06:02Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-08-26T21:45:23Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 895,
+    "total": 897,
     "weeks": [
       [
         0,
@@ -624,7 +624,7 @@
       ],
       [
         0,
-        3
+        5
       ]
     ]
   }
