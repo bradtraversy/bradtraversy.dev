@@ -1,0 +1,37 @@
+---
+title: devsheets gets a greener front door
+publishDate: 2026-08-31
+draft: false
+tags: [devlog, nextjs, tailwind, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+DevSheets got another front-door pass today, but this one was less about
+"make it nicer" and more about making the site explain itself the second it
+loads.
+
+The previous homepage already had item-level search and a cleaner layout. The
+missing piece was identity. The site still felt too close to my broader brand,
+so I moved the product to a green primary color with blue as the secondary
+accent, simplified the logo, and matched the favicon to the new mark.
+
+The bigger product decision was to put a working search surface in the hero.
+The homepage search now finds sheets by technology or title, while the modal
+stays focused on searching inside sheets. That split is clearer: the front page
+answers "what should I open?" and the popup answers "where is the exact
+command?"
+
+what shipped:
+
+- a compact vertical hero built around live sheet search
+- the green primary and blue secondary visual system
+- a new account CTA for tracking sheets and known items
+- a bare green logo and matching favicon
+- removal of the old learning-tracker banner
+
+The best small detail is the account CTA. It changes from "Start tracking free"
+to "Open your dashboard" depending on state, but it does not make the reference
+library feel gated. DevSheets still works as a public lookup tool first.
+Accounts only make it more personal.
