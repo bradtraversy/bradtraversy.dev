@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-02T06:33:06.612Z",
+  "updatedAt": "2026-09-02T12:25:53.845Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
     "followers": 76473,
-    "totalStars": 167347
+    "totalStars": 167350
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66802,
+      "stars": 66805,
       "forks": 12163,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16103,
-      "forks": 4375,
+      "forks": 4376,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -91,6 +91,18 @@
   ],
   "recentEvents": [
     {
+      "type": "IssueCommentEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-09-02T10:47:03Z",
+      "details": "commented on issue #12"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-09-01T13:04:06Z",
+      "details": "pushed to main"
+    },
+    {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-09-01T17:22:53Z",
@@ -137,18 +149,6 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-09-01T13:22:59Z",
       "details": "closed issue #12"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-01T11:20:40Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-01T13:12:12Z",
-      "details": "commented on issue #12"
     }
   ],
   "contributions": {
