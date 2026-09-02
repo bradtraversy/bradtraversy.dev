@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-02T00:45:48.955Z",
+  "updatedAt": "2026-09-02T06:33:06.612Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
     "followers": 76473,
-    "totalStars": 167342
+    "totalStars": 167347
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66800,
+      "stars": 66802,
       "forks": 12163,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40641,
-      "forks": 9720,
+      "stars": 40642,
+      "forks": 9721,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -54,7 +54,7 @@
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
       "stars": 1961,
-      "forks": 1266,
+      "forks": 1267,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
     },
@@ -90,6 +90,18 @@
     }
   ],
   "recentEvents": [
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-09-01T17:22:53Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-09-01T16:47:56Z",
+      "details": "pushed to main"
+    },
     {
       "type": "IssueCommentEvent",
       "repo": "aiblueprinthq/ai-blueprint",
@@ -137,18 +149,6 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-09-01T13:12:12Z",
       "details": "commented on issue #12"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-08-31T15:49:13Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.com",
-      "createdAt": "2026-08-31T15:49:29Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
