@@ -1,0 +1,40 @@
+---
+title: ai blueprint gets lean without getting loose
+publishDate: 2026-09-03
+draft: false
+tags: [devlog, agents, agent-workflow, tool-launch]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 1.5 is the release where I tried to cut down the context bloat
+without cutting out the parts that make the workflow useful.
+
+The first instinct was to add a separate Lean mode. After testing it, that felt
+like the wrong shape. Users should not have to choose between "fast" and
+"safe." The better version is just the default workflow getting smarter about
+what it loads, when it loads it, and how often it repeats itself.
+
+what shipped:
+
+- on-demand workflow context instead of loading the whole world up front
+- the same Feature, Implement, Check, Try, Audit, and Complete commands
+- adapter defaults focused on Claude Code and Codex, with Copilot and OpenCode
+  still available
+- smoother onboarding for repos that do not have an initial commit yet
+- installer behavior that honors adapter choices already recorded during setup
+- public docs that frame AI Blueprint as an AI coding workflow framework
+
+The benchmark that convinced me was a controlled app build using the same spec
+against the older 1.4.1 workflow and the new 1.5.3 workflow. The new flow
+finished 16.5 percent faster, used 67.8 percent less cumulative input, and took
+71.4 percent fewer model turns.
+
+More important: the smaller workflow did not mean a weaker result. The 1.5.3
+run preserved the requested feature, covered both screens, contained the mobile
+overflow, and kept the important gates intact.
+
+That is the line I want Blueprint to hold. Less repeated context is good.
+Fewer wasted turns are good. But the win only counts if the code is still more
+grounded, more reviewable, and safer to merge.

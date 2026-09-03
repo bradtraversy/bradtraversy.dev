@@ -1,0 +1,42 @@
+---
+title: devsheets fixes signup and setup-first sheets
+publishDate: 2026-09-03
+draft: false
+tags: [devlog, nextjs, prisma, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+DevSheets had two kinds of work today: one production fix and one content
+standard that should make every new sheet better.
+
+The fix was GitHub signup. Auth.js was validating the callback issuer against
+the provider config, and the configured issuer did not match the value GitHub
+was sending back. The repair was small, but it is the kind of bug that looks
+larger than it is until you trace the callback instead of staring at the generic
+error page.
+
+The content work was more durable. I added five sheets: Markdown, tmux, Pandas,
+JSON, and Kubernetes Essentials. While doing that, I tightened the sheet
+creation workflow around a setup-first rule.
+
+For installable tools and frameworks, a sheet now starts with the basics a real
+reader needs: install command, prerequisites, version check, and the smallest
+working example. For standards or data formats like JSON and Markdown, the
+sheet should say there is no install step and then get straight to the first
+usable example.
+
+what shipped:
+
+- GitHub signup working again in production
+- five new DevSheets topics
+- setup-first guidance added to the sheet creation workflow
+- setup sections backfilled across installable sheets
+- the SEO title experiment kept after query-level Search Console review
+- the header logo and favicon cleaned up around the current brand
+
+The lesson is boring in the right way: a cheat sheet should not assume the
+reader already crossed the messy first mile. If someone lands on the Docker,
+tmux, or Pandas sheet from a cold machine, the sheet should help them get to a
+working prompt before it starts listing deeper commands.
