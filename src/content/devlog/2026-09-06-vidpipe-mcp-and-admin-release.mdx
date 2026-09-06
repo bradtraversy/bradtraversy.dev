@@ -1,0 +1,41 @@
+---
+title: vidpipe gets a production mcp path
+publishDate: 2026-09-06
+draft: false
+tags: [devlog, agents, nextjs, business]
+project: vidpipe
+---
+
+links: [site](https://vidpipe.ai) | [project page](/projects/vidpipe)
+
+Vidpipe crossed a useful line today: the article pipeline is now available
+through an authenticated production MCP path.
+
+That matters because it turns Vidpipe from a dashboard I can use manually into
+something my agent workflow can call directly. The model does not need to
+pretend it knows how to turn a YouTube video into an article. It can ask the
+product that already owns transcripts, article generation, billing, history,
+and saved outputs.
+
+The MCP path still uses the real quota system. That was intentional. It keeps
+the integration honest and makes the agent surface behave like the product,
+rather than like a hidden owner-only shortcut.
+
+what shipped:
+
+- authenticated MCP access for Vidpipe accounts
+- a real production conversion through that path
+- a refreshed admin model list, including GPT-6 Astra and current Claude models
+- admin pagination fixed on the Users page
+- the Share Your Story prompt removed from the dashboard flow
+- production checks against the live app after deployment
+
+The admin pagination bug was a good reminder that boring UI details still
+matter. The API already returned the pagination metadata. The page was reading
+the wrong response shape, so it looked like the controls were missing even
+though the backend had done its job.
+
+The bigger lesson is that agent integrations should reuse the product's actual
+contracts. Vidpipe already knows how to reserve a credit, fetch a transcript,
+run the article pipeline, and save the result. MCP gives the agent a door into
+that system without rebuilding the system somewhere else.
