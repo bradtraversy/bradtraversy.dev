@@ -1,0 +1,40 @@
+---
+title: devsheets gets language pdfs
+publishDate: 2026-09-06
+draft: false
+tags: [devlog, python, nextjs, decision]
+project: devsheets
+---
+
+links: [site](https://devsheets.io) | [repo](https://github.com/bradtraversy/devsheets) | [project page](/projects/devsheets)
+
+DevSheets has always been built around the web page: searchable, crawlable,
+linkable, and easy to update. But sometimes a cheat sheet wants to be a thing
+you can open in another tab, save, print, or keep beside the editor.
+
+So this pass added standalone PDFs for every catalog language and format:
+Python, JavaScript, TypeScript, HTML, CSS, SQL, Java, C#, C++, C, Go, Rust, PHP,
+Bash, Kotlin, Swift, GraphQL, JSON, and Markdown.
+
+These are not dumps of the full web sheets. They are shorter curated references
+with a different job. Each one aims for two readable landscape pages, with the
+everyday syntax, commands, and examples that make sense as a quick offline
+reference.
+
+what shipped:
+
+- 19 editable PDF source files
+- 19 generated public PDFs
+- matching preview images for each sheet
+- a shared PDF card component under exact language sheet headers
+- links that open the native PDF in a new tab
+- consistent typography, code styling, page size, and reference links
+
+The interesting part was treating each language as its own small feature. One
+branch, one focused commit, one validation pass, then merge and move on. That
+is slower than dumping all 19 into one giant change, but the output is easier to
+review and the mistakes have somewhere to land.
+
+The small lesson: web-first does not have to mean web-only. The site is still
+the main DevSheets experience, but a good PDF gives the same content another
+useful shape.
