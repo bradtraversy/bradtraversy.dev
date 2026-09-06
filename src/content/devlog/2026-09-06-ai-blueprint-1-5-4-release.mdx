@@ -1,0 +1,41 @@
+---
+title: ai blueprint 1.5.4 tightens the gates
+publishDate: 2026-09-06
+draft: false
+tags: [devlog, agents, agent-workflow, typescript]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 1.5.4 is one of those releases that looks small from the outside,
+but makes the workflow feel a lot less fragile when you are actually using it.
+
+The biggest fix was status drift. `/complete` marks a build-plan item as done,
+which means the plan file changes after implementation. The old overview check
+treated that as suspicious drift because it compared the plan too literally.
+Now it normalizes line-start completion markers before hashing, so real plan
+changes still matter but checking off finished work does not break the gate.
+
+I also cleaned up the way the dashboard reads current work and history. It now
+accepts the documented feature heading and older numbered feature fields, so
+valid work does not show up as malformed just because it came from a previous
+format.
+
+what shipped:
+
+- final read-only walkthroughs for completed implementations
+- clearer Efficient and Guided behavior around review cadence
+- stack-neutral build and verify handling
+- better `/status`, `/complete`, and dashboard parsing
+- regression tests around overview drift and completion state
+- updated command docs and public site pages
+
+The decision I liked most was keeping `/try` as the manual product-review path.
+It is tempting to turn every command into a giant catch-all, but `/implement`
+should explain the code and `/try` should tell a human how to judge the result
+in the real app.
+
+That is the shape I want Blueprint to keep: more automation, but each command
+still has a job. The workflow can get faster and smoother without making the
+merge gate casual.
