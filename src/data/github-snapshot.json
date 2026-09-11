@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-10T18:18:38.514Z",
+  "updatedAt": "2026-09-11T00:43:39.824Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 328,
-    "followers": 76516,
-    "totalStars": 167442
+    "followers": 76521,
+    "totalStars": 167446
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66891,
+      "stars": 66894,
       "forks": 12179,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40641,
+      "stars": 40642,
       "forks": 9722,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -53,7 +53,7 @@
       "fullName": "bradtraversy/devconnector_2.0",
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
-      "stars": 1962,
+      "stars": 1961,
       "forks": 1267,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
@@ -626,6 +626,7 @@
         7,
         0,
         9,
+        0,
         0,
         0
       ]
