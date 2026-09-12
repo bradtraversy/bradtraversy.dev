@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-12T12:21:17.580Z",
+  "updatedAt": "2026-09-12T18:16:57.754Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
-    "publicRepos": 328,
-    "followers": 76527,
-    "totalStars": 167469
+    "publicRepos": 329,
+    "followers": 76528,
+    "totalStars": 167477
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66917,
+      "stars": 66924,
       "forks": 12185,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40639,
-      "forks": 9722,
+      "forks": 9721,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16105,
-      "forks": 4371,
+      "forks": 4372,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -84,75 +84,75 @@
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
       "stars": 1207,
-      "forks": 1144,
+      "forks": 1143,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
   ],
   "recentEvents": [
     {
+      "type": "IssueCommentEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T16:37:41Z",
+      "details": "commented on issue #10"
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T16:37:40Z",
+      "details": "commented on issue #9"
+    },
+    {
       "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-12T10:39:09Z",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T16:29:17Z",
       "details": "pushed to main"
     },
     {
-      "type": "PullRequestReviewEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-12T10:18:11Z",
-      "details": "pullrequestreview"
+      "type": "IssuesEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T16:13:38Z",
+      "details": "closed issue #10"
     },
     {
       "type": "IssuesEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-11T21:15:22Z",
-      "details": "closed issue #16"
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T16:06:54Z",
+      "details": "closed issue #9"
     },
     {
       "type": "IssueCommentEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-11T21:15:17Z",
-      "details": "commented on issue #16"
+      "createdAt": "2026-09-12T14:46:23Z",
+      "details": "commented on issue #18"
     },
     {
       "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-11T17:05:29Z",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T13:03:34Z",
       "details": "pushed to main"
     },
     {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-08T11:09:35Z",
-      "details": "pushed to main"
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T13:03:37Z",
+      "details": "deleted branch dependabot/github_actions/pnpm/action-setup-6"
     },
     {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-08T21:20:34Z",
-      "details": "pushed to main"
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T11:53:28Z",
+      "details": "closed pull request #2"
     },
     {
       "type": "IssueCommentEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-08T21:10:28Z",
-      "details": "commented on issue #15"
-    },
-    {
-      "type": "IssuesEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-08T21:10:28Z",
-      "details": "closed issue #15"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-06T14:37:11Z",
-      "details": "pushed to main"
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T13:03:35Z",
+      "details": "commented on issue #2"
     }
   ],
   "contributions": {
-    "total": 934,
+    "total": 1063,
     "weeks": [
       [
         0,
@@ -536,23 +536,23 @@
         0,
         3,
         0,
-        11,
-        6,
-        3,
+        12,
+        14,
+        8,
         10
       ],
       [
-        2,
-        14,
-        11,
-        13,
-        4,
+        3,
+        21,
+        16,
+        23,
+        5,
         10,
-        3
+        6
       ],
       [
         2,
-        0,
+        3,
         0,
         6,
         6,
@@ -561,27 +561,27 @@
       ],
       [
         4,
-        4,
         6,
+        9,
         10,
         18,
-        0,
-        0
-      ],
-      [
-        18,
-        15,
-        0,
-        0,
-        0,
         0,
         2
       ],
       [
-        1,
-        6,
-        6,
-        3,
+        25,
+        19,
+        5,
+        0,
+        0,
+        2,
+        4
+      ],
+      [
+        12,
+        8,
+        9,
+        4,
         32,
         16,
         1
@@ -625,11 +625,11 @@
       [
         7,
         0,
-        9,
-        0,
-        0,
-        3,
-        2
+        10,
+        4,
+        22,
+        5,
+        14
       ]
     ]
   }
