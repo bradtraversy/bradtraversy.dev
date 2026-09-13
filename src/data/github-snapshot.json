@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-13T12:21:39.586Z",
+  "updatedAt": "2026-09-13T18:17:45.586Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 329,
-    "followers": 76534,
-    "totalStars": 167485
+    "followers": 76535,
+    "totalStars": 167487
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66931,
+      "stars": 66933,
       "forks": 12184,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -93,6 +93,24 @@
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-09-13T13:03:16Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "WatchEvent",
+      "repo": "Fission-AI/OpenSpec",
+      "createdAt": "2026-09-13T13:02:00Z",
+      "details": "starred this repo"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-09-13T12:32:30Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-09-13T11:43:05Z",
       "details": "pushed to main"
     },
@@ -131,28 +149,10 @@
       "repo": "aiblueprinthq/ai-blueprint",
       "createdAt": "2026-09-12T22:00:27Z",
       "details": "commented on issue #20"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-12T12:53:13Z",
-      "details": "deleted branch dependabot/npm_and_yarn/typescript-7.0.2"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-12T12:52:46Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-12T12:50:29Z",
-      "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 1068,
+    "total": 1075,
     "weeks": [
       [
         0,
@@ -623,7 +623,7 @@
         17
       ],
       [
-        2
+        9
       ]
     ]
   }
