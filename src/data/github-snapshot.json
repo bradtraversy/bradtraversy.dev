@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-09-15T00:45:52.516Z",
+  "updatedAt": "2026-09-15T06:29:33.316Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 329,
-    "followers": 76541,
+    "followers": 76542,
     "totalStars": 167497
   },
   "topRepos": [
@@ -33,7 +33,7 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16106,
+      "stars": 16105,
       "forks": 4373,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
@@ -84,7 +84,7 @@
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
       "stars": 1206,
-      "forks": 1143,
+      "forks": 1142,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
