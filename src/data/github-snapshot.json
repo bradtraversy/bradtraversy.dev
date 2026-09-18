@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-18T06:28:10.790Z",
+  "updatedAt": "2026-09-18T12:23:31.738Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 329,
-    "followers": 76590,
-    "totalStars": 167531
+    "followers": 76587,
+    "totalStars": 167535
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66969,
-      "forks": 12190,
+      "stars": 66972,
+      "forks": 12191,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40645,
-      "forks": 9723,
+      "forks": 9722,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16109,
-      "forks": 4374,
+      "forks": 4373,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -44,7 +44,7 @@
       "description": "Shopping cart built with MERN & Redux",
       "url": "https://github.com/bradtraversy/proshop_mern",
       "stars": 2022,
-      "forks": 1220,
+      "forks": 1219,
       "language": "JavaScript",
       "pushedAt": "2024-01-15T16:26:04Z"
     },
@@ -74,7 +74,7 @@
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
       "stars": 1362,
-      "forks": 1654,
+      "forks": 1653,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
     },
