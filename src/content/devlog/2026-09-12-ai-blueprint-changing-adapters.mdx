@@ -1,0 +1,42 @@
+---
+title: ai blueprint 1.8 makes changing tools easier
+publishDate: 2026-09-12
+draft: false
+tags: [devlog, agents, agent-workflow, typescript]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+My AI tool setup keeps changing, so picking adapters during installation should
+not lock a project into that choice. AI Blueprint 1.8.0 lets you change the
+installed adapters through `update`.
+
+Previously, adding another tool could mean copying skill folders by hand or
+running the installer again. Neither was a good fit. A copied folder was not
+tracked by the updater, and reinstalling could prompt to overwrite files you
+had already customized.
+
+Interactive update now starts with your installed adapters checked. You can
+add another or remove one you no longer use. Flags such as `update --codex`
+only add adapters; removal requires the interactive selection. Changes go
+through the updater's existing conflict and backup handling.
+
+One detail took extra care: OpenCode can share a skill directory with Claude
+Code or use the other managed directory. Changing the Claude selection can
+therefore move OpenCode's skills even when OpenCode stays selected. The update
+preview now explains that move.
+
+This release also includes contributor work from akash07k on repeatable local
+CLI linking and proportional engineering guidance. The adapter request came
+from karai17. Those contributions are pushing Blueprint beyond the way I
+personally happen to use it.
+
+Independent review caught a rollback bug where an unsuccessful update could
+leave empty adapter directories behind and confuse the next run. That was
+fixed before release. The release checks passed with 187 installer tests and
+package smoke coverage, including adding an adapter to an existing install.
+
+There is still follow-up work on the proportional engineering guidance for
+existing installs, and I have not validated that wording in a real feature
+run yet. The adapter support is shipped, along with updated public docs.
