@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-06T15:05:26.317Z",
+  "updatedAt": "2026-09-18T12:23:31.738Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
-    "publicRepos": 328,
-    "followers": 76490,
-    "totalStars": 167386
+    "publicRepos": 329,
+    "followers": 76587,
+    "totalStars": 167535
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 66842,
-      "forks": 12174,
+      "stars": 66972,
+      "forks": 12191,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -23,8 +23,8 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40639,
-      "forks": 9719,
+      "stars": 40645,
+      "forks": 9722,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -33,8 +33,8 @@
       "fullName": "bradtraversy/vanillawebprojects",
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
-      "stars": 16103,
-      "forks": 4376,
+      "stars": 16109,
+      "forks": 4373,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -43,8 +43,8 @@
       "fullName": "bradtraversy/proshop_mern",
       "description": "Shopping cart built with MERN & Redux",
       "url": "https://github.com/bradtraversy/proshop_mern",
-      "stars": 2021,
-      "forks": 1220,
+      "stars": 2022,
+      "forks": 1219,
       "language": "JavaScript",
       "pushedAt": "2024-01-15T16:26:04Z"
     },
@@ -53,8 +53,8 @@
       "fullName": "bradtraversy/devconnector_2.0",
       "description": "Social network for developers, built on the MERN stack",
       "url": "https://github.com/bradtraversy/devconnector_2.0",
-      "stars": 1962,
-      "forks": 1268,
+      "stars": 1961,
+      "forks": 1267,
       "language": "JavaScript",
       "pushedAt": "2024-08-11T06:35:28Z"
     },
@@ -73,8 +73,8 @@
       "fullName": "bradtraversy/react-crash-2021",
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
-      "stars": 1363,
-      "forks": 1656,
+      "stars": 1362,
+      "forks": 1653,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
     },
@@ -83,86 +83,77 @@
       "fullName": "bradtraversy/chatcord",
       "description": "Realtime chat app with rooms",
       "url": "https://github.com/bradtraversy/chatcord",
-      "stars": 1207,
-      "forks": 1144,
+      "stars": 1206,
+      "forks": 1140,
       "language": "HTML",
       "pushedAt": "2024-07-26T22:26:30Z"
     }
   ],
   "recentEvents": [
     {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T12:53:11Z",
+      "details": "deleted branch dependabot/npm_and_yarn/bullmq-6.3.4"
+    },
+    {
       "type": "PushEvent",
-      "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-09-06T15:05:12Z",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T16:06:54Z",
       "details": "pushed to main"
     },
     {
-      "type": "IssuesEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-06T14:47:08Z",
-      "details": "closed issue #14"
-    },
-    {
-      "type": "IssuesEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-06T14:46:56Z",
-      "details": "closed issue #13"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-06T14:46:39Z",
-      "details": "commented on issue #14"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-06T14:45:01Z",
-      "details": "commented on issue #13"
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T12:57:09Z",
+      "details": "deleted branch dependabot/github_actions/actions/checkout-7"
     },
     {
       "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-03T22:30:34Z",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-12T16:13:37Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-03T22:32:13Z",
+      "createdAt": "2026-09-11T21:27:36Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-03T15:21:57Z",
+      "createdAt": "2026-09-11T21:07:54Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-03T15:21:57Z",
+      "createdAt": "2026-09-13T13:03:16Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "WatchEvent",
+      "repo": "Fission-AI/OpenSpec",
+      "createdAt": "2026-09-13T13:02:00Z",
+      "details": "starred this repo"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "aiblueprinthq/ai-blueprint",
+      "createdAt": "2026-09-13T12:32:30Z",
       "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-03T15:21:57Z",
+      "createdAt": "2026-09-13T11:43:05Z",
       "details": "pushed to main"
     }
   ],
   "contributions": {
-    "total": 923,
+    "total": 1075,
     "weeks": [
-      [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
       [
         0,
         0,
@@ -536,23 +527,23 @@
         0,
         3,
         0,
-        11,
-        6,
-        3,
+        12,
+        14,
+        8,
         10
       ],
       [
-        2,
-        14,
-        11,
-        13,
-        4,
+        3,
+        21,
+        16,
+        23,
+        5,
         10,
-        3
+        6
       ],
       [
         2,
-        0,
+        3,
         0,
         6,
         6,
@@ -561,27 +552,27 @@
       ],
       [
         4,
-        4,
         6,
+        9,
         10,
         18,
-        0,
-        0
-      ],
-      [
-        18,
-        15,
-        0,
-        0,
-        0,
         0,
         2
       ],
       [
-        1,
-        6,
-        6,
-        3,
+        25,
+        19,
+        5,
+        0,
+        0,
+        2,
+        4
+      ],
+      [
+        12,
+        8,
+        9,
+        4,
         32,
         16,
         1
@@ -623,7 +614,21 @@
         0
       ],
       [
-        6
+        7,
+        0,
+        10,
+        4,
+        22,
+        5,
+        17
+      ],
+      [
+        9,
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     ]
   }
