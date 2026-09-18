@@ -1,0 +1,42 @@
+---
+title: using ai to organize my photo library
+publishDate: 2026-09-14
+draft: false
+tags: [devlog, agents, python]
+---
+
+links: [Immich](https://immich.app) | [Immich repo](https://github.com/immich-app/immich)
+
+I spent a few days using AI to sort out my photo library in Immich. Years of
+phone backups, scanned photos, screenshots, receipts, and random images had
+piled up. Having everything backed up was one thing. Actually finding things
+was another.
+
+I used Python scripts and a vision model to classify roughly 25,000 images
+and build 12 albums. Immich's search, text recognition, and face search
+narrowed down the candidates first, then the model looked at the images to
+decide whether they belonged. That worked better than keyword matching alone,
+which was too loose for separating screenshots and other categories.
+
+The albums cover things like artwork, cars, gym photos, documents, office
+equipment, and different kinds of screenshots. They are also useful as review
+queues. The classifier puts images somewhere I can inspect them; it does not
+automatically trash anything.
+
+Dates were another big part of the cleanup. I corrected 4,570 asset dates,
+using the old year and month folders as evidence first. One scan batch had
+given around 1,100 older photos the same date. Where reliable dates were
+missing, visual clues helped estimate them. Those are estimates, not exact
+dates recovered by AI.
+
+I also dropped a custom organizer that maintained a separate tree of category
+folders and links. It added complexity I did not need. Immich now handles the
+albums, and its storage template keeps the files arranged by year and month.
+
+A couple of details mattered more than I expected: midnight UTC placeholder
+dates could land in the previous month locally, and the metadata sidecar files
+needed to stay so later metadata extraction would not undo the date fixes.
+
+There is still duplicate review to do, but the library is much easier to work
+with now. This was a useful change of pace from using AI to write code. The
+scripts were just the means to get years of photos into a more usable state.
