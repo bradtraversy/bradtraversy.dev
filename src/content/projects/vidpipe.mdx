@@ -1,15 +1,16 @@
 ---
-name: Vidpipe
-tagline: turn youtube videos into publish-ready content. articles, newsletters, social posts, transcripts
+name: Vidpipe SaaS & MCP
+tagline: youtube-to-content saas with authenticated mcp access for ai agents
 description: |
   a saas that takes a youtube url (or a connected channel) and produces
   a publish-ready blog post, newsletter draft, social posts, and a clean
-  searchable transcript. paste-and-go for one-off videos; auto-generate
-  for connected channels on every new upload.
+  searchable transcript. use the dashboard, connect a channel, or let
+  an AI agent call the article pipeline through authenticated MCP access
+  with the same account quotas and saved outputs.
 status: live
 badge: beta
 url: https://vidpipe.ai
-stack: [Next.js, React, Postgres, BullMQ, Stripe, Anthropic, OpenRouter]
+stack: [Next.js, React, Postgres, BullMQ, Stripe, Anthropic, OpenRouter, MCP]
 heroImage: ./vidpipe-hero.png
 heroImageAlt: vidpipe.ai homepage with the video to transcript hero, paste-a-youtube-url input, and example preview
 screenshots:
@@ -18,6 +19,7 @@ screenshots:
   - ./vidpipe-article.png
   - ./vidpipe-dashboard.png
 publishDate: 2026-05-05
+updatedDate: 2026-09-24
 featured: true
 ---
 
@@ -34,6 +36,20 @@ paste a youtube url, get back:
 
 connect your channel and that whole pipeline runs automatically every
 time you publish a new video. nothing to remember, nothing to paste.
+
+## mcp for ai agents
+
+Vidpipe also exposes its article pipeline through authenticated MCP access.
+An AI agent can use Vidpipe to turn a YouTube video into an article as part
+of a larger workflow, without driving the dashboard through a browser.
+
+The integration uses the same account quotas, transcript handling, article
+generation, and saved outputs as the product. It is not an unlimited bypass
+or a separate generation system. A production conversion through the MCP
+path has been verified.
+
+Read the [MCP devlog](/devlog/2026-09-06-vidpipe-mcp-and-admin-release)
+for the implementation story.
 
 ## channel connection
 
