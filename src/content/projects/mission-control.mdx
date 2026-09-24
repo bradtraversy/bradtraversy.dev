@@ -1,98 +1,80 @@
 ---
 name: Mission Control
-tagline: vault-native ops dashboard with todos, tasks, projects, sessions, calendar, all live, all on the LAN
+tagline: a private workspace for my work, machines, and ai tools
 description: |
-  a private nextjs dashboard that reads and writes my obsidian vault
-  directly. one surface for every running thing (todos, agent tasks,
-  projects, session logs, scheduled jobs, calendar) with live updates
-  via chokidar + sse. no database. the markdown is the database.
+  a rebuilt React and Fastify control panel with two workspaces:
+  My Work for vault-backed todos, projects, and calendar, and Lab
+  for machine inventory, installed AI tools, and reviewed updates.
+  private and still in development.
 status: local
+badge: In Progress
 repoUrl: https://github.com/travxlabs/mission-control
-stack: [Next.js, React, TypeScript, Tailwind, chokidar, SSE]
-heroImage: ./mission-control-hero.png
-heroImageAlt: mission control dashboard, vault-native ops surface running on the homelab
-screenshots:
-  - ./mission-control-tasks.webp
-  - ./mission-control-network.webp
-  - ./mission-control-github.webp
+stack: [React, TypeScript, Vite, Fastify, Obsidian, Tailscale]
+heroImage: ../devlog/mission-control-lab-progress.png
+heroImageAlt: Mission Control Lab workspace showing machine inventory and collection status, with machine names anonymized
 publishDate: 2026-05-08
+updatedDate: 2026-09-24
 featured: true
 ---
 
 ## what it is
 
-an internal next.js app that runs on my homelab and reads my obsidian
-vault as its source of truth. tabs across the top: home, todos, tasks,
-projects, sessions, research, network, calendar, agents. every list
-on screen is built by parsing markdown files; every action you take
-writes back to those same files without breaking obsidian compatibility.
+Mission Control is a private application I am rebuilding around two distinct
+workspaces. **My Work** brings together todos, projects, and calendar.
+**Lab** shows my machines, installed AI tools, agent profiles, and updates.
 
-it's not on the public internet. it's bound to the LAN, runs as a
-systemd-user service, and is only useful if you have access to the
-vault behind it. the surface is private. the architecture is the
-interesting part.
+The original project was a Next.js dashboard with a collection of tabs. This
+version uses React and Vite with a Fastify API. It is still in development,
+not a public service or a downloadable product.
 
-## why i built it
+*The screenshot shows the current Lab workspace with machine names anonymized.*
 
-before mc, my "dashboard" was a sprawl: a python network status page,
-a separate todo dashboard html, a `Tasks/` folder i grepped from the
-cli, and obsidian for everything else. each surface had its own write
-contract and none of them coordinated. checking on the system meant
-opening four tabs and trusting they all agreed.
+## my work
 
-i wanted one page that was honest about the vault: read straight
-from disk, write straight back, no caching layer to drift. and i
-wanted live updates: when an agent flips a task to done, my screen
-updates without a refresh.
+Work records stay in my Obsidian vault as Markdown. The dashboard reads those
+records and supports specific edits, including task completion, status changes,
+and adding todos. It does not replace the vault with a separate project database.
 
-## how it works
+Edits check the source revision before saving, and existing files receive
+backups. If a record changed since the screen loaded, the app should surface
+that conflict rather than silently overwrite it.
 
-- **vault is the database.** every read parses markdown directly. no
-  postgres, no sqlite, no shadow store. obsidian stays a first-class
-  ui. i can edit any file from either side and the other reflects
-  within a second
-- **writes are atomic and frontmatter-safe.** instead of round-tripping
-  through a yaml parser (which would reformat keys, reorder, mangle
-  comments), every writer does line surgery: regex-match the exact
-  line, substitute, write via `.tmp + rename`. files come out
-  byte-identical to a manual edit
-- **live updates via chokidar + sse.** a single watcher singleton
-  broadcasts to the browser through server-sent events; the client
-  calls `router.refresh()` on relevant changes with a small debounce.
-  obsidian saves, cli edits, and agent writes all trigger the same
-  pipeline
-- **route handlers, not server actions.** the write surface is a real
-  http api so it's curl-testable, scriptable, and reachable from any
-  agent, not boxed into "from-browser-only"
-- **agent task contract.** a top-level `Tasks/` folder holds work
-  units as markdown files with `agent`, `status`, and `priority`
-  frontmatter. autonomous profiles on the homelab poll that folder
-  and claim items tagged for their lane; claude code surfaces queued
-  items at session start; the dashboard is a third lens on the same
-  data
+Calendar can read a dated export or connect directly to Google Calendar with
+read-only access. The interface makes the source and its freshness visible.
 
-## what's in it
+## lab
 
-- **home**: current focus, today's calendar, recent activity feed
-- **todos**: three-column board (now / soon / later) with check-off,
-  move-between-columns, inline add. ids and tags live in frontmatter
-- **tasks**: kanban with agent filter, one column per lane (sysadmin,
-  developer, creator, secretary, claude, me). add, status-flip,
-  ping-an-agent from the top bar
-- **projects**: cards with status pills, drilling into the
-  project's vault folder
-- **sessions**: unified feed of claude and hermes-profile session logs
-- **research / network / calendar / agents**: same pattern, each
-  reading from a known vault region
+The Lab workspace brings the infrastructure into the same application without
+mixing machine maintenance into the todo list:
 
-## what's next
+- **Machines:** inventory collected over Tailscale, with a per-machine inspector.
+- **Harnesses:** installed AI tools and versions, including distinct CLI,
+  desktop, and editor installations.
+- **Agent profiles:** named profiles shown separately from the software they use.
+- **Updates:** release checks and reviewed update plans for supported installations.
 
-- progress bars on project cards (blocked on a tag-taxonomy decision
-  for tasks)
-- per-profile heartbeat integration so each autonomous lane stamps a
-  liveness signal back to the dashboard
-- two-way calendar: currently read-only; write-back deferred
+A reachable machine and a successful inventory collection are different things.
+When collection fails, the last successful result keeps its original timestamp.
+Lab also remains available when the work-record source cannot be read.
 
-> the lesson i keep relearning: when the storage format is already
-> human-readable, the dashboard layer is small. the trick is not
-> reaching for the database.
+## reviewing updates
+
+Checking for new versions does not install them. An update plan identifies the
+machine, installed version, target version, and update method before execution.
+Supported paths include npm and native Claude installations, Homebrew Codex,
+and Hermes runtime updates.
+
+Runs are serial, progress is recorded, and the current run can be recovered
+after navigation or a lost response. An interrupted or uncertain result needs
+inspection before another batch. It is not automatically retried.
+
+## current state
+
+The rebuilt application has real vault reads, bounded record edits, a Lab
+inventory, and reviewed update workflows implemented. It remains private and
+under active development. Installation support and real-machine verification
+are specific to each update method; a passing test suite does not establish
+that every machine is ready.
+
+The focus now is making the everyday workflow reliable: clear source data,
+visible failures, and enough information to review a change before it runs.
