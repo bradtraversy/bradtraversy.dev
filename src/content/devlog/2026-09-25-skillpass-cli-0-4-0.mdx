@@ -1,0 +1,42 @@
+---
+title: skillpass 0.4.0 installs into any agent and searches by meaning
+publishDate: 2026-09-25
+draft: false
+tags: [devlog, tool-launch, typescript, agents]
+project: skillpass
+---
+
+I spent the morning going through skills.sh, Vercel's agent skills
+leaderboard, and listing what it had that SkillPass didn't. Most of the list
+was reach: their CLI installs into 78 agents, mine knew two folders. The rest
+of the list went into the build plan. That gap got fixed today.
+
+`skillpass add <slug> --target cursor` now works, along with `windsurf`,
+`github-copilot`, `gemini-cli`, `opencode`, `codex`, and `cline`. The useful
+part came from reading each tool's own docs instead of trusting the
+leaderboard's table. Codex, Cursor, Windsurf, Copilot, Gemini CLI, and OpenCode
+all read the same shared folder: `.agents/skills` in a project and
+`~/.agents/skills` for user-level installs. So instead of nine separate
+folders, six of the slugs resolve to the same two places, and there is an
+`agents` target that names the shared folder directly. Claude Code keeps
+`.claude/skills`, and Cline keeps `.cline/skills` because its docs never
+mention the shared one. `--global` works for every tool, `--target` can be
+repeated on `add` to install into several tools with one pre-flight and one
+download, and `list`, `outdated`, `remove`, and `update` report a shared
+folder once instead of six times.
+
+The other new command is `skillpass search --ai "turn a video into an
+article"`. It hits the same free semantic search endpoint the homepage uses,
+keeps the server's relevance order, and the usual `--target`, `--category`,
+and `--packs` filters still apply. Rate limits and outages get a plain
+sentence instead of a bare status code.
+
+The review bot on the PR caught two real bugs after the merge. `--target
+constructor` crashed because the registry lookup used plain property access,
+and running the CLI from your home directory made the project and user folders
+the same path, which broke `--global` removals. Both are fixed in the same
+release.
+
+0.4.0 is on npm: `npm install -g skillpass`. Next from the same comparison is
+installing a skill straight from any GitHub repo with the validator run
+locally first, so the passport sits in front of every install, listed or not.
