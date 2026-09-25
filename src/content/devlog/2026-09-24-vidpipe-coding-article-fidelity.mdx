@@ -1,0 +1,31 @@
+---
+title: keeping vidpipe coding articles faithful to the source
+publishDate: 2026-09-24
+draft: false
+tags: [devlog, agents, typescript]
+project: vidpipe
+---
+
+links: [site](https://vidpipe.ai) | [project page](/projects/vidpipe)
+
+A coding article should not fill gaps in a video transcript by inventing
+the implementation. I tightened Vidpipe's article instructions around that
+problem: use the explanations and real excerpts available, reshape the
+article when context is missing, and leave out fabricated code and TODO
+scaffolding presented as if it came from the project.
+
+I also added personal model preferences for my owner account. I want to
+experiment with more expensive models for my own articles without changing
+the defaults for everyone using Vidpipe. Those preferences apply through
+the dashboard, MCP, and channel worker paths using the saved resource owner's
+identity. They are not a general user-facing model picker.
+
+The model settings got a cleanup too. Retired options are gone, old saved
+selections have defined fallbacks, and the descriptions no longer make
+unsupported claims about model comparisons or relative quality.
+
+The changes are deployed, with backend and frontend tests and release checks
+passing. That proves the routing and release work, not that the next article
+will be better. A fresh conversion still needs to be checked against the
+actual code and video. For this feature, reading the output is part of the
+test, not something a green deployment can replace.
