@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-25T06:29:20.015Z",
+  "updatedAt": "2026-09-25T12:13:37.467Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 329,
-    "followers": 76607,
-    "totalStars": 167590
+    "followers": 76610,
+    "totalStars": 167595
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 67020,
+      "stars": 67026,
       "forks": 12199,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -34,7 +34,7 @@
       "description": "Mini projects built with HTML5, CSS & JavaScript. No frameworks or libraries",
       "url": "https://github.com/bradtraversy/vanillawebprojects",
       "stars": 16106,
-      "forks": 4373,
+      "forks": 4372,
       "language": "JavaScript",
       "pushedAt": "2024-03-28T13:15:34Z"
     },
@@ -73,7 +73,7 @@
       "fullName": "bradtraversy/react-crash-2021",
       "description": "Task tracking application from the React crash course",
       "url": "https://github.com/bradtraversy/react-crash-2021",
-      "stars": 1362,
+      "stars": 1361,
       "forks": 1650,
       "language": "JavaScript",
       "pushedAt": "2023-05-27T02:22:47Z"
@@ -91,68 +91,68 @@
   ],
   "recentEvents": [
     {
-      "type": "CreateEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:10:12Z",
-      "details": "created branch feature/dashboard-dark-mode"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T11:24:45Z",
-      "details": "created branch fix/complete-finding-guidance"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:12:40Z",
-      "details": "deleted branch feature/dashboard-dark-mode"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:15:20Z",
-      "details": "deleted branch chore/release-1.10.0"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:12:38Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:15:19Z",
-      "details": "pushed to main"
-    },
-    {
-      "type": "PushEvent",
+      "type": "PullRequestEvent",
       "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-09-24T11:25:07Z",
+      "createdAt": "2026-09-25T12:13:22Z",
+      "details": "merged pull request #2"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-09-25T12:11:03Z",
+      "details": "opened pull request #2"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-25T12:00:02Z",
+      "details": "merged pull request #12"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-25T11:42:53Z",
+      "details": "opened pull request #12"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-25T11:42:52Z",
+      "details": "created branch feature/multi-agent-install-targets"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-25T11:07:25Z",
       "details": "pushed to main"
     },
     {
-      "type": "IssueCommentEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:20:47Z",
-      "details": "commented on issue #22"
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-25T11:07:24Z",
+      "details": "merged pull request #11"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-25T11:06:14Z",
+      "details": "deleted branch chore/audit-hardening"
     },
     {
       "type": "PullRequestEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:15:18Z",
-      "details": "merged pull request #26"
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-25T11:06:11Z",
+      "details": "merged pull request #2"
     },
     {
-      "type": "PullRequestEvent",
-      "repo": "aiblueprinthq/ai-blueprint",
-      "createdAt": "2026-09-24T12:13:40Z",
-      "details": "opened pull request #26"
+      "type": "PushEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-25T10:36:03Z",
+      "details": "pushed to chore/blueprint-1-10"
     }
   ],
   "contributions": {
-    "total": 1089,
+    "total": 1121,
     "weeks": [
       [
         0,
@@ -627,8 +627,8 @@
         0,
         0,
         0,
-        13,
-        0
+        39,
+        6
       ]
     ]
   }
