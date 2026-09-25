@@ -1,0 +1,30 @@
+---
+title: ai blueprint 1.10 adds dark mode and clearer finding recovery
+publishDate: 2026-09-24
+draft: false
+tags: [devlog, agents, agent-workflow, typescript]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 1.10.0 is out. The visible change is dashboard dark mode, with
+a compact theme control beside the connection indicator. It follows the
+system preference until you choose a theme, then remembers that choice
+across Blueprint projects and dashboard ports.
+
+The more useful workflow change is clearer guidance for a blocking audit
+finding discovered during a feature. That repair belongs inside the active
+feature. Add a repair step, run Implement, run Audit again to close the
+finding, then retry Complete. Fix remains the command for standalone work
+between features.
+
+That distinction matters when the agent has almost finished a feature and
+the audit catches something. Opening a separate fix can split the context
+and leave the original feature in an awkward state. The instructions now
+give it a direct route back through the existing checks.
+
+The release and matching public docs are published. Dashboard tests cover
+saved theme validation and persistence. I also prepared a separate website
+update for clearer guardrail explanations and mobile documentation fixes,
+but that work was still awaiting its own merge at the end of this session.

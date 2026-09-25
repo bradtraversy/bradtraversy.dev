@@ -1,0 +1,70 @@
+---
+name: DevStash
+tagline: the developer knowledge hub built in my coding with ai course
+description: |
+  the full-stack course project from Coding with AI. save snippets,
+  prompts, commands, notes, and links in searchable collections,
+  with authentication, uploads, and AI helpers in a real deployed app.
+status: live
+badge: Course Project
+url: https://devstash.io
+repoUrl: https://github.com/bradtraversy/devstash
+stack: [Next.js, React, TypeScript, Prisma, PostgreSQL, Tailwind, NextAuth, Cloudflare R2]
+heroImage: ./devstash-hero.png
+heroImageAlt: DevStash homepage introducing its developer knowledge hub for snippets, prompts, commands, notes, files, images, and links
+publishDate: 2026-09-25
+featured: false
+---
+
+## built in coding with ai
+
+**DevStash is the course project from my [Coding with AI course](https://www.codingwithaicourse.com).**
+It is a real, deployed application with public source code. The course uses
+it to teach building software with AI, and I continue to maintain the app
+after the course.
+
+[View the course](https://www.codingwithaicourse.com) |
+[Try DevStash](https://devstash.io) |
+[Source code](https://github.com/bradtraversy/devstash) |
+[Course resources](https://github.com/bradtraversy/coding-with-ai-course-resources)
+
+## what it does
+
+DevStash brings developer resources into one searchable place. Save code
+snippets, AI prompts, terminal commands, notes, and links, then organize them
+into collections. Tags, favorites, and pinned items help keep useful material
+within reach.
+
+The app includes a code editor with syntax highlighting, Markdown editing,
+search, file and image uploads, and AI helpers for descriptions, tags,
+code explanations, and prompt improvements. Collections are private to the
+signed-in user in the current product.
+
+## why i built it
+
+Snippets, commands, and useful prompts tend to end up scattered across editor
+files, browser bookmarks, chat histories, and notes. DevStash gives them a
+shared home.
+
+It also makes a useful course project because it goes beyond a static UI.
+Accounts, stored data, uploads, and deployment give the AI-assisted development
+workflow a complete application to work through.
+
+## how it's built
+
+- **Next.js, React, and TypeScript** for the application and interface.
+- **Prisma and PostgreSQL** for users, items, and collections.
+- **NextAuth** for email/password and GitHub authentication.
+- **Tailwind and shadcn/ui** for the UI, with Monaco for code editing.
+- **Cloudflare R2** for uploads, with OpenAI, Stripe, Resend, and Upstash
+  supporting AI helpers, billing, email, and rate limiting.
+
+The app runs on Vercel. The public repository includes the source and setup
+instructions; the course resources repository holds supporting specs and docs.
+
+## what's next
+
+Public and unlisted collections are planned so a collection can become an
+ordered, shareable page of code, commands, notes, and other resources. That
+work is separate from the current private-collection workflow and is not
+presented here as a released feature.
