@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-25T13:02:45.429Z",
+  "updatedAt": "2026-09-25T15:44:11.593Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 329,
-    "followers": 76610,
-    "totalStars": 167595
+    "followers": 76609,
+    "totalStars": 167597
   },
   "topRepos": [
     {
@@ -13,8 +13,8 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 67026,
-      "forks": 12198,
+      "stars": 67027,
+      "forks": 12199,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
     },
@@ -24,7 +24,7 @@
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
       "stars": 40646,
-      "forks": 9726,
+      "forks": 9727,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
     },
@@ -91,68 +91,68 @@
   ],
   "recentEvents": [
     {
-      "type": "DeleteEvent",
+      "type": "PullRequestEvent",
       "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-09-25T13:02:34Z",
-      "details": "deleted branch feature/devlog-skillpass-cli-0-4-0"
+      "createdAt": "2026-09-25T15:43:56Z",
+      "details": "merged pull request #4"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-09-25T13:02:31Z",
-      "details": "merged pull request #3"
+      "createdAt": "2026-09-25T15:42:46Z",
+      "details": "opened pull request #4"
     },
     {
-      "type": "PullRequestEvent",
+      "type": "PushEvent",
       "repo": "bradtraversy/bradtraversy.dev",
-      "createdAt": "2026-09-25T13:01:43Z",
-      "details": "opened pull request #3"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-25T12:57:57Z",
-      "details": "deleted branch chore/neon-project-id"
+      "createdAt": "2026-09-25T13:02:32Z",
+      "details": "pushed to main"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-25T12:57:56Z",
-      "details": "pushed to main"
+      "createdAt": "2026-09-25T12:55:41Z",
+      "details": "pushed to chore/neon-project-id"
     },
     {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-25T12:57:55Z",
-      "details": "merged pull request #3"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-25T12:52:15Z",
-      "details": "merged pull request #15"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-25T12:46:30Z",
-      "details": "opened pull request #15"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-25T12:45:09Z",
-      "details": "opened pull request #3"
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-09-25T12:13:24Z",
+      "details": "deleted branch feature/devlog-immich-outage"
     },
     {
       "type": "DeleteEvent",
       "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-25T12:44:07Z",
-      "details": "deleted branch feature/cli-search-ai"
+      "createdAt": "2026-09-25T11:07:28Z",
+      "details": "deleted branch chore/blueprint-1-10"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-09-25T12:13:24Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-09-25T12:11:02Z",
+      "details": "created branch feature/devlog-immich-outage"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-25T11:06:12Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-09-25T13:02:34Z",
+      "details": "deleted branch feature/devlog-skillpass-cli-0-4-0"
     }
   ],
   "contributions": {
-    "total": 1133,
+    "total": 1136,
     "weeks": [
       [
         0,
@@ -628,7 +628,7 @@
         0,
         0,
         39,
-        18
+        21
       ]
     ]
   }
