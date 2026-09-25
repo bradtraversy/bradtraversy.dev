@@ -1,0 +1,64 @@
+---
+title: my photo server was down for a week and nothing told me
+publishDate: 2026-09-25
+draft: false
+tags: [devlog, postmortem, homelab]
+---
+
+Immich, the self-hosted photo server in my homelab, returned a 502 for seven
+days before I noticed. The phones stopped backing up, the web app was dead,
+and the monitoring I already had never fired because it only watched my
+public sites.
+
+The chain was simple once I traced it. The reverse proxy was fine. The Immich
+server container had been sitting in `Exited (128)` since the host rebooted a
+week earlier, while its Postgres, Redis, and machine learning containers came
+back normally.
+
+Here's the part that broke. The Immich library lives on a NAS share, mounted
+with a systemd automount over SMB. When the box rebooted, systemd declared the
+network online and Docker started in the same second. Docker restored the
+container, the bind mount touched the share, the automount tried to connect,
+and `mount.cifs` failed with "Network is unreachable" because the route was
+not actually up yet. The container runtime then failed with "no such device"
+for the mount source. Docker recorded that as exit code 128 and moved on. The
+restart policy was `always`, but Docker does not apply restart policies to a
+container that fails during the daemon's own restore. The retry count stayed
+at zero. The other three containers had no NAS dependency, so they were fine.
+
+A `RequiresMountsFor=` drop-in on the Docker service is the textbook fix, but
+it races the same window and makes all of Docker wait on the NAS. I put the
+wait in a small systemd oneshot instead. It polls for a marker file on the
+share, then runs `docker compose up -d` for the Immich stack once the share is
+actually there.
+
+```ini
+[Unit]
+Description=Immich stack, started once the NAS share is reachable
+After=docker.service network-online.target
+Wants=docker.service network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/immich
+ExecStartPre=/bin/sh -c "until [ -f /mnt/nas/photos/.mounted ]; do sleep 5; done"
+ExecStart=/usr/bin/docker compose up -d
+TimeoutStartSec=600
+
+[Install]
+WantedBy=multi-user.target
+```
+
+The monitoring gap got fixed the same morning. Uptime Kuma was already running
+with a Discord webhook, watching ten public sites and zero homelab services. I
+added five checks: Immich directly on its port, Immich through the proxy, the
+NAS by ping and by SMB port, and the host itself by ping. I deliberately did
+not add one HTTP check per internal hostname. They all share the same DNS,
+Tailscale, and proxy chain, so a blip in any of those fires every check at
+once and tells you nothing about which layer broke. A day earlier a short DNS
+hiccup had done exactly that to the public checks.
+
+The lesson: a container that bind-mounts a network share can quietly stay dead
+after a reboot, and `docker ps` is the only thing that will tell you unless
+something is watching.
