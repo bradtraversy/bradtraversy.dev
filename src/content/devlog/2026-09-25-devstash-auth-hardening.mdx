@@ -1,0 +1,34 @@
+---
+title: hardening devstash after the course
+publishDate: 2026-09-25
+draft: false
+tags: [devlog, nextjs, typescript]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [project page](/projects/devstash) | [Coding with AI course](https://www.codingwithaicourse.com)
+
+DevStash is the application from my Coding with AI course, and I am continuing
+to maintain it as a live project. The latest work was an authentication and
+security hardening pass before starting public collections.
+
+One finding became especially important during release checks. The Redis
+service configured for rate limiting was no longer available. The old error
+handling let sign-ins continue when that service failed, which also meant
+the limiter could stop protecting the endpoint without an obvious failure.
+
+The hardened path refuses credential sign-ins when it cannot enforce the
+production limit. That is the intended behavior, but it also meant the
+dependency had to be working before deployment. I replaced the missing Redis
+service and checked that repeated failed sign-ins reached the limit.
+
+The browser pass covered registration, rejected and successful sign-ins,
+redirect handling, sign-out, and the password reset flow. An external callback
+URL stayed inside the app, and a used reset token was removed after the
+password changed. The shared verification command also ran before push and
+in CI.
+
+The hardening is merged and live. Public collections are the next feature,
+not part of this release. It was a useful reminder that maintaining a course
+project includes checking the services behind it, not just updating packages
+and seeing whether the app still starts.
