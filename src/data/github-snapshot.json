@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-26T12:22:01.965Z",
+  "updatedAt": "2026-09-26T18:18:41.653Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 329,
-    "followers": 76607,
-    "totalStars": 167605
+    "followers": 76604,
+    "totalStars": 167604
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 67033,
+      "stars": 67035,
       "forks": 12199,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40646,
+      "stars": 40645,
       "forks": 9726,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -43,7 +43,7 @@
       "fullName": "bradtraversy/proshop_mern",
       "description": "Shopping cart built with MERN & Redux",
       "url": "https://github.com/bradtraversy/proshop_mern",
-      "stars": 2022,
+      "stars": 2021,
       "forks": 1220,
       "language": "JavaScript",
       "pushedAt": "2024-01-15T16:26:04Z"
@@ -91,68 +91,68 @@
   ],
   "recentEvents": [
     {
-      "type": "PullRequestEvent",
+      "type": "CreateEvent",
       "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T11:20:41Z",
-      "details": "closed pull request #8"
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T12:18:50Z",
-      "details": "commented on issue #8"
+      "createdAt": "2026-09-26T12:27:34Z",
+      "details": "created branch chore/remove-unused-dev-deps"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-26T12:17:06Z",
-      "details": "opened pull request #17"
+      "createdAt": "2026-09-26T15:01:18Z",
+      "details": "opened pull request #18"
     },
     {
       "type": "CreateEvent",
       "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-26T12:17:05Z",
-      "details": "created branch chore/skillpass-cli-0-5-0"
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-26T12:11:49Z",
-      "details": "deleted branch feature/install-from-any-repo-with-local-pre-flight"
+      "createdAt": "2026-09-26T15:01:18Z",
+      "details": "created branch chore/pnpm-11-11-0"
     },
     {
       "type": "PullRequestEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-26T12:11:45Z",
-      "details": "merged pull request #16"
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-26T14:59:40Z",
+      "details": "opened pull request #13"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-26T14:59:39Z",
+      "details": "created branch chore/audit-fix-dompurify"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-26T12:18:50Z",
+      "details": "deleted branch dependabot/github_actions/actions-9b61906d8b"
     },
     {
       "type": "PushEvent",
       "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T12:11:32Z",
+      "createdAt": "2026-09-26T12:18:50Z",
       "details": "pushed to main"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T12:11:31Z",
-      "details": "merged pull request #11"
+      "createdAt": "2026-09-26T12:29:57Z",
+      "details": "merged pull request #12"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-26T12:29:59Z",
+      "details": "deleted branch chore/remove-unused-dev-deps"
     },
     {
       "type": "PullRequestEvent",
       "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T12:03:55Z",
-      "details": "opened pull request #11"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-26T11:38:50Z",
-      "details": "opened pull request #16"
+      "createdAt": "2026-09-26T11:21:12Z",
+      "details": "closed pull request #10"
     }
   ],
   "contributions": {
-    "total": 1145,
+    "total": 1150,
     "weeks": [
       [
         0,
@@ -629,7 +629,7 @@
         0,
         39,
         23,
-        7
+        12
       ]
     ]
   }
