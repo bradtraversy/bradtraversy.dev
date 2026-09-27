@@ -1,0 +1,42 @@
+---
+title: skillpass 0.5.0 installs from any github repo with the passport in front
+publishDate: 2026-09-27
+draft: false
+tags: [devlog, tool-launch, typescript, agents]
+project: skillpass
+---
+
+Until this week `skillpass add` only installed skills that someone had
+submitted to the directory and that had passed validation there. If a skill
+lived only in a GitHub repo, you cloned it and copied the folder, and nobody
+checked anything. 0.5.0 closes that gap.
+
+`skillpass add github:anthropics/skills/skills/pdf --target claude-code` pins
+the reference to a commit through the GitHub API, downloads that commit's
+archive, runs the same validator on it locally, and prints the same pre-flight
+the directory would: status, risk, permissions, findings, source hash, plus the
+repo and commit it came from. A failed report blocks the install. Medium risk
+or higher asks before anything touches disk. Then it installs through the exact
+same code path as a directory install, so `--target`, `--global`, `--dir`,
+packs, and the location picker all work. A plain github.com URL works too,
+including `/tree/<branch>/<path>`, and the short form takes `@<ref>` to pin a
+branch or tag.
+
+These installs are unlisted. The validator ran on your machine, but there was
+no maintainer ownership check and no AI review behind it, and nothing gets
+submitted or listed. The receipt records the repo and commit and marks it
+unlisted, so `list` shows where it came from, `outdated` leaves it out of the
+update count, and `update` refuses it. That last one matters more than it
+sounds: an unlisted skill named `pdf` and the directory's `pdf` share a folder
+name, and without the guard `update` would quietly swap one for the other.
+
+Two implementation notes. The CLI downloads GitHub's zip rather than the
+tarball because the zip library was already bundled and Node has no tar parser,
+so the CLI stays dependency-free. And this was the first time the CLI writes
+files it fetched from an arbitrary repo instead of from the directory's
+validated snapshots, so I ran an independent review pass on it before merging.
+It found one real bug: a download that died mid-stream escaped with the raw
+runtime error instead of the CLI's own message. Fixed, re-reviewed, shipped.
+
+0.5.0 is on npm: `npm install -g skillpass`. Public repos only for now; a token
+for private repos is a later addition. Next is a passport badge for READMEs.
