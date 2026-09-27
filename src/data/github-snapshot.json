@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-27T12:23:24.465Z",
+  "updatedAt": "2026-09-27T18:19:25.456Z",
   "user": {
     "login": "bradtraversy",
     "name": "Brad Traversy",
     "publicRepos": 329,
-    "followers": 76606,
-    "totalStars": 167607
+    "followers": 76607,
+    "totalStars": 167609
   },
   "topRepos": [
     {
@@ -13,7 +13,7 @@
       "fullName": "bradtraversy/design-resources-for-developers",
       "description": "Curated list of design and UI resources from stock photos, web templates, CSS frameworks, UI libraries, tools and much more",
       "url": "https://github.com/bradtraversy/design-resources-for-developers",
-      "stars": 67038,
+      "stars": 67039,
       "forks": 12198,
       "language": null,
       "pushedAt": "2026-05-24T10:07:48Z"
@@ -23,7 +23,7 @@
       "fullName": "bradtraversy/50projects50days",
       "description": "50+ mini web projects using HTML, CSS & JS",
       "url": "https://github.com/bradtraversy/50projects50days",
-      "stars": 40644,
+      "stars": 40645,
       "forks": 9727,
       "language": "CSS",
       "pushedAt": "2025-02-26T13:49:39Z"
@@ -91,6 +91,42 @@
   ],
   "recentEvents": [
     {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-09-27T15:00:54Z",
+      "details": "opened pull request #5"
+    },
+    {
+      "type": "CreateEvent",
+      "repo": "bradtraversy/bradtraversy.dev",
+      "createdAt": "2026-09-27T15:00:53Z",
+      "details": "created branch feature/devlog-skillpass-0-5-0"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-27T12:39:25Z",
+      "details": "merged pull request #18"
+    },
+    {
+      "type": "PushEvent",
+      "repo": "bradtraversy/skillpass",
+      "createdAt": "2026-09-27T12:39:26Z",
+      "details": "pushed to main"
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-27T12:26:46Z",
+      "details": "deleted branch chore/audit-fix-dompurify"
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": "bradtraversy/devstash",
+      "createdAt": "2026-09-27T12:26:44Z",
+      "details": "merged pull request #13"
+    },
+    {
       "type": "PushEvent",
       "repo": "bradtraversy/devstash",
       "createdAt": "2026-09-26T12:29:58Z",
@@ -113,46 +149,10 @@
       "repo": "bradtraversy/devstash",
       "createdAt": "2026-09-26T12:11:34Z",
       "details": "deleted branch chore/route-handler-tests"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T12:03:41Z",
-      "details": "created branch chore/route-handler-tests"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T12:27:34Z",
-      "details": "created branch chore/remove-unused-dev-deps"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-26T15:01:18Z",
-      "details": "opened pull request #18"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/skillpass",
-      "createdAt": "2026-09-26T15:01:18Z",
-      "details": "created branch chore/pnpm-11-11-0"
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T14:59:40Z",
-      "details": "opened pull request #13"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "bradtraversy/devstash",
-      "createdAt": "2026-09-26T14:59:39Z",
-      "details": "created branch chore/audit-fix-dompurify"
     }
   ],
   "contributions": {
-    "total": 1150,
+    "total": 1153,
     "weeks": [
       [
         0,
@@ -620,10 +620,10 @@
         0,
         39,
         23,
-        12
+        13
       ],
       [
-        0
+        2
       ]
     ]
   }
