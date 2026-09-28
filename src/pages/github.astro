@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import snapshot from '../data/github-snapshot.json';
+import { loadSnapshot } from '../lib/github-snapshot';
 
-const { user, topRepos, recentEvents, contributions, updatedAt } = snapshot;
+const { user, topRepos, recentEvents, contributions, updatedAt } = await loadSnapshot();
 
 const fmtNum = (n: number) => {
   if (n >= 1000) return (n / 1000).toFixed(n >= 10000 ? 0 : 1) + 'k';
@@ -52,9 +52,7 @@ const lastSync = updatedAt ? fmtRelative(updatedAt) : null;
       <a class="link" href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
         github.com/{user.login}
       </a>
-      . pulled from the api every 6 hours by{' '}
-      <a class="link" href="https://github.com/bradtraversy/bradtraversy.dev/blob/main/.github/workflows/sync-github.yml" target="_blank" rel="noopener noreferrer">a small action</a>
-      , rendered statically here.
+      . fetched from the api when the site builds, rendered statically here.
     </p>
   </section>
 
@@ -117,7 +115,7 @@ const lastSync = updatedAt ? fmtRelative(updatedAt) : null;
     <h2 class="h2"><span class="hash">## </span>top repos</h2>
     <div class="comment">// the {topRepos.length} most-starred public repos</div>
     {topRepos.length === 0 ? (
-      <p class="empty">snapshot hasn't run yet — first sync will populate this.</p>
+      <p class="empty">nothing to show yet.</p>
     ) : (
       <div class="repos">
         {topRepos.map((r) => (
@@ -142,7 +140,7 @@ const lastSync = updatedAt ? fmtRelative(updatedAt) : null;
     <h2 class="h2"><span class="hash">## </span>recent activity</h2>
     <div class="comment">// last {recentEvents.length} public events</div>
     {recentEvents.length === 0 ? (
-      <p class="empty">snapshot hasn't run yet — first sync will populate this.</p>
+      <p class="empty">nothing to show yet.</p>
     ) : (
       <ul class="events">
         {recentEvents.map((e) => (

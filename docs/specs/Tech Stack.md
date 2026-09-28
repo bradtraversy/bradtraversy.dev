@@ -74,6 +74,7 @@ If the site ever needs heavy interactivity (interactive tool playgrounds), Astro
 - Environment variables (kept minimal):
   - `BUTTONDOWN_API_KEY`
   - `PLAUSIBLE_DOMAIN`
+  - `GH_TOKEN` (optional, read-only public data; refreshes the `/github` snapshot at build)
 - DNS: managed at Vercel, A/CNAME records pointing to Vercel
 
 ## Email Capture
@@ -151,5 +152,5 @@ Implementation:
 - No headless CMS (Sanity, Contentful, etc.) — content is in the repo
 - No database — everything is static
 - No serverless functions beyond the subscribe endpoint
-- No build-time API calls to third parties (keeps build deterministic and offline-friendly)
+- No build-time API calls to third parties, with one exception: `/github` fetches its snapshot at build with a short timeout and falls back to the committed JSON, so a build never waits on or fails because of GitHub
 - No client-side router — Astro's standard navigation is fine
