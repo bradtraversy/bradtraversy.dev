@@ -1,13 +1,9 @@
 name: sync github snapshot
 
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - 'src/data/github-snapshot.json'
   schedule:
-    # every 6 hours
-    - cron: '0 */6 * * *'
+    # weekly, Monday 10:00 UTC
+    - cron: '0 10 * * 1'
   workflow_dispatch: {}
 
 permissions:

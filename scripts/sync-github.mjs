@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Snapshot bradtraversy's public GitHub state into src/data/github-snapshot.json.
-// Runs on a 6-hour cron from .github/workflows/sync-github.yml. Vercel rebuilds
+// Runs weekly from .github/workflows/sync-github.yml. Vercel rebuilds
 // when the resulting JSON change is committed back to main.
 //
 // Auth: GH_TOKEN (preferred) or GITHUB_TOKEN. GraphQL contributions endpoint
