@@ -1,0 +1,49 @@
+---
+title: an agent cluster on the old poweredge
+publishDate: 2026-09-28
+draft: false
+tags: [devlog, agents, agent-workflow, decision]
+---
+
+links: [Paperclip](https://paperclip.dev) | [Paperclip on GitHub](https://github.com/paperclipai/paperclip) | [Proxmox](https://www.proxmox.com)
+
+I had a Dell PowerEdge R630 in the rack doing nothing, and a growing wish for
+a machine that runs the agents I am not actively working with. So it became
+an agent cluster. Proxmox was already on it. I built one Ubuntu 24.04 template
+with Claude Code, Codex, Pi, Node 24, Docker and the GitHub CLI, then cloned
+it into a small control VM and three worker VMs.
+
+The control VM runs Paperclip, an open source board where I file a ticket,
+assign it to an agent, and read the result when it is done. It runs no agents
+itself. In Paperclip an agent is a harness plus a machine: its SSH
+environments point at the worker VMs, so a ticket assigned to `claude-dev-1`
+starts Claude Code on worker one, over Tailscale, with that VM's own login.
+A coordinator agent I named Travis sits on the control VM and only touches the
+board. He splits requests into tickets and reports status. He holds no code
+and no keys.
+
+The first ticket was a gate test: report your hostname, write a file, comment
+the output. It passed, and it showed me the mechanics. Paperclip syncs a
+per-run workspace to the worker, runs the CLI there, copies changes back, and
+throws the run directory away. Anything that must survive leaves as a comment,
+an attachment, or a pushed branch.
+
+The first ticket also produced the first incident. I reopened it and then
+pressed wake twice, and the agent's default allowed twenty concurrent runs, so
+three copies of the agent took the same ticket. The copy that lost the
+checkout race followed Paperclip's built-in "results must land on the board"
+instruction and created a ticket of its own to report on, which woke a fifth
+run. One cycle, a few wasted sessions, and three rules that now live in every
+agent's instructions:
+
+- one run per agent at a time
+- assigning is the wake, so never call wake afterwards
+- agents never create tickets; if you cannot post on yours, exit
+
+Two gotchas for anyone doing the same. Paperclip's Claude adapter defaults to
+an ACP engine that only supports sandbox remotes, so SSH targets need
+`engine: cli`. And npm 12 strips the symlinks inside Paperclip's embedded
+Postgres, which makes `initdb` fail until you recreate them.
+
+Next is deciding where project code lives for real dev tickets, and then
+filing the first one.
