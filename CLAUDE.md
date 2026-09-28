@@ -86,7 +86,7 @@ Pulled from `Open Questions.md` Resolved section. Don't propose alternatives wit
 - ❌ No Google Fonts CDN — self-host woff2 subsets
 - ❌ No on-page comment system at any phase
 - ❌ No serverless functions beyond `/api/subscribe`
-- ❌ No build-time API calls to third parties (keeps build deterministic and offline-friendly)
+- ❌ No build-time API calls to third parties, with one exception: `/github` fetches its snapshot at build with a short timeout and falls back to the committed JSON, so a build never waits on or fails because of GitHub
 - ❌ No README writeup of internal decisions in public-facing copy until repo flips public
 
 ## Performance budget

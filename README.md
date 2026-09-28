@@ -44,6 +44,14 @@ BUTTONDOWN_API_KEY=...
 
 without it, the form returns `500` but everything else works.
 
+the `/github` page refreshes its stats at build time with a read-only github token:
+
+```
+GH_TOKEN=...
+```
+
+without it, the build uses the snapshot committed in `src/data/github-snapshot.json`.
+
 ## structure
 
 ```
