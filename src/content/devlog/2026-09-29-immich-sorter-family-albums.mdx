@@ -1,0 +1,54 @@
+---
+title: every photo that hits my immich server now gets sorted
+publishDate: 2026-09-29
+draft: false
+tags: [devlog, homelab, python, decision]
+---
+
+Our phones back up everything to Immich, and most of what arrives is a
+screenshot somebody took to send in a text. Some of it is trash, some of it
+is a receipt you want later, and mixed in with it are the photos that
+actually matter. My wife wanted family albums. I wanted the timeline to stop
+being a wall of iMessage screenshots.
+
+So I wrote a small Python tool that runs on the homelab box once a day. Each
+new upload goes through cheap rules first: a PNG with no camera EXIF at a
+phone screen size is a screenshot, and Immich's own face recognition tells me
+who is in the shot. Then one call to OpenAI's Luna model with a 768px
+preview returns a label from a two-level taxonomy of 45 categories plus a
+keep score from 0 to 3, in a strict JSON schema. The actions are boring on
+purpose: hierarchical tags, screenshots and documents and junk archived out
+of the timeline but still searchable, and anything scoring zero dropped into a
+review album that I empty by hand. The tool has no delete path at all, and a
+photo with a named face can never be called junk.
+
+I dry-ran it over the 860 photos from one weekend before it was allowed to
+write anything. Zero errors, about 1.7 million input tokens, and contact
+sheets of the trash candidates all held up. Two things changed after seeing
+the numbers. Favoriting was supposed to mark the best family photos and would
+have starred 476 of 550, so it is off. And three "screenshots" turned out to
+be real family photos saved from messages, so a screenshot with a family face
+now stays in the timeline.
+
+The albums turned out not to need the model at all. Immich had already run
+face recognition across the whole 20-year library and I had named the four
+of us long ago, so a faces-only pass filled a Family album with 17,000 photos
+and the kids' albums with 9,000 each in a few minutes, for free. The one
+wrinkle was that every gym mirror selfie of mine has my face in it, so they
+landed in Family. The fix was an exclusion list plus a "sweep" command that
+asks the model one yes or no question over the 514 solo photos of me and
+files the yeses into the Gym album. It found five.
+
+The bugs worth mentioning were all in the checkpoint that decides which
+uploads are done. Two independent review passes found six of them: a
+`--limit` flag that advanced the checkpoint past unscanned photos, an
+"applied" set keyed by asset instead of by row, a checkpoint frozen forever by
+one photo that failed and then got deleted, and socket errors that escaped a
+worker and threw away a whole batch. The rule that survived is simple. The
+checkpoint means the scanned window is done, it sits five minutes behind the
+window's end, it never passes a photo that still needs work, and it never
+moves backwards.
+
+If you self-host Immich, the cheapest classifier you have is the face data it
+already computed. Use that first and save the model calls for the ambiguous
+stuff.
