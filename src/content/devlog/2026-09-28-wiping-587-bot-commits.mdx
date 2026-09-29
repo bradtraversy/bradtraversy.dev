@@ -1,0 +1,44 @@
+---
+title: wiping 587 bot commits from this site's history
+publishDate: 2026-09-28
+draft: false
+tags: [devlog, meta, astro, vercel]
+project: bradtraversy-dev
+---
+
+The /github page on this site is built from a JSON snapshot of my GitHub
+profile: star totals, top repos, recent events, the contributions calendar.
+Until yesterday a GitHub Actions cron refreshed that file every six hours and
+committed it back to main, and it also ran on every push to main. Each merge
+spawned a snapshot commit right behind it, and since my star count ticks up a
+few every run, the file changed every time. Result: 587 of the 729 commits on
+main were `chore: refresh github snapshot`, and every one of them triggered a
+Vercel deploy.
+
+The repo is public and the commit list is part of the showcase, so filtering
+`git log` was not enough. I rewrote main.
+
+The tool was git-filter-repo, in a fresh clone, with a `git ls-tree -r HEAD`
+listing taken before and after so I could prove the tree was identical except
+for the one file. The first attempt was wrong in a way worth writing down. I
+emptied the bot commits with a commit callback, and the result silently
+dropped several devlog files. When every commit between a PR's base and its
+merge is a bot commit, the merge becomes degenerate, filter-repo recomputes
+its file changes against the second parent, and fast-import applies them onto
+the first. The fix was to strip the snapshot file from all of history instead
+(`--invert-paths --path src/data/github-snapshot.json --no-ff`), which made
+every bot commit empty and prunable while keeping the real merges, then re-add
+the current JSON in one commit. 729 commits became 142, the tree diffed clean,
+and a `--force-with-lease` on the exact SHA I had verified pushed it.
+
+Then the workflow went away entirely. The page now fetches the same data at
+build time, inside the Astro page's frontmatter, with a ten second budget and
+the committed JSON as fallback. No token, a timeout, an API error, or an empty
+search result all mean "use the fallback", so a build never waits on GitHub or
+fails because of it. This site has a "no build-time API calls" rule, and that
+rule now has exactly one exception with the fallback written next to it.
+Freshness comes from deploys, which happen every time a devlog merges.
+
+One Astro 6 detail for anyone doing the same: it no longer maps non-public
+`import.meta.env` reads to `process.env`, so a build-time secret from Vercel's
+dashboard has to be read from `process.env` directly.
