@@ -5,12 +5,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const allProjects = await getCollection('projects');
 const projectsBySlug = new Map(allProjects.map((project) => [project.id, project]));
 const currentlyBuildingSlugs = [
+  'skillpass',
+  'devstash',
   'ai-blueprint',
-  'vidpipe',
-  'multiprompter',
   'mission-control',
   'bradtraversy-dev',
-  'stackmaven',
+  'vidpipe',
 ];
 const currentlyBuilding = currentlyBuildingSlugs
   .map((slug) => projectsBySlug.get(slug))
@@ -20,21 +20,21 @@ const currentlyBuilding = currentlyBuildingSlugs
 // Update these when the focus shifts; if a project isn't listed, the card
 // still renders with its tagline as fallback.
 const focusNotes: Record<string, string> = {
+  skillpass:
+    'the busiest lane right now. install from any github repo, a passport badge for readmes, and a prompt tab so an agent can install a skill itself.',
+  devstash:
+    'public collections: share a curated set of snippets and links by link. owner controls are in, the public page is next.',
   'ai-blueprint':
-    'turning the blueprint into the default workflow layer: clearer gates, better resumes, status/check/adopt flows, and real use on active builds.',
-  vidpipe:
-    'back in the product lane. seo prerendering is in, publishing destinations are the next serious feature, and the bundle needs a cleanup pass.',
-  multiprompter:
-    'mac teleprompter experiment. one script driving multiple synced viewer windows, built for recording setups where the script has to follow me.',
+    'past 1.10 and mostly steady. independent review when a change is sensitive, contributor prs coming in, dark mode.',
   'mission-control':
-    'still the private ops surface for the vault. current arc is making the automation fleet easier to see, trust, and hand work to.',
+    'the private ops surface, now deployed on the homelab hub and wired to the new agent cluster.',
   'bradtraversy-dev':
-    'using the site as the public trail for what shipped: articles, devlogs, project pages, and the small tool catalog.',
-  stackmaven:
-    'background publication lane. keep the quality bar, but it is not the main sprint while product work gets the deeper block.',
+    'the public trail for what shipped. this week it lost 587 bot commits and gained a build-time github page.',
+  vidpipe:
+    'maintenance month: owner model preferences and article fidelity fixes. publishing destinations are still the next real feature.',
 };
 
-const lastUpdated = '2026-06-29';
+const lastUpdated = '2026-09-29';
 ---
 
 <BaseLayout
@@ -54,29 +54,29 @@ const lastUpdated = '2026-06-29';
   <section class="section">
     <h2 class="h2"><span class="hash">## </span>right now</h2>
     <p>
-      main focus: using <a href="/projects/ai-blueprint" class="link">ai blueprint</a>
-      as the workflow layer for real builds, not just as a repo template. the
-      goal is to make planning, implementation, checking, status, and adoption
-      feel repeatable enough that every product block starts with the same
-      rails.
+      main focus: the agent fleet moved onto its own hardware. an old poweredge
+      now runs a control vm with paperclip and three dev vms carrying claude,
+      codex, and pi, and the first remote-execution gate passed this week. i
+      wrote it up in <a href="/devlog/2026-09-28-agent-cluster-on-the-poweredge" class="link">an agent cluster on the old poweredge</a>.
+      the near-term work is giving it real projects and deciding what persists
+      between runs.
     </p>
     <p>
-      product-wise, <a href="/projects/vidpipe" class="link">vidpipe</a> is back
-      near the top of the list. the public pages are crawlable now, the model
-      routing is cleaner, and the next useful push is publishing: wordpress
-      first, then the rest only if the workflow earns it.
+      on the product side, <a href="/projects/skillpass" class="link">skillpass</a>
+      is getting the most commits: 0.5.0 installs skills from any github repo,
+      and this week added a readme passport badge and a prompt tab so an agent
+      can install a skill itself.
     </p>
     <p>
-      <a href="/projects/multiprompter" class="link">multiprompter</a> is the
-      smaller build i keep wanting for recording: one script, multiple synced
-      windows, less awkward script-reading during videos. still beta, but it is
-      the right kind of personal tool.
+      <a href="/projects/devstash" class="link">devstash</a> is getting public
+      collections, so a curated set of snippets and links can be shared by
+      link. and this site lost 587 bot commits and now builds its github page
+      at deploy time instead of committing a snapshot every six hours.
     </p>
     <p>
-      the automation fleet also got rebuilt around a cleaner orchestrator and
-      separate work lanes. that matters less as a public product and more as the
-      operating layer under the rest of the work. i wrote the current shape up
-      in <a href="/articles/my-agent-stack-changed-again" class="link">my agent stack changed again</a>.
+      crossdraft, the private one-markdown-article-to-many-platforms cli, now
+      reaches linkedin and facebook pages on top of dev and hashnode. still not
+      released, still useful.
     </p>
   </section>
 
@@ -105,24 +105,23 @@ const lastUpdated = '2026-06-29';
     <h2 class="h2"><span class="hash">## </span>what i'm thinking about</h2>
     <ul class="prose-list">
       <li>
-        how much of product work can be turned into a calm blueprint workflow
-        without making it feel like ceremony. the sweet spot is just enough
-        structure that the ai does not drift
+        how much to let the agent cluster run unattended. the gates are enforced
+        by the runner now; the open question is which projects are boring
+        enough to hand over first
       </li>
       <li>
-        whether vidpipe is a product problem or a distribution problem. the
-        crawlable-site work fixed the technical floor; now the question is
-        whether the publishing flow is useful enough to push harder
+        whether a git history that is 80 percent bot commits is a smell or just
+        noise. i decided smell, and rewrote it
       </li>
       <li>
-        personal tools as unfair advantages. multiprompter, linesmith,
-        typesmith, and the agent workflow are all small things that make
+        personal tools as unfair advantages. linesmith, typesmith, crossdraft,
+        multiprompter, and the agent workflow are all small things that make
         recording and building less annoying
       </li>
       <li>
-        stackmaven is still interesting, but it is lower in the stack right now:
-        maintain the editorial lane, avoid filler, and let the automation catch
-        the high-signal stuff while the product work gets the deeper focus
+        whether vidpipe is a product problem or a distribution problem. the
+        crawlable-site work fixed the technical floor; publishing destinations
+        are still the feature that would answer it
       </li>
     </ul>
   </section>

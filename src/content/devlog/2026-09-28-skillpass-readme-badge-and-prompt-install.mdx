@@ -1,0 +1,44 @@
+---
+title: skillpass gets a readme badge and a prompt install tab
+publishDate: 2026-09-28
+draft: false
+tags: [devlog, typescript, agents]
+project: skillpass
+---
+
+Two small features landed on skillpass today, both about the moment after a
+skill is listed.
+
+The first is a README badge. Every published skill now has an SVG at the API's
+badge route, rendered from the latest published version's passport:
+`skillpass | <status> | <risk> risk`, in the shields palette people already
+read at a glance. It is cached for five minutes, only the label and two enum
+values reach the SVG, and an unlisted or unknown slug returns the usual 404
+rather than a grey "not listed" badge. I went back and forth on that. A grey
+badge would look tidier, but it would keep showing a verdict for a skill that
+is no longer listed. A broken image is the honest failure. The skill page has
+a copy box with the markdown snippet, the submit page shows a live example so
+you can see what you get before you submit, and the publish confirmation shows
+the new skill's own badge with a link to add it.
+
+Text fitting was the fiddly part. Shields-style badges depend on measured text
+widths, and the server has no browser to measure with, so a tiny width table
+for Verdana plus `textLength` on every run keeps the segments fitted even when
+the font falls back to DejaVu Sans. Natural widths came within 3 percent of
+the estimate.
+
+The second is a Prompt tab next to the `skillpass add` command on every skill
+page. Instead of a command for a person, it is a block for an agent: run
+`npx skillpass@latest add <ref> --target <tool>`, read the pre-flight first,
+stop and show the report on medium or higher risk, rerun with `--yes` only
+after approval, then report the installed path. It uses `npx` because the
+agent may not have the CLI installed. Both tabs share one ref, which fixed a
+side issue: version permalinks now show `skillpass add slug@version` instead
+of the unpinned command.
+
+One process lesson came with it. CI had been red on main since the badge PR,
+because lint runs before `astro check` and the generated types file lint
+needed only exists after a check or a dev run. Locally it always existed, so
+`pnpm verify` passed here and failed on GitHub, and the badge PR had merged on
+a check nobody opened. The fix rode in with the prompt tab, and main now has a
+ruleset that requires the verify check before anything merges.
