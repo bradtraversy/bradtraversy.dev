@@ -1,0 +1,42 @@
+---
+title: crossdraft learns linkedin, facebook pages, and substack drafts
+publishDate: 2026-09-27
+draft: false
+tags: [devlog, typescript, nodejs]
+---
+
+The last crossdraft entry ended with DEV and Hashnode working and a Substack
+adapter marked experimental. Since then three more destinations landed, and
+the rules around them matter more than the platform count.
+
+LinkedIn first. `connect linkedin` walks through OAuth with your own developer
+app: it prints the consent URL, listens on a loopback port for the callback,
+verifies the account, and stores the token locally. Sharing takes a short
+Markdown adaptation, not the article itself. The body becomes the feed text
+and the canonical URL becomes the link card, and anything over LinkedIn's 3000
+characters is rejected instead of silently cut. I used it live to share a
+video post, then to edit that post in place. Editing keeps the post ID,
+reactions, and comments, and it goes through the same confirmation, source
+recheck, and durable edit journal as a publish. An edit never falls back to
+creating a new post.
+
+Facebook posts to one configured Page and nothing else: no personal profile,
+no target selector, no fallback. `auth facebook` does a read-only lookup of
+the Page ID and refuses a same-ID response that turns out to be a user rather
+than a Page. Publishing shows the exact Page, the complete text, and the link,
+then waits for `publish facebook` typed in an interactive terminal.
+
+Substack's private-draft path got the same verify-and-record treatment as DEV
+and Hashnode. It is still marked experimental until it passes a live-account
+test, and publication still happens in Substack's editor.
+
+The common thread is receipts. Every destination records an exclusive attempt
+before the write, never retries a mutation on its own, and keeps uncertain
+outcomes for inspection instead of guessing. Duplicate protection is keyed by
+account plus canonical URL, so running a command twice updates rather than
+double-posts. One lesson from LinkedIn: a 200 response is a receipt, not
+proof of what is live. I checked the edited post in the browser before
+trusting the journal.
+
+Still a private project, still no release. Next is picking the next article
+to run through all of it end to end.
