@@ -1,0 +1,34 @@
+---
+title: skillpass gets install guides and an official makers page
+publishDate: 2026-10-02
+draft: false
+tags: [devlog, astro, agents]
+project: skillpass
+---
+
+links: [site](https://skillpass.dev) | [repo](https://github.com/bradtraversy/skillpass) | [project page](/projects/skillpass)
+
+SkillPass could already install into different agents, but knowing which
+command to run wasn't the whole problem. The tools use different folders,
+and the difference between a project install and a user-level install isn't
+always obvious.
+
+I added an [install guide for each supported agent](https://skillpass.dev/install).
+There are eight guides. Each shows the folder locations and the relevant
+commands, including the one-off `npx` version. There's also a prompt you can
+give your agent. Where tools share a skill folder, the guide explains that
+instead of making it look like every install is separate.
+
+The other addition is the [official makers page](https://skillpass.dev/official).
+It groups skills from the organizations behind the technology, with links
+to their GitHub organizations. It's a quicker way to find material from the
+people building the tools you're using.
+
+One detail mattered here: a curated listing isn't automatically an official
+one. Most listings already carried a verified flag, so using that flag alone
+would have made the label misleading. The page also checks the attributed
+owner against an explicit list of makers. It identifies where the skills come
+from, not a guarantee that they're safe for every task.
+
+Both additions are live. They're fairly small changes, but they make it easier
+to go from finding a skill to knowing where it came from and how to install it.

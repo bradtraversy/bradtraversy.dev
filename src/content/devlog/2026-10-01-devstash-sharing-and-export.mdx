@@ -1,0 +1,32 @@
+---
+title: devstash gets public collections and shareable snippets
+publishDate: 2026-10-01
+draft: false
+tags: [devlog, nextjs, typescript]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [project page](/projects/devstash) | [Coding with AI course](https://www.codingwithaicourse.com)
+
+DevStash started as the project for my Coding with AI course. I've kept working
+on it, and the latest additions make it useful for sharing things instead of
+just keeping them to yourself.
+
+Collections can now be public or unlisted. Existing collections stay private
+until you change their visibility. I also added a Markdown export in settings
+that puts your collections and items into one readable file. File attachments
+are listed by name and size; the Markdown export doesn't include the files.
+
+Then I added sharing for individual items. You shouldn't have to create a
+collection just to send someone a command or a code snippet. The new dialog
+lets you paste something, choose its visibility, and get a short link. Shared
+snippets have syntax highlighting and a raw view for copying the actual text.
+File attachments aren't shareable yet.
+
+The part I spent extra time checking was caching. If I edit something I've
+shared, the public page needs to change. If I delete it or make it private,
+the old link needs to stop exposing it. Against a local production build, I
+checked that edits cleared the cached page and deletion returned a 404.
+
+These changes are merged and deployed. It's still the course project, but
+I'm continuing to build it into something people can use outside the course.
