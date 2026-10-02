@@ -1,0 +1,35 @@
+---
+title: apimocker was healthy but its data wasn't
+publishDate: 2026-09-30
+draft: false
+tags: [devlog, nodejs, postmortem]
+project: apimocker
+---
+
+links: [site](https://apimocker.com) | [repo](https://github.com/bradtraversy/apimocker) | [project page](/projects/apimocker)
+
+ApiMocker's website and health endpoint were returning 200, but the public
+dataset wasn't what it was supposed to be. Records were missing and the
+collection counts had drifted. The service was running. The daily reset wasn't.
+
+The production configuration had the reset scheduler set to `external`.
+That disables the scheduled job inside the API, which is fine if something
+else actually runs the reset. Nothing did. There was no external scheduler
+configured, and the automatic reset had been missing for roughly two months.
+
+I switched back to the existing in-process scheduler. For the current
+single-replica API, that was the smallest fix. I also ran a reset to restore
+the shared mock dataset, replacing the temporary changes people had made
+through the public API.
+
+Afterward, I checked the expected totals: 10 users and 100 posts, plus 200
+todos and 500 comments. I checked individual records and relationship routes,
+then verified the search filter that had exposed part of the problem.
+
+The important check came after the next midnight UTC. The counts were still
+correct, and fresh seed timestamps confirmed the scheduled reset had run
+without me triggering it.
+
+A green health check told me the process was alive. It didn't tell me whether
+someone following a tutorial could still fetch the records they expected.
+That's the part I needed to verify.
