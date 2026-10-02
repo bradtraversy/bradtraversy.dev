@@ -21,20 +21,20 @@ const currentlyBuilding = currentlyBuildingSlugs
 // still renders with its tagline as fallback.
 const focusNotes: Record<string, string> = {
   skillpass:
-    'the busiest lane right now. install from any github repo, a passport badge for readmes, and a prompt tab so an agent can install a skill itself.',
+    'making skills easier to find and install. agent-specific install guides and the official makers page are live.',
   devstash:
-    'public collections: share a curated set of snippets and links by link. owner controls are in, the public page is next.',
+    'public collections, individual snippet sharing, and markdown export are live. next: better sharing previews and saving shared items to your stash.',
   'ai-blueprint':
-    'past 1.10 and mostly steady. independent review when a change is sensitive, contributor prs coming in, dark mode.',
+    'using structured feature workflows and review gates in real projects, then checking where the workflow needs to improve.',
   'mission-control':
-    'the private ops surface, now deployed on the homelab hub and wired to the new agent cluster.',
+    'the private work and lab dashboard, hosted on trav-hub. the poweredge agent cluster is retired.',
   'bradtraversy-dev':
-    'the public trail for what shipped. this week it lost 587 bot commits and gained a build-time github page.',
+    'keeping project pages and devlogs aligned with what actually shipped, including this now page.',
   vidpipe:
-    'maintenance month: owner model preferences and article fidelity fixes. publishing destinations are still the next real feature.',
+    'maintaining the saas and mcp paths, with recent work on shared model preferences and keeping coding articles faithful to the source.',
 };
 
-const lastUpdated = '2026-09-29';
+const lastUpdated = '2026-10-02';
 ---
 
 <BaseLayout
@@ -54,29 +54,36 @@ const lastUpdated = '2026-09-29';
   <section class="section">
     <h2 class="h2"><span class="hash">## </span>right now</h2>
     <p>
-      main focus: the agent fleet moved onto its own hardware. an old poweredge
-      now runs a control vm with paperclip and three dev vms carrying claude,
-      codex, and pi, and the first remote-execution gate passed this week. i
-      wrote it up in <a href="/devlog/2026-09-28-agent-cluster-on-the-poweredge" class="link">an agent cluster on the old poweredge</a>.
-      the near-term work is giving it real projects and deciding what persists
-      between runs.
+      i'm building ai-assisted workflows and using them on real projects.
+      the poweredge agent cluster was an experiment, not the setup i'm running
+      now. i've retired it. trav-hub is the central hub for my homelab services,
+      including <a href="/projects/mission-control" class="link">mission control</a>.
+      paperclip runs separately on trav-ai for scheduled work and agent tickets.
+    </p>
+    <p>
+      agentflow is where i'm working on controlled agent execution. its runner
+      handles one approved feature and stops for human acceptance. the first
+      live pilot exposed a validator permissions problem, which is fixed;
+      a fresh end-to-end run is still needed. automatic repair and working
+      through a whole project are goals, not things i'm claiming work today.
     </p>
     <p>
       on the product side, <a href="/projects/skillpass" class="link">skillpass</a>
-      is getting the most commits: 0.5.0 installs skills from any github repo,
-      and this week added a readme passport badge and a prompt tab so an agent
-      can install a skill itself.
+      now has install guides for each supported agent and an official makers
+      page. the focus is making it easier to find a useful skill and understand
+      where it comes from before installing it.
     </p>
     <p>
-      <a href="/projects/devstash" class="link">devstash</a> is getting public
-      collections, so a curated set of snippets and links can be shared by
-      link. and this site lost 587 bot commits and now builds its github page
-      at deploy time instead of committing a snapshot every six hours.
+      <a href="/projects/devstash" class="link">devstash</a> has shipped public
+      collections and individual snippet links, along with markdown export.
+      it's still the project from my coding with ai course, and i'm continuing
+      to develop it beyond the course. better sharing previews are next.
     </p>
     <p>
-      crossdraft, the private one-markdown-article-to-many-platforms cli, now
-      reaches linkedin and facebook pages on top of dev and hashnode. still not
-      released, still useful.
+      crossdraft now has a browser workspace for writing an article and
+      reviewing versions for different platforms. the new ui prepares drafts;
+      it doesn't publish them yet. url import and connecting that review step
+      to delivery are the next pieces. it's still in development, not launched.
     </p>
   </section>
 
@@ -105,23 +112,20 @@ const lastUpdated = '2026-09-29';
     <h2 class="h2"><span class="hash">## </span>what i'm thinking about</h2>
     <ul class="prose-list">
       <li>
-        how much to let the agent cluster run unattended. the gates are enforced
-        by the runner now; the open question is which projects are boring
-        enough to hand over first
+        how to let agents finish more work without silently skipping validation.
+        bounded repair attempts come before automatic project-wide execution
       </li>
       <li>
-        whether a git history that is 80 percent bot commits is a smell or just
-        noise. i decided smell, and rewrote it
+        checking the result, not just whether a service is running. apimocker's
+        health endpoint was green while its daily data reset wasn't happening
       </li>
       <li>
-        personal tools as unfair advantages. linesmith, typesmith, crossdraft,
-        multiprompter, and the agent workflow are all small things that make
-        recording and building less annoying
+        tools that remove repeated work. multiprompter is live; crossdraft is
+        still becoming a product. i want to keep that distinction clear
       </li>
       <li>
-        whether vidpipe is a product problem or a distribution problem. the
-        crawlable-site work fixed the technical floor; publishing destinations
-        are still the feature that would answer it
+        making shared snippets useful outside the app they came from, without
+        making private material public by accident
       </li>
     </ul>
   </section>
@@ -129,10 +133,9 @@ const lastUpdated = '2026-09-29';
   <section class="section">
     <h2 class="h2"><span class="hash">## </span>what i'm not doing</h2>
     <ul class="prose-list">
-      <li>no live coding sessions or live streams right now</li>
-      <li>not chasing every shiny model release. only swap when there's a real reason</li>
-      <li>not building a course platform. that's not what this site is for</li>
-      <li>no new sponsor commitments beyond existing ones</li>
+      <li>not running agents on the poweredge or continuing the old factory setup</li>
+      <li>not treating agentflow as a fully autonomous project builder yet</li>
+      <li>not presenting prototypes or planned features as launched products</li>
     </ul>
   </section>
 
