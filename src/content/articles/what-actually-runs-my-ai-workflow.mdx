@@ -1,0 +1,70 @@
+---
+title: what actually runs my ai workflow
+dek: how my shared vault and scheduled agents fit alongside interactive coding, with the checks and limits that keep the setup honest.
+publishDate: 2026-10-02
+draft: false
+tags: [agents, agent-workflow, obsidian]
+relatedProjects: [ai-blueprint, mission-control]
+---
+
+Some of my AI work starts with me opening Codex or Claude and asking for a change. Some starts with a scheduled job while I'm doing something else. Those are different workflows, even though they use some of the same tools and notes.
+
+I've written about my agent setup before, and parts of those posts no longer describe what I'm running. Rather than another list of tools, I want to explain what happens to the work. A daily tech digest and a code change are two useful examples.
+
+This is the setup as of October 2, 2026.
+
+## A Scheduled Task Has a Specific Job
+
+The daily tech digest has a clear job: gather recent AI and web development news, summarize the useful parts, and leave a readable file in my vault. It gives me something to review rather than a conversation I need to start from scratch each morning.
+
+Paperclip manages the scheduled assignment. A routine creates a ticket, and Hermes runs the agent assigned to it. The agent follows a skill, which is a set of instructions for that task, and writes the digest as a Markdown file. Paperclip handles the assignment; the agent does the work.
+
+The digest can then be used as input for a separate video-idea routine. That doesn't mean an idea becomes a video or gets published automatically. There are separate decisions between gathering information and putting something out under my name.
+
+Not every scheduled job needs a model, either. Deterministic maintenance scripts still use cron or system timers. Moving a script into an agent routine wouldn't automatically improve it.
+
+## The Vault Holds the Context
+
+When I say "vault," I mean a folder of notes I use through Obsidian. It contains project plans and current priorities, along with records of previous work. The agents read the relevant parts so I don't have to explain every project again in every session.
+
+I have skills called `/load` and `/save`. Loading gives a session the operating context and recent work history. Saving records what happened, what was decided, and what remains unfinished. These are installed workflows, not commands every AI tool understands by default.
+
+For a code change, the useful handoff might say that the implementation is finished but the browser check hasn't happened. That's more helpful to the next session than a vague note saying the feature is done. It tells the agent where to resume without treating an unfinished check as a success.
+
+The notes aren't infallible. I just had to update this site's Now page because it still described the PowerEdge agent cluster as active, even though I'd retired it. A saved file can be stale too. For anything that might have changed, the agent needs to check the current repository or service rather than repeat an old summary.
+
+The vault holds the notes. Application code stays in its own repositories, with its own dependencies and project instructions.
+
+## The Machines Have Different Roles
+
+My central services machine is called trav-hub. Mission Control, my private dashboard for work and the lab, is hosted there. Paperclip and its assigned agents run on a separate machine called trav-ai.
+
+That distinction matters because calling something "the hub" doesn't mean every process runs on it. It also doesn't mean the machines all have the same files or installed tools. A task has to run where its code and dependencies actually exist.
+
+## A Code Change Needs More Than an Output File
+
+A digest is something I read. A code change can break an application, so it needs a different finish line.
+
+For interactive work, I'm still in Codex or Claude making decisions and reviewing changes. The project's own instructions determine the workflow. [AI Blueprint](/projects/ai-blueprint) provides a structured feature process in projects using it. Other projects use AgentFlow's instructions for dividing up implementation and review. I don't need to route every direct session through Paperclip.
+
+For a repository with a remote, my current rule is a dedicated branch and checked changes, followed by a pull request. Permission to implement isn't permission to publish. I approve the commit and PR step, then the merge separately.
+
+AgentFlow also has a runner in development. Instead of relying only on the agent to follow the workflow instructions, the runner controls when the next stage can start. It sequences implementation, validation, and review for one approved feature. The validator must run the required checks and return evidence before the reviewer gets the change. The runner stops for human acceptance; automatic repair and advancing through a whole project are still goals.
+
+The first live pilot showed why that distinction matters. The agent built a small environment-file auditing tool. Its tests passed when checked directly after the runner stopped, but the runner's validator hadn't produced the required test-command evidence. The sequence blocked before review.
+
+The validator had read-only workspace access where normal test and build output needed write access. I fixed that mismatch, and the repair is merged. But passing tests on the repair isn't the same as completing a new live run. That still needs to happen.
+
+Paperclip assigning work and AgentFlow validating a feature are separate things. I haven't connected them into one proven, autonomous project-building system.
+
+## The Ordinary Failures Still Matter
+
+Two mornings of scheduled work exposed an authentication problem: the Claude subscription connection used by Paperclip expired. Claude agents couldn't run as expected, even though their jobs were configured. Hermes and Codex kept working, so this wasn't an outage of the digest workflow described above.
+
+Sync caused another problem. Obsidian had been closed on one machine, so its notes weren't reaching the other. Some supporting files also hadn't transferred under the sync configuration. Having a shared vault in the design didn't mean the execution machine had everything the task needed.
+
+I need to check that the agent can sign in and has the current files, then inspect what it produced. Those checks matter alongside the prompt and the choice of model.
+
+For exploratory work, one supervised coding session is still simpler. Scheduling handles work I don't start manually. Validation checks whether a code change is ready to move forward. I don't need the entire setup involved in every task.
+
+The next AgentFlow test is deliberately small: run a fresh feature through the corrected validator and see whether review completes. I want that evidence before adding automatic repair or asking it to work through a whole project.
