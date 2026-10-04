@@ -1,0 +1,35 @@
+---
+title: agentflow drops the runner and adds unattended mode
+publishDate: 2026-10-04
+draft: false
+tags: [devlog, agents, agent-workflow]
+---
+
+AgentFlow is still a private project.
+
+I took AgentFlow back to a lightweight, file-based workflow. The separate
+runner experiment is retired. AgentFlow now works through an existing Codex
+or Claude Code session instead of adding another execution engine to maintain.
+
+The runner had real benefits around isolation and recovery. But the workflow
+already has implementation, independent validation, and review, with repair
+and feature closeout instructions. I want to trial that properly before
+building more machinery around it.
+
+The new addition is a thin Unattended launcher. It sends an explicitly
+approved, finite queue into the same workflow, with options to plan a run or
+resume one. Guided mode is still the default. Unattended doesn't grant blanket
+permission to push or publish, and it isn't a background service that keeps
+working after the client session ends.
+
+I also fixed a smaller problem with closeout records. A committed progress
+file can still say a feature is waiting for merge after the PR has merged.
+The workflow now checks actual Git and PR state before treating that old
+checkpoint as unfinished work.
+
+Both changes are merged. The verification suite passed 150 tests, and the
+hosted checks passed. The next step is a small trial: one Guided feature,
+then a two-feature Unattended queue. That practical trial is still ahead.
+
+This supersedes the runner direction described in my
+[October 2 workflow article](/articles/what-actually-runs-my-ai-workflow).

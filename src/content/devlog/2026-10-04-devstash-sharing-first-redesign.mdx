@@ -1,0 +1,37 @@
+---
+title: devstash gets a sharing-first redesign
+publishDate: 2026-10-04
+draft: false
+tags: [devlog, nextjs, react]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [project page](/projects/devstash) | [Coding with AI course](https://www.traversymedia.com/coding-with-ai)
+
+DevStash could already share collections and individual snippets, but the
+app still felt built around storing things. I reworked the signed-in
+experience around capturing something quickly and sharing it when you're ready.
+
+Home now starts with a paste box and one filtered list. Paste detection
+suggests the item type, but you can change the guess before saving. Dense
+rows are the default, with a switch back to code cards. Sharing controls
+sit together at the top of the item drawer, and a dedicated Shared page
+shows what you've made available to others.
+
+The lists also have pagination now, starting at 25 items with options for
+50 or 100. That includes Favorites and Shared, not just the main item pages.
+
+Alongside the app redesign, I shipped downloadable snippet images and
+rewrote the public homepage around "Stash it. Share it." Rendering long
+snippets exposed a performance problem: clipping a tall image panel made
+render time grow dramatically. Removing that clipping brought a 160-line
+render from over two minutes to about half a second in the local checks.
+
+DevStash is also free for now. Pro is hidden, AI helpers are available to
+everyone, and the old free-tier limits have been replaced with higher abuse
+ceilings. New file and image items are disabled; existing attachments remain
+readable and downloadable.
+
+The changes are deployed. It remains the project from my Coding with AI
+course, with the original course version preserved under the `course-final`
+tag. The live app is continuing to develop beyond that version.

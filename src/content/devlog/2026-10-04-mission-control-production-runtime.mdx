@@ -1,0 +1,34 @@
+---
+title: moving mission control production out of the checkout
+publishDate: 2026-10-04
+draft: false
+tags: [devlog, nodejs, decision]
+project: mission-control
+---
+
+links: [repo](https://github.com/travxlabs/mission-control) | [project page](/projects/mission-control)
+
+Mission Control's vault API was running from a production directory inside
+the Git checkout. I moved its release files into a separate runtime location
+so the live service no longer depends on that checkout-local directory.
+
+This wasn't a move to another machine or a rewrite of the API. The vault
+stayed where it was, and the service kept the same connection details and
+behavior. I copied the existing releases, compared the trees, and switched
+the service to the separate release path. Previous releases remain available
+for rollback.
+
+The verification needed to go further than a green health endpoint. Mission
+Control's web container can answer its health check even when the upstream
+API is unavailable. I checked the production snapshot instead and confirmed
+fresh data with the vault connection reporting available and writable.
+An unauthenticated request to the source API still returned 401.
+
+I also documented the complete route from the browser through the main API
+to the vault source API. They're separate processes, even though they use
+the same server code. If the source machine is unavailable, the dashboard
+can retain a dated snapshot, but writes stay disabled.
+
+The migration is complete and the cleanup is merged. Todo maintenance is
+the next product feature. The planned Agent Activity view comes later;
+neither is part of this runtime change.
