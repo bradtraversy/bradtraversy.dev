@@ -1,70 +1,99 @@
 ---
 name: DevStash
-tagline: the developer knowledge hub built in my coding with ai course
+tagline: stash and share developer snippets, built from my coding with ai course
 description: |
-  the full-stack course project from Coding with AI. save snippets,
-  prompts, commands, notes, and links in searchable collections,
-  with authentication, uploads, and AI helpers in a real deployed app.
+  a private stash for reusable code, commands, prompts, notes, and links.
+  share individual items with short links and snippet images, or publish
+  an ordered collection. started as the Coding with AI course project
+  and has grown into a sharing-focused app.
 status: live
 badge: Course Project
 url: https://devstash.io
 repoUrl: https://github.com/bradtraversy/devstash
-stack: [Next.js, React, TypeScript, Prisma, PostgreSQL, Tailwind, NextAuth, Cloudflare R2]
-heroImage: ./devstash-hero.png
-heroImageAlt: DevStash homepage introducing its developer knowledge hub for snippets, prompts, commands, notes, files, images, and links
+stack: [Next.js, React, TypeScript, Prisma, PostgreSQL, Tailwind, NextAuth, Shiki]
+heroImage: ./devstash-hero.webp
+heroImageAlt: DevStash homepage with the Stash it. Share it. headline and a code snippet shown as a short link and downloadable image
+screenshots:
+  - ./devstash-hero.webp
+  - ./devstash-public-collection.webp
 publishDate: 2026-09-25
+updatedDate: 2026-10-05
 featured: false
 ---
 
 ## built in coding with ai
 
-**DevStash is the course project from my [Coding with AI course](https://www.codingwithaicourse.com).**
-It is a real, deployed application with public source code. The course uses
-it to teach building software with AI, and I continue to maintain the app
-after the course.
+**DevStash started as the project in my [Coding with AI course](https://www.traversymedia.com/coding-with-ai).**
+It's a real deployed app with public source code, and I've kept building it
+since recording the course. The current app is now as much about sharing
+developer resources as it is about keeping them organized.
 
-[View the course](https://www.codingwithaicourse.com) |
+Following the lessons? Use the
+[`course-final` release](https://github.com/bradtraversy/devstash/releases/tag/course-final).
+That preserves the code from the end of the course. The repository's `main`
+branch contains the newer product and no longer matches every lesson.
+
 [Try DevStash](https://devstash.io) |
 [Source code](https://github.com/bradtraversy/devstash) |
 [Course resources](https://github.com/bradtraversy/coding-with-ai-course-resources)
 
-## what it does
+## stash it, then share it
 
-DevStash brings developer resources into one searchable place. Save code
-snippets, AI prompts, terminal commands, notes, and links, then organize them
-into collections. Tags, favorites, and pinned items help keep useful material
-within reach.
+I built DevStash because the code and commands I reuse kept ending up in
+different places. A bookmark here, a note there, a useful prompt buried in
+an old chat. The app gives those things one searchable home.
 
-The app includes a code editor with syntax highlighting, Markdown editing,
-search, file and image uploads, and AI helpers for descriptions, tags,
-code explanations, and prompt improvements. Collections are private to the
-signed-in user in the current product.
+Everything starts private. You can keep a personal collection of resources
+without publishing anything. When something is useful to someone else,
+sharing it shouldn't mean pasting a wall of code into a message.
 
-## why i built it
+- **Short links:** share a snippet, command, note, or prompt at its own URL.
+- **Raw text:** append `/raw` to a shared item URL for plain text you can fetch with `curl`.
+- **Snippet images:** download a highlighted image of the full snippet, not just a cropped preview.
+- **Collections:** publish an ordered page, with public and unlisted visibility options.
+- **Markdown:** copy or download a shared collection as one document.
+- **Save to your stash:** copy someone else's shared item or collection into your own account.
 
-Snippets, commands, and useful prompts tend to end up scattered across editor
-files, browser bookmarks, chat histories, and notes. DevStash gives them a
-shared home.
+Shared links also have preview cards for chat and social apps. My
+[DevOps collection](https://devstash.io/traversymedia/devops) is a live example
+of a collection page; it's shown in the screenshots below.
 
-It also makes a useful course project because it goes beyond a static UI.
-Accounts, stored data, uploads, and deployment give the AI-assisted development
-workflow a complete application to work through.
+## the private workspace
+
+The signed-in app is built around a single item list. Paste something into
+the capture box and it suggests an item type; you can change that suggestion
+before saving. Dense rows are the default, with code cards available when
+you want to see more of the content.
+
+Collections and tags organize the stash. Favorites keep frequently used
+items close, and a Shared view separates published material from private
+notes. Search covers titles and content. Lists have page-size controls
+instead of loading the whole stash at once.
+
+Monaco handles code editing, and notes have a Markdown editor. AI helpers
+can suggest tags, explain code, and improve prompts. You can also export
+your data as Markdown or JSON, with JSON import for bringing an export back.
+
+The hosted app is free for now. New file and image uploads are disabled;
+existing uploads remain readable and downloadable. Those uploads are
+separate from the generated snippet images you can still share.
 
 ## how it's built
 
-- **Next.js, React, and TypeScript** for the application and interface.
-- **Prisma and PostgreSQL** for users, items, and collections.
-- **NextAuth** for email/password and GitHub authentication.
-- **Tailwind and shadcn/ui** for the UI, with Monaco for code editing.
-- **Cloudflare R2** for uploads, with OpenAI, Stripe, Resend, and Upstash
-  supporting AI helpers, billing, email, and rate limiting.
+- **Next.js and React** for the app, deployed on Vercel.
+- **Prisma and PostgreSQL** for accounts, saved items, and collections.
+- **NextAuth** for email/password and GitHub sign-in.
+- **Tailwind and shadcn/ui** for the interface, with Monaco for editing.
+- **Shiki and next/og** for highlighted code images and link previews.
+- **OpenAI, Resend, and Upstash** for AI helpers, account email, and rate limiting.
 
-The app runs on Vercel. The public repository includes the source and setup
-instructions; the course resources repository holds supporting specs and docs.
+The course included billing and upload features. That code remains in the
+repository, but the hosted product currently has Pro billing and new uploads
+switched off.
 
-## what's next
+## current direction
 
-Public and unlisted collections are planned so a collection can become an
-ordered, shareable page of code, commands, notes, and other resources. That
-work is separate from the current private-collection workflow and is not
-presented here as a released feature.
+The recent work has been about making capture and sharing feel like one
+workflow. Public collections are shipped, not a roadmap item anymore.
+The next useful test is whether I can reach for DevStash during everyday
+work without stopping to reorganize it first.

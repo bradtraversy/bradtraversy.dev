@@ -4,7 +4,7 @@ tagline: check the name before you start the repo. domains, packages, code hosts
 description: |
   a developer-first name availability scanner. type a project name, get a
   single report covering domains, package registries, code hosts, and plugin
-  marketplaces. live across 12+ providers with mode-weighted scoring, fuzzy
+  marketplaces. combines mode-weighted scoring, fuzzy
   near-matches, and ai-assisted suggestions.
 status: live
 url: https://namescout.dev
@@ -12,6 +12,7 @@ stack: [Next.js, React, Tailwind, Vercel, OpenAI]
 heroImage: ./namescout-hero.webp
 heroImageAlt: namescout.dev homepage showing a name search for "namescout" with a usable-but-watch-it 59 score on the right, a per-provider report (namescout.com taken, npm taken, pypi available, github available), and a terminal demo of the namescout-cli below
 publishDate: 2026-05-10
+updatedDate: 2026-10-05
 featured: true
 ---
 
@@ -22,7 +23,8 @@ could trip you up:
 
 - **domains**: .com, .dev, .io, .app, .ai, .co
 - **package registries**: npm, pypi, rubygems, packagist, homebrew, docker hub
-- **code hosts**: github user/org, github repo search
+- **code hosts**: GitHub, GitLab, and Codeberg
+- **profile namespaces**: Bluesky, dev.to, and Hugging Face, among others
 - **plugin marketplaces**: vs code, obsidian (coming), chrome web store (coming)
 
 each provider returns taken / available / unknown. a mode-weighted score
@@ -43,7 +45,7 @@ forget at least one source every time. by the time i've named the repo,
 half the namespaces are already gone.
 
 namescout is that routine collapsed into one query. the goal isn't to be
-clever. it's to never have to remember which 12 places to look.
+clever. it's to stop having to remember every place to look.
 
 ## the cli
 
@@ -65,7 +67,7 @@ a quick tour:
 - **next 16** app on vercel, react 19, tailwind 4
 - **per-provider registry**: every check is one `{ id, check(name) }` entry.
   adding a provider is a single array append, not a refactor
-- **streaming via suspense**: page shell renders synchronously at ~40ms ttfb;
+- **streaming via suspense**: the page shell renders before provider checks finish;
   each provider fans out in its own suspense boundary. react `cache()` dedupes
   the shared fetcher across the report so 11 components don't each refetch
 - **dynamic og images** at `/og`: per-query card with score, verdict, and the
@@ -78,9 +80,8 @@ a quick tour:
 
 ## what's next
 
-- premium **watch** feature: pick a name, get pinged when a key namespace
-  changes (a `.dev` opens up, an npm package is unpublished, etc.). $5/mo, the
-  one piece of real recurring revenue this tool can sustain
+- a possible **watch** feature: pick a name and get notified when a key
+  namespace changes. This is not a live monitoring service today
 - registrar **affiliate** integration: when a domain is available, link
   through to a registrar with an affiliate id. passive monetization that
   doesn't get in the user's way

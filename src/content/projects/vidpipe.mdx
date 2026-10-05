@@ -10,7 +10,7 @@ description: |
 status: live
 badge: beta
 url: https://vidpipe.ai
-stack: [Next.js, React, Postgres, BullMQ, Stripe, Anthropic, OpenRouter, MCP]
+stack: [React, Vite, Express, TypeScript, Prisma, Postgres, BullMQ, Stripe, OpenRouter, MCP]
 heroImage: ./vidpipe-hero.png
 heroImageAlt: vidpipe.ai homepage with the video to transcript hero, paste-a-youtube-url input, and example preview
 screenshots:
@@ -19,7 +19,7 @@ screenshots:
   - ./vidpipe-article.png
   - ./vidpipe-dashboard.png
 publishDate: 2026-05-05
-updatedDate: 2026-09-24
+updatedDate: 2026-10-05
 featured: true
 ---
 
@@ -51,6 +51,11 @@ path has been verified.
 Read the [MCP devlog](/devlog/2026-09-06-vidpipe-mcp-and-admin-release)
 for the implementation story.
 
+Recent work also tightened the coding-article instructions: use the source's
+real explanations and excerpts rather than inventing missing implementation.
+That is a generation constraint, not a guarantee. I still compare the article
+with the video and code before publishing it.
+
 ## channel connection
 
 link your youtube channel once and vidpipe takes it from there. every
@@ -70,25 +75,12 @@ drafts land in your dashboard for review. you decide what ships and
 what gets edited or trashed. the goal is to take the friction down to
 zero, not to take you out of the loop.
 
-## auto-publishing _(coming soon)_
+## publishing beyond vidpipe
 
-the next phase: push the generated content straight to where you
-actually publish. no copy-paste, no reformatting, no "let me just open
-another tab."
-
-planned destinations:
-
-- **wordpress**: direct publish to a connected wp site (self-hosted
-  or wordpress.com), with category and tag mapping
-- **medium**: push as a draft or a published story under your account
-- **ghost**: connect a ghost site and publish to a tag/collection
-- **dev.to / hashnode**: community platforms via their api
-- more to come based on what people actually want to ship to
-
-connect a destination once, choose per-channel defaults (auto-publish
-vs hold-as-draft), and the pipeline carries the post all the way to
-your audience. this is the work that turns "vidpipe makes the post"
-into "vidpipe ships the post."
+The current workflow produces drafts for review and export. Direct publishing
+to external blogs is a possible extension, not a shipped integration or a
+promise that a particular platform will support it. MCP already lets the
+generation step participate in a larger, separately approved workflow.
 
 ## why i built it
 
@@ -99,14 +91,14 @@ high enough that they mostly don't get made. when they do, they're an
 afterthought.
 
 vidpipe inverts that. the video is the source. everything else is
-generated, reviewed, and published from the same surface.
+generated from the same source, then reviewed before publication.
 
 ## how it's built
 
 a quick tour:
 
-- **next.js** app on vercel for the marketing site, dashboard, and api
-  routes
+- **react and vite** for the frontend on Vercel, with TanStack Router and Query
+- **express and typescript** for the separate backend API
 - **postgres** (neon) for accounts, generations, channels, articles
 - **bullmq** worker on a separate droplet that polls connected channels
   and queues per-video generation jobs (added during the pipeline pivot

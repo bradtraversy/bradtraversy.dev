@@ -12,69 +12,51 @@ stack: [Astro, Tailwind, Vercel, MDX]
 heroImage: ./bradtraversy-dev-hero.png
 heroImageAlt: bradtraversy.dev home page screenshot showing the editor-metaphor chrome
 publishDate: 2026-05-04
+updatedDate: 2026-10-05
 featured: true
 ---
 
 ## why i built this
 
-i ship a lot (a paid saas, free dev tools, internal apps, a non-standard agent
-setup that runs my homelab) but the connective tissue between all of it never
-had a home. youtube is the school. the obsidian vault is the workshop. but
-there was no public surface that just said "here's what's actually being built."
+I work on public tools and private apps, but the work used to be scattered
+across repos and session notes. This site gives it a home: what the project
+does, what changed, and what I learned while building it.
 
-bradtraversy.dev is that surface. one page per project with the build documented
-in the open. one stream of devlog entries pulled from real session notes. a
-catalog of one-day utilities so the small things don't get lost.
-
-it's not a portfolio and it's not a marketing site. it's a working lab with the
-door propped open.
+It's separate from Traversy Media's course site. The focus here is the
+projects and the engineering behind them.
 
 ## what's here
 
-- **articles**: polished writeups, low cadence, the things worth editing
-- **devlog**: raw lab notes, frequent, often pulled straight from vault sessions
-- **projects**: major ongoing work (vidpipe, devsheets, mission control, the homelab)
-- **tools**: catalog of one-day utilities
+- **Projects:** current descriptions, screenshots, and links where they're public.
+- **Devlogs:** edited accounts of real work, including problems and limitations.
+- **Articles:** longer explanations of workflows and decisions.
+- **Tools:** smaller utilities with their own detail pages.
+- **Now:** what I'm working on and the setup I'm actually using.
 
-every project has its own page with status, stack, "how it's built." every tool
-has a page too (even the small ones) so they're not just a tweet that
-scrolled away.
+Private projects can have build logs without pretending they're available
+to download. The status and wording should make that distinction clear.
 
-## stack
+## how it's built
 
-```bash
-astro 6      # static site generator
-tailwind 4   # styling
-mdx          # content with markdown + components
-vercel       # hosting + DNS + previews
-```
+Astro and MDX provide the pages, Tailwind handles styling, and Vercel hosts
+the site. Content lives in the repository with validated frontmatter.
+There is no CMS or content database.
 
-content lives in `src/content/` as mdx files with zod-validated frontmatter.
-no cms, no database, no auth. one server endpoint at `/api/subscribe` talks to
-buttondown for the newsletter. that's it.
-
-the visual chrome is a vscode editor metaphor: title bar, tab bar, activity
-bar, status bar. the article body is what shows up in the editor pane. it's
-deliberate: this is a working lab, and the lab looks like the place where
-the work happens.
+The editor-style layout gives the site its visual identity. Project images
+and details come from the content entries, so the catalog and individual
+pages can share the same assets.
 
 ## how it ships
 
-```bash
-git push origin main    # vercel auto-builds + deploys
-```
+Changes go onto a dedicated branch, then through a pull request.
+After review and merge, Vercel deploys `main`. Pushing a feature branch alone
+does not publish it to the production site.
 
-trunk-based, no PR ceremony. content commits and code commits go through the
-same path. the goal is to keep the friction between "i shipped a thing" and
-"the site shows it" as close to zero as possible.
+Devlogs start from recent work and session evidence. I choose what belongs
+here before it is published; the site is not an automatic dump of private logs.
 
-## what's next
+## current work
 
-- finish the projects + tools content (real pages for vidpipe, devsheets,
-  repo-reviver, mission control, the homelab)
-- wire `/api/subscribe` to buttondown
-- write the launch article: "welcome to bradtraversy.dev"
-- soft launch to a handful of devs, then public push
-
-> the site doesn't earn its place until the content's in. shipping the chrome
-> was the easy part.
+The ongoing job is keeping the pages honest as the projects change.
+That means refreshing screenshots, distinguishing shipped work from plans,
+and removing descriptions that no longer match the product.

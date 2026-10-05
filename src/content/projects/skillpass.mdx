@@ -13,7 +13,7 @@ stack: [Astro, React, Hono, Drizzle, Neon, Cloudflare R2, BullMQ, Render, Node.j
 heroImage: ./skillpass-hero.png
 heroImageAlt: SkillPass homepage showing the validated skills hero, search, filters, and public skill listings
 publishDate: 2026-07-06
-updatedDate: 2026-08-02
+updatedDate: 2026-10-05
 featured: true
 ---
 
@@ -27,10 +27,10 @@ SkillPass is the public surface for finding, inspecting, and installing those
 skills:
 
 - **browse skills** by tool, category, risk, status, and maintainer
-- **search from the terminal** with the `skillpass` cli
+- **keyword and AI search** on the web and through the `skillpass` cli
 - **submit a github url or zip** into a validation flow
 - **publish workflow packs** as one listing instead of a pile of loose skills
-- **validate the package** before it becomes a trusted listing
+- **validate the package** and show the findings before installation
 - **show a skill passport** with schema, permissions, findings, risk, and source
 - **install, list, update, and remove** local skills with receipts
 - **publish warnings clearly** without pretending a skill is risk-free
@@ -38,6 +38,16 @@ skills:
 the directory is live with a growing catalog, including workflow packs like AI
 Blueprint, single-skill listings, public passports, docs, sitemap metadata, and
 maintainer controls.
+
+You can browse official sources and public maker pages, then use a tool-specific
+install guide. The CLI also supports installing from a GitHub repository without
+requiring it to be listed in the directory first.
+
+For authors, `skillpass init` scaffolds a `SKILL.md` and manifest, asks about
+permissions, and scans the result. For a one-off task, `skillpass use` prepares
+a listed skill in a temporary directory and outputs its prompt after preflight
+and hash verification. It does not permanently install the skill or launch the
+agent itself. Packs and direct GitHub references still use the install path.
 
 ## why i built it
 
@@ -69,15 +79,15 @@ a quick tour:
   passports, submission enums, and wire types
 - **validator package**: checks structure, secrets, risky instructions, and
   undeclared permissions
-- **node cli**: search, add, list, outdated, update, and remove for single
-  skills and packs
+- **node cli**: discovery, local validation, and receipt-backed installation,
+  plus author scaffolding and one-off use of listed skills
 - **maintainer dashboard**: unlist and relist owned skills while keeping
   versions, snapshots, and passports intact
 
 ## what's next
 
-the v1 build plan is shipped. next up is growth and hardening: spam guards,
-better search across attributed maintainers, a binary-file policy for skill
-packages, `update --all`, and more docs around real workflow packs.
+The directory and CLI are live. The work now is hardening the package path,
+especially binary-file handling, and keeping validation limits visible.
+A passport is an inspection report, not a guarantee that a skill is safe.
 
 > discovery is useful only if the install step gets more skeptical, not less.

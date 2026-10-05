@@ -14,7 +14,7 @@ stack: [Astro, Express, Node.js, Prisma, PostgreSQL, Railway, pnpm]
 heroImage: ./apimocker-hero.png
 heroImageAlt: ApiMocker homepage with rocket branding, free API docs, endpoint examples, and dataset cards
 publishDate: 2026-07-20
-updatedDate: 2026-07-22
+updatedDate: 2026-10-05
 featured: true
 ---
 
@@ -57,8 +57,8 @@ a quick tour:
   environment models
 - **pnpm monorepo**: separate `apps/web` and `apps/api` services with shared
   root scripts
-- **Railway services**: one service for the web app and one for the API, with
-  reset scheduling separated from request handling
+- **Railway services**: separate web and API services. The current single-replica
+  API runs its daily reset through the in-process scheduler at midnight UTC
 - **OpenAPI/docs path**: the free API contract is documented publicly so the
   tool works as a reference, not just a URL dump
 
