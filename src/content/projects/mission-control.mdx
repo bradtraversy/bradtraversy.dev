@@ -5,27 +5,27 @@ description: |
   a rebuilt React and Fastify control panel with two workspaces:
   My Work for vault-backed todos, projects, and calendar, and Lab
   for machine inventory, installed AI tools, and reviewed updates.
-  private and still in development.
+  privately deployed, with a separate source API for live vault access.
 status: local
-badge: In Progress
+badge: Private Deployment
 repoUrl: https://github.com/travxlabs/mission-control
 stack: [React, TypeScript, Vite, Fastify, Obsidian, Tailscale]
 heroImage: ../devlog/mission-control-lab-progress.png
 heroImageAlt: Mission Control Lab workspace showing machine inventory and collection status, with machine names anonymized
 publishDate: 2026-05-08
-updatedDate: 2026-09-24
+updatedDate: 2026-10-05
 featured: true
 ---
 
 ## what it is
 
-Mission Control is a private application I am rebuilding around two distinct
+Mission Control is a private application built around two distinct
 workspaces. **My Work** brings together todos, projects, and calendar.
 **Lab** shows my machines, installed AI tools, agent profiles, and updates.
 
 The original project was a Next.js dashboard with a collection of tabs. This
-version uses React and Vite with a Fastify API. It is still in development,
-not a public service or a downloadable product.
+version uses React and Vite with a Fastify API. It is deployed for my own use
+and still being developed, not a public service or a downloadable product.
 
 *The screenshot shows the current Lab workspace with machine names anonymized.*
 
@@ -70,11 +70,18 @@ inspection before another batch. It is not automatically retried.
 
 ## current state
 
-The rebuilt application has real vault reads, bounded record edits, a Lab
-inventory, and reviewed update workflows implemented. It remains private and
-under active development. Installation support and real-machine verification
-are specific to each update method; a passing test suite does not establish
-that every machine is ready.
+The web app and main API run on my hub through Coolify. A separate source API
+on my development machine handles live vault reads and the supported writes.
+That source service now runs from versioned release directories, so changing
+branches in my working checkout does not change the running production code.
+
+The development machine still needs to be available for fresh vault data and
+writes. When the source is unavailable, the app can show a dated, read-only
+fallback. Moving the web app to the hub did not remove that dependency.
+
+The rebuilt application has vault reads, bounded record edits, and reviewed
+machine-update workflows. Broader todo maintenance and an Agent Activity view
+remain planned work, not features shown by the current screenshot.
 
 The focus now is making the everyday workflow reliable: clear source data,
 visible failures, and enough information to review a change before it runs.
