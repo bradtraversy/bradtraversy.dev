@@ -1,0 +1,43 @@
+---
+title: devstash notes become tutorial pages
+publishDate: 2026-10-05
+draft: false
+tags: [devlog, nextjs, react]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [project page](/projects/devstash)
+
+I wanted to move a tutorial gist into DevStash: 53 code blocks across 17
+sections of commands, config, and expected output. My first plan was to split
+it into 53 separate snippets and commands inside one collection. That would
+have worked, but it's a lot of items to author and keep in sync, and it isn't
+how anyone reads a tutorial.
+
+It turned out a note was already most of a page. Notes render as markdown on
+their share link, and fenced code gets the same syntax highlighting as a
+snippet. What was missing was the stuff that makes a long doc usable:
+
+- Every code block in a note or prompt now has its own header with the
+  language and a Copy button. Shell blocks drop a leading `$ ` when copied,
+  the same as command items.
+- Headings on shared pages get anchor links, so you can send someone straight
+  to `#add-github-actions`. On a collection page the ids are prefixed with the
+  block's position, so two notes with the same heading don't collide.
+- Code blocks in the item drawer are highlighted too. The highlighter only
+  loads when a note with code is open.
+
+The paste box on Home already classifies a whole markdown file as a note and
+takes the title from its first heading, so moving a gist in is one paste.
+
+A review pass caught one regression before it shipped: GitHub-style footnotes
+add a hidden "Footnotes" heading that every reference points at, and my
+heading-id pass was renaming it. Headings that already have an id are now left
+alone.
+
+I didn't add a separate "Page" type. The rendering is the same either way, and
+I'd rather see a few real pages live before deciding whether the name should
+change.
+
+Next up is a small docs section, then API tokens, a CLI, and an MCP server so
+you can stash and share from the terminal or an agent.
