@@ -1,0 +1,45 @@
+---
+title: devstash adds google sign-in without locking out existing users
+publishDate: 2026-10-07
+draft: false
+tags: [devlog, nextjs, typescript]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [project page](/projects/devstash)
+
+DevStash now offers Google sign-in alongside GitHub. I also closed new
+email-and-password registration, but kept password sign-in and recovery for
+people who already use them.
+
+Adding another button was the small part. The more important question was
+what should happen when someone signs in with Google using an email that's
+already attached to a DevStash account. Creating a second account would
+leave their existing stash behind. Linking accounts without checking who
+controls the email would be worse.
+
+The new flow links by email only when Google reports that email as verified.
+If the existing account never verified that address, the link marks it
+verified and removes its old password. That prevents someone who registered
+another person's address from keeping access through a password they set
+before the real owner arrived. An already verified password account keeps
+its password.
+
+The review also tightened GitHub registration to require a verified email.
+That matters because account linking depends on the meaning of "verified,"
+not just whether a provider happened to return an email field.
+
+I considered removing passwords altogether. But some existing users have no
+linked Google or GitHub account. Removing their sign-in method, or its
+forgot-password flow, would leave them without a working way back in.
+
+So new accounts use Google or GitHub. Existing password users can reveal the
+email form through a small link on the sign-in page, and password recovery
+still works. Closing one registration path doesn't have to strand the people
+who used it before.
+
+Both changes are merged and deployed. Tests and local browser checks covered
+account linking and the remaining password flow. Production shows both OAuth
+buttons and reaches Google's sign-in screen, but a complete Google sign-in
+on the live site still needs confirmation. A working redirect alone doesn't
+prove the callback and token exchange succeed.
