@@ -1,0 +1,43 @@
+---
+title: ai blueprint adds parallel work without a team mode
+publishDate: 2026-10-07
+draft: false
+tags: [devlog, agents, agent-workflow]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 1.12.0 is published. The recent work adds Google Antigravity
+support and a way to work on separate features in parallel without building
+a whole team-management system into Blueprint.
+
+Antigravity reuses `AGENTS.md` and the existing `.agents/skills/` directory.
+It gets official installer and updater support, but not another copy of
+every workflow file to maintain.
+
+For parallel work, the rule is ordinary Git isolation: one clone or worktree,
+one branch, and one active Blueprint item per checkout. Two developers or
+agents can work on different features without sharing the same active spec.
+That doesn't mean two agents can safely edit the same checkout at once.
+
+The landing path needed to reflect that. Projects can set
+`git.landing: "pull-request"`. After approval, Complete can push the feature
+branch and open its PR. Merging is still a separate approval. Status also
+understands the parallel-feature case instead of treating another active
+branch as a reason the current work cannot proceed.
+
+There are still normal Git conflicts. If two branches update the build plan,
+the later one may need to reconcile it after the first lands. Blueprint
+doesn't pretend those conflicts disappear, and it doesn't assign work or
+schedule dependencies between agents.
+
+I considered a fuller team mode, but I don't have enough evidence that it
+needs its own assignment and locking system. Separate checkouts solve the
+immediate problem with tools developers already use. More coordination can
+wait until real usage shows what's missing.
+
+The release passed the source checks on Node 22, Node 24, and Windows. The
+matching [multiple-developers guide](https://ai-blueprint.dev/docs/multiple-developers/)
+is live too. The useful addition isn't more agents running at once. It's a
+clear boundary around what each one is allowed to change.
