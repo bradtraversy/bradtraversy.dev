@@ -1,0 +1,38 @@
+---
+title: trav focus takes over the daily work dashboard
+publishDate: 2026-10-08
+draft: false
+tags: [devlog, react, obsidian]
+---
+
+Mission Control was handling two different jobs: my daily work and the
+machines running it. I'm separating those into Trav Focus and Trav Fleet.
+Focus is now privately deployed. Fleet is next, and Mission Control stays
+available until that replacement is accepted.
+
+The important boundary in Focus is that the todo list is still a Markdown
+file. The dashboard can create, edit, and complete tasks, but it doesn't
+move them into a second database that my agents and notes have to synchronize
+with. Browser writes check the source revision and run serially, with backups
+outside the vault and atomic file replacement.
+
+I don't need an MCP server for local agents to update that file. They already
+have filesystem access. They do need to reread it before writing and avoid
+concurrent edits. The dashboard's write protection doesn't magically apply
+to an agent editing the file directly. A remote agent without filesystem
+access would be a separate reason to add a bounded API or MCP later.
+
+The last interface change before closeout was mobile navigation. I replaced
+the fixed bottom navigation with a drawer using the same sidebar as desktop.
+Opening it had to move focus inside, keep the page behind it inactive, and
+return focus when it closed. Changing viewport size also needed to restore
+scrolling rather than leave the page stuck.
+
+Deployment needed its own check. Merging the PR didn't automatically update
+the Coolify application. I queued the deployment and confirmed the running
+image matched the merge commit, then checked the live drawer at a narrow
+viewport. The local gate passed 123 tests alongside the other project checks.
+
+Focus is for my private workflow, not a publicly launched service. The repo
+and deployment remain private. The next step is Trav Fleet, while keeping
+Mission Control around until the remaining job has a working replacement.

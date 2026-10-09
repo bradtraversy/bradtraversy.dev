@@ -8,6 +8,12 @@ project: mission-control
 
 links: [repo](https://github.com/travxlabs/mission-control) | [project page](/projects/mission-control)
 
+> **Update, October 8, 2026:** I'm splitting Mission Control's responsibilities
+> into Trav Focus and Trav Fleet. [Trav Focus is privately deployed](/devlog/2026-10-08-trav-focus-private-deployment)
+> for daily work. Trav Fleet is next, and Mission Control remains available
+> until Fleet is accepted. The original runtime migration below is completed
+> work, not the current roadmap.
+
 Mission Control's vault API was running from a production directory inside
 the Git checkout. I moved its release files into a separate runtime location
 so the live service no longer depends on that checkout-local directory.

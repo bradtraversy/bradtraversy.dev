@@ -1,0 +1,44 @@
+---
+title: devstash gets an mcp server
+publishDate: 2026-10-08
+draft: false
+tags: [devlog, agents, nextjs]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [MCP docs](https://devstash.io/docs/mcp) | [project page](/projects/devstash)
+
+DevStash now has a remote MCP server. Instead of leaving a useful snippet
+buried in an agent conversation, I can ask the agent to save it to my stash.
+It can also search existing items and share something I've already saved.
+
+The server uses personal API tokens and runs inside the existing app at
+`https://devstash.io/mcp`. There isn't a separate service to install. The six
+tools cover search, reading an item, saving, sharing, deleting, and listing
+collections. Shared item links work as references too, so I don't have to
+find a database ID before asking the agent about something.
+
+The review caught a rate-limit problem that wasn't obvious from the tool
+implementations. The compatibility transport accepted a JSON-RPC batch with
+up to 100 calls inside one HTTP request. The rate limiter counted that as one
+request. I now reject batches rather than letting them multiply the work
+behind a single limit check. Saving also uses the API's separate create limit.
+
+Another fix was about visibility. An item marked private can still appear
+inside a shared collection. The tool responses now include collection
+visibility, and the instructions explain that distinction. An agent shouldn't
+tell someone their code is hidden just because the item's own setting says
+Private.
+
+Deletes are permanent, including bulk deletes. The tool is marked destructive,
+and there is no trash or recovery promise. A token gives access to the user's
+stash, so it's something to keep private and revoke when it is no longer needed.
+
+The tools passed scripted checks against local test accounts, including
+cross-account access and revoked tokens. I also connected Claude Code locally
+and exercised saving and sharing through the actual client.
+
+The endpoint and docs are deployed. Production rejects requests without a
+token, but the first authenticated agent session against production still
+needs to be checked. That is a different test from seeing the endpoint return
+the right error. This release uses bearer tokens; OAuth remains later work.
