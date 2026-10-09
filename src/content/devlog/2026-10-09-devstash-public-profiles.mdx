@@ -1,0 +1,41 @@
+---
+title: devstash gets public profiles
+publishDate: 2026-10-09
+draft: false
+tags: [devlog, decision, nextjs]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [project page](/projects/devstash)
+
+DevStash now has public profiles at `devstash.io/{handle}`. A profile lists the
+collections and items someone set to Public: collections as cards, then items as
+gist-style code cards with the first few lines highlighted. Each one links to
+its own page. Unlisted things never show up there. Unlisted means "anyone with
+the link", so putting those items on a profile would undo the point of the
+setting.
+
+The profile shows the handle and nothing else. Names and avatars come from
+GitHub or Google sign-in and have never been public on DevStash, so putting
+them on a page now would publish something nobody chose to share.
+
+A profile also 404s until the person has made at least one thing Public. Older
+accounts all got a handle from the part of their email before the @, so a page
+for every handle would let anyone check whether an address has an account.
+
+The page reads no session, so it's cached as a whole and refreshed whenever
+the owner changes something it shows. That rules out a `?page=2` query, which
+would force every profile to render on each request. Instead it lists the 100
+most recently shared collections and items and says so past that. Nothing gets
+close yet, and when someone does, paging will go into the URL path so each
+page can still be cached.
+
+The review caught two things I'd missed. I first sorted by last update, but
+pinning or favoriting an item also changes that timestamp without refreshing
+the cached page. A private action could have reordered a public profile, so
+it now sorts by when each thing was first shared. The profile route also sits
+next to the site's Open Graph image route, so `opengraph-image` and a few
+similar names are now reserved handles.
+
+On public items and collections, the @handle now links to the profile. The
+Shared page has a View profile button.
