@@ -1,0 +1,36 @@
+---
+title: ai blueprint adds automatic try it now
+publishDate: 2026-10-11
+draft: false
+tags: [devlog, agents, agent-workflow]
+project: ai-blueprint
+---
+
+links: [site](https://ai-blueprint.dev) | [repo](https://github.com/aiblueprinthq/ai-blueprint) | [project page](/projects/ai-blueprint)
+
+AI Blueprint 1.13.0 is out. The main addition is simple: when an agent finishes
+something I can actually test, it should give me a small, concrete way to try it.
+
+Passing tests and seeing the result myself are different things. I don't want
+every handoff to end with a test count and leave me figuring out what to open,
+run, or look for. I also don't want made-up manual checks for a documentation
+change that has nothing useful to demonstrate.
+
+The new `tryGuide: "when-testable"` setting handles that distinction. It's the
+recommended default for new projects. A safe, observable change gets a short
+"Try it now" section. That might be a browser interaction, but it can also be
+a CLI command, API request, library call, or generated file to inspect. Invisible
+internal changes don't need an invented demonstration.
+
+I extended the existing `/check guide` behavior instead of adding another
+overlapping skill. The previous `manual`, `always`, and `when-user-facing`
+settings are still supported.
+
+The important boundary is acceptance. Giving me instructions doesn't mean I
+followed them, and the agent can't mark the feature accepted just because it
+wrote a convincing checklist. Verify and `/check` still cover agent verification.
+The demonstration is for me.
+
+The packed release passed a live-agent evaluation with all 26 assertions,
+alongside the installer and adapter checks. Version 1.13.0 is published on npm
+and GitHub, and the matching public docs are live.

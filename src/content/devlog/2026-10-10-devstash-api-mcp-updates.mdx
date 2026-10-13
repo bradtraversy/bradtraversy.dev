@@ -1,0 +1,36 @@
+---
+title: devstash agents can edit existing items
+publishDate: 2026-10-10
+draft: false
+tags: [devlog, agents, nextjs]
+project: devstash
+---
+
+links: [site](https://devstash.io) | [repo](https://github.com/bradtraversy/devstash) | [MCP docs](https://devstash.io/docs/mcp) | [project page](/projects/devstash)
+
+The first DevStash MCP release could save an item, but it couldn't edit one.
+That was a pretty obvious gap once I started using it. An agent should be able
+to update an existing note or snippet instead of saving another copy every time.
+
+I've added `update_item` to MCP and `PATCH /api/v1/items/{id}` to the REST API.
+Both use the same partial-edit rules and shared write logic as the browser.
+I didn't want three versions of what "edit an item" means.
+
+Fields left out of a request keep their current values. Supported nullable
+fields can be cleared with `null`, and empty arrays clear tags or collection
+membership. An update can't change the item's type. Sharing stays a separate
+operation, and requests that mix visibility changes with content edits are
+rejected.
+
+Collection membership needs care too. Moving a private item into a shared
+collection can expose it, even though the item's own visibility hasn't changed.
+The existing warning still applies when an agent changes collections.
+
+Production verification went beyond checking that the tool appeared in the
+list. I saved a private test note through MCP, updated its title and content,
+read it back, deleted it, and searched again to confirm it was gone. The API's
+partial-update and rejection cases passed live checks too.
+
+One small gotcha: an already-running Codex task can retain the old tool list.
+The deployed server exposed `update_item` before that task discovered it.
+Starting a new task or reloading discovery is separate from deploying the tool.
