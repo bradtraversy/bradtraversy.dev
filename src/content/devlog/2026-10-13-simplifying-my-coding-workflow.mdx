@@ -1,0 +1,41 @@
+---
+title: simplifying my ai coding workflow again
+publishDate: 2026-10-13
+draft: false
+tags: [devlog, agents, agent-workflow, decision]
+---
+
+Earlier this month I wrote about making
+[AgentFlow lighter](/devlog/2026-10-04-agentflow-lightweight-unattended).
+I've now retired it from my default coding setup. The direction is smaller
+skills I own in my Markdown vault, with the agent I'm talking to responsible
+for carrying the work through.
+
+There was a case for a separate workflow system: repeatable stages, independent
+checks, and clearer handoffs. I still want those benefits where they help.
+I just don't want every small change to require the same amount of coordination.
+
+The default is now straightforward. Explain the change, implement the smallest
+useful piece, run the project's checks, and show what was actually verified.
+The main agent owns that process. Delegation needs a reason, not a fixed number
+of roles to fill.
+
+Independent review still matters for security, payments, destructive data
+operations, concurrency, and other high-risk changes. A project can require
+it too. Routine low-risk work doesn't automatically get another agent, though
+self-review and relevant tests still apply.
+
+I've also separated setup from everyday work. The `tests` skill establishes
+or repairs a test harness. Once that's there, adding focused tests is part of
+implementing a feature, not another command I should have to remember. Deep
+audits and deliberate cleanup remain separate tools for when they're needed.
+
+The shared skills live in the vault and are installed for Codex and Claude
+Code. That doesn't override a project's own workflow. AI Blueprint is still
+available for projects that explicitly use it, and this change hasn't been
+ported into Blueprint.
+
+The local installation is verified, but I haven't completed a real project
+trial of the new default yet. I'm still reviewing individual skills for useful
+improvements. This is the setup I'm going to test, not proof that I've finally
+found a workflow I won't change again.
