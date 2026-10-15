@@ -1,0 +1,144 @@
+---
+import TraversyLabLinks from '../../components/TraversyLabLinks.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Traversy Lab privacy policy"
+  description="How Traversy Lab accesses, uses, stores, and shares Google user data."
+  pageTitle="privacy.md"
+  currentSection="legal"
+>
+  <TraversyLabLinks />
+
+  <section class="section">
+    <h1 class="h1"><span class="hash"># </span>Traversy Lab privacy policy</h1>
+    <p class="lede">
+      This policy explains how Traversy Lab handles Google user data for Brad
+      Traversy's private personal automations.
+    </p>
+    <p class="meta">Effective: October 15, 2026</p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>scope</h2>
+    <p>
+      Traversy Lab is a private system operated by Brad Traversy. It is not
+      offered to the public. This policy applies to the Google accounts that
+      Brad owns and explicitly authorizes for use with the system.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>Google data accessed</h2>
+    <p>Traversy Lab requests read-only access to:</p>
+    <ul class="prose-list">
+      <li>basic account identity, including the authorized email address</li>
+      <li>Gmail messages, threads, metadata, and labels</li>
+      <li>Google Calendar events and their details</li>
+    </ul>
+    <p>
+      The system does not request permission to send, modify, archive, label,
+      or delete email. It does not request permission to create, modify, or
+      delete calendar events.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>how the data is used</h2>
+    <p>Google user data is used only to:</p>
+    <ul class="prose-list">
+      <li>mirror upcoming events into a private planning note</li>
+      <li>surface relevant calendar and email items in a private morning briefing</li>
+      <li>identify and track qualified sponsorship inquiries</li>
+      <li>operate, secure, and troubleshoot those workflows</li>
+    </ul>
+    <p>
+      Use of information received from Google APIs follows the Google API
+      Services User Data Policy, including the Limited Use requirements.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>storage and retention</h2>
+    <p>
+      OAuth credentials are stored in a protected credential store on a
+      privately managed machine. They are not stored on this website.
+    </p>
+    <p>
+      Selected event details, message summaries, qualified lead details, and
+      workflow results may be stored in Brad's private local notes for as long
+      as they remain useful. Traversy Lab does not create a general backup of a
+      Gmail inbox or Google Calendar.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>sharing and disclosure</h2>
+    <p>
+      Some workflows use third-party AI services to summarize or classify
+      content. Only the content needed to run the requested workflow is sent to
+      those services. Traversy Lab does not sell Google user data, provide it to
+      data brokers, or share it for advertising, credit, or marketing purposes.
+    </p>
+    <p>
+      Data may also be disclosed when required by law or when necessary to
+      protect the security of the system, the authorized accounts, or other
+      people.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>security</h2>
+    <p>
+      Traversy Lab uses reasonable technical and operational safeguards for
+      credentials, Google user data, and stored workflow output. No system can
+      guarantee absolute security.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>revoking access and deletion</h2>
+    <p>
+      The authorized account owner can revoke Traversy Lab's access from the{' '}
+      <a href="https://myaccount.google.com/connections" class="link">
+        Google Account connections page
+      </a>. Revocation stops future access but does not automatically delete
+      existing private workflow output. To request deletion of retained output,
+      email <a href="mailto:travxlabs@gmail.com" class="link">travxlabs@gmail.com</a>.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>changes and contact</h2>
+    <p>
+      This policy will be updated if Traversy Lab's use of Google user data
+      changes. Questions can be sent to{' '}
+      <a href="mailto:travxlabs@gmail.com" class="link">travxlabs@gmail.com</a>.
+    </p>
+  </section>
+
+  <div class="comment">
+    // EOF privacy.md<span class="cursor"></span>
+  </div>
+</BaseLayout>
+
+<style>
+  .meta {
+    margin-top: 12px;
+    color: var(--fg-comment);
+    font-size: 12.5px;
+  }
+
+  .prose-list {
+    margin: 12px 0 16px;
+    padding-left: 20px;
+    list-style: disc;
+    color: var(--fg-1);
+  }
+
+  .prose-list li {
+    margin-bottom: 8px;
+    line-height: 1.55;
+  }
+</style>
