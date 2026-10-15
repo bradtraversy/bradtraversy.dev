@@ -1,0 +1,79 @@
+---
+import TraversyLabLinks from '../../components/TraversyLabLinks.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Traversy Lab - private automation system"
+  description="Information about Traversy Lab and its read-only use of Google account data."
+  pageTitle="traversy-lab.md"
+  currentSection="legal"
+>
+  <TraversyLabLinks />
+
+  <section class="section">
+    <h1 class="h1"><span class="hash"># </span>Traversy Lab</h1>
+    <p class="lede">
+      Traversy Lab is Brad Traversy's private personal automation system. It is
+      not a public product and does not accept public signups.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>what it does</h2>
+    <p>
+      Traversy Lab connects to Google accounts that Brad owns and explicitly
+      authorizes. It uses that access for a small set of personal workflows:
+    </p>
+    <ul class="prose-list">
+      <li>copying upcoming Google Calendar events into a private planning note</li>
+      <li>including relevant calendar and email items in a private morning briefing</li>
+      <li>reviewing sponsorship inquiries and recording qualified leads in a private tracker</li>
+    </ul>
+    <p>
+      Google access is read-only. Traversy Lab cannot send or modify email, and
+      it cannot create, change, or delete calendar events.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>data and control</h2>
+    <p>
+      The system reads only the Google data needed for these workflows. It does
+      not sell Google user data or use it for advertising. The authorized
+      account owner can revoke access at any time from their Google Account.
+    </p>
+    <p>
+      Read the <a href="/traversy-lab/privacy" class="link">privacy policy</a>{' '}
+      for the full data-handling details and the{' '}
+      <a href="/traversy-lab/terms" class="link">terms of use</a> for the conditions
+      that apply to this private system.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="h2"><span class="hash">## </span>contact</h2>
+    <p>
+      Questions about Traversy Lab or its Google access can be sent to{' '}
+      <a href="mailto:travxlabs@gmail.com" class="link">travxlabs@gmail.com</a>.
+    </p>
+  </section>
+
+  <div class="comment">
+    // private system, public disclosure<span class="cursor"></span>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose-list {
+    margin: 12px 0 16px;
+    padding-left: 20px;
+    list-style: disc;
+    color: var(--fg-1);
+  }
+
+  .prose-list li {
+    margin-bottom: 8px;
+    line-height: 1.55;
+  }
+</style>
