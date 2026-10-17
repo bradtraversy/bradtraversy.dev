@@ -1,0 +1,54 @@
+---
+title: testing memcrate on real windows
+publishDate: 2026-10-10
+draft: false
+tags: [devlog, rust, agents]
+project: memcrate
+---
+
+links: [site](https://memcrate.dev) | [repo](https://github.com/memcrate/memcrate) | [project page](/projects/memcrate)
+
+Windows was the least tested platform in Memcrate, and it showed as soon as I
+started testing it for real.
+
+I added Windows and macOS to CI using GitHub's real runners instead of mocks.
+The free Windows runner has both PowerShell 5.1 and 7, so CI runs the actual
+`install.ps1` and the actual binary. The installer smoke tests live in repo
+scripts, so CI and a manual run on a real Windows 11 machine use the same checks.
+
+The first real bug was bad. `install.ps1` flattened the user's PATH. Reading the
+user Path through the .NET environment API expands `%VAR%` entries, and writing
+it back saves it as a plain string. Anything that depended on those variables
+stayed frozen at its old value. The fix edits the raw registry value without
+expanding it and keeps its original type. Before trusting the new check, I ran
+it against the old installer to make sure it failed.
+
+Windows CI also caught a test that only Linux would pass. GitHub's Windows
+checkout converts the bundled skill files to CRLF, so the Windows binary embeds
+CRLF skills, and the new test assumed LF.
+
+The same batch added skill-name conflict handling. If you already have your own
+`load`, `save`, or `pin` skill, Memcrate installs all three of its skills as
+`memcrate-load`, `memcrate-save`, and `memcrate-pin` for that tool and tells you
+what to type. Review caught that the cleanup step could delete a user's own
+`load` skill if it mentioned Memcrate, so cleanup now only removes folders
+carrying Memcrate's marker file.
+
+The live agent test grew too. It now runs load, save, and pin through Claude
+Code and Codex on Linux, macOS, and Windows. It checks the files on disk and
+proof that the skill actually ran, not the wording of the answer.
+
+That stricter check exposed an old false pass. Claude Code in headless `--bare`
+mode only gets Bash, Edit, and Read, with no Skill tool, so the August test had
+passed without ever using a skill. The test now calls `/load`, `/save`, and `/pin` explicitly.
+
+It also found a real Windows bug. Claude Code's Read tool rejects `~` paths on
+Windows, so the model guessed `C:\Users\<name>` and gave up when that read
+failed. Anyone with a vault outside their profile would have hit it. Memcrate
+now writes the vault's absolute path into the installed skills at install time,
+and discovery tries that recorded path first before falling back to the current
+directory, `~/memcrate-vault`, a shallow scan, and finally asking.
+
+The Claude jobs run on Haiku 5.5 at about a cent per full run. One gotcha:
+Claude Code's own cost estimate priced that run roughly 40 times too high. The
+Console usage page matched the real token counts exactly.
