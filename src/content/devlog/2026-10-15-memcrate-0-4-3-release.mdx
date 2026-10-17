@@ -1,0 +1,56 @@
+---
+title: memcrate 0.4.3 and a release that half-shipped
+publishDate: 2026-10-15
+draft: false
+tags: [devlog, rust, postmortem]
+project: memcrate
+---
+
+links: [site](https://memcrate.dev) | [repo](https://github.com/memcrate/memcrate) | [release](https://github.com/memcrate/memcrate/releases/tag/v0.4.3) | [project page](/projects/memcrate)
+
+Memcrate 0.4.3 is out. It ships the [Windows fixes](/devlog/2026-10-10-memcrate-on-real-windows),
+skill-name conflict handling, and the recorded vault path that makes discovery
+reliable on Windows. Most of the work on this release went into the release
+process itself.
+
+Memcrate installs four ways: a curl script, a PowerShell script, npm, and cargo.
+Until now, nothing checked that all four actually delivered the new version.
+Now every release triggers a post-release check that installs through each
+channel and fails unless every one reports the version that should now be
+latest. It polls the registries for up to five minutes so it doesn't fail on
+publish lag.
+
+Pull requests get an npm wrapper smoke test too. A version bump PR has no
+release assets yet, so the test packs the checkout's wrapper with its version
+rewritten to the latest published one.
+
+I also added a version gate in two places, because a crates.io publish can't be
+undone. A test fails CI when `Cargo.toml` and the npm `package.json` disagree,
+and the release workflow refuses to build unless the tag matches both.
+
+Then the release half-shipped anyway. crates.io rejected the token I'd stored
+in May, most likely because it expired, so GitHub Releases and npm got 0.4.3
+while crates.io stayed on 0.4.2.
+A fresh token and a rerun of the failed job fixed it, and the post-release check
+then kicked off on its own and passed 9 of 9 jobs.
+
+The cause was a long-lived token, so the fix is to stop using them. The release
+workflow now publishes through trusted publishing (OIDC) on both registries:
+
+- npm publishes first and crates.io last, since crates.io is the step that can't be undone
+- there's no token fallback, so a missing npm login fails the job instead of silently skipping it like the old workflow did
+- the npm step skips a version npm already has, so a rerun after a partial failure doesn't get stuck before crates.io
+
+That workflow is merged, but it hasn't published anything yet. The next
+release is the real test. One thing to know if you set this up yourself: a new
+npm trusted publisher config has to complete its first publish within two days
+or it expires, so I'll add it on release day, right before tagging.
+
+The memcrate.dev docs are updated for 0.4.3, including the new discovery order
+and the prefixed skill names.
+
+Next up is the npm wrapper. npm 11 warns that Memcrate's postinstall script
+isn't covered by `allowScripts`. It still runs today, but if npm starts blocking
+install scripts by default, `npm install -g memcrate` would install a shim with
+no binary behind it. The smoke test will catch that, but I'd rather move off
+postinstall before it happens.
