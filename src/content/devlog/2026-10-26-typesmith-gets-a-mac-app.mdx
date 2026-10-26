@@ -23,6 +23,10 @@ features:
   last confirmed character.
 - Menu bar access and proper app icons.
 
+![TypeSmith control panel with a four-step sample recording, the code block step active for the shortcut](./typesmith-control-panel.png)
+
+*The control panel with a sample recording. The code block step is active for the shortcut.*
+
 The app isn't in the PyPI package and won't be. PyPI keeps the cross-platform
 CLI. The app is a Swift build that needs Accessibility permission, and today a
 Karabiner rule for the shortcut, which a Python wheel can't reasonably ship. The
@@ -35,4 +39,4 @@ One bug came out of the cleanup. With unsaved edits, clicking a step tried to
 save first, so an invalid step could trap the selection. Now a click just opens
 the step, and saving makes it active.
 
-For now you can only build the app from source on macOS.
+The Mac app will be released soon as a signed download. Until then, you can build it from source on macOS.
