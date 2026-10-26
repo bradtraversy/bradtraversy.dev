@@ -1,0 +1,34 @@
+---
+title: trav focus keeps up with edits outside the browser
+publishDate: 2026-10-18
+draft: false
+tags: [devlog, react, obsidian]
+---
+
+[Trav Focus](/devlog/2026-10-08-trav-focus-private-deployment) reads my tasks
+from a Markdown file. That means I can change them in Obsidian, through an
+agent, or in the dashboard. But the open browser wasn't keeping up with edits
+made somewhere else. The API had the new data while the screen still showed
+the old list.
+
+I added automatic refresh on window focus, when the tab becomes visible, and
+every 30 seconds while it's visible. There's still a manual refresh control,
+but I shouldn't need to remember to use it after asking an agent to update a task.
+
+The important exception is editing. Automatic refresh pauses while a todo
+dialog is open or a save is running. Getting fresh data is useful; replacing
+the state underneath an unfinished edit isn't. The existing stale-data
+protections still apply when saving.
+
+I also added priority ordering and separated quick tasks from tracked work.
+Small errands now have their own list instead of competing with the three
+tracked tasks shown under "Next up." Reordering priorities applies to the
+tracked tasks, not everything in the file.
+
+The refresh change went through the project checks and a real production test.
+I added a temporary todo to the source file, then removed it. The already-open
+dashboard dropped from 11 tasks to 10 and removed the test item without a reload.
+That was the behavior I needed to see, beyond the API returning the right data.
+
+This is still my private dashboard, not a public service. The Markdown file
+remains the source of truth. The browser just does a better job of keeping up.

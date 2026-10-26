@@ -1,0 +1,43 @@
+---
+title: crossdraft loses an ai feature after testing it
+publishDate: 2026-10-16
+draft: false
+tags: [devlog, decision, typescript]
+---
+
+I removed the Jev integration from Crossdraft. It was an experiment in
+classifying imported article content so navigation and other page clutter
+could be separated from the actual writing. It never became automatic cleanup
+in the normal import path.
+
+The question wasn't whether the API could return classifications. It could.
+The question was whether those classifications would save enough manual work
+without removing anything that belonged in the article.
+
+I tested it on a 10-article calibration set containing 700 Markdown blocks.
+There were 65 blocks labeled as page clutter that should be removable. At the
+configured threshold, none received an automatic removal recommendation. Another
+266 blocks needed review, or 38 percent of the set. My limits were at least
+80 percent recall for clutter and no more than 20 percent needing review.
+
+It passed the safety, completion, and latency checks, but failed both usefulness
+checks. Safely doing almost nothing wasn't enough to justify another stage in
+the import process.
+
+Changing the confidence threshold didn't solve it. The best threshold with
+no unsafe removals caught just four of the 65 clutter blocks. Pushing for
+the highest recall found 22, but also introduced five unsafe removals.
+
+I stopped before running the held-out evaluation. The calibration results
+didn't justify moving forward, so I removed the client, endpoint, evaluation
+runner, and supporting configuration instead of leaving an unused integration
+in the project.
+
+Crossdraft still has deterministic imports, destination previews, and explicit
+publishing controls. This result doesn't say every classifier would fail at
+the job. It says this one didn't meet the bar in this experiment. A replacement
+would need its own evidence.
+
+Crossdraft remains a private build. For now, I'm happier keeping the import
+path simpler than shipping a feature that adds review work without doing
+enough useful cleanup.
