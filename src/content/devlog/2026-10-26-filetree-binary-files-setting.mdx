@@ -1,0 +1,33 @@
+---
+title: a binary files setting for the claude code filetree plugin
+publishDate: 2026-10-26
+draft: false
+tags: [devlog, claude, typescript]
+---
+
+links: [pr](https://github.com/data-goblin/claude-code-filetree/pull/32) | [plugin](https://github.com/data-goblin/claude-code-filetree)
+
+I use the filetree plugin for Claude Code, which docks a file tree beside the
+session. My "Open with" command is VS Code, so double-clicking anything sent it
+to VS Code, including PNGs and PDFs I'd rather open in Preview.
+
+Instead of hardcoding a change, I added a setting called Binary files with two
+values. "Open with" keeps the current behavior, so nobody upgrading sees a
+difference. "default app" sends images, documents and other binaries to the
+Mac's default app while code still goes to the editor. Someone whose Open with
+command is a viewer legitimately wants binaries there, and a PR that changes
+existing behavior is a harder merge.
+
+File type comes from an extension list rather than `file --mime`, which keeps
+it cheap and cross-platform. SVGs, dotfiles and anything unknown count as code.
+Preview mode and the external-open button didn't change.
+
+The repo has its own habits, and the PR followed them: tests go through the
+rendered surfaces rather than unit tests of helpers, new code doesn't get
+explanatory comments, and merges wait on CI across three operating systems plus
+a review bot. It merged on October 23 and shipped in 0.5.0 two days later.
+Until the release, a hand-patched copy in the plugin cache tided me over, which
+only lasts until the next `claude plugin update` replaces it.
+
+Contributions also get their own spot on disk now. Forks of other people's
+repos live in a separate folder instead of mixed in with my own projects.

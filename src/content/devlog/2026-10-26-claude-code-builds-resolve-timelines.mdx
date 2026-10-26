@@ -1,0 +1,45 @@
+---
+title: getting claude code to build timelines in davinci resolve
+publishDate: 2026-10-26
+draft: false
+tags: [devlog, claude, agent-workflow, python]
+---
+
+My video skills render their edits and animations as finished files. That's
+fine until I want to keep cutting in DaVinci Resolve myself. So Resolve now
+gets its own skill. The video skills hand it a list of parts (my take, any
+cuts, and each animation with the moment it should land) and it builds an
+editable timeline.
+
+It runs on the community
+[davinci-resolve-mcp](https://github.com/samuelgursky/davinci-resolve-mcp)
+server, which talks to Resolve Studio through Blackmagic's scripting API. I
+just switched to Studio, and since Resolve 21.1 moved Python scripting out of
+the free edition, the in-app bridge I'd set up for the free version went in
+the trash.
+
+I didn't want a skill written from the docs. Claude ran a throwaway project
+call by call first: import two clips, build a timeline, duplicate it, add an
+Animations track, drop a clip at an exact frame, read the timeline back and
+render a few seconds from Resolve. Then it compared the render with the source
+files frame by frame and ran a null test on the audio, subtracting the original
+from the render. In sync, that cancels to about -90 dB. One frame off, you can
+still hear the speech. Those measured rules became the skill. A fresh Claude
+session then built a different timeline using only the skill, and its notes
+went back in.
+
+The interesting bug: every project created through the API played in slow
+motion. The timeline was 60 fps but playback stayed at 24, and the API refuses
+to set the playback rate in any form. Comparing the saved settings of one of my
+own projects against a test project showed it's a single field in a compressed
+protobuf blob, a float that's simply left out when it's 24. Resolve 21.1 added
+calls to export and import project settings presets, so a small Python script
+now saves the settings as a preset, adds that field, imports it and applies it
+back. I played the result in Resolve: normal speed, voice in sync.
+
+I also read Leon van Zyl's [Resolve skills](https://github.com/leonvanzyl/skills).
+They matched the frame rules I'd measured and flagged things I hadn't hit yet,
+like Resolve silently dropping a clip that overlaps another on the same track.
+
+Not tested yet: animations with transparency, 59.94 fps, and using it inside a
+real project instead of throwaway ones.
