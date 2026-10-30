@@ -1,0 +1,51 @@
+---
+name: Agent Context Monitor
+tagline: claude code and codex usage limits, chat context, and history in your system tray
+category: dev
+kind: desktop
+tags: [claude, agents, productivity]
+url: https://github.com/bradtraversy/agent-context-monitor/releases/latest
+repoUrl: https://github.com/bradtraversy/agent-context-monitor
+free: true
+publishDate: 2026-10-30
+heroImage: ./agent-context-monitor-hero.png
+heroImageAlt: Agent Context Monitor showing usage limits, remaining chat context, and daily usage history for Claude Code and Codex
+---
+
+A small desktop companion for Claude Code and Codex. It lives in your system
+tray so you can check your account limits and chat context without switching
+between sessions to ask each one how much room is left.
+
+## what it shows
+
+- **usage**: remaining session and weekly limits reported by each provider,
+  with reset times.
+- **context**: recent chats with their project, model, activity, and remaining
+  context. Filter by provider or choose your own context target. Claude context
+  windows are estimated and labeled that way.
+- **history**: daily and weekly charts showing how much of your weekly limit
+  you've used.
+
+Keep the compact tabbed view or widen the window to see all three together.
+The tray indicator changes color as usage rises, and desktop alerts tell you
+when a limit or an active chat is getting close to full.
+
+## install
+
+Download the installer for macOS, Windows, or Linux from the
+[latest release](https://github.com/bradtraversy/agent-context-monitor/releases/latest).
+You need Claude Code, Codex, or both installed and signed in.
+
+## how it handles your data
+
+The app reads local chat metadata, including titles, models, and token counts.
+It doesn't store your messages. Usage checks use your existing Claude Code
+login and the installed Codex client. History stays on your computer.
+
+## why i built it
+
+I wanted one place to see how much usage I had left and which chats were
+getting full. [Session HUD](/tools/traversy-claude-mods) gives me that context
+signal inside Claude Code. ACM puts Claude and Codex together in the tray.
+
+It's free and open source under the MIT license.

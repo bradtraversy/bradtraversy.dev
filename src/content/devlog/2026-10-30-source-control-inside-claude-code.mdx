@@ -1,0 +1,34 @@
+---
+title: source control beside the claude code chat
+publishDate: 2026-10-30
+draft: false
+tags: [devlog, claude, agent-workflow, typescript]
+heroImage: ../tools/traversy-claude-mods-source-control.png
+---
+
+I added a Source Control mod to Traversy Claude Mods. It puts a VS Code style
+Git pane beside the Claude Code chat, with changed files at the top and a
+commit graph underneath.
+
+You can stage and unstage files, discard changes with confirmation, and
+commit what's staged. Expand a commit to see its files. On Linux, clicking
+a file opens it in VS Code. The desktop pane uses the installed vscode-icons
+theme for file icons, with colored letter codes as a fallback.
+
+A few details took more work than the basic Git commands. Discard confirmation
+had to live inside the pane so it could work while Claude was still running.
+Opening VS Code from the desktop app also needed a different launch path for
+the Linux snap build. I tested that in the real app and confirmed files opened.
+
+The pane refreshes after Claude edits files, after Git commands, and at the
+end of each turn. There is also a refresh button for changes made elsewhere.
+It doesn't poll continuously, and it doesn't push, pull, or fetch.
+
+One limitation matters: Claude Code runs Git from mods with repository hooks
+disabled. If your commit depends on a pre-commit or commit-message hook, use
+the terminal or VS Code to commit.
+
+This joins Session HUD, Tool Cards, and Next Steps in the same marketplace.
+The [tool page](/tools/traversy-claude-mods) has screenshots and installation
+commands. All four mods are in the
+[Traversy Claude Mods repo](https://github.com/bradtraversy/traversy-claude-mods).
