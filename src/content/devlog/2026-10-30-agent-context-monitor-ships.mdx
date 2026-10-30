@@ -1,0 +1,35 @@
+---
+title: agent context monitor puts claude and codex in the tray
+publishDate: 2026-10-30
+draft: false
+tags: [devlog, agents, tauri]
+heroImage: ../tools/agent-context-monitor-hero.png
+---
+
+I've been building a small tray app called Agent Context Monitor. It puts
+Claude Code and Codex usage limits and chat context in one window. I wanted
+to check how much room I had left without going into each chat separately.
+
+There are three views: account usage with reset times, recent chats with
+their remaining context, and daily or weekly usage history. You can keep
+them in tabs or widen the window to see all three side by side. The tray
+indicator changes color as usage rises, with desktop alerts when a limit
+or an active chat is getting close to full.
+
+The tricky part has been getting the readings right. Codex provides token
+counts and context-window data. Claude's context window has to be estimated
+from the available metadata, so the app labels it as estimated. Old usage
+readings get greyed out instead of looking current. Limits a plan doesn't
+report stay hidden.
+
+Packaging brought its own fixes. The app needed to find Codex when launched
+from the Dock or Start menu, and read Claude's login from the macOS Keychain.
+There are now installers for macOS, Windows, and Linux, plus install scripts.
+
+It reads local chat metadata without storing messages. Account usage checks
+use the existing Claude Code login and installed Codex client. Usage history
+stays on your computer.
+
+It's free and open source. See the [tool page](/tools/agent-context-monitor)
+for the screenshot and overview, or grab it from the
+[GitHub repo](https://github.com/bradtraversy/agent-context-monitor).
