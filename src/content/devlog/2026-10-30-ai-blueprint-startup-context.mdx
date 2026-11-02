@@ -1,0 +1,36 @@
+---
+title: ai blueprint loads less context upfront
+publishDate: 2026-10-30
+draft: false
+tags: [devlog, agents, agent-workflow, claude]
+project: ai-blueprint
+---
+
+AI Blueprint's `AGENTS.md` had grown to about 19 KB. Every new session loaded
+the workflow reference, even when the agent didn't need it yet. A contributor
+flagged the overhead, and I moved that reference into `blueprint/workflow.md`.
+
+The startup file is now about 5 KB. It keeps the project basics and the rules
+that need to be there from the start. Skills read the longer reference when
+the work calls for it.
+
+In a fresh Claude Code session on my setup, the startup prompt dropped from
+51,630 to 46,919 tokens. That's 4,711 tokens, or about 9 percent. My global
+instructions are part of that total, so this isn't a universal savings figure.
+It also isn't a claim that builds run 9 percent faster.
+
+I checked the change with real Claude Code and Codex runs as well as the
+installer tests. Those runs caught an instruction gap that the static checks
+missed: Codex guessed a helper argument that wasn't valid. Listing the allowed
+values fixed it.
+
+The follow-up trims shipped in 1.14.0. A status command no longer needs to load
+an 18 KB recovery guide just to show a small completion screen, and the
+validator now checks reference links across the skill files.
+
+One upgrade detail matters: the updater adds the new workflow file, but it
+preserves a project's existing `AGENTS.md`. Older installations won't
+automatically get a smaller startup file. The diagnostic command recommends
+the trim instead of rewriting project-owned instructions.
+
+More on the [AI Blueprint project page](/projects/ai-blueprint).

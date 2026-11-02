@@ -1,0 +1,33 @@
+---
+title: replacing crossdraft with a publishing skill
+publishDate: 2026-10-30
+draft: false
+tags: [devlog, decision, agent-workflow, typescript]
+---
+
+I'm retiring Crossdraft as an application. The publishing code is staying,
+but I've extracted it into a standalone skill with its own scripts and
+configuration.
+
+Crossdraft started around taking one Markdown article and preparing it for
+multiple destinations. That job still matters to me. I just decided to keep
+it in the agent workflow I already use rather than carry on with the separate
+application.
+
+The extracted skill handles article preparation, destination-specific
+publishing, images, and publication receipts. It no longer imports anything
+from Crossdraft. Configuration and receipt history have their own home too,
+so retiring the app doesn't mean losing the records needed to update an
+existing post.
+
+I checked the extraction with type checks, builds, 201 tests, and an independent
+code review. Read-only account checks worked for DEV and Hashnode, and a real
+article's cover and diagram passed local image processing. Nothing was uploaded
+or published during those checks. A full public publishing run is still ahead.
+
+The approval step stays in place: prepare and review the finished article,
+then publish the approved version to the selected destinations. Having a
+publishing command available doesn't authorize using it.
+
+The old application's cleanup is still pending. The useful part is already
+independent, which gives me a much smaller thing to maintain.
