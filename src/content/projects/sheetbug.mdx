@@ -1,0 +1,80 @@
+---
+name: Sheetbug
+tagline: make a sign-up sheet, share one link, and let people pick a spot
+description: |
+  online sign-up sheets for volunteer shifts, school events, potlucks, and
+  anything else that needs people to claim a time, task, or item. organizers
+  build and share a sheet; participants sign up from their phone without an
+  account, with confirmation emails, calendar files, and reminders.
+status: live
+url: https://sheetbug.com
+stack: [Next.js, React, TypeScript, Tailwind CSS, Better Auth, Prisma, PostgreSQL, Railway, Resend]
+heroImage: ./sheetbug-hero.webp
+heroImageAlt: Sheetbug homepage with its ladybug branding and an example volunteer sign-up sheet shown on desktop and phone
+publishDate: 2026-11-05
+featured: false
+---
+
+## what it does
+
+sheetbug turns "who can help?" into a link people can actually act on. an
+organizer makes a sheet of dates and slots, sets how many spots each one has,
+and shares the link or a downloadable qr code. participants pick an open spot
+on their phone without creating an account.
+
+it works for school volunteers, snack rotations, conference appointments,
+potlucks, and shifts. dates can repeat, an afternoon can be split into time
+slots, or a sheet can have no dates at all. the public page can group entries
+by date or by slot.
+
+- confirmation emails include a calendar file and a link to change or cancel
+  the sign-up
+- reminders use the sheet's time zone, with a per-sheet opt-out
+- organizers can upload a header image and pictures for individual slots
+- the dashboard shows drafts, active sheets, and past sheets, with a next-date
+  panel, filled counts, favorites, and actions to duplicate or archive a sheet
+
+the first version went live on november 2, 2026. the participant flow and the
+organizer dashboard are working software, with more of the organizer settings
+still to come.
+
+## why i built it
+
+i wanted to try building from a proven product's behavior instead of making up
+a feature list as i went. sign-up sheets have a clear job: let an organizer
+ask for help and let people claim spots without a back-and-forth email chain.
+that gave me a concrete workflow to build and test.
+
+sheetbug started as a clean-room experiment around that workflow, using public
+documentation as a reference and making my own screens, wording, branding, and
+code. the goal is to turn it into something real organizers keep using. getting
+the basic flow working is the first part; giving people a reason to switch and
+finding those users are still open questions.
+
+## how it's built
+
+- **next.js + react + typescript**: the organizer wizard, dashboard, and public
+  sign-up pages, styled with tailwind css and shadcn/ui
+- **better auth**: organizer accounts and optional participant accounts; a
+  participant can also manage a sign-up through an emailed link
+- **prisma + postgresql**: sheets, dates, slots, entries, and uploaded images.
+  capacity is checked inside a transaction so simultaneous submissions can't
+  overbook a slot
+- **resend**: production confirmation and reminder emails, with bounce and
+  complaint handling. local development mail stays in mailpit
+- **railway**: the app and postgres, with reminders and data-retention jobs
+  running inside the server
+- **vitest + playwright**: database-backed tests and browser acceptance checks.
+  github actions runs the verification command, and railway waits for ci
+  before deploying
+
+uploaded pictures are resized, converted to webp, and stripped of metadata.
+the dashboard requests small thumbnails rather than loading full header images
+into every row.
+
+## what's next
+
+templates, themes, and more organizer controls are in the planned feature
+queue. the bigger question is which additions real organizers need first.
+i'm keeping the first release focused on making a sheet, filling its spots,
+and helping people remember what they signed up for.

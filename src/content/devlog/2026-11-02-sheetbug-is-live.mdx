@@ -1,0 +1,30 @@
+---
+title: sheetbug is live
+publishDate: 2026-11-02
+draft: false
+tags: [devlog, nextjs, prisma]
+project: sheetbug
+---
+
+[Sheetbug](https://sheetbug.com) is live. It's the sign-up sheet app I've been
+building since October 22: make a sheet of dates and slots, share one link,
+and let people claim a spot from their phone without creating an account.
+
+The first release covers the full loop. Organizers can create, preview,
+publish, and share a sheet, including a downloadable QR code. Participants get
+a confirmation email with a calendar file and a link to change or cancel
+their sign-up. Reminders follow before the slot, using the sheet's time zone.
+
+It's running as one Next.js service on Railway with Postgres. Resend handles
+production email, and the reminder and retention jobs run inside the server.
+That means the service stays awake rather than sleeping between requests.
+
+The deployment needed a couple of checks beyond seeing the homepage load.
+Registration succeeding didn't prove email worked, so I confirmed the
+verification email reached my inbox. I also checked that Railway replaces a
+visitor-supplied client-IP header with the real address. Otherwise the app's
+rate limits could trust an address somebody made up.
+
+The first public version is up. There's more in the feature queue, but this
+gets the basic job into people's hands: ask for help, fill the spots, and
+remind everyone what they signed up for.
