@@ -1,0 +1,37 @@
+---
+title: sheetbug's wizard had the right steps and still felt confusing
+publishDate: 2026-11-03
+draft: false
+tags: [devlog, nextjs, react]
+project: sheetbug
+---
+
+Sheetbug's create-a-sheet wizard had the steps I expected: Design, Slots,
+Settings, Publish. Using it still felt less clear than it should.
+
+The problem was inside those steps. On the long Slots page, you could type a
+date or slot and click Continue without adding it. That input disappeared.
+The wizard also marked Slots as done with no slots, so you could get all the
+way to Publish before finding out the sheet wasn't ready. The Design step
+had fields but nothing showing what they would look like.
+
+I reworked the flow around smaller, focused forms and previews:
+
+- Design now shows a live preview of the sheet's header.
+- Adding or editing a date or slot happens in a dialog, with an "add another"
+  option for entering several.
+- Slots shows a live sheet preview alongside the editing controls.
+- Continuing without any slots gets a warning, and the step stays incomplete
+  until there's a slot.
+
+The header preview uses the same component as the public sheet. That keeps
+the preview tied to what participants will actually see, rather than a
+separate imitation I have to maintain.
+
+I walked through the new flow at desktop and phone widths before merging it.
+The verification run passed 322 unit and integration tests and 81 browser
+tests, including coverage for the new previews and empty-sheet warning.
+
+The step names stayed the same. Seeing the sheet take shape, and making each
+add action explicit, did more for clarity than changing the navigation would
+have.
