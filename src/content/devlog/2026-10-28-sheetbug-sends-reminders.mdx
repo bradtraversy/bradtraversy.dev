@@ -1,0 +1,55 @@
+---
+title: sheetbug sends reminders
+publishDate: 2026-10-28
+draft: false
+tags: [devlog, nextjs, prisma]
+---
+
+Sheetbug is a sign-up sheet app I've been building since October 22. An
+organizer makes a sheet of dates and slots, shares one link, and people claim
+spots on their phone without making an account. Confirmation emails, change
+links and a dashboard were already in. This week reminders went in, the last
+feature I wanted before a first release.
+
+What shipped:
+
+- Every entry with an email gets one reminder at 8 AM in the sheet's time zone,
+  the organizer's chosen lead time before the slot: 1 to 14 days, 2 by default.
+- Anyone with an account can pick their own timing, which wins over the
+  organizer's for their own sign-ups.
+- One email per person per sheet per day, listing everything they signed up for
+  that day, with a link to change it.
+- Nothing goes out for drafts, archived sheets, entries without an email, or
+  anyone who signed up inside the lead time, since their confirmation just
+  arrived.
+
+The runner is one function. Postgres picks the due entries in a single
+statement, so two runners never share an entry:
+
+```sql
+UPDATE entry SET "reminderClaimedAt" = now()
+WHERE id IN (
+  SELECT e.id FROM entry e ...
+  WHERE ... FOR UPDATE OF e SKIP LOCKED)
+RETURNING id
+```
+
+Every timestamp in that query is made explicit, stored values read as UTC and
+the due moment built in the sheet's zone, so the connection's time zone never
+matters. The job runs from a one-minute timer inside the Next.js process or
+from a POST route behind a bearer secret, so the hosting choice decides which.
+
+The lesson came from going through the failure cases before merging. My first
+version marked an entry sent at the moment it was claimed, so a run that died
+between claiming and sending lost those reminders for good. It's now a lease:
+claiming sets its own timestamp, the sent timestamp is written after each email
+goes out, a run sends for at most 15 minutes and gives back whatever it still
+holds, and a claim older than 30 minutes with no send is taken again. A crash
+now means a late reminder, not a lost one. The numbers come from nodemailer's
+10-minute socket timeout: half the lease leaves room for one last hung send.
+
+The runner has 15 database-backed tests, including three runs at once against
+six due entries, each sent exactly once, and an end-to-end test that triggers
+the job and reads the email back out of Mailpit.
+
+Next is the branding pass, then the first release.
