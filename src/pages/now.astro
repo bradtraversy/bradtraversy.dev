@@ -5,36 +5,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const allProjects = await getCollection('projects');
 const projectsBySlug = new Map(allProjects.map((project) => [project.id, project]));
 const currentlyBuildingSlugs = [
-  'skillpass',
-  'devstash',
+  'watchlamp',
   'ai-blueprint',
-  'mission-control',
-  'bradtraversy-dev',
-  'vidpipe',
+  'sheetbug',
+  'multiprompter',
+  'trav-fleet',
+  'trav-focus',
 ];
 const currentlyBuilding = currentlyBuildingSlugs
   .map((slug) => projectsBySlug.get(slug))
   .filter((project) => project !== undefined);
 
-// Manual focus notes per project (1-line "what's the active push here").
-// Update these when the focus shifts; if a project isn't listed, the card
-// still renders with its tagline as fallback.
 const focusNotes: Record<string, string> = {
-  skillpass:
-    'making skills easier to find and install. agent-specific install guides and the official makers page are live.',
-  devstash:
-    'public collections, individual snippet sharing, and markdown export are live. next: better sharing previews and saving shared items to your stash.',
+  watchlamp:
+    'accounts, first checks, and the ping worker are implemented. next: the alarm evaluator. no public launch yet.',
   'ai-blueprint':
-    'using structured feature workflows and review gates in real projects, then checking where the workflow needs to improve.',
-  'mission-control':
-    'the private work and lab dashboard, hosted on trav-hub. the poweredge agent cluster is retired.',
-  'bradtraversy-dev':
-    'keeping project pages and devlogs aligned with what actually shipped, including this now page.',
-  vidpipe:
-    'maintaining the saas and mcp paths, with recent work on shared model preferences and keeping coding articles faithful to the source.',
+    'using the workflow in real builds and trimming steps that add more overhead than value.',
+  sheetbug:
+    'live sign-up sheets, with the organizer dashboard redesigned and smaller image thumbnails.',
+  multiprompter:
+    'version 1.4 adds code sheets. checking how the released workflow holds up during recording.',
+  'trav-fleet':
+    'the private, read-only view of machines, ai sessions, installed tool versions, and scheduled jobs.',
+  'trav-focus':
+    'the private dashboard for daily priorities, todos, calendar, and project notes.',
 };
 
-const lastUpdated = '2026-10-02';
+const lastUpdated = '2026-11-11';
 ---
 
 <BaseLayout
@@ -54,36 +51,30 @@ const lastUpdated = '2026-10-02';
   <section class="section">
     <h2 class="h2"><span class="hash">## </span>right now</h2>
     <p>
-      i'm building ai-assisted workflows and using them on real projects.
-      the poweredge agent cluster was an experiment, not the setup i'm running
-      now. i've retired it. trav-hub is the central hub for my homelab services,
-      including <a href="/projects/mission-control" class="link">mission control</a>.
-      paperclip runs separately on trav-ai for scheduled work and agent tickets.
+      i'm building <a href="/projects/watchlamp" class="link">watchlamp</a>,
+      starting with cron checks. accounts, creating a check, and recording pings
+      are implemented. the next piece is deciding when a missing ping means
+      trouble. alerts and the broader monitoring features are still ahead.
+      it isn't publicly launched.
     </p>
     <p>
-      agentflow is where i'm working on controlled agent execution. its runner
-      handles one approved feature and stops for human acceptance. the first
-      live pilot exposed a validator permissions problem, which is fixed;
-      a fresh end-to-end run is still needed. automatic repair and working
-      through a whole project are goals, not things i'm claiming work today.
+      i'm using <a href="/projects/ai-blueprint" class="link">ai blueprint</a>
+      on real projects and simplifying the workflow as i go. the useful test
+      is whether it helps me understand and verify what got built.
     </p>
     <p>
-      on the product side, <a href="/projects/skillpass" class="link">skillpass</a>
-      now has install guides for each supported agent and an official makers
-      page. the focus is making it easier to find a useful skill and understand
-      where it comes from before installing it.
+      <a href="/projects/sheetbug" class="link">sheetbug</a> is live, with a
+      redesigned organizer dashboard. <a href="/projects/multiprompter"
+      class="link">multiprompter</a> 1.4 has shipped code sheets, and i'm
+      checking the recording workflow through actual use.
     </p>
     <p>
-      <a href="/projects/devstash" class="link">devstash</a> has shipped public
-      collections and individual snippet links, along with markdown export.
-      it's still the project from my coding with ai course, and i'm continuing
-      to develop it beyond the course. better sharing previews are next.
-    </p>
-    <p>
-      crossdraft now has a browser workspace for writing an article and
-      reviewing versions for different platforms. the new ui prepares drafts;
-      it doesn't publish them yet. url import and connecting that review step
-      to delivery are the next pieces. it's still in development, not launched.
+      my private dashboards now have separate jobs:
+      <a href="/projects/trav-focus" class="link">trav focus</a> handles daily
+      work, while <a href="/projects/trav-fleet" class="link">trav fleet</a>
+      shows machines, sessions, versions, and automations. mission control
+      is retired. <a href="/tools/agent-context-monitor" class="link">agent
+      context monitor</a> has replaced ctxscope in my setup.
     </p>
   </section>
 
@@ -111,31 +102,10 @@ const lastUpdated = '2026-10-02';
   <section class="section">
     <h2 class="h2"><span class="hash">## </span>what i'm thinking about</h2>
     <ul class="prose-list">
-      <li>
-        how to let agents finish more work without silently skipping validation.
-        bounded repair attempts come before automatic project-wide execution
-      </li>
-      <li>
-        checking the result, not just whether a service is running. apimocker's
-        health endpoint was green while its daily data reset wasn't happening
-      </li>
-      <li>
-        tools that remove repeated work. multiprompter is live; crossdraft is
-        still becoming a product. i want to keep that distinction clear
-      </li>
-      <li>
-        making shared snippets useful outside the app they came from, without
-        making private material public by accident
-      </li>
-    </ul>
-  </section>
-
-  <section class="section">
-    <h2 class="h2"><span class="hash">## </span>what i'm not doing</h2>
-    <ul class="prose-list">
-      <li>not running agents on the poweredge or continuing the old factory setup</li>
-      <li>not treating agentflow as a fully autonomous project builder yet</li>
-      <li>not presenting prototypes or planned features as launched products</li>
+      <li>detecting quiet failures, including scheduled jobs that stop calling home</li>
+      <li>keeping ai workflows understandable as the tooling grows</li>
+      <li>showing unknown or stale monitoring data honestly</li>
+      <li>judging tools by repeated use after the release checks pass</li>
     </ul>
   </section>
 

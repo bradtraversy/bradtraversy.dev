@@ -1,0 +1,25 @@
+---
+title: multiprompter 1.4 adds code sheets
+publishDate: 2026-11-03
+draft: false
+tags: [devlog, tool-launch]
+project: multiprompter
+---
+
+[Multiprompter](/projects/multiprompter) 1.4 is out with code sheets and a Dock
+reopen fix. Code sheets give me a separate reference window for code while
+recording, using the same capture-hidden approach as the prompt windows.
+
+The release went through the signed and notarized Mac distribution path:
+the downloadable DMG, Sparkle appcast, and Homebrew cask all point to 1.4.
+I upgraded my own install through Homebrew as part of checking the release.
+
+The website needed to explain the feature too. There's now a
+[Code Sheets guide](https://multiprompter.app/docs/code-sheets), and the
+homepage's recording comparison includes a sheet on the side I can see.
+The docs and homepage share the same code-window component so the examples
+stay consistent.
+
+There are still a few interactions I want to check in actual recording use,
+including copying from a sheet, dragging it, and syntax colors. Packaging
+and download checks don't prove how those feel in a real take.

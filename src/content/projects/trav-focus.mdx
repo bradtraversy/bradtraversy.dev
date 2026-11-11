@@ -1,0 +1,57 @@
+---
+name: Trav Focus
+tagline: my priorities, todos, calendar, and projects in one small dashboard
+description: |
+  a private dashboard for daily work, backed by my existing markdown
+  notes. today, todos, calendar, and projects share one interface,
+  with task edits saved back to the original todo file.
+status: local
+badge: Private Deployment
+stack: [React, TypeScript, Vite, Fastify, Obsidian, Coolify]
+publishDate: 2026-11-11
+featured: false
+---
+
+## what it does
+
+trav focus is the dashboard i use to see what matters now. today brings
+together current focus, relevant todos, upcoming dates, and project work.
+separate views handle the full todo list, calendar, and project catalog.
+
+projects have search and internal detail pages, including their recorded
+status, current work, related todos, and links back to the source notes.
+the calendar is read-only. todos are the only write surface.
+
+this is a private application for my workflow, not a public task service.
+
+## why i built it
+
+mission control tried to combine work management with infrastructure
+operations. i wanted a smaller place to manage the day without navigating
+machine inventory or agent tooling. [trav fleet](/projects/trav-fleet) now
+handles that other job, and mission control is retired.
+
+my notes stay the source of truth. completing a task in focus changes the
+same markdown file my editor and agents use, rather than creating another
+list to keep synchronized.
+
+## how it's built
+
+- **react, typescript, and vite** provide the responsive interface, with a
+  drawer for navigation on smaller screens.
+- **fastify** provides the bounded api for reading notes and editing todos.
+- **markdown files** hold work state. task writes check the source revision,
+  run serially, and use backups and atomic replacement.
+- **google calendar** supplies a read-only calendar connection.
+- **coolify** hosts the web client, while a separate api beside the notes
+  handles live file access.
+
+focus refreshes data when the window regains focus and periodically while
+visible. automatic refresh pauses during task dialogs and saves. the source
+machine still needs to be available for fresh vault data and edits.
+
+## what's next
+
+the project catalog and current-work view are deployed. the priority is
+keeping the existing workflow reliable and small. machine monitoring belongs
+in fleet rather than growing into this dashboard.

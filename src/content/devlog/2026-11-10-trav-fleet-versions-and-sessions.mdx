@@ -1,0 +1,28 @@
+---
+title: trav fleet shows tool versions across my machines
+publishDate: 2026-11-10
+draft: false
+tags: [devlog, agents, nodejs]
+project: trav-fleet
+---
+
+[Trav Fleet](/projects/trav-fleet) now shows installed coding-tool versions
+across my machines. I can see where Claude, Codex, Cursor, and Hermes differ
+without opening a terminal on each computer.
+
+The useful wrinkle was finding the version without running the tool. Some
+version commands check for updates or ask for keychain access. Fleet reads
+installation metadata instead: package files, app bundles, installer records,
+and the target of a Homebrew cask link. A tool found in an unfamiliar place
+stays visible with an unknown version.
+
+The comparison is between my machines. An amber version means another machine
+has something newer; it doesn't mean Fleet checked the latest public release.
+
+This also brought another Mac into the Sessions view. Fleet can now read its
+recent Codex and Claude Desktop chats through the same remote probe path.
+The changes are deployed in my private dashboard.
+
+With [Trav Focus](/projects/trav-focus) handling daily work and Fleet handling
+machines, Mission Control is retired. This is the smaller split I wanted:
+one place for what I need to do, another for what's running.

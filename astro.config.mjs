@@ -18,6 +18,8 @@ export default defineConfig({
   trailingSlash: 'never',
   redirects: {
     '/projects/ai-skills-directory': '/projects/skillpass',
+    '/projects/mission-control': '/projects/trav-fleet',
+    '/devlog/2026-09-23-ctxscope-agent-context': '/tools/agent-context-monitor',
   },
   output: 'static',
   adapter: vercel(),
