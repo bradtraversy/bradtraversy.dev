@@ -1,0 +1,52 @@
+---
+name: Watchlamp
+tagline: monitoring for jobs that can fail without anyone noticing
+description: |
+  a monitoring app in development, starting with cron checks and ping
+  history. website uptime, certificate and domain expiry checks,
+  alerts, and public status pages are planned.
+status: alpha
+badge: In Development
+stack: [React, TypeScript, Vite, Hono, Better Auth, Prisma, PostgreSQL, Cloudflare Workers]
+publishDate: 2026-11-11
+featured: false
+---
+
+## what it does
+
+watchlamp is an app i'm building for knowing when software quietly stops
+working. the first implemented pieces are accounts, creating a cron check,
+and recording pings against that check's url. a check detail page shows
+its ping history.
+
+the ping worker has been built, reviewed, and merged, with its request limits
+and forwarding tested locally. watchlamp isn't publicly launched, and that
+worker hasn't been deployed to its production domain.
+
+website uptime, ssl certificates, domain expiry, alert delivery, and public
+status pages are in the plan. they aren't working features i'm claiming today.
+
+## why i built it
+
+a website can look fine while a scheduled job has stopped running. i wanted
+to build around that quiet failure first, then bring the other checks and
+status communication into the same app.
+
+i'm using [ai blueprint](/projects/ai-blueprint) to build it in small slices.
+the first useful path is creating a check and sending it a ping, before
+adding the evaluator that decides when a missing ping means trouble.
+
+## how it's built
+
+- **react, typescript, and vite** provide the interface.
+- **hono and better auth** handle the api and accounts.
+- **prisma and postgresql** store checks and their ping history.
+- **a cloudflare worker** fronts the ping path, with a shared secret for
+  forwarding to the app, request limits, and a cap on stored message size.
+- **vitest and playwright** cover server behavior and browser flows.
+
+## what's next
+
+the alarm evaluator is the next feature. production deployment and the
+remaining monitoring and alerting features follow in later slices. accepting
+a ping is the foundation; noticing that one never arrived is still ahead.

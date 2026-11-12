@@ -3,16 +3,14 @@ title: moving mission control production out of the checkout
 publishDate: 2026-10-04
 draft: false
 tags: [devlog, nodejs, decision]
-project: mission-control
 ---
 
-links: [repo](https://github.com/travxlabs/mission-control) | [project page](/projects/mission-control)
+links: [repo](https://github.com/travxlabs/mission-control) | [replacement dashboard](/projects/trav-fleet)
 
-> **Update, October 8, 2026:** I'm splitting Mission Control's responsibilities
-> into Trav Focus and Trav Fleet. [Trav Focus is privately deployed](/devlog/2026-10-08-trav-focus-private-deployment)
-> for daily work. Trav Fleet is next, and Mission Control remains available
-> until Fleet is accepted. The original runtime migration below is completed
-> work, not the current roadmap.
+> **Update, November 11, 2026:** Mission Control is retired. Its responsibilities
+> now live in [Trav Focus](/projects/trav-focus) for daily work and
+> [Trav Fleet](/projects/trav-fleet) for machines and monitoring. This entry
+> records the earlier deployment.
 
 Mission Control's vault API was running from a production directory inside
 the Git checkout. I moved its release files into a separate runtime location

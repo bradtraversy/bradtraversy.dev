@@ -1,0 +1,28 @@
+---
+title: watchlamp gets its ping path
+publishDate: 2026-11-10
+draft: false
+tags: [devlog, cloudflare, typescript, prisma]
+project: watchlamp
+---
+
+[Watchlamp](/projects/watchlamp) can now record a ping and show it in a check's
+history. Accounts and creating the first cron check were already in place;
+this adds the path a scheduled job will call to say it ran.
+
+A Cloudflare Worker sits in front of the app. Locally, I tested it forwarding
+pings with a shared secret, rejecting forged forwarding headers, limiting
+requests, and capping stored messages. The implementation is merged, but
+the Worker isn't deployed to its production domain yet.
+
+One small trap: Hono runs GET handlers for HEAD requests too. That's useful
+for normal pages, but a HEAD request shouldn't record a successful cron run.
+The ping route now checks the method explicitly.
+
+The history page also needed to handle long, unbroken messages without
+stretching its table across a phone screen. Those little details matter
+when the thing you're displaying is arbitrary job output.
+
+The next slice is the alarm evaluator. Recording that a job called home is
+working locally. Deciding that it has gone missing, and eventually notifying
+someone, is still ahead. Watchlamp is in development, not launched.

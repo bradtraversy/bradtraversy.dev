@@ -1,0 +1,57 @@
+---
+name: Trav Fleet
+tagline: a private dashboard for machines, ai sessions, and scheduled jobs
+description: |
+  a read-only view of my homelab machines, coding-agent sessions,
+  installed tool versions, and scheduled jobs. fixed probes collect
+  metadata over ssh without installing an agent on each machine.
+status: local
+badge: Private Deployment
+stack: [Node.js, JavaScript, Python, SSH, Docker, Coolify]
+publishDate: 2026-11-11
+featured: false
+---
+
+## what it does
+
+trav fleet gives me one place to check the machines behind my work. it shows
+machine health, recent and open ai chats, installed coding-tool versions,
+and scheduled jobs. it's privately deployed for my own use.
+
+sessions cover claude, codex, hermes, and cursor where their metadata is
+available. the interface distinguishes an open chat from one that appears
+to be working. some activity states are inferred from recent writes, so
+those aren't a guarantee that an agent is actively doing useful work.
+
+installed versions are compared across machines. fleet doesn't check upstream
+for the latest release or install updates. the automations page brings
+together my scheduled jobs and their recorded results, with unknown states
+where a scheduler doesn't provide enough evidence.
+
+## why i built it
+
+mission control mixed daily work with machine operations and became too
+complicated. i split those jobs: [trav focus](/projects/trav-focus) handles
+priorities and todos, while fleet handles the machines and the software
+running on them. mission control is retired.
+
+fleet itself went through a restart. the current version keeps a narrower
+job: collect useful information and make gaps visible.
+
+## how it's built
+
+- **node.js and plain browser javascript** serve the dashboard and its api.
+- **fixed ssh probes** collect machine and tool metadata. python handles the
+  session and scheduler readers; nothing needs installing as a fleet agent.
+- **separate polling** keeps one unavailable machine from hiding the others.
+- **docker and coolify** run the private deployment behind network access controls.
+
+session probes read metadata rather than conversation transcripts. automation
+probes leave prompts, environment values, and full command lines on the source
+machine. unreadable or stale results show as unknown instead of healthy zeroes.
+
+## what's next
+
+the latest work added harness versions and session coverage for another mac.
+there isn't a confirmed next build. i'm keeping the current application
+read-only rather than treating the broader operations ideas as shipped features.
