@@ -1,0 +1,30 @@
+---
+title: ai blueprint loads less in each feature loop
+publishDate: 2026-11-13
+draft: false
+tags: [devlog, agents, agent-workflow, decision]
+project: ai-blueprint
+---
+
+[AI Blueprint](/projects/ai-blueprint) 1.16.1 is released. This patch trims the
+instructions loaded during an ordinary feature loop without changing what
+the workflow asks the agent to do.
+
+Two references were doing more work than their names suggested. Normal
+completion loaded the full recovery guide just to capture the source tree,
+and implementation loaded the whole Try It Now guide. The smaller references
+now cover what those steps actually need.
+
+The other half of the cleanup was deciding what to leave alone. I kept
+Autopilot and Continuous because they stop at different places. Autopilot
+builds one feature and stops for review before completion. Continuous works
+through features and merges each checked result locally. Neither mode's job
+is to push the changes for you.
+
+I also left the separate Continuous quality settings and the remaining
+activity tracking in place. Removing a few configuration lines wasn't worth
+spreading another change through the parser, dashboard, commands, and tests.
+
+The release passed the package checks, 223 tests, and CI on Node 22, Node 24,
+and Windows. This closes the slim-down pass. Fewer instructions are useful;
+fewer capabilities aren't automatically an improvement.

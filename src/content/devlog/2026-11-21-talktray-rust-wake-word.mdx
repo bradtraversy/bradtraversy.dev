@@ -1,0 +1,30 @@
+---
+title: talktray's rust wake-word proof matches python
+publishDate: 2026-11-21
+draft: false
+tags: [devlog, decision]
+---
+
+TalkTray is a planned tray app for starting an assistant's own voice mode
+with a wake phrase. Before building the app, I wanted to know whether the
+local keyword detector behaved the same in Rust as it did in my Python proof.
+
+Using the same sherpa-onnx version, the Rust proof matched Python on all 3,528
+clip-and-setting pairs, down to the frame where a hit was reported. It also
+matched on a continuous audio file. That's a useful foundation for the Rust
+core, not evidence that the whole tray application exists.
+
+The more interesting result was the trade-off around recognition. Widening
+the search picked up more wake phrases immediately after speech, but also
+triggered on similar-sounding names. I kept the narrower search and made the
+sensitivity choices change the detection threshold instead.
+
+Even then, a wake phrase said without a pause after ordinary speech was often
+missed. At the chosen search width, the proof detected 20 of 36 with no pause
+and 30 of 36 with a one-second pause. Matching Python doesn't remove that
+limitation; it tells me the port isn't introducing a different one.
+
+These measurements came from Mac voices and a disposable proof. The actual
+app and broader platform checks are still ahead.
+
+Repo: coming soon. Website: coming soon.

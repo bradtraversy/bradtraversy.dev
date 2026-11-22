@@ -1,0 +1,30 @@
+---
+title: watchlamp alerts arrive in telegram and discord
+publishDate: 2026-11-21
+draft: false
+tags: [devlog, typescript, nodejs]
+project: watchlamp
+---
+
+[Watchlamp](/projects/watchlamp) now has a Telegram connection flow through its
+own bot. I connected my chat on the production app, got the confirmation in
+Telegram, and received the test alert with a working link back to the app.
+
+The distinction between a passing test suite and a real send matters here.
+The feature passed 416 unit tests and 40 browser tests before shipping, but
+I still wanted to see the actual bot connect to my account and deliver a
+message from the deployed application.
+
+I checked Discord separately afterward. That uses an incoming webhook rather
+than the Telegram bot. The test arrived with its heading, detail, and link
+formatted correctly, without a preview card or stray escapes.
+
+Slack and generic webhooks share Discord's HTTP sender, but I didn't test
+those services live. Getting one path through the shared sender working is
+useful evidence; it doesn't turn the other integrations into verified sends.
+
+These were connection and test-message checks. They're progress toward the
+full monitoring workflow, not proof that every outage and recovery path has
+been exercised in production.
+
+Repo: coming soon. Website: coming soon.

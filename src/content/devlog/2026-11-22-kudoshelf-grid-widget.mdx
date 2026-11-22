@@ -1,0 +1,28 @@
+---
+title: kudoshelf gets an embeddable testimonial grid
+publishDate: 2026-11-22
+draft: false
+tags: [devlog, nextjs, typescript]
+---
+
+Kudoshelf is a testimonial app I'm building. Its new grid widget lets an owner
+put approved testimonials on another website with a script tag, with an iframe
+option for site builders that don't allow scripts.
+
+The widget is plain TypeScript, with no React runtime. It reads published
+static JSON rather than querying the application database on every view.
+Theme settings live with that published data, so changing a widget doesn't
+mean asking someone to paste a new embed code.
+
+I chose ordinary grid rows over masonry columns. The visual order, reading
+order, and keyboard order then agree, and showing more testimonials doesn't
+reshuffle the cards already on screen. The widget also isolates its styles
+from the page hosting it.
+
+This is implemented on local main, not publicly launched. The current grid
+shows all approved testimonials; selection rules are later work. There are
+also follow-up findings around the light-theme focus indicator and the iframe
+background under a dark system theme. Having the embed path built doesn't
+make those presentation checks optional.
+
+Repo: coming soon. Website: coming soon.
