@@ -1,0 +1,28 @@
+---
+title: rehearsium expands interviews beyond developers
+publishDate: 2026-11-21
+draft: false
+tags: [devlog, typescript, react]
+---
+
+Rehearsium is a conversation rehearsal app I'm building. The job interview
+scenario now covers more than developer roles: tech, business and finance,
+healthcare, sales and service, and teaching.
+
+The start screen opens with empty custom fields rather than an example that
+looks like something you've already entered. Pick a role type to fill in a
+starting point, then choose Mixed, Behavioral, or Role skills as the focus.
+Your edits survive switching between the cards and Custom, and the interview
+remembers its choices separately from the podcast scenario.
+
+Underneath, the role cards and podcast show types now use the same template
+structure. Each scenario says which text fields a template fills, and the
+validation catches templates that point to fields that don't exist.
+
+The change is merged. The 332-test verification passed, and I checked the
+start flow, saved choices, keyboard selection, and narrow layout in the
+browser. The real-microphone check for a business interview focused on role
+skills is still outstanding. I haven't verified that the interviewer stays
+away from software questions in that live conversation yet.
+
+Repo: coming soon. Website: coming soon.

@@ -1,0 +1,29 @@
+---
+title: watchlamp reaches its first production deploy
+publishDate: 2026-11-20
+draft: false
+tags: [devlog, cloudflare, nodejs]
+project: watchlamp
+---
+
+[Watchlamp](/projects/watchlamp) has its first production deployment. The app
+runs on Railway, and a Cloudflare Worker handles incoming pings separately.
+I also checked real sign-ins with GitHub and Google.
+
+One deployment detail could have hidden the whole API. Railway's build system
+saw the Vite configuration and treated the repository as a static site. That's
+reasonable for a frontend-only app, but this one needs its Node server too.
+The deployment now starts the application server instead of serving only the
+built frontend.
+
+The ping path has its own check: an unknown token through the Worker reaches
+the app and gets its 404, while a request straight to the app is refused.
+That proves the forwarding boundary, not a complete monitoring run. At the
+end of this deploy, creating a real production check and making it light up
+was still on my list.
+
+This is a development milestone, not the public launch. Google sign-in remains
+in testing, and email delivery is still constrained by the provider's sandbox.
+Those are things to finish before inviting people in.
+
+Repo: coming soon. Website: coming soon.
