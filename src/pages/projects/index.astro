@@ -8,7 +8,7 @@ const projects = await getCollection('projects');
 const sorted = sortProjectsForDisplay(projects);
 const projectCards = sorted.map((project) => ({
   project,
-  image: project.data.screenshots?.[0] ?? project.data.heroImage,
+  image: project.data.cardImage ?? project.data.screenshots?.[0] ?? project.data.heroImage,
   stack: project.data.stack.slice(0, 4),
   extraStackCount: Math.max(project.data.stack.length - 4, 0),
 }));

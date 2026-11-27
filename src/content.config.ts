@@ -72,6 +72,7 @@ const projects = defineCollection({
       url: z.string().url().optional(),
       repoUrl: z.string().url().optional(),
       stack: z.array(z.string()).default([]),
+      cardImage: image().optional(),
       heroImage: image().optional(),
       heroImageAlt: z.string().optional(),
       screenshots: z.array(image()).optional(),
