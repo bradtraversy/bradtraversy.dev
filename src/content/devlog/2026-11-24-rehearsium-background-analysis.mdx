@@ -1,0 +1,31 @@
+---
+title: rehearsium analyzes a conversation after it ends
+publishDate: 2026-11-24
+draft: false
+tags: [devlog, typescript, nodejs]
+---
+
+Rehearsium now runs its analysis after a conversation has been saved. It
+transcribes the recording, measures the answers, and shows progress or a
+retryable failure. The recording stays saved if analysis fails.
+
+The tricky part is deciding what a pause means. Pressing Pause in the app
+shouldn't count as hesitating during an answer. Speech on either side of
+that deliberate break needs to be measured separately, without creating
+a false long pause where the recording joins.
+
+Word timestamps need care too. In one run, the transcription stretched
+"yeah" backward across several seconds of silence. Using the word's end
+time placed it more accurately for this measurement than its start time.
+
+I checked three real conversations: Natural mode, Patient mode with long
+pauses, and Patient mode with Pause pressed mid-sentence. The pause-and-resume
+run kept one answer and didn't invent a long pause at the join. Reanalyzing
+also left the existing word data untouched.
+
+The verification suite passed 738 tests. That doesn't establish general
+filler-word accuracy across speakers or prove a near-100-minute conversation.
+The results page is later work; this slice gets the saved conversation
+through analysis and makes a failure recoverable.
+
+Website: coming soon. Repo: coming soon.

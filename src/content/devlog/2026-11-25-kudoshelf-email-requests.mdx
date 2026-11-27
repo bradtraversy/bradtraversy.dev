@@ -1,0 +1,28 @@
+---
+title: kudoshelf can ask customers for a testimonial
+publishDate: 2026-11-25
+draft: false
+tags: [devlog, nextjs, typescript]
+---
+
+Kudoshelf now has an email request flow. An owner can ask customers for a
+testimonial, and each address gets a link tied to that brand rather than
+being sent to a generic collection page.
+
+The current version supports up to 100 customers in a send, with one live
+link per address and brand for 60 days. A link accepts one testimonial.
+A refused or stalled email shows as Not sent with a Try again action, so
+the interface doesn't mistake putting a job in motion for successful delivery.
+
+I also kept the request's opened state out of email tracking pixels. It is
+recorded by the page's script when the recipient opens the request link,
+which avoids counting the mail scanner's initial fetch as a customer visit.
+That's still an implementation choice, not a guarantee that every browser
+or scanner behaves the same way.
+
+The feature is on local main. It passed 559 unit tests, 102 browser tests,
+and two independent reviews. The email is a fixed template for now;
+follow-ups and unsubscribe are the next planned slice at this point in the
+build. This isn't a public launch or evidence of a real customer campaign.
+
+Website: coming soon. Repo: coming soon.
