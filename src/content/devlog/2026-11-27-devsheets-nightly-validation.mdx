@@ -1,0 +1,30 @@
+---
+title: devsheets gets nightly reference checks
+publishDate: 2026-11-27
+draft: false
+tags: [devlog, agents, agent-workflow]
+project: devsheets
+---
+
+[DevSheets](/projects/devsheets) now has a nightly validation run. It checks
+reference sheets against current documentation, using Context7 as one of
+its sources, and writes reports for review.
+
+The boundary matters: the routine researches and reports. It doesn't edit
+the content database or silently publish the changes it thinks are needed.
+A reported broken or outdated example is a finding to investigate, not an
+automatically accepted correction.
+
+The first scheduled run completed in about eleven minutes and produced
+reports for DOM manipulation, MongoDB, and Alpine.js. I checked that the
+content database's counts and sampled update and validation timestamps
+were unchanged, and the code checkout was still clean afterward.
+
+Interactive validation can also reuse a recent nightly report rather than
+repeat the research, with an option to force a fresh pass. That shortcut
+hasn't had its own real-sheet check yet. The nightly routine always does
+fresh research.
+
+I also wrote a plain guide for the routine: what runs, where the reports
+land, and what still needs a person. Getting a scheduled job to finish is
+one part; being able to understand what it did the next morning is another.

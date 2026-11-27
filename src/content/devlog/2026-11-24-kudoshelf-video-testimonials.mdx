@@ -1,0 +1,28 @@
+---
+title: kudoshelf adds video testimonials
+publishDate: 2026-11-24
+draft: false
+tags: [devlog, nextjs, typescript]
+---
+
+Kudoshelf now accepts video testimonials, including recording directly in
+the browser. Cards use a still image until someone presses Play, rather
+than loading every video as the page opens.
+
+The awkward part was the difference between a file container and the codecs
+inside it. A video called MP4 isn't a guarantee that a browser can play both
+its picture and its sound. One HEVC sample played audio with no picture in
+Chrome on Linux, so that format is refused. The form offers in-page recording
+as the alternative.
+
+Browser-recorded WebM needed attention too: the recordings had no duration
+header. Adding the length before upload made the player usable. The file
+checks also had to bound their reads and metadata counts, since an uploaded
+file isn't something the parser can trust.
+
+The feature landed on local main after three review rounds, with 325 unit
+tests and 74 browser tests passing. The playback checks were in Chrome and
+Firefox on Linux. Real Safari, iPhone, Android, and production storage checks
+are still outstanding, so this isn't a claim of verified mobile support.
+
+Website: coming soon. Repo: coming soon.

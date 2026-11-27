@@ -1,0 +1,31 @@
+---
+title: talktray starts voice from a spoken wake phrase
+publishDate: 2026-11-25
+draft: false
+tags: [devlog, tauri, typescript]
+---
+
+TalkTray has moved beyond the keyword detector proof. On the Mac, a wake
+phrase can now bring up an assistant's app and start its voice conversation
+through the accessibility controls.
+
+With the assistant apps already running, the spoken checks passed five out
+of five for each assistant. I also checked voice already being on,
+Accessibility permission being off and restored, and calling Claude from
+its Code tab.
+
+Starting a closed app is a different problem. In the final cold-start runs,
+ChatGPT and Grok Bot ignored the first press of the voice control. A short
+wait could report failure while voice was still coming up. I chose separate
+waits: three seconds when the app was already running, eight when TalkTray
+had just started it.
+
+Those cold starts were slower, and spoken wake-word cold starts still need
+their own check. I don't want to turn the good already-running results into
+a claim that every launch is quick and reliable.
+
+The launcher is merged, with the macOS verification passing. It's still a
+build in progress, not a released tray app. The useful milestone is that the
+wake phrase now reaches the assistant's actual voice interface.
+
+Website: coming soon. Repo: coming soon.

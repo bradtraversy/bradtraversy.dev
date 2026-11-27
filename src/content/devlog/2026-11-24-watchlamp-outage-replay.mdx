@@ -1,0 +1,28 @@
+---
+title: watchlamp saves pings through an outage
+publishDate: 2026-11-24
+draft: false
+tags: [devlog, cloudflare, typescript]
+project: watchlamp
+---
+
+[Watchlamp](/projects/watchlamp) can now keep incoming pings while its main
+application is unavailable. The ping Worker saves them in Cloudflare D1, and
+the app collects them before its next evaluation run.
+
+The important part is judging a replayed ping at its original time. A job
+that ran on schedule during the app's outage shouldn't produce a false alarm
+when the app returns. A job that really ran late still needs its Down and Up
+events, even if both are discovered afterward.
+
+There's also an Unknown state. If Watchlamp can't safely decide whether a
+check is late or down, it says so rather than treating a problem with the
+monitor as proof that the job failed. Evaluation stays a little behind the
+Worker's clock so an in-flight ping isn't prematurely counted as missing.
+
+I watched the outage demo locally with the Worker in front of the app. The
+feature passed 498 unit tests and 46 browser tests, then deployed with the
+new Worker and database. Production checks confirmed the app was collecting
+saved pings, but I haven't deliberately caused a real production outage.
+
+Website: coming soon. Repo: coming soon.

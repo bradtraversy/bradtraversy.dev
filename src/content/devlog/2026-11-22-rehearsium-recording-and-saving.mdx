@@ -1,0 +1,31 @@
+---
+title: rehearsium can record and save a rehearsal
+publishDate: 2026-11-22
+draft: false
+tags: [devlog, typescript, react]
+---
+
+Rehearsium now saves the audio from a conversation rehearsal alongside a
+timeline of the partner's turns. That gives the later analysis a recording
+and a record of when the other person was speaking.
+
+I kept the live transcript limited to the partner's lines. My own words will
+come from a separate analysis pass, rather than adding another transcription
+model to the live conversation.
+
+The saving flow has to survive less tidy endings too: a dropped connection,
+the time limit, an upload failure, or leaving before the save finishes.
+An empty recording gets its own message. Reloading before an unsaved recording
+has been stored still loses that in-memory recording, so the page warns before
+navigation instead of pretending the audio is already safe.
+
+I checked a real conversation in Patient mode. The decoded recording length
+matched the saved record within a tenth of a second, and the partner's turns
+fell inside the silences in my recording. Upload checks also confirmed that
+a file over the size limit is refused without leaving a partial file.
+
+That hands-on check covered Patient mode. Natural, Manual, changing modes
+midway, and a system-muted microphone still needed their own checks at this
+point. Recording and saving are merged; the finished product isn't released.
+
+Website: coming soon. Repo: coming soon.
